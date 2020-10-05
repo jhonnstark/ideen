@@ -1,0 +1,22 @@
+.form {
+    &-group {
+        .v-select {
+            position: relative;
+            flex: 1 1 auto;
+            width: 1%;
+            min-width: 0;
+            margin-bottom: 0
+        }
+    }
+}
+.input{
+    &-group {
+        & > .v-select:not(:first-child) {
+            .vs__dropdown-toggle {
+                border-radius: 0 0.25rem 0.25rem 0;
+                border: 1px solid #ced4da;
+                padding: 4px 0 5px 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+.table {
+    font-size: 1.05rem;
+
+    .thead-dark {
+        th {
+            background-color: $blue;
+            border-color: $blue;
+        }
+    }
+
+    th,
+    td, {
+
+        &:first-child,
+        &:first-child {
+            width: 20px;
+        }
+
+        &:last-child,
+        &:last-child {
+            width: 120px;
+        }
+    }
+}
