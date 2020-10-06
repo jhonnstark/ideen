@@ -59,7 +59,7 @@ class TeacherDashboard extends Controller
     {
         $user = Auth::user();
         $user->load('courses');
-        $courses = $user->courses;
+        $courses = $user->courses->loadCount('student');
         return new CourseCollection($courses);
     }
 }
