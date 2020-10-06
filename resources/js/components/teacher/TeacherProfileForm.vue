@@ -155,7 +155,7 @@
 import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators';
 
 export default {
-    name: "ProfileForm",
+    name: "TeacherProfileForm",
     props: ['id'],
     data() {
         return {
@@ -204,7 +204,7 @@ export default {
         },
     },
     created() {
-        axios.get('/profile/info')
+        axios.get('/teacher/profile/info')
             .then(response => {
                 this.record = response.data.data;
             })

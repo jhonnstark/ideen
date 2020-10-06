@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Resources\CourseCollection;
+use App\Http\Resources\Teacher;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherDashboard extends Controller
 {
@@ -25,7 +27,17 @@ class TeacherDashboard extends Controller
      */
     public function profile()
     {
-        return view('teacher.teacher');
+        return view('teacher.profile', ['id' => Auth::id()]);
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return Teacher
+     */
+    public function info()
+    {
+        return new Teacher(Auth::user());
     }
 
     /**
@@ -35,6 +47,19 @@ class TeacherDashboard extends Controller
      */
     public function courses()
     {
-        return view('teacher.teacher');
+        return view('teacher.courses', ['id' => Auth::id()]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return CourseCollection
+     */
+    public function list()
+    {
+        $user = Auth::user();
+        $user->load('courses');
+        $courses = $user->courses;
+        return new CourseCollection($courses);
     }
 }
