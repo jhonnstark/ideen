@@ -47,7 +47,7 @@ export default {
     },
     mounted () {
         axios
-            .get('/courses/' + this.id)
+            .get('/courses/list')
             .then(response => (this.items = response.data.data))
     },
     methods: {

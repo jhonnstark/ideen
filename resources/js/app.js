@@ -32,7 +32,6 @@ Vue.use(Vuelidate)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('admin-list', require('./components/AdminList.vue').default);
 Vue.component('course-list', require('./components/CourseList.vue').default);
 Vue.component('table-list', require('./components/TableList.vue').default);
@@ -43,6 +42,7 @@ Vue.component('register-form', require('./components/RegisterForm.vue').default)
 Vue.component('table-form', require('./components/TableForm.vue').default);
 
 Vue.component('class-list', require('./components/User/ClassList.vue').default);
+Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

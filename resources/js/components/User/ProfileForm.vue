@@ -13,6 +13,7 @@
                     v-model.trim="$v.record.name.$model"
                     :class="{ 'is-invalid': $v.record.name.$error }"
                     id="name"
+                    disabled
                     type="text" class="form-control" name="name" required autocomplete="name" autofocus>
 
                 <span
@@ -30,6 +31,7 @@
                 <input
                     v-model.trim="$v.record.lastname.$model"
                     :class="{ 'is-invalid': $v.record.mothers_lastname.$error }"
+                    disabled
                     id="lastname" type="text" class="form-control" name="lastname" required autocomplete="lastname" autofocus>
 
                 <span
@@ -47,6 +49,7 @@
                 <input
                     v-model.trim="$v.record.mothers_lastname.$model"
                     :class="{ 'is-invalid': $v.record.mothers_lastname.$error }"
+                    disabled
                     id="mothers_lastname" type="text" class="form-control" name="mothers_lastname" required autocomplete="mothers_lastname" autofocus>
 
                 <span
@@ -64,7 +67,7 @@
                 <input
                     v-model.trim="$v.record.email.$model"
                     :class="{ 'is-invalid': $v.record.email.$error }"
-                    :disabled=isEdit
+                    disabled
                     id="email" type="email" class="form-control" name="email" required autocomplete="email">
 
                 <span
@@ -91,40 +94,40 @@
             </div>
         </div>
 
-        <div class="form-group row" v-if="!edit">
-            <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+<!--        <div class="form-group row" v-if="!edit">-->
+<!--            <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>-->
 
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.password.$model"
-                    :class="{ 'is-invalid': $v.record.password.$error }"
-                    id="password" type="password" class="form-control" name="password" required autocomplete="new-password">
+<!--            <div class="col-md-6">-->
+<!--                <input-->
+<!--                    v-model.trim="$v.record.password.$model"-->
+<!--                    :class="{ 'is-invalid': $v.record.password.$error }"-->
+<!--                    id="password" type="password" class="form-control" name="password" required autocomplete="new-password">-->
 
-                <span
-                    v-if="!$v.record.password.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
+<!--                <span-->
+<!--                    v-if="!$v.record.password.error"-->
+<!--                    class="invalid-feedback" role="alert">-->
+<!--                    <strong>Campo invalido</strong>-->
+<!--                </span>-->
 
-            </div>
-        </div>
+<!--            </div>-->
+<!--        </div>-->
 
-        <div class="form-group row" v-if="!edit">
-            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmación</label>
+<!--        <div class="form-group row" v-if="!edit">-->
+<!--            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmación</label>-->
 
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.password_confirmation.$model"
-                    :class="{ 'is-invalid': $v.record.password_confirmation.$error }"
-                    id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+<!--            <div class="col-md-6">-->
+<!--                <input-->
+<!--                    v-model.trim="$v.record.password_confirmation.$model"-->
+<!--                    :class="{ 'is-invalid': $v.record.password_confirmation.$error }"-->
+<!--                    id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">-->
 
-                <span
-                    v-if="!$v.record.password_confirmation.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-            </div>
-        </div>
+<!--                <span-->
+<!--                    v-if="!$v.record.password_confirmation.error"-->
+<!--                    class="invalid-feedback" role="alert">-->
+<!--                    <strong>Campo invalido</strong>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="form-group row justify-content-center">
             <span
@@ -139,7 +142,7 @@
                 <button type="submit"
                         :class="[ !$v.$invalid? 'btn-primary': 'btn-secondary']"
                         class="btn">
-                    {{ isEdit ? 'Actualizar' : ' Agregar' }}
+                    Actualizar
                 </button>
             </div>
         </div>
@@ -152,8 +155,8 @@
 import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators';
 
 export default {
-    name: "RegisterForm",
-    props: ['role', 'edit'],
+    name: "ProfileForm",
+    props: ['id'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -163,12 +166,9 @@ export default {
                 email: null,
                 lastname: null,
                 mothers_lastname: null,
-                password: "",
-                password_confirmation: null,
+                //password: "",
+                //password_confirmation: null,
             },
-            rute: this.edit
-                ? '/admin/' + this.role + '/edit/' + this.edit
-                : '/admin/' + this.role + '/register'
         }
     },
     validations: {
@@ -194,27 +194,24 @@ export default {
                 minLength: minLength(3),
                 maxLength: maxLength(255)
             },
-            password: {
-                minLength: minLength(6),
-                maxLength: maxLength(255)
-            },
-            password_confirmation: {
-                sameAsPassword: sameAs('password')
-            },
+            // password: {
+            //     minLength: minLength(6),
+            //     maxLength: maxLength(255)
+            // },
+            // password_confirmation: {
+            //     sameAsPassword: sameAs('password')
+            // },
         },
     },
     created() {
-        if (this.edit) {
-            axios.get('/admin/' + this.role + '/edit/' + this.edit)
-                .then(response => {
-                    this.record = response.data.data;
-                })
-        }
+        axios.get('/profile/info')
+            .then(response => {
+                this.record = response.data.data;
+            })
     },
     methods:{
         register() {
-            if (this.$v.$invalid
-                || (!this.isEdit && this.record.password === '')) {
+            if (this.$v.$invalid) {
                 this.errors = true;
             } else {
                 this.$v.$reset();
@@ -224,27 +221,13 @@ export default {
                     url:  this.rute,
                     data: this.record
                     }).then(response => {
-                        if (!this.edit) {
-                            this.clearForm();
-                        }
                         alert('Guardado');
                     })
                     .catch(error => console.log(error))
             }
-        },
-        clearForm() {
-            this.record.name = null;
-            this.record.email = null;
-            this.record.lastname = null;
-            this.record.mothers_lastname = null;
-            this.record.password = null;
-            this.record.password_confirmation = null;
         }
     },
     computed: {
-        isEdit() {
-            return !!this.edit;
-        },
     }
 }
 </script>

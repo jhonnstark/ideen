@@ -36,7 +36,17 @@ class HomeController extends Controller
      */
     public function profile()
     {
-        return view('home');
+        return view('profile', ['id' => Auth::id()]);
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \App\Http\Resources\User
+     */
+    public function info()
+    {
+        return new \App\Http\Resources\User(Auth::user());
     }
 
     /**
@@ -55,8 +65,9 @@ class HomeController extends Controller
      * @param User $user
      * @return CourseCollection
      */
-    public function list(User $user)
+    public function list()
     {
+        $user = Auth::user();
         $user->load('courses.teacher');
         $courses = $user->courses;
         return new CourseCollection($courses);
