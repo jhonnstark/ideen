@@ -43,6 +43,8 @@ Vue.component('table-form', require('./components/TableForm.vue').default);
 
 Vue.component('class-list', require('./components/User/ClassList.vue').default);
 Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
+Vue.component('teacher-class-list', require('./components/Teacher/TeacherClassList.vue').default);
+Vue.component('teacher-profile-form', require('./components/Teacher/TeacherProfileForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

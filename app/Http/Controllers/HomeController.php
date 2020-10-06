@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CourseCollection;
 use App\Models\User;
+use App\Http\Resources\User as UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,7 +47,7 @@ class HomeController extends Controller
      */
     public function info()
     {
-        return new \App\Http\Resources\User(Auth::user());
+        return new UserResource(Auth::user());
     }
 
     /**
@@ -62,7 +63,6 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param User $user
      * @return CourseCollection
      */
     public function list()
