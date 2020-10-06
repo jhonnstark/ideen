@@ -42,6 +42,7 @@ Vue.component('register-form', require('./components/RegisterForm.vue').default)
 Vue.component('table-form', require('./components/TableForm.vue').default);
 
 Vue.component('class-list', require('./components/User/ClassList.vue').default);
+Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

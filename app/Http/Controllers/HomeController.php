@@ -36,7 +36,17 @@ class HomeController extends Controller
      */
     public function profile()
     {
-        return view('home');
+        return view('profile', ['id' => Auth::id()]);
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \App\Http\Resources\User
+     */
+    public function info()
+    {
+        return new \App\Http\Resources\User(Auth::user());
     }
 
     /**
