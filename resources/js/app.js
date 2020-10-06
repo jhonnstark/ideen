@@ -32,7 +32,6 @@ Vue.use(Vuelidate)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('admin-list', require('./components/AdminList.vue').default);
 Vue.component('course-list', require('./components/CourseList.vue').default);
 Vue.component('table-list', require('./components/TableList.vue').default);

@@ -55,8 +55,9 @@ class HomeController extends Controller
      * @param User $user
      * @return CourseCollection
      */
-    public function list(User $user)
+    public function list()
     {
+        $user = Auth::user();
         $user->load('courses.teacher');
         $courses = $user->courses;
         return new CourseCollection($courses);

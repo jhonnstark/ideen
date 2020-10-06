@@ -76,6 +76,19 @@
             </div>
         </div>
 
+        <div class="form-group row">
+            <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                </div>
+        </div>
+
         <div class="form-group row" v-if="!edit">
             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 

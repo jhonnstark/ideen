@@ -22,10 +22,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin/login', 'Auth\AdminLoginController@showLoginForm');
-Route::get('/teacher/login', 'Auth\TeacherLoginController@showLoginForm');
 
 Route::post('/admin/login', 'Auth\AdminLoginController@Login');
-Route::post('/teacher/login', 'Auth\TeacherLoginController@login');
 
 
 Route::prefix('/admin')
@@ -112,6 +110,10 @@ Route::prefix('/admin')
                 Route::delete('/delete/{level}', 'LevelController@destroy');
             });
 });
+
+Route::get('/teacher/login', 'Auth\TeacherLoginController@showLoginForm')->name('teacher.login');
+Route::post('/teacher/login', 'Auth\TeacherLoginController@login');
+
 Route::prefix('/teacher')
     ->middleware('auth:teacher')
     ->name('teacher.')
