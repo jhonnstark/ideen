@@ -19,8 +19,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/admin/login', 'Auth\AdminLoginController@showLoginForm');
 
 Route::post('/admin/login', 'Auth\AdminLoginController@Login');
@@ -119,13 +117,18 @@ Route::prefix('/teacher')
     ->name('teacher.')
     ->namespace('Teacher')
     ->group(function(){
-        Route::get('/', 'TeacherDashboard@teacher')->name('teacher');
+        Route::get('/', 'TeacherDashboard@teacher')->name('home');
         Route::get('/profile', 'TeacherDashboard@profile')->name('profile');
         Route::get('/profile/info', 'TeacherDashboard@info')->name('info');
+        Route::get('/course/{course}/activity', 'TeacherDashboard@activity')->name('activity');
+        Route::get('/course/{course}/content', 'TeacherDashboard@content')->name('content');
+        Route::get('/course/{id}', 'TeacherDashboard@courseInfo')->name('course');
         Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
         Route::get('/courses/list', 'TeacherDashboard@list');
 });
 
+
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/profile/info', 'HomeController@info')->name('info');
 Route::get('/courses', 'HomeController@courses')->name('courses');

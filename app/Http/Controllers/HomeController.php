@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ActivityResource;
+use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
+use App\Models\Activity;
+use App\Models\Course;
 use App\Models\User;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Http\Request;
@@ -71,5 +75,29 @@ class HomeController extends Controller
         $user->load('courses.teacher');
         $courses = $user->courses;
         return new CourseCollection($courses);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return ActivityResource
+     */
+    public function activity(Course $course)
+    {
+        $course->load('activity');
+        return new ActivityResource($course->activity);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return ContentResource
+     */
+    public function content(Course $course)
+    {
+        $course->load('content');
+        return new ContentResource($course->content);
     }
 }
