@@ -41,6 +41,8 @@ Vue.component('course-form', require('./components/CourseForm.vue').default);
 Vue.component('register-form', require('./components/RegisterForm.vue').default);
 Vue.component('table-form', require('./components/TableForm.vue').default);
 
+Vue.component('content-list', require('./components/list/ContentList.vue').default);
+Vue.component('activity-list', require('./components/list/ActivityList.vue').default);
 Vue.component('class-list', require('./components/User/ClassList.vue').default);
 Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
 Vue.component('teacher-class-list', require('./components/Teacher/TeacherClassList.vue').default);
