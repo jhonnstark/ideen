@@ -6,8 +6,8 @@
         <div class="row justify-content-between">
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route($role . '.home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route($role . '.courses') }}">Cursos</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route($role === '' ? 'home' : $role . '.home') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route($role === '' ? 'courses' : $role . '.courses') }}">Cursos</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ __('Curso') }}</li>
                 </ol>
             </nav>

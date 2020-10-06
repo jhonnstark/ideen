@@ -80,6 +80,16 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @return ActivityResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function courseInfo($id)
+    {
+        return view('components.courseInfo', ['role' => '', 'id' => $id]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
      * @param Course $course
      * @return ActivityResource
      */
