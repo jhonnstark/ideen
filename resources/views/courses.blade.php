@@ -21,6 +21,6 @@
     <div class="container">
     </div>
 
-        <my-class-list role="user" id="{{ $id }}"></my-class-list>
+        <class-list role="user" id="{{ $id }}"></class-list>
 
 @endsection
