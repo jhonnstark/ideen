@@ -18,7 +18,7 @@ class CreateHomeworksTable extends Migration
             $table->string('name');
             $table->string('url');
             $table->string('ext');
-            $table->string('size');
+            $table->double('size', 8, 2)->default(0);
             $table->foreignId('user_id')->constrained()
                 ->onDelete('cascade');
             $table->foreignId('activity_id')->constrained()

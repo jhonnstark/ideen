@@ -18,7 +18,9 @@ class CreateMaterialsTable extends Migration
             $table->string('name');
             $table->string('url');
             $table->string('ext');
-            $table->string('size');
+            $table->double('size', 8, 2)->default(0);
+            $table->foreignId('teacher_id')->constrained()
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
