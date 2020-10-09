@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCourseMaterialsTable extends Migration
+class CreateContentMaterialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateCourseMaterialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_materials', function (Blueprint $table) {
+        Schema::create('content_material', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained()
+            $table->foreignId('content_id')->constrained()
                 ->onDelete('cascade');
             $table->foreignId('material_id')->constrained()
                 ->onDelete('cascade');
@@ -30,6 +30,6 @@ class CreateCourseMaterialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_materials');
+        Schema::dropIfExists('content_material');
     }
 }
