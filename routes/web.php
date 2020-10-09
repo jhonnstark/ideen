@@ -20,9 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/admin/login', 'Auth\AdminLoginController@showLoginForm');
-
 Route::post('/admin/login', 'Auth\AdminLoginController@Login');
-
 
 Route::prefix('/admin')
     ->name('admin.')
