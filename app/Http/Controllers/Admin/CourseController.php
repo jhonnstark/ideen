@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActivityRequest;
 use App\Http\Requests\CourseRequest;
 use App\Http\Requests\CourseUpdateRequest;
+use App\Http\Resources\ActivityResource;
+use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
+use App\Models\Activity;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Resources\Course as CourseResource;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 class CourseController extends Controller
 {
@@ -117,5 +123,74 @@ class CourseController extends Controller
             'status' => 204,
             'message' => 'Deleted Course'
         ],204 );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return ActivityResource
+     */
+    public function activity(Course $course)
+    {
+        $course->load('activity');
+        return new ActivityResource($course->activity);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\View\View
+     */
+    public function activityAdd(Course $course)
+    {
+        return view('admin.register')
+            ->with('role', 'activity')
+            ->with('course', $course->id);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param ActivityRequest $request
+     */
+    public function activityRegister(ActivityRequest $request)
+    {
+        //$course = Activity::create($request->validated());
+        $path = Storage::disk('s3')->put('material', $request->material);
+        $request->material->getClientOriginalExtension();
+        $material = [];
+//        if ($request->has('material')) {
+//            $course->material()->create($material);
+//        }
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return ContentResource
+     */
+    public function content(Course $course)
+    {
+        $course->load('content');
+        return new ContentResource($course->content);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function contentAdd(Course $course)
+    {
+        return view('admin.register')
+            ->with('role', 'content')
+            ->with('course', $course->id);
     }
 }

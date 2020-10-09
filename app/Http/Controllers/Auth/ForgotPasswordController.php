@@ -30,7 +30,7 @@ class ForgotPasswordController extends Controller
     {
         return view('auth.passwords.email')->with(
             [
-                'user_type' => request()->uset_type
+                'user_type' => request()->get('user_type')
             ]
         );
     }
@@ -42,6 +42,6 @@ class ForgotPasswordController extends Controller
      */
     public function broker()
     {
-        return Password::broker(request()->input('uset-type'));
+        return Password::broker(request()->get('uset-type'));
     }
 }

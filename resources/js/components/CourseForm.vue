@@ -159,6 +159,8 @@ export default {
             axios.get('/admin/' + this.role + '/edit/' + this.edit)
                 .then(response => {
                     this.record = response.data.data;
+                    if (Array.isArray(response.data.data.teacher)
+                        && response.data.data.teacher.length > 0)
                     this.record.teacher_id = response.data.data.teacher[0].id;
                 })
         }
@@ -198,6 +200,11 @@ export default {
             }
         }
     },
+    computed: {
+        isEdit() {
+            return !!this.edit;
+        },
+    }
 }
 </script>
 
