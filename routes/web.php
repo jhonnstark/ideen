@@ -84,6 +84,7 @@ Route::prefix('/admin')
                 Route::post('/edit/{course}/activity/add', 'CourseController@activityRegister');
                 Route::get('/edit/{course}/content', 'CourseController@content');
                 Route::get('/edit/{course}/content/add', 'CourseController@contentAdd')->name('content');
+                Route::post('/edit/{course}/content/add', 'CourseController@contentRegister');
                 Route::delete('/delete/{course}', 'CourseController@destroy');
             });
 

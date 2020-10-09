@@ -57,6 +57,12 @@
                         <label class="custom-file-label" for="material">Choose file</label>
                     </div>
                 </div>
+
+                <span
+                    v-if="!$v.record.material.error"
+                    class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
             </div>
         </div>
 
@@ -127,7 +133,9 @@ export default {
                 maxLength: maxLength(255)
             },
             active: {},
-            material: {}
+            material: {
+                required,
+            }
         },
     },
     created() {
@@ -160,6 +168,7 @@ export default {
                 }).then(response => {
                         if (!this.edit) {
                             this.record.name = null;
+                            this.record.description = null;
                             this.record.active = false;
                         }
                         alert('Guardado');
@@ -168,7 +177,6 @@ export default {
             }
         },
         selectMaterial(event) {
-            console.log('fdgxd')
             this.record.material = event.target.files[0];
         }
     },

@@ -16,7 +16,6 @@ class CreateContentsTable extends Migration
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('subtitle');
             $table->mediumText('description');
             $table->boolean('active');
             $table->foreignId('course_id')->constrained()

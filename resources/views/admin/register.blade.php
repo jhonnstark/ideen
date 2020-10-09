@@ -8,7 +8,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     @if($role == 'activity' || $role == 'content')
-                        <li class="breadcrumb-item"><a href="{{ route('admin.course.list') . '/' . $course }}">{{ __('Cursos') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.course.edit', $course) }}">{{ __('Cursos') }}</a></li>
                     @else
                         <li class="breadcrumb-item"><a href="{{ route('admin.' . $role. '.list') }}">{{ __($role) }}</a></li>
                     @endif
