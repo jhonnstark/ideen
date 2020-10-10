@@ -42,6 +42,6 @@ class ForgotPasswordController extends Controller
      */
     public function broker()
     {
-        return Password::broker(request()->get('uset-type'));
+        return Password::broker(request()->get('user_type'));
     }
 }
