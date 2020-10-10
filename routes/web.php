@@ -135,8 +135,18 @@ Route::prefix('/teacher')
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/profile/info', 'HomeController@info')->name('info');
-Route::get('/courses', 'HomeController@courses')->name('courses');
-Route::get('/courses/list', 'HomeController@list');
-Route::get('/course/{course}/activity', 'HomeController@activity')->name('activity');
-Route::get('/course/{course}/content', 'HomeController@content')->name('content');
-Route::get('/course/{id}', 'HomeController@courseInfo')->name('course');
+
+Route::prefix('/course')
+    ->group(function(){
+        Route::get('/{course}/activity', 'HomeController@activity')->name('activity');
+        Route::get('/{course}/content', 'HomeController@content')->name('content');
+        Route::get('/{id}', 'HomeController@courseInfo')->name('course');
+        Route::get('/activity/{activity}', 'HomeController@activityDetail');
+        Route::get('/content/{content}', 'HomeController@contentDetail');
+    });
+
+Route::prefix('/courses')
+    ->group(function(){
+        Route::get('/', 'HomeController@courses')->name('courses');
+        Route::get('/list', 'HomeController@list');
+    });

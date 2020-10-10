@@ -48,6 +48,7 @@ Vue.component('activity-list', require('./components/list/ActivityList.vue').def
 Vue.component('class-list', require('./components/User/ClassList.vue').default);
 Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
 Vue.component('teacher-class-list', require('./components/Teacher/TeacherClassList.vue').default);
+Vue.component('detail', require('./components/Detail.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

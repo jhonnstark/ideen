@@ -17,8 +17,8 @@ class Material extends Model
         'name', 'url', 'ext', 'size', 'admin_id'
     ];
 
-    public function getUrlAttribute()
-    {
-        return Storage::disk('s3')->url($this->url);
-    }
+//    public function getUrlAttribute()
+//    {
+//        return Storage::disk('s3')->url($this->url);
+//    }
 }
