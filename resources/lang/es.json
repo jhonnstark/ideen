@@ -1,6 +1,8 @@
 {
     "E-Mail Address": "E-Mail",
     "Remember Me": "Recuerda este usuario",
+    "Reset Password": "Cambia tu contraseña",
+    "Confirm Password": "Confirmación",
     "Forgot Your Password?": "Olvide mi password",
     "Register": "Agregar nuevo",
     "Editar": "Editar",
@@ -16,6 +18,8 @@
     "Formulario category": "Formulario de creación de categorías",
     "Formulario course": "Formulario de creación de cursos",
     "Formulario teacher": "Formulario de creación de profesores",
+    "Formulario activity": "Formulario de creación de actividades",
+    "Formulario content": "Formulario de creación de contenidos",
     "Listado admin": "Listado de administradores",
     "Listado user": "Listado de alumnos",
     "Listado teacher": "Listado de profesores",

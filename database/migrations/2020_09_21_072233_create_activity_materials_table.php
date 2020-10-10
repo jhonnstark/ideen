@@ -13,7 +13,7 @@ class CreateActivityMaterialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('activity_materials', function (Blueprint $table) {
+        Schema::create('activity_material', function (Blueprint $table) {
             $table->id();
             $table->foreignId('activity_id')->constrained()
                 ->onDelete('cascade');
@@ -30,6 +30,6 @@ class CreateActivityMaterialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activity_materials');
+        Schema::dropIfExists('activity_material');
     }
 }

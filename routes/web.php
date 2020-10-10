@@ -20,9 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/admin/login', 'Auth\AdminLoginController@showLoginForm');
-
 Route::post('/admin/login', 'Auth\AdminLoginController@Login');
-
 
 Route::prefix('/admin')
     ->name('admin.')
@@ -81,6 +79,12 @@ Route::prefix('/admin')
                 Route::post('/register', 'CourseController@store');
                 Route::get('/edit/{course}', 'CourseController@show')->name('edit');
                 Route::put('/edit/{course}', 'CourseController@update');
+                Route::get('/edit/{course}/activity', 'CourseController@activity');
+                Route::get('/edit/{course}/activity/add', 'CourseController@activityAdd')->name('activity');
+                Route::post('/edit/{course}/activity/add', 'CourseController@activityRegister');
+                Route::get('/edit/{course}/content', 'CourseController@content');
+                Route::get('/edit/{course}/content/add', 'CourseController@contentAdd')->name('content');
+                Route::post('/edit/{course}/content/add', 'CourseController@contentRegister');
                 Route::delete('/delete/{course}', 'CourseController@destroy');
             });
 

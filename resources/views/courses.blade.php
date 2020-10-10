@@ -18,9 +18,6 @@
         </div>
     </div>
 
-    <div class="container">
-    </div>
-
-        <class-list role="user" id="{{ $id }}"></class-list>
+    <class-list role="user" id="{{ $id }}"></class-list>
 
 @endsection

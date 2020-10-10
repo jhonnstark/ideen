@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActivityRequest;
 use App\Http\Requests\CourseRequest;
 use App\Http\Requests\CourseUpdateRequest;
+use App\Http\Resources\ActivityResource;
+use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
+use App\Models\Activity;
+use App\Models\Content;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Resources\Course as CourseResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 class CourseController extends Controller
 {
@@ -118,4 +126,110 @@ class CourseController extends Controller
             'message' => 'Deleted Course'
         ],204 );
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return ActivityResource
+     */
+    public function activity(Course $course)
+    {
+        $course->load('activity');
+        return new ActivityResource($course->activity);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\View\View
+     */
+    public function activityAdd(Course $course)
+    {
+        return view('admin.register')
+            ->with('role', 'activity')
+            ->with('course', $course->id);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param ActivityRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function activityRegister(ActivityRequest $request)
+    {
+        $validated = $request->validated();
+        $validated['active'] = $validated['active'] === 'true';
+        $activity = Activity::create($validated);
+        $activity->material()->create($this->createMaterial($request, 'activity'));
+
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return ContentResource
+     */
+    public function content(Course $course)
+    {
+        $course->load('content');
+        return new ContentResource($course->content);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function contentAdd(Course $course)
+    {
+        return view('admin.register')
+            ->with('role', 'content')
+            ->with('course', $course->id);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param ActivityRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function contentRegister(ActivityRequest $request)
+    {
+        $validated = $request->validated();
+        $validated['active'] = $validated['active'] === 'true';
+        $content = Content::create($validated);
+        $content->material()->create($this->createMaterial($request, 'content'));
+
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param Request $request
+     * @param $type
+     * @return array
+     */
+    private function createMaterial(Request $request, $type) {
+        $course = Course::find($request->input('course_id'));
+        $name = $course->id . '_' . $type . '_' . $request->material->getClientOriginalName();
+
+        return [
+            'size' => $request->material->getSize(),
+            'url' => Storage::disk('s3')->putFileAs('material', $request->material, $name),
+            'ext' => $request->material->getClientOriginalExtension(),
+            'name' => $name,
+            'admin_id' => Auth::id()
+        ];
+    }
+
 }

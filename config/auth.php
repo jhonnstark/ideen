@@ -113,21 +113,21 @@ return [
     */
 
     'passwords' => [
-        'users' => [
+        'user' => [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
 
-        'admins' => [
+        'admin' => [
             'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
 
-        'teachers' => [
+        'teacher' => [
             'provider' => 'teachers',
             'table' => 'password_resets',
             'expire' => 60,
