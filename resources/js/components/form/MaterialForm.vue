@@ -170,10 +170,11 @@ export default {
                             this.record.name = null;
                             this.record.description = null;
                             this.record.active = false;
+                            this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
+                        } else {
+                            this.$swal('Guardado', 'Creado exitosamente.', 'success');
                         }
-                        alert('Guardado');
-                    })
-                    .catch(error => console.log(error))
+                    }).catch(error => console.log(error))
             }
         },
         selectMaterial(event) {

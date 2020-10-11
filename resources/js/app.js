@@ -8,6 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 const { Vuelidate } = require('vuelidate')
+import VueSweetalert2 from 'vue-sweetalert2';
 
 import vSelect from 'vue-select'
 
@@ -22,6 +23,11 @@ Vue.component('v-select', vSelect)
 Vue.use(Vuelidate)
 
 /**
+ * Validation for forms
+ */
+Vue.use(VueSweetalert2);
+
+/**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
@@ -32,14 +38,14 @@ Vue.use(Vuelidate)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('admin-list', require('./components/AdminList.vue').default);
-Vue.component('course-list', require('./components/CourseList.vue').default);
-Vue.component('table-list', require('./components/TableList.vue').default);
-Vue.component('my-course-list', require('./components/MyCoursesList.vue').default);
-Vue.component('my-class-list', require('./components/MyClassList.vue').default);
-Vue.component('course-form', require('./components/CourseForm.vue').default);
-Vue.component('register-form', require('./components/RegisterForm.vue').default);
-Vue.component('table-form', require('./components/TableForm.vue').default);
+Vue.component('admin-list', require('./components/list/AdminList.vue').default);
+Vue.component('course-list', require('./components/list/CourseList.vue').default);
+Vue.component('table-list', require('./components/list/TableList.vue').default);
+Vue.component('my-course-list', require('./components/list/MyCoursesList.vue').default);
+Vue.component('my-class-list', require('./components/list/MyClassList.vue').default);
+Vue.component('course-form', require('./components/form/CourseForm.vue').default);
+Vue.component('register-form', require('./components/form/RegisterForm.vue').default);
+Vue.component('table-form', require('./components/form/TableForm.vue').default);
 Vue.component('material-form', require('./components/form/MaterialForm.vue').default);
 Vue.component('teacher-profile-form', require('./components/Teacher/TeacherProfileForm.vue').default);
 
@@ -48,6 +54,7 @@ Vue.component('activity-list', require('./components/list/ActivityList.vue').def
 Vue.component('class-list', require('./components/User/ClassList.vue').default);
 Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
 Vue.component('teacher-class-list', require('./components/Teacher/TeacherClassList.vue').default);
+Vue.component('detail', require('./components/Detail.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

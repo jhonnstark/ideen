@@ -224,12 +224,13 @@ export default {
                     url:  this.rute,
                     data: this.record
                     }).then(response => {
-                        if (!this.edit) {
-                            this.clearForm();
-                        }
-                        alert('Guardado');
-                    })
-                    .catch(error => console.log(error))
+                    if (!this.edit) {
+                        this.clearForm();
+                        this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
+                    } else {
+                        this.$swal('Guardado', 'Creado exitosamente.', 'success');
+                    }
+                }).catch(error => console.log(error))
             }
         },
         clearForm() {

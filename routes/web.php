@@ -79,13 +79,17 @@ Route::prefix('/admin')
                 Route::post('/register', 'CourseController@store');
                 Route::get('/edit/{course}', 'CourseController@show')->name('edit');
                 Route::put('/edit/{course}', 'CourseController@update');
-                Route::get('/edit/{course}/activity', 'CourseController@activity');
-                Route::get('/edit/{course}/activity/add', 'CourseController@activityAdd')->name('activity');
-                Route::post('/edit/{course}/activity/add', 'CourseController@activityRegister');
-                Route::get('/edit/{course}/content', 'CourseController@content');
-                Route::get('/edit/{course}/content/add', 'CourseController@contentAdd')->name('content');
-                Route::post('/edit/{course}/content/add', 'CourseController@contentRegister');
                 Route::delete('/delete/{course}', 'CourseController@destroy');
+
+                Route::get('/edit/{course}/activity', 'ActivityController@show');
+                Route::get('/edit/{course}/activity/add', 'ActivityController@create')->name('activity');
+                Route::post('/edit/{course}/activity/add', 'ActivityController@store');
+                Route::delete('/edit/activity/delete/{activity}', 'ActivityController@destroy');
+
+                Route::get('/edit/{course}/content', 'ContentController@show');
+                Route::get('/edit/{course}/content/add', 'ContentController@create')->name('content');
+                Route::post('/edit/{course}/content/add', 'ContentController@store');
+                Route::delete('/edit/content/delete/{content}', 'ContentController@destroy');
             });
 
         Route::prefix('/category')
@@ -135,8 +139,18 @@ Route::prefix('/teacher')
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/profile/info', 'HomeController@info')->name('info');
-Route::get('/courses', 'HomeController@courses')->name('courses');
-Route::get('/courses/list', 'HomeController@list');
-Route::get('/course/{course}/activity', 'HomeController@activity')->name('activity');
-Route::get('/course/{course}/content', 'HomeController@content')->name('content');
-Route::get('/course/{id}', 'HomeController@courseInfo')->name('course');
+
+Route::prefix('/course')
+    ->group(function(){
+        Route::get('/{course}/activity', 'HomeController@activity')->name('activity');
+        Route::get('/{course}/content', 'HomeController@content')->name('content');
+        Route::get('/{id}', 'HomeController@courseInfo')->name('course');
+        Route::get('/activity/{activity}', 'HomeController@activityDetail');
+        Route::get('/content/{content}', 'HomeController@contentDetail');
+    });
+
+Route::prefix('/courses')
+    ->group(function(){
+        Route::get('/', 'HomeController@courses')->name('courses');
+        Route::get('/list', 'HomeController@list');
+    });
