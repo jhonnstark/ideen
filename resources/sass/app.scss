@@ -7,7 +7,12 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Bootstrap
 @import "~vue-select/src/scss/vue-select.scss";
+
+// Bootstrap
+@import '~sweetalert2/src/variables';
+@import "~sweetalert2/src/sweetalert2";
 
 // This site
 @import 'override';
@@ -16,3 +21,4 @@
 @import 'table';
 @import 'button';
 @import 'form';
+@import 'animation';
