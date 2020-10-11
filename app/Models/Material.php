@@ -16,9 +16,4 @@ class Material extends Model
     protected $fillable = [
         'name', 'url', 'ext', 'size', 'admin_id'
     ];
-
-    public function getUrlAttribute()
-    {
-        return Storage::disk('s3')->url($this->url);
-    }
 }

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
+use App\Http\Resources\MaterialCollection;
 use App\Models\Activity;
+use App\Models\Content;
 use App\Models\Course;
 use App\Models\User;
 use App\Http\Resources\User as UserResource;
@@ -109,5 +111,37 @@ class HomeController extends Controller
     {
         $course->load('content');
         return new ContentResource($course->content);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param Activity $activity
+     * @return MaterialCollection|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function activityDetail(Request $request, Activity $activity)
+    {
+        if ($request->wantsJson()) {
+            $material = $activity->load('material')->material;
+            return new MaterialCollection($material);
+        }
+        return view('detail', ['id' => $activity,'type' => 'activity']);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param Content $content
+     * @return MaterialCollection|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function contentDetail(Request $request, Content $content)
+    {
+        if ($request->wantsJson()) {
+            $material = $content->load('material')->material;
+            return new MaterialCollection($material);
+        }
+        return view('detail', ['id' => $content,'type' => 'content']);
     }
 }
