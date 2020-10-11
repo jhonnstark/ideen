@@ -12981,6 +12981,10 @@ svg.loader {
   padding: 4px 0 5px 0;
 }
 
+.current-page {
+  width: 60px;
+}
+
 .spin {
   -webkit-animation: spin-animation 0.5s infinite;
           animation: spin-animation 0.5s infinite;

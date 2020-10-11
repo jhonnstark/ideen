@@ -57,7 +57,6 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY . /var/www
 
 # COPY --from=builder /temp/public /var/www/public
-# COPY --from=builder /temp/node_modules /var/www/node_modules
 
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www

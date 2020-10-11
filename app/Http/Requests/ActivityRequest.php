@@ -32,17 +32,7 @@ class ActivityRequest extends FormRequest
                 'required',
                 'file',
                 'max:10000',
-                Rule::mimetypes([
-                    'video/avi',
-                    'video/mpeg',
-                    'video/quicktime',
-                    'image/jpeg',
-                    'image/png',
-                    'image/bmp',
-                    'image/gif',
-                    'image/webp',
-                    'image/tiff'
-                    ]),
+                'mimetypes:video/avi,video/mpeg,video/quicktime,image/jpeg,image/png,image/bmp,image/gif,image/webp,image/tiff,application/pdf',
                 ],
             'course_id' => 'bail|required|exists:courses,id'
         ];
