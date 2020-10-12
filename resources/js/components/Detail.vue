@@ -1,6 +1,12 @@
 <template>
 
     <div class="container">
+        <div v-if="isLoading" class="row justify-content-center">
+            <div class="on-load">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
         <div class="row justify-content-center" v-if="file && file.ext === 'pdf'">
 
                 <div class="controls col-12 justify-content-center row">
@@ -59,6 +65,7 @@ export default {
     },
     data: function () {
         return {
+            isLoading: true,
             images: ['jpg', 'jpeg', 'jpe', 'bmp', 'gif', 'png', 'webp', 'tiff'],
             audio: ['avi', 'mp4', 'mp4v', 'mpg4', 'mp3', 'mpga', 'mp2', 'mp2a', 'mp3', 'm2a', 'm3a', 'qt', 'mov', 'mp4',  'mp4v',  'mpg4',  'mpeg',  'mpg',  'mpe',  'm1v',  'm2v',],
             currentPage: 1,
@@ -71,6 +78,7 @@ export default {
         axios
             .get(window.location.pathname)
             .then(response => (this.file = response.data.data))
+            .finally(() => this.isLoading = false)
     },
     methods: {
         next() {

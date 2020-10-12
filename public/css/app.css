@@ -13011,3 +13011,105 @@ svg.loader {
   }
 }
 
+.on-load {
+  opacity: 0;
+  -webkit-animation: fade-in-up 1s forwards;
+          animation: fade-in-up 1s forwards;
+}
+
+@-webkit-keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.spinner {
+  pointer-events: none;
+  width: 32px;
+  height: 32px;
+  border: 2px solid transparent;
+  border-color: #f2f2f2;
+  border-top-color: #9561e2;
+  border-radius: 50%;
+  -webkit-animation: spin 1s, colour-wheel 3s;
+          animation: spin 1s, colour-wheel 3s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    transform: rotateZ(0);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateZ(0);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@-webkit-keyframes colour-wheel {
+  0% {
+    border-top-color: #9561e2;
+  }
+
+  33% {
+    border-top-color: #6cb2eb;
+  }
+
+  66% {
+    border-top-color: #e3342f;
+  }
+
+  100% {
+    border-top-color: #9561e2;
+  }
+}
+
+@keyframes colour-wheel {
+  0% {
+    border-top-color: #9561e2;
+  }
+
+  33% {
+    border-top-color: #6cb2eb;
+  }
+
+  66% {
+    border-top-color: #e3342f;
+  }
+
+  100% {
+    border-top-color: #9561e2;
+  }
+}
+
