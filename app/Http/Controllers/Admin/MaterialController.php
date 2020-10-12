@@ -25,8 +25,7 @@ class MaterialController extends Controller
             'size' => $request->material->getSize(),
             'url' => Storage::disk('s3')->putFileAs('material', $request->material, $name),
             'ext' => $request->material->getClientOriginalExtension(),
-            'name' => $name,
-            'admin_id' => Auth::id()
+            'name' => $name
         ];
     }
 }

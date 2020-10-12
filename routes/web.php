@@ -135,11 +135,14 @@ Route::prefix('/teacher')
         Route::get('/courses/list', 'TeacherDashboard@list');
 
         Route::prefix('/course')
+            ->name('course.')
             ->group(function(){
+                Route::get('/{course}/activity/add', 'TeacherDashboard@createActivity')->name('createActivity');
+                Route::post('/{course}/activity/add', 'TeacherDashboard@storeActivity');
                 Route::get('/activity/{activity}', 'TeacherDashboard@activityDetail');
                 Route::get('/content/{content}', 'TeacherDashboard@contentDetail');
             });
-});
+    });
 
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -147,7 +150,10 @@ Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/profile/info', 'HomeController@info')->name('info');
 
 Route::prefix('/course')
+    ->name('course.')
     ->group(function(){
+        Route::get('/{course}/activity/add', 'HomeController@createActivity')->name('createActivity');
+        Route::post('/{course}/activity/add', 'HomeController@storeActivity');
         Route::get('/{course}/activity', 'HomeController@activity')->name('activity');
         Route::get('/{course}/content', 'HomeController@content')->name('content');
         Route::get('/{id}', 'HomeController@courseInfo')->name('course');
