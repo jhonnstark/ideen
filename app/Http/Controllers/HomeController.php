@@ -6,6 +6,7 @@ use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\MaterialCollection;
+use App\Http\Resources\MaterialResource;
 use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
@@ -13,6 +14,7 @@ use App\Models\User;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -123,8 +125,12 @@ class HomeController extends Controller
     public function activityDetail(Request $request, Activity $activity)
     {
         if ($request->wantsJson()) {
-            $material = $activity->load('material')->material;
-            return new MaterialCollection($material);
+            $material = $activity->load('material')->material->first();
+            $url = Storage::disk('s3')->temporaryUrl(
+                $material->url, now()->addMinutes(5)
+            );
+            $material->url = $url;
+            return new MaterialResource($material);
         }
         return view('detail', ['id' => $activity,'type' => 'activity']);
     }
@@ -134,13 +140,17 @@ class HomeController extends Controller
      *
      * @param Request $request
      * @param Content $content
-     * @return MaterialCollection|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return MaterialResource
      */
     public function contentDetail(Request $request, Content $content)
     {
         if ($request->wantsJson()) {
-            $material = $content->load('material')->material;
-            return new MaterialCollection($material);
+            $material = $content->load('material')->material->first();
+            $url = Storage::disk('s3')->temporaryUrl(
+                $material->url, now()->addMinutes(5)
+            );
+            $material->url = $url;
+            return new MaterialResource($material);
         }
         return view('detail', ['id' => $content,'type' => 'content']);
     }

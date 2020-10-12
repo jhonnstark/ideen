@@ -9,8 +9,16 @@ require('./bootstrap');
 window.Vue = require('vue');
 const { Vuelidate } = require('vuelidate')
 import VueSweetalert2 from 'vue-sweetalert2';
-
 import vSelect from 'vue-select'
+import VuePlyr from 'vue-plyr'
+// import Lingallery from 'lingallery';
+
+/**
+ * Lingallery
+ */
+// Vue.component('lingallery', Lingallery);
+
+Vue.use(VuePlyr)
 
 /**
  * Select for forms
