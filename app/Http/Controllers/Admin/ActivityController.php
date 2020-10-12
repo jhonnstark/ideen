@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ActivityResource;
+use App\Http\Resources\MaterialResource;
 use App\Models\Activity;
 use App\Models\Course;
 use Exception;
@@ -95,7 +96,18 @@ class ActivityController extends Controller
         if ($request->wantsJson()) {
             return new ActivityResource($activity);
         }
-        return view('admin.edit', ['role' => 'activity']);
+        return view('admin.edit', ['role' => 'activity', 'id' => $activity->course_id]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Activity $activity
+     * @return MaterialResource
+     */
+    public function getMaterial(Activity $activity)
+    {
+        return new MaterialResource($activity->load('material')->material->first());
     }
 
     /**

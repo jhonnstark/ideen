@@ -70,7 +70,7 @@ import VuePlyr from 'vue-plyr'
 
 export default {
     name: "Detail",
-    props: ['id', 'type'],
+    props: ['id', 'type', 'edit'],
     components: {
         pdf,
         VuePlyr

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ContentResource;
+use App\Http\Resources\MaterialResource;
 use App\Models\Content;
 use App\Models\Course;
 use Illuminate\Http\JsonResponse;
@@ -94,7 +95,18 @@ class ContentController extends Controller
         if ($request->wantsJson()) {
             return new ContentResource($content);
         }
-        return view('admin.edit', ['role' => 'content']);
+        return view('admin.edit', ['role' => 'content', 'id' => $content->course_id]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Content $content
+     * @return MaterialResource
+     */
+    public function getMaterial(Content $content)
+    {
+        return new MaterialResource($content->load('material')->material->first());
     }
 
     /**

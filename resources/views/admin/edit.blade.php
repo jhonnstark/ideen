@@ -34,7 +34,7 @@
                         @elseif($role == 'category' || $role == 'level')
                             <table-form role="{{ $role }}" edit="{{ $id }}"></table-form>
                         @elseif($role == 'activity' || $role == 'content')
-                            <material-form role="{{ $role }}" edit="{{ $id }}"
+                            <material-form role="{{ $role }}" edit="{{ $id }}"></material-form>
                         @else
                             <register-form role="{{ $role }}" edit="{{ $id }}"></register-form>
                         @endif
@@ -44,6 +44,15 @@
             </div>
         </div>
     </div>
+
+    @if($role == 'activity' || $role == 'content')
+        <div class="container">
+            <div class="row justify-content-between">
+                <hr class="col-12">
+                <detail id="{{ $id }}" type="{{ $role }}" edit="{{ $material }}"></detail>
+            </div>
+        </div>
+    @endif
 
     @if($role == 'teacher' || $role == 'user')
     <div class="container">
