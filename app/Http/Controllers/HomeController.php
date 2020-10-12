@@ -2,22 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\MaterialController;
+use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
-use App\Http\Resources\MaterialCollection;
 use App\Http\Resources\MaterialResource;
 use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
-use App\Models\User;
 use App\Http\Resources\User as UserResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
+
+    /**
+     * MaterialController instance.
+     */
+    private $materialController;
+
     /**
      * Create a new controller instance.
      *
@@ -26,6 +34,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->materialController = new MaterialController();
     }
 
     /**
@@ -153,5 +162,36 @@ class HomeController extends Controller
             return new MaterialResource($material);
         }
         return view('detail', ['id' => $content,'type' => 'content']);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param Course $course
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
+     */
+    public function createActivity(Course $course)
+    {
+        return view('admin.register')
+            ->with('role', 'activity')
+            ->with('course', $course->id);
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param ActivityRequest $request
+     * @return JsonResponse
+     */
+    public function storeActivity(ActivityRequest $request)
+    {
+        $validated = $request->validated();
+        $validated['active'] = $validated['active'] === 'true';
+        $activity = Activity::create($validated);
+        $activity->material()->create($this->materialController->store($request, 'activity'));
+
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
     }
 }

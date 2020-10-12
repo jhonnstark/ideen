@@ -13,8 +13,16 @@ use Illuminate\Http\Response;
 
 class ContentController extends Controller
 {
+    /**
+     * MaterialController instance.
+     */
     private $materialController;
 
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->materialController = new MaterialController();
