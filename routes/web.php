@@ -133,6 +133,12 @@ Route::prefix('/teacher')
         Route::get('/course/{id}', 'TeacherDashboard@courseInfo')->name('course');
         Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
         Route::get('/courses/list', 'TeacherDashboard@list');
+
+        Route::prefix('/course')
+            ->group(function(){
+                Route::get('/activity/{activity}', 'TeacherDashboard@activityDetail');
+                Route::get('/content/{content}', 'TeacherDashboard@contentDetail');
+            });
 });
 
 

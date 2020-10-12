@@ -120,7 +120,7 @@ class HomeController extends Controller
      *
      * @param Request $request
      * @param Activity $activity
-     * @return MaterialCollection|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function activityDetail(Request $request, Activity $activity)
     {
@@ -140,7 +140,7 @@ class HomeController extends Controller
      *
      * @param Request $request
      * @param Content $content
-     * @return MaterialResource
+     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function contentDetail(Request $request, Content $content)
     {
