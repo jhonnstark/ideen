@@ -115,9 +115,7 @@ export default {
                 active: false,
                 material: null
             },
-            rute: this.edit
-                ? '/admin/' + this.role + '/edit/' + this.edit
-                : window.location.pathname
+            rute: window.location.pathname
         }
     },
     validations: {
@@ -140,7 +138,7 @@ export default {
     },
     created() {
         if (this.edit) {
-            axios.get('/admin/' + this.role + '/edit/' + this.edit)
+            axios.get(this.rute)
                 .then(response => {
                     this.record = response.data.data;
                 })
