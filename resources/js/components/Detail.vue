@@ -70,7 +70,7 @@ import VuePlyr from 'vue-plyr'
 
 export default {
     name: "Detail",
-    props: ['id', 'type'],
+    props: ['id', 'type', 'edit'],
     components: {
         pdf,
         VuePlyr
@@ -78,6 +78,7 @@ export default {
     data: function () {
         return {
             isLoading: true,
+            rute: window.location.pathname + (this.edit ? '/' + this.edit : ''),
             images: ['jpg', 'jpeg', 'jpe', 'bmp', 'gif', 'png', 'webp', 'tiff',],
             audio: ['mpga', 'mp2', 'mp2a', 'mp3', 'm2a', 'm3a', 'm4a', 'mp4a', 'wma', 'wav'],
             video: ['avi', 'qt', 'mov', 'mp4',  'mp4v',  'mpg4',  'mpeg',  'mpg',  'mpe',  'm1v',  'm2v', 'mkv', 'mk3d', 'mks',],
@@ -90,7 +91,7 @@ export default {
     created () {
         console.log(this.type);
         axios
-            .get(window.location.pathname)
+            .get(this.rute)
             .then(response => (this.file = response.data.data))
             .finally(() => this.isLoading = false)
     },

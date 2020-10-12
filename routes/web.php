@@ -67,6 +67,7 @@ Route::prefix('/admin')
                 Route::post('/register', 'UserController@store');
                 Route::get('/edit/{user}', 'UserController@show')->name('edit');
                 Route::put('/edit/{user}', 'UserController@update');
+                Route::post('/edit/{user}/associate', 'UserController@associate');
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
@@ -84,11 +85,17 @@ Route::prefix('/admin')
                 Route::get('/edit/{course}/activity', 'ActivityController@show');
                 Route::get('/edit/{course}/activity/add', 'ActivityController@create')->name('activity');
                 Route::post('/edit/{course}/activity/add', 'ActivityController@store');
+                Route::get('/edit/activity/{activity}', 'ActivityController@edit');
+                Route::get('/edit/activity/{activity}/material', 'ActivityController@getMaterial');
+                Route::put('/edit/activity/{activity}', 'ActivityController@update');
                 Route::delete('/edit/activity/delete/{activity}', 'ActivityController@destroy');
 
                 Route::get('/edit/{course}/content', 'ContentController@show');
                 Route::get('/edit/{course}/content/add', 'ContentController@create')->name('content');
                 Route::post('/edit/{course}/content/add', 'ContentController@store');
+                Route::get('/edit/content/{content}', 'ContentController@edit');
+                Route::get('/edit/content/{content}/material', 'ContentController@getMaterial');
+                Route::put('/edit/content/{content}', 'ContentController@update');
                 Route::delete('/edit/content/delete/{content}', 'ContentController@destroy');
             });
 

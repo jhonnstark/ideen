@@ -115,9 +115,7 @@ export default {
                 active: false,
                 material: null
             },
-            rute: this.edit
-                ? '/admin/' + this.role + '/edit/' + this.edit
-                : window.location.pathname
+            rute: window.location.pathname
         }
     },
     validations: {
@@ -140,7 +138,7 @@ export default {
     },
     created() {
         if (this.edit) {
-            axios.get('/admin/' + this.role + '/edit/' + this.edit)
+            axios.get(this.rute)
                 .then(response => {
                     this.record = response.data.data;
                 })
@@ -170,9 +168,9 @@ export default {
                             this.record.name = null;
                             this.record.description = null;
                             this.record.active = false;
-                            this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
-                        } else {
                             this.$swal('Guardado', 'Creado exitosamente.', 'success');
+                        } else {
+                            this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
                         }
                     }).catch(error => console.log(error))
             }

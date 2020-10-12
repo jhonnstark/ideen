@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ActivityResource;
+use App\Http\Resources\MaterialResource;
 use App\Models\Activity;
 use App\Models\Course;
 use Exception;
@@ -86,24 +87,46 @@ class ActivityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Request $request
+     * @param Activity $activity
+     * @return ActivityResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Request $request, Activity $activity)
     {
-        //
+        if ($request->wantsJson()) {
+            return new ActivityResource($activity);
+        }
+        return view('admin.edit', [
+            'role' => 'activity',
+            'id' => $activity->course_id
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Activity $activity
+     * @return MaterialResource
+     */
+    public function getMaterial(Activity $activity)
+    {
+        return new MaterialResource($activity->load('material')->material->first());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param \Illuminate\Http\Request $request
+     * @param Activity $activity
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Activity $activity)
     {
-        //
+
+        return response()->json([
+            'status' => 201,
+            'message' => 'updated',
+        ], 201);
     }
 
     /**

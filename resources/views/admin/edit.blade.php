@@ -7,7 +7,11 @@
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.' . $role . '.list') }}">{{ __($role) }}</a></li>
+                    @if($role === 'activity' || $role === 'content')
+                        <li class="breadcrumb-item"><a href="{{ route('admin.course.list') }}">{{ __($role) }}</a></li>
+                    @else
+                        <li class="breadcrumb-item"><a href="{{ route('admin.' . $role . '.list') }}">{{ __($role) }}</a></li>
+                    @endif
                     <li class="breadcrumb-item active" aria-current="page">{{ __('Editar') }}</li>
                 </ol>
             </nav>
@@ -29,6 +33,8 @@
                             <course-form role="{{ $role }}" edit="{{ $id }}"></course-form>
                         @elseif($role == 'category' || $role == 'level')
                             <table-form role="{{ $role }}" edit="{{ $id }}"></table-form>
+                        @elseif($role == 'activity' || $role == 'content')
+                            <material-form role="{{ $role }}" edit="{{ $id }}"></material-form>
                         @else
                             <register-form role="{{ $role }}" edit="{{ $id }}"></register-form>
                         @endif
@@ -38,6 +44,15 @@
             </div>
         </div>
     </div>
+
+    @if($role == 'activity' || $role == 'content')
+        <div class="container">
+            <div class="row justify-content-between">
+                <hr class="col-12">
+                <detail id="{{ $id }}" type="{{ $role }}" edit="material"></detail>
+            </div>
+        </div>
+    @endif
 
     @if($role == 'teacher' || $role == 'user')
     <div class="container">
@@ -51,6 +66,15 @@
     @if($role == 'teacher')
         <my-course-list role="{{ $role }}" id="{{ $id }}"></my-course-list>
     @elseif($role == 'user')
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <course-add id="{{ $id }}"></course-add>
+                    <hr class="col-12">
+                </div>
+            </div>
+        </div>
         <my-class-list role="{{ $role }}" id="{{ $id }}"></my-class-list>
     @endif
 
