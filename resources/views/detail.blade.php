@@ -27,5 +27,5 @@
         </div>
     </div>
 
-    <detail id="{{ $id }}"></detail>
+    <detail id="{{ $id }}" type="{{ $type }}"></detail>
 @endsection
