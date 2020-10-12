@@ -66,6 +66,15 @@
     @if($role == 'teacher')
         <my-course-list role="{{ $role }}" id="{{ $id }}"></my-course-list>
     @elseif($role == 'user')
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <course-add id="{{ $id }}"></course-add>
+                    <hr class="col-12">
+                </div>
+            </div>
+        </div>
         <my-class-list role="{{ $role }}" id="{{ $id }}"></my-class-list>
     @endif
 

@@ -226,9 +226,9 @@ export default {
                     }).then(response => {
                     if (!this.edit) {
                         this.clearForm();
-                        this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
-                    } else {
                         this.$swal('Guardado', 'Creado exitosamente.', 'success');
+                    } else {
+                        this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
                     }
                 }).catch(error => console.log(error))
             }

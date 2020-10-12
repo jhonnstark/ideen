@@ -56,6 +56,25 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param User $user
+     * @return JsonResponse
+     */
+    public function associate(Request $request, User $user)
+    {
+        $validatedData = $request->validate([
+            'course_id' => ['required'],
+        ]);
+        $user->courses()->attach($validatedData['course_id']);
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param User $user
      * @return CourseCollection
      */
     public function courses(User $user)

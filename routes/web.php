@@ -67,6 +67,7 @@ Route::prefix('/admin')
                 Route::post('/register', 'UserController@store');
                 Route::get('/edit/{user}', 'UserController@show')->name('edit');
                 Route::put('/edit/{user}', 'UserController@update');
+                Route::post('/edit/{user}/associate', 'UserController@associate');
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
