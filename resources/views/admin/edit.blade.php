@@ -49,7 +49,7 @@
         <div class="container">
             <div class="row justify-content-between">
                 <hr class="col-12">
-                <detail id="{{ $id }}" type="{{ $role }}" edit="{{ $material }}"></detail>
+                <detail id="{{ $id }}" type="{{ $role }}" edit="material"></detail>
             </div>
         </div>
     @endif

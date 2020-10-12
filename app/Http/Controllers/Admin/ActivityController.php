@@ -96,7 +96,10 @@ class ActivityController extends Controller
         if ($request->wantsJson()) {
             return new ActivityResource($activity);
         }
-        return view('admin.edit', ['role' => 'activity', 'id' => $activity->course_id]);
+        return view('admin.edit', [
+            'role' => 'activity',
+            'id' => $activity->course_id
+        ]);
     }
 
     /**
