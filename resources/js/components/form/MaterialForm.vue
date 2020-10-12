@@ -103,7 +103,7 @@
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
-    name: "MaterialForm",
+    name: "Materialcd Form",
     props: ['role', 'id', 'edit'],
     data() {
         return {

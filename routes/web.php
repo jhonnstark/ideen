@@ -84,11 +84,15 @@ Route::prefix('/admin')
                 Route::get('/edit/{course}/activity', 'ActivityController@show');
                 Route::get('/edit/{course}/activity/add', 'ActivityController@create')->name('activity');
                 Route::post('/edit/{course}/activity/add', 'ActivityController@store');
+                Route::get('/edit/activity/{activity}', 'ActivityController@edit');
+                Route::put('/edit/activity/{activity}', 'ActivityController@update');
                 Route::delete('/edit/activity/delete/{activity}', 'ActivityController@destroy');
 
                 Route::get('/edit/{course}/content', 'ContentController@show');
                 Route::get('/edit/{course}/content/add', 'ContentController@create')->name('content');
                 Route::post('/edit/{course}/content/add', 'ContentController@store');
+                Route::get('/edit/content/{content}', 'ContentController@edit');
+                Route::put('/edit/content/{content}', 'ContentController@update');
                 Route::delete('/edit/content/delete/{content}', 'ContentController@destroy');
             });
 

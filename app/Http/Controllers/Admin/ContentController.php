@@ -85,24 +85,31 @@ class ContentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Request $request
+     * @param Content $content
+     * @return ContentResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Request $request, Content $content)
     {
-        //
+        if ($request->wantsJson()) {
+            return new ContentResource($content);
+        }
+        return view('admin.edit', ['role' => 'content']);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param \Illuminate\Http\Request $request
+     * @param Content $content
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Content $content)
     {
-        //
+        return response()->json([
+            'status' => 201,
+            'message' => 'updated',
+        ], 201);
     }
 
     /**
