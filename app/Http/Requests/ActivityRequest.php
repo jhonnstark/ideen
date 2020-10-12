@@ -32,7 +32,7 @@ class ActivityRequest extends FormRequest
                 'required',
                 'file',
                 'max:10000',
-                'mimetypes:video/avi,video/mpeg,video/quicktime,image/jpeg,image/png,image/bmp,image/gif,image/webp,image/tiff,application/pdf',
+                'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4,image/jpeg,image/png,image/bmp,image/gif,image/webp,image/tiff,application/pdf,audio/mp4,audio/mpeg,video/mpeg,video/mp4,video/x-msvideo',
                 ],
             'course_id' => 'bail|required|exists:courses,id'
         ];

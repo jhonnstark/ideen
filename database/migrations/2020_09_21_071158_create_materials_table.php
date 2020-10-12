@@ -18,7 +18,7 @@ class CreateMaterialsTable extends Migration
             $table->string('name');
             $table->string('url');
             $table->string('ext');
-            $table->double('size', 8, 2)->default(0);
+            $table->double('size', 10, 2)->default(0);
             $table->foreignId('admin_id')->constrained();
             $table->timestamps();
         });

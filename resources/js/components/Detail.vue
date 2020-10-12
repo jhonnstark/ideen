@@ -25,21 +25,42 @@
                      @num-pages="pageCount = $event"
                      :page="currentPage"></pdf>
         </div>
+
+        <div v-if="file && images.includes(file.ext)">
+            <img :src="file.url" :alt="item.name" class="img-fluid mx-auto d-block">
+        </div>
+
+        <div v-if="file && audio.includes(file.ext)">
+            <vue-plyr ref="plyr">
+
+            </vue-plyr>
+        </div>
+
+        <div v-if="file && file.ext === 'avi'">
+            <vue-plyr ref="plyr">
+
+            </vue-plyr>
+        </div>
     </div>
 
 </template>
 
 <script>
 import pdf from 'vue-pdf'
+import VuePlyr from 'vue-plyr'
+// import Lingallery from 'lingallery';
 
 export default {
     name: "Detail",
     props: ['id'],
     components: {
-        pdf
+        pdf,
+        VuePlyr
     },
     data: function () {
         return {
+            images: ['jpg', 'jpeg', 'jpe', 'bmp', 'gif', 'png', 'webp', 'tiff'],
+            audio: ['avi', 'mp4', 'mp4v', 'mpg4', 'mp3', 'mpga', 'mp2', 'mp2a', 'mp3', 'm2a', 'm3a', 'qt', 'mov', 'mp4',  'mp4v',  'mpg4',  'mpeg',  'mpg',  'mpe',  'm1v',  'm2v',],
             currentPage: 1,
             pageCount: 0,
             item: JSON.parse(this.id),
