@@ -38,13 +38,18 @@
 
         <div v-if="file && audio.includes(file.ext)">
             <vue-plyr ref="plyr">
-
+                <audio>
+                    <source :src="file.url" :type="'audio/' + file.ext"/>
+                </audio>
             </vue-plyr>
         </div>
 
-        <div v-if="file && file.ext === 'avi'">
+        <div v-if="file && video.includes(file.ext)">
             <vue-plyr ref="plyr">
-
+                <video>
+                    <source :src="file.url" :type="'video/' + file.ext">
+<!--                    <track kind="captions" label="English" srclang="en" src="captions-en.vtt" default>-->
+                </video>
             </vue-plyr>
         </div>
     </div>
@@ -66,8 +71,9 @@ export default {
     data: function () {
         return {
             isLoading: true,
-            images: ['jpg', 'jpeg', 'jpe', 'bmp', 'gif', 'png', 'webp', 'tiff'],
-            audio: ['avi', 'mp4', 'mp4v', 'mpg4', 'mp3', 'mpga', 'mp2', 'mp2a', 'mp3', 'm2a', 'm3a', 'qt', 'mov', 'mp4',  'mp4v',  'mpg4',  'mpeg',  'mpg',  'mpe',  'm1v',  'm2v',],
+            images: ['jpg', 'jpeg', 'jpe', 'bmp', 'gif', 'png', 'webp', 'tiff',],
+            audio: ['mpga', 'mp2', 'mp2a', 'mp3', 'm2a', 'm3a', 'm4a', 'mp4a', 'wma', 'wav'],
+            video: ['avi', 'qt', 'mov', 'mp4',  'mp4v',  'mpg4',  'mpeg',  'mpg',  'mpe',  'm1v',  'm2v', 'mkv', 'mk3d', 'mks',],
             currentPage: 1,
             pageCount: 0,
             item: JSON.parse(this.id),
