@@ -18,5 +18,14 @@
         </div>
     </div>
 
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h5>{{ $id->name }}</h5>
+                <p>{{ $id->description }}</p>
+            </div>
+        </div>
+    </div>
+
     <detail id="{{ $id }}"></detail>
 @endsection

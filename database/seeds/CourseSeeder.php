@@ -15,10 +15,10 @@ class CourseSeeder extends Seeder
     public function run()
     {
         factory(Course::class, 10)
-            ->create()
-            ->each(function ($course) {
-                $course->activity()->save(factory(Activity::class)->make());
-                $course->content()->save(factory(Content::class)->make());
-            });
+            ->create();
+//            ->each(function ($course) {
+//                $course->activity()->save(factory(Activity::class)->make());
+//                $course->content()->save(factory(Content::class)->make());
+//            });
     }
 }
