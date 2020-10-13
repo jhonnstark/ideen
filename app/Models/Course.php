@@ -24,7 +24,6 @@ class Course extends Model
      */
     protected $appends = ['url'];
 
-
     /**
      * Get the url for the poster of the course.
      */
@@ -32,6 +31,15 @@ class Course extends Model
     {
         return Storage::disk('s3')->url('poster/' . $this->poster);
     }
+
+    /**
+     * Get the url for the poster of the course.
+     */
+    public function getUrlBigAttribute()
+    {
+        return Storage::disk('s3')->url('poster_big/' . $this->poster);
+    }
+
 
     /**
      * Get the category that owns the course.

@@ -164,7 +164,7 @@ Route::prefix('/course')
         Route::post('/{course}/activity/add', 'HomeController@storeActivity');
         Route::get('/{course}/activity', 'HomeController@activity')->name('activity');
         Route::get('/{course}/content', 'HomeController@content')->name('content');
-        Route::get('/{id}', 'HomeController@courseInfo')->name('course');
+        Route::get('/{course}', 'HomeController@courseInfo')->name('course');
         Route::get('/activity/{activity}', 'HomeController@activityDetail');
         Route::get('/content/{content}', 'HomeController@contentDetail');
     });
