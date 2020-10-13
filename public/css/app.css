@@ -12926,6 +12926,10 @@ svg.loader {
   fill: #182254;
 }
 
+.poster {
+  width: 50px;
+}
+
 .container .row {
   margin-bottom: 20px;
 }
