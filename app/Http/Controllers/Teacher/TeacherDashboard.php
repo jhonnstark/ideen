@@ -97,7 +97,7 @@ class TeacherDashboard extends Controller
      */
     public function courseInfo(Course $course)
     {
-        return view('components.courseInfo', ['role' => 'teacher', 'id' => $id, 'img' => $course->url_big]);
+        return view('components.courseInfo', ['role' => 'teacher', 'id' => $course, 'img' => $course->url_big]);
     }
 
     /**
