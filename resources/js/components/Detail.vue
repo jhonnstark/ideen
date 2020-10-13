@@ -55,9 +55,16 @@
             <vue-plyr ref="plyr">
                 <video>
                     <source :src="file.url" :type="'video/' + file.ext">
-<!--                    <track kind="captions" label="English" srclang="en" src="captions-en.vtt" default>-->
                 </video>
             </vue-plyr>
+        </div>
+
+        <div v-if="file && doc.includes(file.ext)">
+            <iframe :src="'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(file.url)"
+                    width='100%'
+                    height='100%'
+                    frameborder='0'>
+            </iframe>
         </div>
     </div>
 
@@ -79,6 +86,7 @@ export default {
         return {
             isLoading: true,
             rute: window.location.pathname + (this.edit ? '/' + this.edit : ''),
+            doc: ['xlsx', 'xls', 'xlm', 'xla', 'xlc', 'xlt', 'xlw','doc', 'dot', 'docx', 'pptx', 'ppt', 'pps', 'pot'],
             images: ['jpg', 'jpeg', 'jpe', 'bmp', 'gif', 'png', 'webp', 'tiff',],
             audio: ['mpga', 'mp2', 'mp2a', 'mp3', 'm2a', 'm3a', 'm4a', 'mp4a', 'wma', 'wav'],
             video: ['avi', 'qt', 'mov', 'mp4',  'mp4v',  'mpg4',  'mpeg',  'mpg',  'mpe',  'm1v',  'm2v', 'mkv', 'mk3d', 'mks',],
