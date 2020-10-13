@@ -16,7 +16,7 @@
 
     <div class="container">
         <div class="row justify-content-between">
-            <img src="{{ $img }}" alt="">
+            <img src="{{ $img }}" alt="poster {{ $role }}" class="img-fluid poster_big">
         </div>
     </div>
 
