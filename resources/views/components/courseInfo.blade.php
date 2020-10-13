@@ -16,6 +16,12 @@
 
     <div class="container">
         <div class="row justify-content-between">
+            <img src="{{ $img }}" alt="">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-between">
             <h3>{{ __('Listado contenidos') }}</h3>
             <hr class="col-12">
         </div>

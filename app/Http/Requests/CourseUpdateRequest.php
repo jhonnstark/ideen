@@ -17,6 +17,19 @@ class CourseUpdateRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'active' => $this->active === 'true',
+        ]);
+    }
+
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -29,6 +42,7 @@ class CourseUpdateRequest extends FormRequest
             'teacher_id' => 'nullable|exists:teachers,id',
             'name' => 'required|max:255',
             'active' => 'required|boolean',
+            'poster' => 'bail|required|mimetypes:image/jpeg,image/png,image/bmp,image/gif,image/webp,image/tiff',
         ];
     }
 }
