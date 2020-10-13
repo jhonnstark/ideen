@@ -87,7 +87,34 @@
                         </label>
                     </div>
                     <v-select v-model="record.teacher_id" :reduce="teacher => teacher.id" label="name" id="teacher" name="teacher" :options="teacher"></v-select>
+
+                    <span
+                        v-if="!$v.record.teacher_id.error"
+                        class="invalid-feedback" role="alert">
+                        <strong>Campo invalido</strong>
+                    </span>
                 </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="poster" class="col-md-4 col-form-label text-md-right">Poster</label>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input @change="selectPoster" type="file" class="custom-file-input" id="poster">
+                        <label class="custom-file-label" for="poster">Choose file</label>
+                    </div>
+                </div>
+
+                <span
+                    v-if="!$v.record.poster.error"
+                    class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
             </div>
         </div>
 
@@ -126,10 +153,12 @@ export default {
                 teacher_id:null,
                 level_id:null,
                 category_id:null,
+                poster:null
             },
             teacher:[],
             level:[],
             category:[],
+            poster: null,
             rute: this.edit
                 ? '/admin/' + this.role + '/edit/' + this.edit
                 : '/admin/' + this.role + '/register'
@@ -150,13 +179,19 @@ export default {
                 required,
                 integer
             },
-            teacher_id: {},
+            teacher_id: {
+                required,
+                integer
+            },
             active: {},
+            poster: {
+                required,
+            }
         },
     },
     created() {
         if (this.edit) {
-            axios.get('/admin/' + this.role + '/edit/' + this.edit)
+            axios.get('/admin/' + this.role + '/edit/' + this.edit + '/json')
                 .then(response => {
                     this.record = response.data.data;
                     if (Array.isArray(response.data.data.teacher)
@@ -182,10 +217,18 @@ export default {
                 this.$v.$reset();
                 this.errors = false;
 
+                const data = new FormData();
+                data.append('name', this.record.name);
+                data.append('active', this.record.active);
+                data.append('level_id', this.record.level_id);
+                data.append('category_id', this.record.category_id);
+                data.append('teacher_id', this.record.teacher_id);
+                data.append('poster', this.record.poster);
+
                 axios({
                     method: this.edit ? 'put' : 'post',
                     url:  this.rute,
-                    data: this.record
+                    data
                 }).then(response => {
                     if (!this.edit) {
                         this.record.name = null;
@@ -199,6 +242,9 @@ export default {
                     }
                 }).catch(error => console.log(error))
             }
+        },
+        selectPoster(event) {
+            this.record.poster = event.target.files[0];
         }
     },
     computed: {

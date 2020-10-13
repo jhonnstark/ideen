@@ -3,20 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ActivityRequest;
 use App\Http\Requests\CourseRequest;
 use App\Http\Requests\CourseUpdateRequest;
-use App\Http\Resources\ActivityResource;
-use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
-use App\Models\Activity;
-use App\Models\Content;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Resources\Course as CourseResource;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\View;
+use Intervention\Image\Facades\Image;
 
 class CourseController extends Controller
 {
@@ -64,7 +58,18 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request)
     {
-        $course = Course::create($request->validated());
+        $validated = $request->except(['poster']);
+        $course = Course::create($validated);
+        $name = $course->id . '_course_poster.' . $request->poster->getClientOriginalExtension();
+
+        $poster = Image::make($request->poster)->fit(100)->encode();
+        $posteBig = Image::make($request->poster)->fit(960, 200)->encode();
+        Storage::disk('s3')->put('poster/' . $name, $poster->__toString(), 'public');
+        Storage::disk('s3')->put('poster_big/' . $name, $posteBig->__toString(), 'public');
+
+        $course->poster = $name;
+        $course->save();
+
         if ($request->has('teacher_id')) {
             $course->teacher()->attach($request->teacher_id);
         }
@@ -77,18 +82,29 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Course $course
+     * @return CourseResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Course $course)
+    {
+        $role = $this->role['role'];
+        $id = $course->id;
+        return view('admin.edit', compact('role', 'id'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
      * @param Request $request
      * @param Course $course
      * @return CourseResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Request $request, Course $course)
+    public function showJson(Request $request, Course $course)
     {
         if ($request->wantsJson()) {
             return new CourseResource($course->load('teacher'));
         }
-        $role = $this->role['role'];
-        $id = $course->id;
-        return view('admin.edit', compact('role', 'id'));
+        return response();
     }
 
     /**
