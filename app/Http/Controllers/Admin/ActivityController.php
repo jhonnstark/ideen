@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ActivityController extends Controller
 {
@@ -110,7 +111,12 @@ class ActivityController extends Controller
      */
     public function getMaterial(Activity $activity)
     {
-        return new MaterialResource($activity->load('material')->material->first());
+        $material = $activity->load('material')->material->first();
+        $url = Storage::disk('s3')->temporaryUrl(
+            $material->url, now()->addMinutes(5)
+        );
+        $material->url = $url;
+        return new MaterialResource($material);
     }
 
     /**
