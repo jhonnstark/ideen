@@ -62,7 +62,7 @@
         <div v-if="file && doc.includes(file.ext)">
             <iframe :src="'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(file.url)"
                     width='100%'
-                    height='100%'
+                    height='900px'
                     frameborder='0'>
             </iframe>
         </div>
