@@ -11,6 +11,7 @@ use App\Models\Course;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ContentController extends Controller
 {
@@ -106,7 +107,12 @@ class ContentController extends Controller
      */
     public function getMaterial(Content $content)
     {
-        return new MaterialResource($content->load('material')->material->first());
+        $material = $content->load('material')->material->first();
+        $url = Storage::disk('s3')->temporaryUrl(
+            $material->url, now()->addMinutes(5)
+        );
+        $material->url = $url;
+        return new MaterialResource($material);
     }
 
     /**
