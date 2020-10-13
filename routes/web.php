@@ -79,6 +79,7 @@ Route::prefix('/admin')
                 Route::get('/register', 'CourseController@create')->name('register');
                 Route::post('/register', 'CourseController@store');
                 Route::get('/edit/{course}', 'CourseController@show')->name('edit');
+                Route::get('/edit/{course}/json', 'CourseController@showJson');
                 Route::put('/edit/{course}', 'CourseController@update');
                 Route::delete('/delete/{course}', 'CourseController@destroy');
 
@@ -163,7 +164,7 @@ Route::prefix('/course')
         Route::post('/{course}/activity/add', 'HomeController@storeActivity');
         Route::get('/{course}/activity', 'HomeController@activity')->name('activity');
         Route::get('/{course}/content', 'HomeController@content')->name('content');
-        Route::get('/{id}', 'HomeController@courseInfo')->name('course');
+        Route::get('/{course}', 'HomeController@courseInfo')->name('course');
         Route::get('/activity/{activity}', 'HomeController@activityDetail');
         Route::get('/content/{content}', 'HomeController@contentDetail');
     });

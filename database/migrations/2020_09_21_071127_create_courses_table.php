@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('active');
+            $table->string('poster')->nullable();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('level_id')->constrained();
             $table->timestamps();
