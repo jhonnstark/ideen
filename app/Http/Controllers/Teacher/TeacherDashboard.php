@@ -92,11 +92,12 @@ class TeacherDashboard extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Course $course
      * @return ActivityResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function courseInfo($id)
+    public function courseInfo(Course $course)
     {
-        return view('components.courseInfo', ['role' => 'teacher', 'id' => $id]);
+        return view('components.courseInfo', ['role' => 'teacher', 'id' => $id, 'img' => $course->url_big]);
     }
 
     /**
