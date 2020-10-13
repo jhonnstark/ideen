@@ -138,7 +138,7 @@ Route::prefix('/teacher')
         Route::get('/profile/info', 'TeacherDashboard@info')->name('info');
         Route::get('/course/{course}/activity', 'TeacherDashboard@activity')->name('activity');
         Route::get('/course/{course}/content', 'TeacherDashboard@content')->name('content');
-        Route::get('/course/{id}', 'TeacherDashboard@courseInfo')->name('course');
+        Route::get('/course/{course}', 'TeacherDashboard@courseInfo')->name('course');
         Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
         Route::get('/courses/list', 'TeacherDashboard@list');
 
