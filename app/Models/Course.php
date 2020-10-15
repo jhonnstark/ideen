@@ -25,6 +25,13 @@ class Course extends Model
     protected $appends = ['url'];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['poster'];
+
+    /**
      * Get the url for the poster of the course.
      */
     public function getUrlAttribute()

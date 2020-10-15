@@ -14,16 +14,17 @@
         </div>
     </div>
 
+    <div class="container">
+        <div class="row justify-content-between">
+            <h3>{{ $name }}</h3>
+            <img src="{{ $img }}" alt="poster {{ $role }}" class="img-fluid poster_big">
+        </div>
+    </div>
 
     <div class="container">
         <div class="row justify-content-between">
             <h3>{{ __('Listado contenidos') }}</h3>
             <hr class="col-12">
-        </div>
-    </div>
-    <div class="container">
-        <div class="row justify-content-between">
-            <img src="{{ $img }}" alt="poster {{ $role }}" class="img-fluid poster_big">
         </div>
     </div>
     <content-list role="{{ $role }}" id="{{ $id }}"></content-list>

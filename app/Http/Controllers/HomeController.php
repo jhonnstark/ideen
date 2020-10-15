@@ -98,7 +98,12 @@ class HomeController extends Controller
      */
     public function courseInfo(Course $course)
     {
-        return view('components.courseInfo', ['role' => '', 'id' => $course->id, 'img' => $course->url_big]);
+        return view('components.courseInfo', [
+            'role' => '',
+            'id' => $course->id,
+            'img' => $course->url_big,
+            'name' => $course->name
+        ]);
     }
 
     /**

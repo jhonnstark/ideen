@@ -121,12 +121,12 @@
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit"
-                        :class="[ !$v.$invalid? 'btn-primary': 'btn-secondary']"
+                        :class="[ canSubmit? 'btn-primary': 'btn-secondary']"
                         class="btn">
                     {{ isEdit ? 'Actualizar' : ' Agregar' }}
                 </button>
                 <span
-                    v-if="$v.$invalid && errors"
+                    v-if="($v.$invalid || errors) && $v.$anyDirty"
                     class="text-danger" role="alert">
                         <strong>Completa el formulario</strong>
                     </span>
@@ -184,9 +184,7 @@ export default {
                 integer
             },
             active: {},
-            poster: {
-                required,
-            }
+            poster: {}
         },
     },
     created() {
@@ -194,6 +192,7 @@ export default {
             axios.get('/admin/' + this.role + '/edit/' + this.edit + '/json')
                 .then(response => {
                     this.record = response.data.data;
+                    this.record.poster = null;
                     if (Array.isArray(response.data.data.teacher)
                         && response.data.data.teacher.length > 0)
                     this.record.teacher_id = response.data.data.teacher[0].id;
@@ -211,7 +210,7 @@ export default {
     },
     methods:{
         register() {
-            if (this.$v.$invalid) {
+            if (this.$v.$invalid || (this.record.poster === null && !this.isEdit)) {
                 this.errors = true;
             } else {
                 this.$v.$reset();
@@ -223,10 +222,12 @@ export default {
                 data.append('level_id', this.record.level_id);
                 data.append('category_id', this.record.category_id);
                 data.append('teacher_id', this.record.teacher_id);
-                data.append('poster', this.record.poster);
+                if(this.record.poster !== null) {
+                    data.append('poster', this.record.poster);
+                }
 
                 axios({
-                    method: this.edit ? 'post' : 'post',
+                    method: 'post',
                     url:  this.rute,
                     data
                 }).then(response => {
@@ -236,6 +237,7 @@ export default {
                         this.record.category_id = null;
                         this.record.teacher_id = null;
                         this.record.active = false;
+                        this.record.poster = null;
                         this.$swal('Guardado', 'Creado exitosamente.', 'success');
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
@@ -244,6 +246,7 @@ export default {
             }
         },
         selectPoster(event) {
+            this.errors = false;
             this.record.poster = event.target.files[0];
         }
     },
@@ -251,6 +254,9 @@ export default {
         isEdit() {
             return !!this.edit;
         },
+        canSubmit(){
+            return !this.$v.$invalid && !this.errors && (this.record.poster !== null || this.isEdit);
+        }
     }
 }
 </script>
