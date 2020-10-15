@@ -147,8 +147,8 @@ Route::prefix('/teacher')
             ->group(function(){
                 Route::get('/{course}/activity/add', 'TeacherDashboard@createActivity')->name('createActivity');
                 Route::post('/{course}/activity/add', 'TeacherDashboard@storeActivity');
-                Route::get('/activity/{activity}', 'TeacherDashboard@activityDetail');
-                Route::get('/content/{content}', 'TeacherDashboard@contentDetail');
+                Route::get('/activity/{activity}', 'TeacherDashboard@activityDetail')->name('activityMaterial');
+                Route::get('/content/{content}', 'TeacherDashboard@contentDetail')->name('contentMaterial');
                 Route::get('/activity/{activity}/json', 'TeacherDashboard@activityJson');
                 Route::get('/content/{content}/json', 'TeacherDashboard@contentJson');
             });
