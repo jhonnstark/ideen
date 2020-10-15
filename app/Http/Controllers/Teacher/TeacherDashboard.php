@@ -172,7 +172,7 @@ class TeacherDashboard extends Controller
      */
     public function createActivity(Course $course)
     {
-        return view('admin.register')
+        return view('activityAdd')
             ->with('role', 'activity')
             ->with('course', $course->id);
     }
