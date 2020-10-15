@@ -26,4 +26,12 @@ class Content extends Model
     {
         return $this->belongsToMany(Material::class);
     }
+
+    /**
+     * Get the course that owns the Activity.
+     */
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

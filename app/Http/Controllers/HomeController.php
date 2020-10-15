@@ -133,41 +133,57 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
      * @param Activity $activity
      * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function activityDetail(Request $request, Activity $activity)
+    public function activityDetail(Activity $activity)
     {
-        if ($request->wantsJson()) {
-            $material = $activity->load('material')->material->first();
-            $url = Storage::disk('s3')->temporaryUrl(
-                $material->url, now()->addMinutes(5)
-            );
-            $material->url = $url;
-            return new MaterialResource($material);
-        }
-        return view('detail', ['id' => $activity,'type' => 'activity']);
+        $activities = $activity->load('course.activity')->course->activity;
+        return view('detail', ['id' => $activity,'type' => 'activity', 'activities' => $activities]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
      * @param Content $content
      * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function contentDetail(Request $request, Content $content)
+    public function contentDetail(Content $content)
     {
-        if ($request->wantsJson()) {
-            $material = $content->load('material')->material->first();
-            $url = Storage::disk('s3')->temporaryUrl(
-                $material->url, now()->addMinutes(5)
-            );
-            $material->url = $url;
-            return new MaterialResource($material);
-        }
-        return view('detail', ['id' => $content,'type' => 'content']);
+        $contents = $content->load('course.content')->course->content;
+        return view('detail', ['id' => $content,'type' => 'content', 'contents' => $contents]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Activity $activity
+     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function activityJson(Activity $activity)
+    {
+        $material = $activity->load('material')->material->first();
+        $url = Storage::disk('s3')->temporaryUrl(
+            $material->url, now()->addMinutes(5)
+        );
+        $material->url = $url;
+        return new MaterialResource($material);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Content $content
+     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function contentJson(Content $content)
+    {
+        $material = $content->load('material')->material->first();
+        $url = Storage::disk('s3')->temporaryUrl(
+            $material->url, now()->addMinutes(5)
+        );
+        $material->url = $url;
+        return new MaterialResource($material);
     }
 
     /**

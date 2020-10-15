@@ -20,10 +20,18 @@ class Activity extends Model
     ];
 
     /**
-     * The student that belong to the course.
+     * The student that belong to the Activity.
      */
     public function material()
     {
         return $this->belongsToMany(Material::class);
+    }
+
+    /**
+     * Get the course that owns the Activity.
+     */
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
     }
 }
