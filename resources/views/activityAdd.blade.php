@@ -7,7 +7,13 @@
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('course.course', $course) }}">{{ __('Cursos') }}</a></li>
+                    @isset($role)
+                        <li class="breadcrumb-item"><a href="{{ route('teacher.course', $course) }}">Cursos</a></li>
+                    @endisset
+
+                    @empty($role)
+                        <li class="breadcrumb-item"><a href="{{ route('course.course', $course) }}">{{ __('Cursos') }}</a></li>
+                    @endempty
                     <li class="breadcrumb-item active" aria-current="page">{{ __('Register') }}</li>
                 </ol>
             </nav>
