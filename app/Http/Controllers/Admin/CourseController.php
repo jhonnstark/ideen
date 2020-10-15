@@ -124,15 +124,18 @@ class CourseController extends Controller
             : [];
         $course->teacher()->sync($ids);
 
-        $name = $course->id . '_course_poster.' . $request->poster->getClientOriginalExtension();
+        if ($request->has('poster'))
+        {
+            $name = $course->id . '_course_poster.' . $request->poster->getClientOriginalExtension();
 
-        $poster = Image::make($request->poster)->fit(100)->encode();
-        $posteBig = Image::make($request->poster)->fit(960, 200)->encode();
-        Storage::disk('s3')->put('poster/' . $name, $poster->__toString(), 'public');
-        Storage::disk('s3')->put('poster_big/' . $name, $posteBig->__toString(), 'public');
+            $poster = Image::make($request->poster)->fit(100)->encode();
+            $posteBig = Image::make($request->poster)->fit(960, 200)->encode();
+            Storage::disk('s3')->put('poster/' . $name, $poster->__toString(), 'public');
+            Storage::disk('s3')->put('poster_big/' . $name, $posteBig->__toString(), 'public');
 
-        $course->poster = $name;
-        $course->save();
+            $course->poster = $name;
+            $course->save();
+        }
 
         return response()->json([
             'status' => 201,
