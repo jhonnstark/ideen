@@ -30,8 +30,27 @@
                 <h5>{{ $id->name }}</h5>
                 <p>{{ $id->description }}</p>
             </div>
+            <hr class="col-12">
         </div>
     </div>
 
-    <detail id="{{ $id }}" type="{{ $type }}"></detail>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                @foreach($contents as $content)
+                    <a href="{{ route('course.'. $type . 'Material', $content['id']) }}">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $content['name'] }}</h5>
+                                <p class="card-text">{{ $content['description'] }}</p>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+
+            </div>
+            <detail id="{{ $id }}" type="{{ $type }}"></detail>
+        </div>
+    </div>
 @endsection

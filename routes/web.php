@@ -149,6 +149,8 @@ Route::prefix('/teacher')
                 Route::post('/{course}/activity/add', 'TeacherDashboard@storeActivity');
                 Route::get('/activity/{activity}', 'TeacherDashboard@activityDetail');
                 Route::get('/content/{content}', 'TeacherDashboard@contentDetail');
+                Route::get('/activity/{activity}/json', 'TeacherDashboard@activityJson');
+                Route::get('/content/{content}/json', 'TeacherDashboard@contentJson');
             });
     });
 
@@ -165,8 +167,10 @@ Route::prefix('/course')
         Route::get('/{course}/activity', 'HomeController@activity')->name('activity');
         Route::get('/{course}/content', 'HomeController@content')->name('content');
         Route::get('/{course}', 'HomeController@courseInfo')->name('course');
-        Route::get('/activity/{activity}', 'HomeController@activityDetail');
-        Route::get('/content/{content}', 'HomeController@contentDetail');
+        Route::get('/activity/{activity}', 'HomeController@activityDetail')->name('activityMaterial');
+        Route::get('/content/{content}', 'HomeController@contentDetail')->name('contentMaterial');
+        Route::get('/activity/{activity}/json', 'HomeController@activityJson');
+        Route::get('/content/{content}/json', 'HomeController@contentJson');
     });
 
 Route::prefix('/courses')

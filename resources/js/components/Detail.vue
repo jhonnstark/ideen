@@ -1,6 +1,6 @@
 <template>
 
-    <div class="container">
+    <div class="col-md-9">
         <div v-if="isLoading" class="row justify-content-center">
             <div class="on-load">
                 <div class="spinner"></div>
@@ -84,7 +84,7 @@ export default {
     data: function () {
         return {
             isLoading: true,
-            rute: window.location.pathname + (this.edit ? '/' + this.edit : ''),
+            rute: window.location.pathname + (this.edit ? '/' + this.edit : '/json'),
             doc: ['xlsx', 'xls', 'xlm', 'xla', 'xlc', 'xlt', 'xlw','doc', 'dot', 'docx', 'pptx', 'ppt', 'pps', 'pot'],
             images: ['jpg', 'jpeg', 'jpe', 'bmp', 'gif', 'png', 'webp', 'tiff',],
             audio: ['mpga', 'mp2', 'mp2a', 'mp3', 'm2a', 'm3a', 'm4a', 'mp4a', 'wma', 'wav'],
