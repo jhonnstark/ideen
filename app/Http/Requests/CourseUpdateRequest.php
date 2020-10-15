@@ -42,7 +42,7 @@ class CourseUpdateRequest extends FormRequest
             'teacher_id' => 'required|exists:teachers,id',
             'name' => 'required|max:255',
             'active' => 'required|boolean',
-            'poster' => 'bail|required|mimetypes:image/jpeg,image/png,image/bmp,image/gif,image/webp,image/tiff',
+            'poster' => 'bail|nullable|mimetypes:image/jpeg,image/png,image/bmp,image/gif,image/webp,image/tiff',
         ];
     }
 }

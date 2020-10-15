@@ -97,7 +97,12 @@ class TeacherDashboard extends Controller
      */
     public function courseInfo(Course $course)
     {
-        return view('components.courseInfo', ['role' => 'teacher', 'id' => $course->id, 'img' => $course->url_big]);
+        return view('components.courseInfo', [
+            'role' => 'teacher',
+            'id' => $course->id,
+            'img' => $course->url_big,
+            'name' => $course->name
+        ]);
     }
 
     /**
@@ -141,7 +146,11 @@ class TeacherDashboard extends Controller
             $material->url = $url;
             return new MaterialResource($material);
         }
-        return view('detail', ['id' => $activity,'type' => 'activity']);
+        return view('detail', [
+            'id' => $activity,
+            'role' => 'teacher',
+            'type' => 'activity'
+        ]);
     }
 
     /**
