@@ -226,7 +226,7 @@ export default {
                 data.append('poster', this.record.poster);
 
                 axios({
-                    method: this.edit ? 'put' : 'post',
+                    method: this.edit ? 'post' : 'post',
                     url:  this.rute,
                     data
                 }).then(response => {

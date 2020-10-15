@@ -38,7 +38,7 @@ class CourseRequest extends FormRequest
         return [
             'category_id' => 'bail|required|exists:categories,id',
             'level_id' => 'bail|required|exists:levels,id',
-            'teacher_id' => 'nullable|exists:teachers,id',
+            'teacher_id' => 'required|exists:teachers,id',
             'name' => 'bail|required|unique:courses,name|max:255',
             'active' => 'required|boolean',
             'poster' => 'bail|required|mimetypes:image/jpeg,image/png,image/bmp,image/gif,image/webp,image/tiff',

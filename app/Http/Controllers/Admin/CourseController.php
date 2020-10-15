@@ -60,6 +60,10 @@ class CourseController extends Controller
     {
         $validated = $request->except(['poster']);
         $course = Course::create($validated);
+        if ($request->has('teacher_id')) {
+            $course->teacher()->attach($request->teacher_id);
+        }
+
         $name = $course->id . '_course_poster.' . $request->poster->getClientOriginalExtension();
 
         $poster = Image::make($request->poster)->fit(100)->encode();
@@ -70,9 +74,6 @@ class CourseController extends Controller
         $course->poster = $name;
         $course->save();
 
-        if ($request->has('teacher_id')) {
-            $course->teacher()->attach($request->teacher_id);
-        }
         return response()->json([
             'status' => 201,
             'message' => 'created',
@@ -116,13 +117,25 @@ class CourseController extends Controller
      */
     public function update(CourseUpdateRequest $request, Course $course)
     {
-        $course->update($request->validated());
+        $validated = $request->except(['poster']);
+        $course->update($validated);
         $ids = $request->has('teacher_id')
             ? [ $request->teacher_id ]
             : [];
         $course->teacher()->sync($ids);
+
+        $name = $course->id . '_course_poster.' . $request->poster->getClientOriginalExtension();
+
+        $poster = Image::make($request->poster)->fit(100)->encode();
+        $posteBig = Image::make($request->poster)->fit(960, 200)->encode();
+        Storage::disk('s3')->put('poster/' . $name, $poster->__toString(), 'public');
+        Storage::disk('s3')->put('poster_big/' . $name, $posteBig->__toString(), 'public');
+
+        $course->poster = $name;
+        $course->save();
+
         return response()->json([
-            'status' => 200,
+            'status' => 201,
             'message' => 'Updated user'
         ]);
     }
