@@ -15,4 +15,20 @@ class Claim extends Model
     protected $fillable = [
         'profess', 'user_id', 'question_id'
     ];
+
+    /**
+     * Get the state that owns the user.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * The teacher that belong to the course.
+     */
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
 }

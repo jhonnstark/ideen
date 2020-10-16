@@ -15,4 +15,12 @@ class Answer extends Model
     protected $fillable = [
         'option', 'question_id'
     ];
+
+    /**
+     * The teacher that belong to the course.
+     */
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
 }

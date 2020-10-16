@@ -15,4 +15,20 @@ class Exam extends Model
     protected $fillable = [
         'name', 'description', 'teacher_id', 'course_id'
     ];
+
+    /**
+     * The teacher that belong to the course.
+     */
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+
+    /**
+     * Get the course that owns the Activity.
+     */
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

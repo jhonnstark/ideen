@@ -24,4 +24,12 @@ class UserProfile extends Model
     {
         return $this->belongsTo(State::class);
     }
+
+    /**
+     * Get the state that owns the user.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
