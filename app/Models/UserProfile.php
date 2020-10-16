@@ -13,8 +13,7 @@ class UserProfile extends Model
      * @var array
      */
     protected $fillable = [
-        'birthday', 'gender', 'age', 'address', 'address_ext', 'state_id',
-        // 'user_id'
+        'birthday', 'gender', 'age', 'address', 'address_ext', 'state_id', 'user_id'
     ];
 
     /**
