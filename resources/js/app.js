@@ -11,6 +11,8 @@ const { Vuelidate } = require('vuelidate')
 import VueSweetalert2 from 'vue-sweetalert2';
 import vSelect from 'vue-select'
 import VuePlyr from 'vue-plyr'
+import Vuex from 'vuex'
+import store from "./components/state";
 // import Lingallery from 'lingallery';
 
 /**
@@ -34,6 +36,11 @@ Vue.use(Vuelidate)
  * Validation for forms
  */
 Vue.use(VueSweetalert2);
+
+/**
+ * Vuex for the state
+ */
+Vue.use(Vuex)
 
 /**
  * The following block of code may be used to automatically register your
@@ -75,4 +82,5 @@ Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 
 const app = new Vue({
     el: '#app',
+    store
 });
