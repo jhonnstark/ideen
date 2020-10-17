@@ -12993,6 +12993,23 @@ svg.loader {
   width: 60px;
 }
 
+.card-image {
+  flex-direction: row;
+}
+
+.card-icon {
+  flex: 1;
+  min-height: 1px;
+  padding: 1.25rem;
+}
+
+.card-icon svg {
+  fill: #000;
+  height: 100%;
+  max-width: 100px;
+  width: 100%;
+}
+
 .spin {
   -webkit-animation: spin-animation 0.5s infinite;
           animation: spin-animation 0.5s infinite;
