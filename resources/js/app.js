@@ -38,11 +38,6 @@ Vue.use(Vuelidate)
 Vue.use(VueSweetalert2);
 
 /**
- * Vuex for the state
- */
-Vue.use(Vuex)
-
-/**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
@@ -73,6 +68,7 @@ Vue.component('teacher-class-list', require('./components/Teacher/TeacherClassLi
 Vue.component('exam-list', require('./components/list/ExamList.vue').default);
 Vue.component('detail', require('./components/Detail.vue').default);
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
+Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

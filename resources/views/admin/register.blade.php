@@ -35,8 +35,6 @@
                             <table-form role="{{ $role }}"></table-form>
                         @elseif($role == 'activity' || $role == 'content')
                             <material-form role="{{ $role }}" id="{{ $course }}"></material-form>
-                        @elseif($role == 'exam')
-                            <exam-form id="{{ $course }}"></exam-form>
                         @else
                             <register-form role="{{ $role }}"></register-form>
                         @endif

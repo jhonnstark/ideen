@@ -44,8 +44,7 @@ class ExamController extends Controller
      */
     public function create(Course $course)
     {
-        return view('admin.register')
-            ->with('role', $this->role['role'])
+        return view('components.examForm')
             ->with('course', $course->id);
     }
 
