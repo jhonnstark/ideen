@@ -56,8 +56,8 @@
                     <a href="{{ route('admin.exam.list') }}" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
-
         </div>
+
         <div class="row justify-content-center">
 
             <div class="card col-sm">

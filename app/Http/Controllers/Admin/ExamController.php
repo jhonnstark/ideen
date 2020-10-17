@@ -2,30 +2,51 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Resources\ExamCollection;
+use App\Models\Course;
 use App\Models\Exam;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
+
+    /**
+     * Display a listing view of the resource.
+     */
+    private $role = ['role' => 'exam'];
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('admin.list', $this->role);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return
+     */
+    public function list()
+    {
+        return new ExamCollection(Exam::with('teacher')->with('course')->get());
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Course $course
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function create()
+    public function create(Course $course)
     {
-        //
+        return view('admin.register')
+            ->with('role', $this->role['role'])
+            ->with('course', $course->id);
     }
 
     /**

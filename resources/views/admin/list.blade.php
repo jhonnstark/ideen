@@ -31,6 +31,8 @@
         <course-list role="{{ $role }}"></course-list>
     @elseif($role == 'category' || $role == 'level')
         <table-list role="{{ $role }}"></table-list>
+    @elseif($role == 'exam')
+        <exam-list role="{{ $role }}"></exam-list>
     @else
         <admin-list role="{{ $role }}"></admin-list>
     @endif
