@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Claim;
+use App\Models\Claim;
 use Illuminate\Http\Request;
 
 class ClaimController extends Controller
