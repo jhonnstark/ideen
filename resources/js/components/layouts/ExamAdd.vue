@@ -168,7 +168,7 @@ export default {
                 this.errors = false;
                 this.isLoading = true;
                 this.editForm = false;
-                this.saveExam(this.record).then(response => {
+                this.saveExam(this.record).then(() => {
                     this.isEdit = true;
                     this.isLoading = false;
                     this.$swal('Guardado', 'Creado exitosamente.', 'success');
