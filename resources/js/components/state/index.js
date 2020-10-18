@@ -36,7 +36,7 @@ const getters = {
 
 const options = {
     state: {
-        exam: [],
+        exam: null,
         courses: []
     },
     getters,

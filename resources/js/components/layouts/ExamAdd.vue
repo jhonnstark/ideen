@@ -105,8 +105,8 @@
 </template>
 
 <script>
-import {integer, maxLength, minLength, required} from "vuelidate/lib/validators";
-import {mapActions, mapGetters} from 'vuex'
+import { integer, maxLength, minLength, required } from "vuelidate/lib/validators";
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
     name: "ExamAdd",

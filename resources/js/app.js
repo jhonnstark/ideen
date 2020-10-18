@@ -59,6 +59,7 @@ Vue.component('table-form', require('./components/form/TableForm.vue').default);
 Vue.component('material-form', require('./components/form/MaterialForm.vue').default);
 Vue.component('teacher-profile-form', require('./components/Teacher/TeacherProfileForm.vue').default);
 Vue.component('exam-form', require('./components/form/ExamForm.vue').default);
+Vue.component('question-form', require('./components/form/QuestionForm.vue').default);
 
 Vue.component('content-list', require('./components/list/ContentList.vue').default);
 Vue.component('activity-list', require('./components/list/ActivityList.vue').default);
