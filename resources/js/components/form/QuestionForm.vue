@@ -1,12 +1,14 @@
 <template>
     <div>
         formulario
+        {{ question }}
     </div>
 </template>
 
 <script>
 export default {
-name: "QuestionForm"
+    props: ['question'],
+    name: "QuestionForm"
 }
 </script>
 

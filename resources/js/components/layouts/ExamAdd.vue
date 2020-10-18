@@ -1,6 +1,6 @@
 <template>
 
-    <div class="col-md-8">
+    <div class="col-md-9">
         <div class="card">
             <div class="card-header">Formulario de creación de examenes</div>
             <div class="card-body">

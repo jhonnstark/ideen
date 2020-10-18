@@ -23,6 +23,13 @@ const mutations = {
     setCourses (state, courses) {
         state.courses = courses
     },
+    newQuestion (state) {
+        state.questions.push({
+            quiz: null,
+            type: 'choice',
+            exam_id: state.exam.id
+        })
+    }
 }
 
 const getters = {
@@ -37,7 +44,8 @@ const getters = {
 const options = {
     state: {
         exam: null,
-        courses: []
+        courses: [],
+        questions: []
     },
     getters,
     mutations,
