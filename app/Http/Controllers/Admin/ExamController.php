@@ -7,6 +7,7 @@ use App\Http\Resources\ExamCollection;
 use App\Models\Course;
 use App\Models\Exam;
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -71,8 +72,8 @@ class ExamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * @param Exam $exam
+     * @return void
      */
     public function show(Exam $exam)
     {
@@ -82,8 +83,8 @@ class ExamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * @param Exam $exam
+     * @return void
      */
     public function edit(Exam $exam)
     {
@@ -93,9 +94,9 @@ class ExamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Exam $exam
+     * @return void
      */
     public function update(Request $request, Exam $exam)
     {
@@ -105,11 +106,16 @@ class ExamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * @param Exam $exam
+     * @return JsonResponse
+     * @throws Exception
      */
     public function destroy(Exam $exam)
     {
-        //
+        $exam->delete();
+        return response()->json([
+            'status' => 204,
+            'message' => 'Deleted Course'
+        ],204 );
     }
 }

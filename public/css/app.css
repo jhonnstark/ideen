@@ -12926,6 +12926,10 @@ svg.loader {
   fill: #182254;
 }
 
+svg.btn-loading {
+  margin: 0 3px;
+}
+
 .poster {
   width: 50px;
 }

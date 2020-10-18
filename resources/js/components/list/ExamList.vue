@@ -63,6 +63,42 @@ export default {
             .then(response => (this.items = response.data.data))
             .finally(() => this.isLoading = false)
     },
+    methods: {
+        erase: function (id) {
+
+            this.$swal({
+                title: '<i>Eliminar</i>',
+                text: 'Será borrado permanentemente',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                cancelButtonColor: '#d33',
+                focusConfirm: false,
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+
+                    return axios
+                        .delete('/admin/' + this.role + '/delete/' + id)
+                        .then(response => {
+                            const removedId = this.items.findIndex(item => item.id === id);
+                            this.items.splice(removedId, 1);
+                        })
+                        .catch(error => {
+                            this.$swal.showValidationMessage(
+                                `Request failed: ${error}`
+                            )
+                        })
+
+                },
+                allowOutsideClick: () => !this.$swal.isLoading()
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    this.$swal('Borrado', 'Se ha eliminado exitosamente', 'success')
+                }
+            });
+        }
+    }
 }
 </script>
 

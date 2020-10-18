@@ -8,6 +8,10 @@ svg {
     &.loader {
         fill: $primary;
     }
+
+    &.btn-loading {
+        margin: 0 3px;
+    }
 }
 
 .poster {
