@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\ExamRequest;
 use App\Http\Resources\ExamCollection;
 use App\Models\Course;
 use App\Models\Exam;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -51,12 +53,19 @@ class ExamController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ExamRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(ExamRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $teacher = Course::find($validated['course_id'])->teacher->first();
+        $validated['teacher_id'] = $teacher->id;
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+            'data' => Exam::create($validated)
+        ], 201);
     }
 
     /**

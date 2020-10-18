@@ -15,12 +15,32 @@
 
                         <div class="col-md-6">
                             <input
-                                v-model.trim="$v.record.name.$model"
-                                :class="{ 'is-invalid': $v.record.name.$error }"
+                                v-model.trim="$v.record.exam.name.$model"
+                                :class="{ 'is-invalid': $v.record.exam.name.$error }"
                                 id="name"
                                 type="text" class="form-control" name="name" required autocomplete="name" autofocus>
 
-                            <span v-if="!$v.record.name.error" class="invalid-feedback" role="alert">
+                            <span v-if="!$v.record.exam.name.error" class="invalid-feedback" role="alert">
+                                <strong>Campo invalido</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="description" class="col-md-4 col-form-label text-md-right">Descripción</label>
+
+                        <div class="col-md-6">
+                            <textarea
+                                v-model.trim="$v.record.exam.description.$model"
+                                :class="{ 'is-invalid': $v.record.exam.description.$error }"
+                                id="description"
+                                rows="2"
+                                class="form-control" name="description" required autocomplete="description" autofocus>
+                            </textarea>
+
+                            <span
+                                v-if="!$v.record.exam.description.error"
+                                class="invalid-feedback" role="alert">
                                 <strong>Campo invalido</strong>
                             </span>
                         </div>
@@ -39,10 +59,10 @@
                                         </svg>
                                     </label>
                                 </div>
-                                <v-select v-model="record.course_id" :reduce="course => course.id" label="name"
+                                <v-select v-model="record.exam.course_id" :reduce="course => course.id" label="name"
                                           id="course" name="course" :options="courses"></v-select>
 
-                                <span v-if="!$v.record.course_id.error" class="invalid-feedback" role="alert">
+                                <span v-if="!$v.record.exam.course_id.error" class="invalid-feedback" role="alert">
                                     <strong>Campo invalido</strong>
                                 </span>
                             </div>
@@ -81,24 +101,33 @@ export default {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
             record: {
-                name: null,
-                course_id:null
+                exam: {
+                    name: null,
+                    description:null,
+                    course_id:null
+                },
+                rute: window.location.pathname
             },
-            //courses:[],
-            rute: window.location.pathname
+            isEdit: !!this.edit
         }
     },
     validations: {
         record: {
-            name: {
-                required,
-                minLength: minLength(3),
-                maxLength: maxLength(255)
-            },
-            course_id: {
-                required,
-                integer
-            },
+            exam: {
+                name: {
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(255)
+                },
+                course_id: {
+                    required,
+                    integer
+                },
+                description: {
+                    required,
+                    maxLength: maxLength(255)
+                }
+            }
         },
     },
     created() {
@@ -117,33 +146,23 @@ export default {
             } else {
                 this.$v.$reset();
                 this.errors = false;
-                axios({
-                    method: this.edit ? 'put' : 'post',
-                    url: this.rute,
-                    data: this.record
-                }).then(response => {
-                    if (!this.edit) {
-                        this.record.name = null;
-                        this.record.active = false;
-                        this.$swal('Guardado', 'Creado exitosamente.', 'success');
-                    } else {
-                        this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
-                    }
+                this.saveExam(this.record).then(response => {
+                    this.isEdit = true;
+                    this.$swal('Guardado', 'Creado exitosamente.', 'success');
                 }).catch(error => console.log(error))
             }
         },
 
         ...mapActions([
             'getCurses',
+            'saveExam'
         ]),
     },
     computed: {
-        isEdit() {
-            return !!this.edit;
-        },
 
         ...mapGetters({
-            courses: 'getAllCourses'
+            courses: 'getAllCourses',
+            exam: 'getExam'
         })
     }
 }

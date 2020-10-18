@@ -9,9 +9,10 @@ Vue.use(Vuex)
 
 const actions = {
     async getCurses ({commit}) {
-        await api.getCourses(courses => {
-            commit('setCourses', courses)
-        })
+        await api.getCourses(courses => commit('setCourses', courses))
+    },
+    async saveExam ({commit}, { rute, exam }) {
+        await api.saveExam(exam, rute, exam => commit('setExam', exam))
     },
 }
 
@@ -27,6 +28,9 @@ const mutations = {
 const getters = {
     getAllCourses: state => {
         return state.courses
+    },
+    getExam: state => {
+        return state.exam
     }
 }
 
