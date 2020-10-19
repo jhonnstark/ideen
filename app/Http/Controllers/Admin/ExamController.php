@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ExamRequest;
 use App\Http\Resources\ExamCollection;
+use App\Http\Resources\ExamResource;
 use App\Models\Course;
 use App\Models\Exam;
 use App\Http\Controllers\Controller;
@@ -73,11 +74,26 @@ class ExamController extends Controller
      * Display the specified resource.
      *
      * @param Exam $exam
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
     public function show(Exam $exam)
     {
-        //
+        $exam->load('course');
+        return view('components.examForm')
+            ->with('course', $exam->course->id)
+            ->with('id', $exam->id);
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Exam $exam
+     * @return ExamResource
+     */
+    public function showJson(Exam $exam)
+    {
+        return new ExamResource($exam);
     }
 
     /**

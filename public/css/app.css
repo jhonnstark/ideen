@@ -12948,6 +12948,10 @@ svg.btn-loading {
   margin-bottom: 20px;
 }
 
+.spacer {
+  margin-bottom: 35px;
+}
+
 .navbar-logo {
   max-height: 80px;
 }

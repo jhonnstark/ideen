@@ -13,10 +13,10 @@
             </nav>
         </div>
         <div class="row justify-content-between">
-            <h3>{{ __('Register') }}</h3>
+            <h3>{{ __('Exam') }}</h3>
             <hr class="col-12">
         </div>
     </div>
 
-    <exam-form course="{{ $course }}"></exam-form>
+    <exam-form course="{{ $course }}" edit="{{ $id }}"></exam-form>
 @endsection

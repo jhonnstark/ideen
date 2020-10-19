@@ -2,19 +2,21 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <exam-add></exam-add>
+            <exam-add :edit="edit"></exam-add>
+            <hr class="col-12">
         </div>
 
 
         <div v-if="exam" class="row justify-content-center">
-            <h5>Preguntas</h5>
-            <hr class="col-12">
+            <div class="col-12 spacer">
+                <h4>Preguntas</h4>
+            </div>
 
-            <div class="col-md-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header">Formulario de creación de examenes</div>
                     <div class="card-body">
-                        <question-form v-for="question in questions" :question="question"></question-form>
+                        <question-form v-for="(question, index) in questions" :question="question" :key="index"></question-form>
                         <button
                             @click="newQuestion"
                             class="btn btn-primary" type="button">
@@ -29,21 +31,31 @@
 </template>
 
 <script>
-import {mapMutations, mapState} from 'vuex'
+import { mapMutations, mapState} from 'vuex'
 import ExamAdd from "../layouts/ExamAdd";
 import QuestionForm from "./QuestionForm";
 
 export default {
     name: "ExamForm",
     props: ['course', 'edit'],
+    data() {
+        return {
+          //  rute: window.location.pathname + '/json'
+        }
+    },
     components: {
         ExamAdd,
         QuestionForm
     },
+    created() {
+        //if(this.edit) {
+         //   console.log('created Form')
+        //}
+    },
     methods: {
         ...mapMutations([
-            'newQuestion'
-        ])
+            'newQuestion',
+        ]),
     },
     computed: {
 

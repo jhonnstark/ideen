@@ -19,7 +19,7 @@
                                 :class="{ 'is-invalid': $v.record.exam.name.$error}"
                                 id="name"
                                 type="text"
-                                :disabled="isEdit"
+                                :disabled="record.isEdit"
                                 class="form-control"
                                 name="name" required autocomplete="name" autofocus>
 
@@ -37,7 +37,7 @@
                                 v-model.trim="$v.record.exam.description.$model"
                                 :class="{ 'is-invalid': $v.record.exam.description.$error }"
                                 id="description"
-                                :disabled="isEdit"
+                                :disabled="record.isEdit"
                                 rows="2"
                                 class="form-control" name="description" required autocomplete="description" autofocus>
                             </textarea>
@@ -67,7 +67,7 @@
                                     v-model="record.exam.course_id"
                                     :reduce="course => course.id"
                                     :options="courses"
-                                    :disabled="isEdit"
+                                    :disabled="record.isEdit"
                                     label="name"
                                     id="course" name="course"></v-select>
 
@@ -89,7 +89,7 @@
                                     class="spin btn-loading"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 2.5a5.487 5.487 0 00-4.131 1.869l1.204 1.204A.25.25 0 014.896 6H1.25A.25.25 0 011 5.75V2.104a.25.25 0 01.427-.177l1.38 1.38A7.001 7.001 0 0114.95 7.16a.75.75 0 11-1.49.178A5.501 5.501 0 008 2.5zM1.705 8.005a.75.75 0 01.834.656 5.501 5.501 0 009.592 2.97l-1.204-1.204a.25.25 0 01.177-.427h3.646a.25.25 0 01.25.25v3.646a.25.25 0 01-.427.177l-1.38-1.38A7.001 7.001 0 011.05 8.84a.75.75 0 01.656-.834z"></path></svg>
 
-                                {{ isEdit ? 'Actualizar' : ' Agregar' }}
+                                {{ record.isEdit ? 'Actualizar' : ' Agregar' }}
                             </button>
                             <span v-if="$v.$invalid && errors" class="text-danger" role="alert">
                                 <strong>Completa el formulario</strong>
@@ -121,9 +121,9 @@ export default {
                     description:null,
                     course_id:null
                 },
-                rute: window.location.pathname
+                rute: window.location.pathname,
+                isEdit: !!this.edit,
             },
-            isEdit: !!this.edit,
             editForm: true,
             isLoading:false
         }
@@ -149,10 +149,10 @@ export default {
     },
     created() {
         if (this.edit) {
-            axios.get('/admin/' + this.role + '/edit/' + this.edit)
-                .then(response => {
-                    this.record = response.data.data;
-                })
+            this.editForm = false;
+            this.loadExam(this.record.rute + (this.edit ? '/json' :'')).then(() => {
+                this.record.exam = this.exam;
+            })
         }
         this.getCurses();
     },
@@ -169,7 +169,8 @@ export default {
                 this.isLoading = true;
                 this.editForm = false;
                 this.saveExam(this.record).then(() => {
-                    this.isEdit = true;
+                    this.record.rute = '/admin/exam/edit/' + this.exam.id
+                    this.record.isEdit = true;
                     this.isLoading = false;
                     this.$swal('Guardado', 'Creado exitosamente.', 'success');
                 }).catch(error => console.log(error))
@@ -178,7 +179,8 @@ export default {
 
         ...mapActions([
             'getCurses',
-            'saveExam'
+            'saveExam',
+            'loadExam'
         ]),
     },
     computed: {

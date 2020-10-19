@@ -132,6 +132,7 @@ Route::prefix('/admin')
                 Route::get('/register', 'ExamController@create')->name('register');
                 Route::post('/register', 'ExamController@store');
                 Route::get('/edit/{exam}', 'ExamController@show')->name('edit');
+                Route::get('/edit/{exam}/json', 'ExamController@showJson');
                 Route::put('/edit/{exam}', 'ExamController@update');
                 Route::delete('/delete/{exam}', 'ExamController@destroy');
             });

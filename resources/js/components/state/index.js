@@ -11,9 +11,12 @@ const actions = {
     async getCurses ({commit}) {
         await api.getCourses(courses => commit('setCourses', courses))
     },
-    async saveExam ({commit}, { rute, exam }) {
-        await api.saveExam(exam, rute, exam => commit('setExam', exam))
+    async saveExam ({commit}, { rute, exam, isEdit }) {
+        await api.saveExam(exam, rute, isEdit, exam => commit('setExam', exam))
     },
+    async loadExam ({commit}, rute ) {
+        await api.loadExam(rute, exam => commit('setExam', exam))
+    }
 }
 
 const mutations = {
@@ -43,7 +46,11 @@ const getters = {
 
 const options = {
     state: {
-        exam: null,
+        exam: {
+            name: null,
+            description:null,
+            course_id:null
+        },
         courses: [],
         questions: []
     },
