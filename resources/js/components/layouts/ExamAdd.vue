@@ -150,9 +150,11 @@ export default {
     created() {
         if (this.edit) {
             this.editForm = false;
-            this.loadExam(this.record.rute + (this.edit ? '/json' :'')).then(() => {
-                this.record.exam = this.exam;
-            })
+            this.loadExam(this.record.rute + (this.edit ? '/json' :''))
+                .then(() => {
+                    this.record.exam = this.exam;
+                    this.loadQuestions(this.exam.id);
+                })
         }
         this.getCurses();
     },
@@ -180,7 +182,8 @@ export default {
         ...mapActions([
             'getCurses',
             'saveExam',
-            'loadExam'
+            'loadExam',
+            'loadQuestions'
         ]),
     },
     computed: {

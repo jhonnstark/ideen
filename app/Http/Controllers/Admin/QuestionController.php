@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\QuestionRequest;
+use App\Http\Resources\QuestionCollection;
+use App\Models\Exam;
 use App\Models\Question;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,11 +26,12 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Exam $exam
+     * @return QuestionCollection
      */
-    public function create()
+    public function list(Exam $exam)
     {
-        //
+        return new QuestionCollection($exam->questions);
     }
 
     /**
@@ -49,8 +53,8 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Question  $question
-     * @return \Illuminate\Http\Response
+     * @param Question $question
+     * @return void
      */
     public function show(Question $question)
     {
@@ -60,8 +64,8 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Question  $question
-     * @return \Illuminate\Http\Response
+     * @param Question $question
+     * @return void
      */
     public function edit(Question $question)
     {
@@ -72,8 +76,8 @@ class QuestionController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  \App\Question  $question
-     * @return \Illuminate\Http\Response
+     * @param Question $question
+     * @return void
      */
     public function update(Request $request, Question $question)
     {
@@ -83,11 +87,16 @@ class QuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Question  $question
-     * @return \Illuminate\Http\Response
+     * @param Question $question
+     * @return JsonResponse
+     * @throws Exception
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        return response()->json([
+            'status' => 201,
+            'message' => 'deleted',
+        ], 201);
     }
 }

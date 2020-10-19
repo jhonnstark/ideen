@@ -142,8 +142,8 @@ Route::prefix('/admin')
             ->group(function(){
 
                 Route::get('/', 'QuestionController@index')->name('list');
-                Route::get('/list', 'QuestionController@list');
 
+                Route::get('{exam}/list', 'QuestionController@list');
                 Route::get('/register', 'QuestionController@create')->name('register');
                 Route::post('/register', 'QuestionController@store');
 

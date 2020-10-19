@@ -27,6 +27,15 @@ export default {
             data: question
         })
             .then(response => cb(response.data.data))
-
     },
+    async loadQuestions(exam, cb) {
+        await axios
+            .get('/admin/question/' + exam + '/list')
+            .then(response => cb(response.data.data))
+    },
+    async deleteQuestion(question, cb) {
+        await axios
+            .delete('/admin/question/delete/' + question )
+            .then(response => cb())
+    }
 }

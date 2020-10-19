@@ -19,8 +19,14 @@ const actions = {
     },
     async saveQuestion ({commit}, { rute, question, isEdit }) {
         const id = question.id
-        await api.saveQuestion(question, rute, isEdit, question => commit('setQuestion', { question, id }))
+        await api.saveQuestion(question, rute, isEdit, question => commit('saveQuestion', { question, id }))
     },
+    async loadQuestions ({commit}, exam ) {
+        await api.loadQuestions(exam, questions => commit('setQuestions', questions))
+    },
+    async deleteQuestion ({commit}, question) {
+        await api.deleteQuestion(question, () => commit('deleteQuestion', question))
+    }
 }
 
 const mutations = {
@@ -29,6 +35,9 @@ const mutations = {
     },
     setCourses (state, courses) {
         state.courses = courses
+    },
+    setQuestions (state, questions) {
+        state.questions = questions
     },
     newQuestion (state) {
         let id = ""
@@ -43,11 +52,13 @@ const mutations = {
             exam_id: state.exam.id
         })
     },
-    setQuestion (state, { question, id }) {
-        console.log(id)
+    saveQuestion (state, { question, id }) {
         const removedId = state.questions.findIndex(item => item.id === id);
-        console.log(removedId)
         state.questions.splice(removedId, 1, question);
+    },
+    deleteQuestion(state, question) {
+        const removedId = state.questions.findIndex(item => item.id === question);
+        state.questions.splice(removedId, 1)
     }
 }
 

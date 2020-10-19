@@ -7,7 +7,7 @@
         </div>
 
 
-        <div v-if="exam" class="row justify-content-center">
+        <div v-if="exam.id" class="row justify-content-center">
             <div class="col-12 spacer">
                 <h4>Preguntas</h4>
             </div>
@@ -48,9 +48,9 @@ export default {
         QuestionForm
     },
     created() {
-        //if(this.edit) {
-         //   console.log('created Form')
-        //}
+        // if(this.edit) {
+        //    console.log(this.exam)
+        // }
     },
     methods: {
         ...mapMutations([
@@ -58,12 +58,10 @@ export default {
         ]),
     },
     computed: {
-
         ...mapState([
             'exam',
             'questions'
         ])
-
     }
 }
 </script>
