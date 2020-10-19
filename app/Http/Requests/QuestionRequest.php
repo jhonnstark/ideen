@@ -13,7 +13,7 @@ class QuestionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class QuestionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'quiz' => 'bail|required|max:255',
+            'type' => 'bail|required|in:choice,open',
+            'exam_id' => 'bail|required|exists:exams,id'
         ];
     }
 }

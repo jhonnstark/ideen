@@ -13,7 +13,7 @@
             </nav>
         </div>
         <div class="row justify-content-between">
-            <h3>{{ __('Exam') }}</h3>
+            <h3>{{ __('Exam Register') }}</h3>
             <hr class="col-12">
         </div>
     </div>

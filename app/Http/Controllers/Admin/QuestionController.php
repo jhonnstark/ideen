@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\QuestionRequest;
 use App\Models\Question;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -31,12 +33,17 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param QuestionRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(QuestionRequest $request)
     {
-        //
+        $question = Question::create($request->validated());
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+            'data' => $question
+        ], 201);
     }
 
     /**
@@ -64,7 +71,7 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */

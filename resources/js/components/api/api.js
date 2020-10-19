@@ -20,4 +20,13 @@ export default {
             .get(rute)
             .then(response => cb(response.data.data))
     },
+    async saveQuestion(question, rute, isEdit, cb) {
+        await axios({
+            method: isEdit ? 'put' : 'post',
+            url: rute,
+            data: question
+        })
+            .then(response => cb(response.data.data))
+
+    },
 }

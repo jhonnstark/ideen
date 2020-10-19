@@ -5,21 +5,21 @@
             action="#" method="POST" novalidate>
 
             <div class="form-group row">
-                <label for="quiz" class="col-md-3 col-form-label text-md-right">Pregunta</label>
+                <label :for="'quiz_' + question.id" class="col-md-3 col-form-label text-md-right">Pregunta</label>
 
                 <div class="col-md-7">
                     <input
                         v-model.trim="$v.question.quiz.$model"
                         :class="{ 'is-invalid': $v.question.quiz.$error}"
-                        id="quiz"
+                        :id="'quiz_' + question.id"
                         type="text"
                         :disabled="isEdit"
                         class="form-control"
                         name="quiz" required autocomplete="quiz" autofocus>
 
                     <span v-if="!$v.question.quiz.error" class="invalid-feedback" role="alert">
-                                <strong>Campo invalido</strong>
-                            </span>
+                        <strong>Campo invalido</strong>
+                    </span>
                 </div>
             </div>
 
@@ -45,8 +45,8 @@
                             id="type" name="type"></v-select>
 
                         <span v-if="!$v.question.type.error" class="invalid-feedback" role="alert">
-                                <strong>Campo invalido</strong>
-                            </span>
+                            <strong>Campo invalido</strong>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -81,16 +81,15 @@ import { mapActions } from 'vuex'
 export default {
     props: ['question'],
     name: "QuestionForm",
-
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
-            rute: window.location.pathname,
+            rute: '/admin/question/register',
             options: [{
-                id: 'choice',
-                name: 'Opción multiple'
-            },
+                    id: 'choice',
+                    name: 'Opción multiple'
+                },
                 {
                     id: 'open',
                     name: 'Abierta'
@@ -122,7 +121,11 @@ export default {
                 this.errors = false;
                 this.isLoading = true;
                 this.editForm = false;
-                this.saveExam(this.record).then(() => {
+            this.saveQuestion({
+                question: this.question,
+                rute: this.rute,
+                isEdit: this.isEdit
+            }).then(() => {
                     this.isEdit = true;
                     this.isLoading = false;
                     this.$swal('Guardado', 'Creado exitosamente.', 'success');

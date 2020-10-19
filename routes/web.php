@@ -136,6 +136,23 @@ Route::prefix('/admin')
                 Route::put('/edit/{exam}', 'ExamController@update');
                 Route::delete('/delete/{exam}', 'ExamController@destroy');
             });
+
+        Route::prefix('/question')
+            ->name('question.')
+            ->group(function(){
+
+                Route::get('/', 'QuestionController@index')->name('list');
+                Route::get('/list', 'QuestionController@list');
+
+                Route::get('/register', 'QuestionController@create')->name('register');
+                Route::post('/register', 'QuestionController@store');
+
+                Route::get('/edit/{question}', 'QuestionController@show')->name('edit');
+                Route::get('/edit/{question}/json', 'QuestionController@showJson');
+                Route::put('/edit/{question}', 'QuestionController@update');
+
+                Route::delete('/delete/{question}', 'QuestionController@destroy');
+            });
 });
 
 Route::get('/teacher/login', 'Auth\TeacherLoginController@showLoginForm')->name('teacher.login');
