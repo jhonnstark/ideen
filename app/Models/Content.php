@@ -16,7 +16,7 @@ class Content extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'active', 'course_id', 'description'
+        'name', 'active', 'module_id', 'description'
     ];
 
     /**

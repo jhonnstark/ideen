@@ -37,7 +37,7 @@ class ModuleController extends Controller
     public function create(Course $course)
     {
         return view('admin.register')
-            ->with('role', 'content')
+            ->with('role', 'module')
             ->with('course', $course->id);
     }
 
@@ -60,12 +60,12 @@ class ModuleController extends Controller
      * Display the specified resource.
      *
      * @param Course $course
-     * @return ContentResource
+     * @return ModulesResource
      */
     public function show(Course $course)
     {
         $course->load('module');
-        return new ContentResource($course->content);
+        return new ModulesResource($course->module);
     }
 
     /**

@@ -100,13 +100,13 @@ Route::prefix('/admin')
                 Route::put('/edit/activity/{activity}', 'ActivityController@update');
                 Route::delete('/edit/activity/delete/{activity}', 'ActivityController@destroy');
 
-                Route::get('/edit/{course}/content', 'ContentController@show');
-                Route::get('/edit/{course}/content/add', 'ContentController@create')->name('content');
-                Route::post('/edit/{course}/content/add', 'ContentController@store');
-                Route::get('/edit/content/{content}', 'ContentController@edit');
-                Route::get('/edit/content/{content}/material', 'ContentController@getMaterial');
-                Route::put('/edit/content/{content}', 'ContentController@update');
-                Route::delete('/edit/content/delete/{content}', 'ContentController@destroy');
+                Route::get('/edit/module/{module}/content', 'ContentController@show');
+                Route::get('/edit/{module}/content/add', 'ContentController@create')->name('content');
+                Route::post('/edit/{module}/content/add', 'ContentController@store');
+                Route::get('/edit/module/content/{content}', 'ContentController@edit');
+                Route::get('/edit/module/content/{content}/material', 'ContentController@getMaterial');
+                Route::put('/edit/module/content/{content}', 'ContentController@update');
+                Route::delete('/edit/module/content/delete/{content}', 'ContentController@destroy');
             });
 
         Route::prefix('/category')

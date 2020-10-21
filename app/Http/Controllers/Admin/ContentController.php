@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivityRequest;
+use App\Http\Requests\ContentRequest;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\MaterialResource;
 use App\Models\Content;
-use App\Models\Course;
+use App\Models\Module;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -33,23 +34,23 @@ class ContentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Course $course
+     * @param Module $module
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
      */
-    public function create(Course $course)
+    public function create(Module $module)
     {
         return view('admin.register')
             ->with('role', 'content')
-            ->with('course', $course->id);
+            ->with('course', $module->id);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ActivityRequest $request
+     * @param ContentRequest $request
      * @return JsonResponse
      */
-    public function store(ActivityRequest $request)
+    public function store(ContentRequest $request)
     {
         $validated = $request->validated();
         $validated['active'] = $validated['active'] === 'true';
@@ -65,13 +66,13 @@ class ContentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Course $course
+     * @param Module $module
      * @return ContentResource
      */
-    public function show(Course $course)
+    public function show(Module $module)
     {
-        $course->load('content');
-        return new ContentResource($course->content);
+        $module->load('content');
+        return new ContentResource($module->content);
     }
 
     /**

@@ -45,41 +45,6 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="material" class="col-md-4 col-form-label text-md-right">Material</label>
-            <div class="col-md-6">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Upload</span>
-                    </div>
-                    <div class="custom-file">
-                        <input @change="selectMaterial" type="file" class="custom-file-input" id="material">
-                        <label class="custom-file-label" for="material">Choose file</label>
-                    </div>
-                </div>
-
-                <span
-                    v-if="!$v.record.material.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-6 offset-md-4">
-                <div class="form-check">
-                    <input
-                        v-model.trim="$v.record.active.$model"
-                        class="form-check-input" type="checkbox" name="active" id="active">
-
-                    <label class="form-check-label" for="active">
-                        Activo
-                    </label>
-                </div>
-            </div>
-        </div>
-
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit"
@@ -103,7 +68,7 @@
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
-    name: "MaterialForm",
+    name: "ModuleForm",
     props: ['role', 'id', 'edit'],
     data() {
         return {
@@ -112,8 +77,7 @@ export default {
             record: {
                 name: null,
                 description: null,
-                active: false,
-                material: null
+                course_id: this.id
             },
             rute: window.location.pathname
         }
@@ -130,10 +94,6 @@ export default {
                 minLength: minLength(10),
                 maxLength: maxLength(255)
             },
-            active: {},
-            material: {
-                required,
-            }
         },
     },
     created() {
@@ -152,31 +112,20 @@ export default {
                 this.$v.$reset();
                 this.errors = false;
 
-                const data = new FormData();
-                data.append('name', this.record.name);
-                data.append('description', this.record.description);
-                data.append('active', this.record.active);
-                data.append('module_id', this.id);
-                data.append('material', this.record.material);
-
                 axios({
                     method: this.edit ? 'put' : 'post',
                     url:  this.rute,
-                    data
+                    data: this.record
                 }).then(response => {
-                        if (!this.edit) {
-                            this.record.name = null;
-                            this.record.description = null;
-                            this.record.active = false;
-                            this.$swal('Guardado', 'Creado exitosamente.', 'success');
-                        } else {
-                            this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
-                        }
-                    }).catch(error => console.log(error))
+                    if (!this.edit) {
+                        this.record.name = null;
+                        this.record.description = null;
+                        this.$swal('Guardado', 'Creado exitosamente.', 'success');
+                    } else {
+                        this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
+                    }
+                }).catch(error => console.log(error))
             }
-        },
-        selectMaterial(event) {
-            this.record.material = event.target.files[0];
         }
     },
     computed: {

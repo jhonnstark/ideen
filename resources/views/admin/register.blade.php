@@ -7,7 +7,7 @@
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    @if($role == 'activity' || $role == 'content')
+                    @if($role == 'activity' || $role == 'content' || $role == 'module')
                         <li class="breadcrumb-item"><a href="{{ route('admin.course.edit', $course) }}">{{ __('Cursos') }}</a></li>
                     @else
                         <li class="breadcrumb-item"><a href="{{ route('admin.' . $role. '.list') }}">{{ __($role) }}</a></li>
@@ -31,6 +31,8 @@
 
                         @if($role == 'course')
                             <course-form role="{{ $role }}"></course-form>
+                        @elseif($role == 'module')
+                            <module-form role="{{ $role }}" id="{{ $course }}"></module-form>
                         @elseif($role == 'category' || $role == 'level')
                             <table-form role="{{ $role }}"></table-form>
                         @elseif($role == 'activity' || $role == 'content')
