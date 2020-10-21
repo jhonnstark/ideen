@@ -14,6 +14,8 @@
     "course": "Cursos",
     "activity": "Actividades",
     "content": "Contenidos",
+    "exam": "Examenes",
+    "Exam Register": "Creación de examenes",
     "Formulario admins": "Formulario de creación de administradores",
     "Formulario user": "Formulario de creación de alumnos",
     "Formulario level": "Formulario de creación de niveles",
@@ -28,6 +30,7 @@
     "Listado level": "Listado de niveles",
     "Listado course": "Listado de cursos",
     "Listado category": "Listado de categorías",
+    "Listado exam": "Listado de examenes",
     "Teacher Login": "Login de profesor",
     "Logout": "Logout",
     "Login": "Login"

@@ -19,12 +19,22 @@
                     <a href="{{ route('teacher.profile') }}" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
+        </div>
 
+        <div class="row justify-content-center">
             <div class="card col-sm">
                 <div class="card-body">
                     <h5 class="card-title">Cursos</h5>
                     <p class="card-text">Administración mis cursos.</p>
                     <a href="{{ route('teacher.courses') }}" class="btn btn-primary">Entrar</a>
+                </div>
+            </div>
+
+            <div class="card col-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Examenes</h5>
+                    <p class="card-text">Administración y creación de examenes.</p>
+                    <a href="{{ route('admin.exam.list') }}" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
         </div>
