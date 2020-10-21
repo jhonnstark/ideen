@@ -71,6 +71,18 @@ Route::prefix('/admin')
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
+        Route::prefix('/module')
+            ->name('module.')
+            ->group(function(){
+                Route::get('/', 'ModulesController@index')->name('list');
+                Route::get('/list', 'ModulesController@list');
+                Route::get('/register', 'ModulesController@create')->name('register');
+                Route::post('/register', 'ModulesController@store');
+                Route::get('/edit/{module}', 'ModulesController@show')->name('edit');
+                Route::put('/edit/{module}', 'ModulesController@update');
+                Route::delete('/delete/{module}', 'ModulesController@destroy');
+            });
+
         Route::prefix('/course')
             ->name('course.')
             ->group(function(){
