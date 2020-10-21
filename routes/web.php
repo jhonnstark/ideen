@@ -74,13 +74,13 @@ Route::prefix('/admin')
         Route::prefix('/module')
             ->name('module.')
             ->group(function(){
-                Route::get('/', 'ModulesController@index')->name('list');
-                Route::get('/list', 'ModulesController@list');
-                Route::get('/register', 'ModulesController@create')->name('register');
-                Route::post('/register', 'ModulesController@store');
-                Route::get('/edit/{module}', 'ModulesController@show')->name('edit');
-                Route::put('/edit/{module}', 'ModulesController@update');
-                Route::delete('/delete/{module}', 'ModulesController@destroy');
+                Route::get('/', 'ModuleController@index')->name('list');
+                Route::get('/list', 'ModuleController@list');
+                Route::get('/register', 'ModuleController@create')->name('register');
+                Route::post('/register', 'ModuleController@store');
+                Route::get('/edit/{module}', 'ModuleController@show')->name('edit');
+                Route::put('/edit/{module}', 'ModuleController@update');
+                Route::delete('/delete/{module}', 'ModuleController@destroy');
             });
 
         Route::prefix('/course')
