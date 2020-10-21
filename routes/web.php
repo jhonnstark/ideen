@@ -71,17 +71,6 @@ Route::prefix('/admin')
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
-        Route::prefix('/module')
-            ->name('module.')
-            ->group(function(){
-                Route::get('/', 'ModuleController@index')->name('list');
-                Route::get('/list', 'ModuleController@list');
-                Route::get('/register', 'ModuleController@create')->name('register');
-                Route::post('/register', 'ModuleController@store');
-                Route::get('/edit/{module}', 'ModuleController@show')->name('edit');
-                Route::put('/edit/{module}', 'ModuleController@update');
-                Route::delete('/delete/{module}', 'ModuleController@destroy');
-            });
 
         Route::prefix('/course')
             ->name('course.')
@@ -94,6 +83,14 @@ Route::prefix('/admin')
                 Route::get('/edit/{course}/json', 'CourseController@showJson');
                 Route::post('/edit/{course}', 'CourseController@update');
                 Route::delete('/delete/{course}', 'CourseController@destroy');
+
+                Route::get('/edit/{course}/module', 'ModuleController@show');
+                Route::get('/edit/{course}/module/add', 'ModuleController@create')->name('module');
+                Route::post('/edit/{course}/module/add', 'ModuleController@store');
+                Route::get('/edit/module/{module}', 'ModuleController@edit');
+                Route::get('/edit/module/{module}/material', 'ModuleController@getMaterial');
+                Route::put('/edit/module/{module}', 'ModuleController@update');
+                Route::delete('/edit/module/delete/{module}', 'ModuleController@destroy');
 
                 Route::get('/edit/{course}/activity', 'ActivityController@show');
                 Route::get('/edit/{course}/activity/add', 'ActivityController@create')->name('activity');

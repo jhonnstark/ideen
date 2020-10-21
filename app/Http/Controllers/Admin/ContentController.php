@@ -31,16 +31,6 @@ class ContentController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @param Course $course
@@ -124,6 +114,7 @@ class ContentController extends Controller
      */
     public function update(Request $request, Content $content)
     {
+        //todo: make updates
         return response()->json([
             'status' => 201,
             'message' => 'updated',

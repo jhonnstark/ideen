@@ -30,8 +30,8 @@ class Content extends Model
     /**
      * Get the course that owns the Activity.
      */
-    public function course()
+    public function module()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Module::class);
     }
 }

@@ -128,7 +128,7 @@ class ActivityController extends Controller
      */
     public function update(Request $request, Activity $activity)
     {
-
+        //todo: make updates
         return response()->json([
             'status' => 201,
             'message' => 'updated',
