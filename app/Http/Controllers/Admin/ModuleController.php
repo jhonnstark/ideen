@@ -3,19 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Modules;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
-class ModulesController extends Controller
+class ModuleController extends Controller
 {
+
+    /**
+     * Display a listing view of the resource.
+     */
+    private $role = ['role' => 'course'];
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('admin.list', $this->role);
     }
 
     /**
