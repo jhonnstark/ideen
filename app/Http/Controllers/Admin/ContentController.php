@@ -87,7 +87,7 @@ class ContentController extends Controller
         if ($request->wantsJson()) {
             return new ContentResource($content);
         }
-        return view('admin.edit', ['role' => 'content', 'id' => $content->course_id]);
+        return view('admin.edit', ['role' => 'content', 'id' => $content->module_id]);
     }
 
     /**
@@ -109,13 +109,13 @@ class ContentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param ContentRequest $request
      * @param Content $content
      * @return JsonResponse
      */
-    public function update(Request $request, Content $content)
+    public function update(ContentRequest $request, Content $content)
     {
-        //todo: make updates
+        $content->update($request->validated());
         return response()->json([
             'status' => 201,
             'message' => 'updated',

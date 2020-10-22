@@ -86,13 +86,13 @@ class ModuleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  Module  $module
+     * @param ModuleRequest $request
+     * @param Module $module
      * @return JsonResponse
      */
-    public function update(Request $request, Module $module)
+    public function update(ModuleRequest $request, Module $module)
     {
-        //todo: make updates
+        $module->update($request->validated());
         return response()->json([
             'status' => 201,
             'message' => 'updated',

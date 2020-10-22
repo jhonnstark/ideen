@@ -122,13 +122,13 @@ class ActivityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param ActivityRequest $request
      * @param Activity $activity
      * @return JsonResponse
      */
-    public function update(Request $request, Activity $activity)
+    public function update(ActivityRequest $request, Activity $activity)
     {
-        //todo: make updates
+        $activity->update($request->validated());
         return response()->json([
             'status' => 201,
             'message' => 'updated',

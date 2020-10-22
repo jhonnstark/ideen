@@ -13016,6 +13016,7 @@ svg.btn-loading {
   height: 100%;
   max-width: 100px;
   width: 100%;
+  min-width: 70px;
 }
 
 .spin {

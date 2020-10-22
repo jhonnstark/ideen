@@ -49,7 +49,7 @@
 
     @if($role == 'activity' || $role == 'content')
         <div class="container">
-            <div class="row justify-content-between">
+            <div class="row justify-content-center">
                 <hr class="col-12">
                 <detail id="{{ $id }}" type="{{ $role }}" edit="material"></detail>
             </div>
