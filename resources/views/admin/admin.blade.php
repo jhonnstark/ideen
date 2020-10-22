@@ -22,8 +22,6 @@
                     <a href="{{ route('admin.admins.list') }}" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
 
             <div class="card card-image col-sm">
                 <div class="card-icon">

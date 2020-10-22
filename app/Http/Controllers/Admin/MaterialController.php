@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
+use App\Models\Module;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class MaterialController extends Controller
@@ -18,8 +17,8 @@ class MaterialController extends Controller
      * @return array
      */
     public function store(Request $request, $type) {
-        $course = Course::find($request->input('course_id'));
-        $name = $course->id . '_' . $type . '_' . $request->material->getClientOriginalName();
+        $module = Module::find($request->input('module_id'));
+        $name = $module->id . '_' . $type . '_' . $request->material->getClientOriginalName();
 
         return [
             'size' => $request->material->getSize(),

@@ -14,6 +14,17 @@
         </div>
     </div>
 
+    @isset($module)
+            <div class="container">
+                <div class="row justify-content-between">
+                    <h3>{{ __('Listado contenidos') }}</h3>
+                    <hr class="col-12">
+                </div>
+            </div>
+            <content-list role="{{ $role }}" id="{{ $id }}"></content-list>
+    @endisset
+
+    @isset($name)
     <div class="container">
         <div class="row justify-content-between">
             <h3>{{ $name }}</h3>
@@ -23,11 +34,11 @@
 
     <div class="container">
         <div class="row justify-content-between">
-            <h3>{{ __('Listado contenidos') }}</h3>
+            <h3>{{ __('Listado modulos') }}</h3>
             <hr class="col-12">
         </div>
     </div>
-    <content-list role="{{ $role }}" id="{{ $id }}"></content-list>
+    <module-list role="{{ $role }}" id="{{ $id }}"></module-list>
 
     <div class="container">
         <div class="row justify-content-between">
@@ -42,5 +53,7 @@
         </div>
     </div>
     <activity-list role="{{ $role }}" id="{{ $id }}"></activity-list>
+    @endisset
+
 
 @endsection

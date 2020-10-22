@@ -71,6 +71,7 @@ Route::prefix('/admin')
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
+
         Route::prefix('/course')
             ->name('course.')
             ->group(function(){
@@ -83,6 +84,14 @@ Route::prefix('/admin')
                 Route::post('/edit/{course}', 'CourseController@update');
                 Route::delete('/delete/{course}', 'CourseController@destroy');
 
+                Route::get('/edit/{course}/module', 'ModuleController@show');
+                Route::get('/edit/{course}/module/add', 'ModuleController@create')->name('module');
+                Route::post('/edit/{course}/module/add', 'ModuleController@store');
+                Route::get('/edit/module/{module}', 'ModuleController@edit');
+                Route::get('/edit/module/{module}/material', 'ModuleController@getMaterial');
+                Route::put('/edit/module/{module}', 'ModuleController@update');
+                Route::delete('/edit/module/delete/{module}', 'ModuleController@destroy');
+
                 Route::get('/edit/{course}/activity', 'ActivityController@show');
                 Route::get('/edit/{course}/activity/add', 'ActivityController@create')->name('activity');
                 Route::post('/edit/{course}/activity/add', 'ActivityController@store');
@@ -91,13 +100,13 @@ Route::prefix('/admin')
                 Route::put('/edit/activity/{activity}', 'ActivityController@update');
                 Route::delete('/edit/activity/delete/{activity}', 'ActivityController@destroy');
 
-                Route::get('/edit/{course}/content', 'ContentController@show');
-                Route::get('/edit/{course}/content/add', 'ContentController@create')->name('content');
-                Route::post('/edit/{course}/content/add', 'ContentController@store');
-                Route::get('/edit/content/{content}', 'ContentController@edit');
-                Route::get('/edit/content/{content}/material', 'ContentController@getMaterial');
-                Route::put('/edit/content/{content}', 'ContentController@update');
-                Route::delete('/edit/content/delete/{content}', 'ContentController@destroy');
+                Route::get('/edit/module/{module}/content', 'ContentController@show');
+                Route::get('/edit/{module}/content/add', 'ContentController@create')->name('content');
+                Route::post('/edit/{module}/content/add', 'ContentController@store');
+                Route::get('/edit/module/content/{content}', 'ContentController@edit');
+                Route::get('/edit/module/content/{content}/material', 'ContentController@getMaterial');
+                Route::put('/edit/module/content/{content}', 'ContentController@update');
+                Route::delete('/edit/module/content/delete/{content}', 'ContentController@destroy');
             });
 
         Route::prefix('/category')
@@ -167,7 +176,8 @@ Route::prefix('/teacher')
         Route::get('/profile', 'TeacherDashboard@profile')->name('profile');
         Route::get('/profile/info', 'TeacherDashboard@info')->name('info');
         Route::get('/course/{course}/activity', 'TeacherDashboard@activity')->name('activity');
-        Route::get('/course/{course}/content', 'TeacherDashboard@content')->name('content');
+        Route::get('/course/{course}/module', 'TeacherDashboard@module')->name('module');
+        Route::get('/course/module/{module}/content', 'TeacherDashboard@content')->name('content');
         Route::get('/course/{course}', 'TeacherDashboard@courseInfo')->name('course');
         Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
         Route::get('/courses/list', 'TeacherDashboard@list');
@@ -178,9 +188,11 @@ Route::prefix('/teacher')
                 Route::get('/{course}/activity/add', 'TeacherDashboard@createActivity')->name('createActivity');
                 Route::post('/{course}/activity/add', 'TeacherDashboard@storeActivity');
                 Route::get('/activity/{activity}', 'TeacherDashboard@activityDetail')->name('activityMaterial');
-                Route::get('/content/{content}', 'TeacherDashboard@contentDetail')->name('contentMaterial');
+                Route::get('/module/content/{content}', 'TeacherDashboard@contentDetail')->name('contentMaterial');
+                Route::get('/module/{module}', 'TeacherDashboard@moduleDetail')->name('moduleMaterial');
                 Route::get('/activity/{activity}/json', 'TeacherDashboard@activityJson');
-                Route::get('/content/{content}/json', 'TeacherDashboard@contentJson');
+                Route::get('/module/content/{content}/json', 'TeacherDashboard@contentJson');
+                Route::get('/module/{module}/json', 'TeacherDashboard@moduleJson');
             });
     });
 
@@ -195,12 +207,15 @@ Route::prefix('/course')
         Route::get('/{course}/activity/add', 'HomeController@createActivity')->name('createActivity');
         Route::post('/{course}/activity/add', 'HomeController@storeActivity');
         Route::get('/{course}/activity', 'HomeController@activity')->name('activity');
-        Route::get('/{course}/content', 'HomeController@content')->name('content');
+        Route::get('/{course}/module', 'HomeController@module')->name('module');
+        Route::get('/module/{module}/content', 'HomeController@content')->name('content');
         Route::get('/{course}', 'HomeController@courseInfo')->name('course');
         Route::get('/activity/{activity}', 'HomeController@activityDetail')->name('activityMaterial');
-        Route::get('/content/{content}', 'HomeController@contentDetail')->name('contentMaterial');
+        Route::get('/module/{module}', 'HomeController@moduleDetail')->name('moduleMaterial');
+        Route::get('/module/content/{content}', 'HomeController@contentDetail')->name('contentMaterial');
         Route::get('/activity/{activity}/json', 'HomeController@activityJson');
-        Route::get('/content/{content}/json', 'HomeController@contentJson');
+        Route::get('/module/content/{content}/json', 'HomeController@contentJson');
+        Route::get('/module/{module}/json', 'HomeController@moduleJson');
     });
 
 Route::prefix('/courses')
