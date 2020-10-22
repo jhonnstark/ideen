@@ -207,12 +207,15 @@ Route::prefix('/course')
         Route::get('/{course}/activity/add', 'HomeController@createActivity')->name('createActivity');
         Route::post('/{course}/activity/add', 'HomeController@storeActivity');
         Route::get('/{course}/activity', 'HomeController@activity')->name('activity');
-        Route::get('/{course}/content', 'HomeController@content')->name('content');
+        Route::get('/{course}/module', 'HomeController@module')->name('module');
+        Route::get('/module/{module}/content', 'HomeController@content')->name('content');
         Route::get('/{course}', 'HomeController@courseInfo')->name('course');
         Route::get('/activity/{activity}', 'HomeController@activityDetail')->name('activityMaterial');
-        Route::get('/content/{content}', 'HomeController@contentDetail')->name('contentMaterial');
+        Route::get('/module/{module}', 'HomeController@moduleDetail')->name('moduleMaterial');
+        Route::get('/module/content/{content}', 'HomeController@contentDetail')->name('contentMaterial');
         Route::get('/activity/{activity}/json', 'HomeController@activityJson');
-        Route::get('/content/{content}/json', 'HomeController@contentJson');
+        Route::get('/module/content/{content}/json', 'HomeController@contentJson');
+        Route::get('/module/{module}/json', 'HomeController@moduleJson');
     });
 
 Route::prefix('/courses')
