@@ -12,6 +12,6 @@ class LevelSeeder extends Seeder
      */
     public function run()
     {
-        factory(Level::class, 2)->create();
+        factory(Level::class, 1)->create();
     }
 }

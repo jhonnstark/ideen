@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @method static find($course_id)
+ */
 class Course extends Model
 {
 
@@ -81,18 +84,18 @@ class Course extends Model
     }
 
     /**
-     * Get the content for the course.
-     */
-    public function content()
-    {
-        return $this->hasMany(Content::class);
-    }
-
-    /**
      * Get the activity for the course.
      */
     public function activity()
     {
         return $this->hasMany(Activity::class);
+    }
+
+    /**
+     * Get the activity for the course.
+     */
+    public function module()
+    {
+        return $this->hasMany(Module::class);
     }
 }

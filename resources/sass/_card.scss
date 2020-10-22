@@ -1,0 +1,19 @@
+.card {
+    &-image {
+        flex-direction: row;
+    }
+
+    &-icon {
+        flex: 1;
+        min-height: 1px;
+        padding: 1.25rem;
+
+        svg {
+            fill: $black;
+            height: 100%;
+            max-width: 100px;
+            width: 100%;
+            min-width: 70px;
+        }
+    }
+}

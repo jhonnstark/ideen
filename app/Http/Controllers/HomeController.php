@@ -8,10 +8,12 @@ use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\MaterialResource;
+use App\Http\Resources\ModulesResource;
 use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
 use App\Http\Resources\User as UserResource;
+use App\Models\Module;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -122,12 +124,24 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Course $course
+     * @return ModulesResource
+     */
+    public function module(Course $course)
+    {
+        $course->load('module');
+        return new ModulesResource($course->module);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Module $module
      * @return ContentResource
      */
-    public function content(Course $course)
+    public function content(Module $module)
     {
-        $course->load('content');
-        return new ContentResource($course->content);
+        $module->load('content');
+        return new ContentResource($module->content);
     }
 
     /**
@@ -145,12 +159,27 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Module $module
+     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function moduleDetail(Module $module)
+    {
+        return view('components.courseInfo', [
+            'role' => '',
+            'id' => $module->id,
+            'module' => 'module'
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
      * @param Content $content
      * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function contentDetail(Content $content)
     {
-        $contents = $content->load('course.content')->course->content;
+        $contents = $content->load('module.content')->module->content;
         return view('detail', ['id' => $content,'type' => 'content', 'contents' => $contents]);
     }
 

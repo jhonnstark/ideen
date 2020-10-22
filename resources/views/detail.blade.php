@@ -36,11 +36,11 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
 
                 @foreach($contents as $content)
-                        <a href="{{ route((isset($role) ? 'teacher.':'') . 'course.'. $type . 'Material', $content['id']) }}">
-                            <div class="card">
+                    <a href="{{ route((isset($role) ? 'teacher.':'') . 'course.'. $type . 'Material', $content['id']) }}">
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $content['name'] }}</h5>
                                 <p class="card-text">{{ $content['description'] }}</p>

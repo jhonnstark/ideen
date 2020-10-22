@@ -156,7 +156,7 @@ export default {
                 data.append('name', this.record.name);
                 data.append('description', this.record.description);
                 data.append('active', this.record.active);
-                data.append('course_id', this.id);
+                data.append('module_id', this.id);
                 data.append('material', this.record.material);
 
                 axios({

@@ -9,10 +9,12 @@ use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\MaterialResource;
+use App\Http\Resources\ModulesResource;
 use App\Http\Resources\Teacher;
 use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
+use App\Models\Module;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -120,13 +122,25 @@ class TeacherDashboard extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Course $course
+     * @param Module $module
      * @return ContentResource
      */
-    public function content(Course $course)
+    public function content(Module $module)
     {
-        $course->load('content');
-        return new ContentResource($course->content);
+        $module->load('content');
+        return new ContentResource($module->content);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return ModulesResource
+     */
+    public function module(Course $course)
+    {
+        $course->load('module');
+        return new ModulesResource($course->module);
     }
 
     /**
@@ -154,12 +168,27 @@ class TeacherDashboard extends Controller
      */
     public function contentDetail(Content $content)
     {
-        $contents = $content->load('course.content')->course->content;
+        $contents = $content->load('module.content')->module->content;
         return view('detail', [
             'id' => $content,
             'role' => 'teacher',
             'type' => 'content',
             'contents' => $contents
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Module $module
+     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function moduleDetail(Module $module)
+    {
+        return view('components.courseInfo', [
+            'role' => 'teacher',
+            'id' => $module->id,
+            'module' => 'module'
         ]);
     }
 
@@ -182,13 +211,28 @@ class TeacherDashboard extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
      * @param Content $content
      * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function contentJson(Content $content)
     {
         $material = $content->load('material')->material->first();
+        $url = Storage::disk('s3')->temporaryUrl(
+            $material->url, now()->addMinutes(5)
+        );
+        $material->url = $url;
+        return new MaterialResource($material);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Module $module
+     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function moduleJson(Module $module)
+    {
+        $material = $module->load('material')->material->first();
         $url = Storage::disk('s3')->temporaryUrl(
             $material->url, now()->addMinutes(5)
         );

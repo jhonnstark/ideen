@@ -13,8 +13,7 @@ class UserProfile extends Model
      * @var array
      */
     protected $fillable = [
-        'birthday', 'gender', 'age', 'address', 'address_ext', 'state_id',
-        // 'user_id'
+        'birthday', 'gender', 'age', 'address', 'address_ext', 'state_id', 'user_id'
     ];
 
     /**
@@ -23,5 +22,13 @@ class UserProfile extends Model
     public function state()
     {
         return $this->belongsTo(State::class);
+    }
+
+    /**
+     * Get the state that owns the user.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
