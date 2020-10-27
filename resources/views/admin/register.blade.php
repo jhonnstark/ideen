@@ -35,8 +35,10 @@
                             <module-form role="{{ $role }}" id="{{ $course }}"></module-form>
                         @elseif($role == 'category' || $role == 'level')
                             <table-form role="{{ $role }}"></table-form>
-                        @elseif($role == 'activity' || $role == 'content')
+                        @elseif($role == 'activity')
                             <material-form role="{{ $role }}" id="{{ $course }}"></material-form>
+                        @elseif($role == 'content')
+                            <material-form role="{{ $role }}" id="{{ $module }}"></material-form>
                         @else
                             <register-form role="{{ $role }}"></register-form>
                         @endif

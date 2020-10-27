@@ -41,7 +41,8 @@ class ContentController extends Controller
     {
         return view('admin.register')
             ->with('role', 'content')
-            ->with('course', $module->id);
+            ->with('course', $module->course_id)
+            ->with('module', $module->id);
     }
 
     /**

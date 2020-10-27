@@ -80,7 +80,7 @@ class ModuleController extends Controller
         if ($request->wantsJson()) {
             return new ModulesResource($module);
         }
-        return view('admin.edit', ['role' => 'module', 'id' => $module->course_id]);
+        return view('admin.edit', ['role' => 'module', 'id' => $module->id]);
     }
 
     /**
