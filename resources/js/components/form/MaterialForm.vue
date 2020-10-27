@@ -121,6 +121,7 @@ export default {
                 active: false,
                 material: null
             },
+            editForm: true,
             rute: window.location.pathname,
             isLoading:false
         }
@@ -145,6 +146,7 @@ export default {
     },
     created() {
         if (this.edit) {
+            this.editForm = false;
             axios.get(this.rute)
                 .then(response => {
                     this.record = response.data.data;
@@ -153,11 +155,15 @@ export default {
     },
     methods:{
         register() {
+            if(!this.editForm) {
+                return;
+            }
             if (this.$v.$invalid) {
                 this.errors = true;
             } else {
                 this.$v.$reset();
                 this.errors = false;
+                this.editForm = false;
 
                 const data = new FormData();
                 data.append('name', this.record.name);
@@ -177,6 +183,7 @@ export default {
                         this.record.name = null;
                         this.record.description = null;
                         this.record.active = false;
+                        this.editForm = true;
                         this.$swal('Guardado', 'Creado exitosamente.', 'success');
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
