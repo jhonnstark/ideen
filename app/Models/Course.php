@@ -86,14 +86,6 @@ class Course extends Model
     /**
      * Get the activity for the course.
      */
-    public function activity()
-    {
-        return $this->hasMany(Activity::class);
-    }
-
-    /**
-     * Get the activity for the course.
-     */
     public function module()
     {
         return $this->hasMany(Module::class);

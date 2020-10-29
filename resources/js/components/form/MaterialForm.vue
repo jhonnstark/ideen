@@ -146,7 +146,6 @@ export default {
     },
     created() {
         if (this.edit) {
-            this.editForm = false;
             axios.get(this.rute)
                 .then(response => {
                     this.record = response.data.data;

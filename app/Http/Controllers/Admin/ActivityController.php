@@ -7,7 +7,7 @@ use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\MaterialResource;
 use App\Models\Activity;
-use App\Models\Course;
+use App\Models\Module;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,26 +32,16 @@ class ActivityController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
-     * @param Course $course
+     * @param Module $module
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
      */
-    public function create(Course $course)
+    public function create(Module $module)
     {
         return view('admin.register')
             ->with('role', 'activity')
-            ->with('course', $course->id);
+            ->with('course', $module->id);
     }
 
     /**
@@ -60,7 +50,7 @@ class ActivityController extends Controller
      * @param ActivityRequest $request
      * @return JsonResponse
      */
-    public function store(ActivityRequest $request)
+    public function store(ActivityRequest $request): JsonResponse
     {
         $validated = $request->validated();
         $validated['active'] = $validated['active'] === 'true';
@@ -76,13 +66,13 @@ class ActivityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Course $course
+     * @param Module $module
      * @return ActivityResource
      */
-    public function show(Course $course)
+    public function show(Module $module)
     {
-        $course->load('activity');
-        return new ActivityResource($course->activity);
+        $module->load('activity');
+        return new ActivityResource($module->activity);
     }
 
     /**
@@ -99,7 +89,7 @@ class ActivityController extends Controller
         }
         return view('admin.edit', [
             'role' => 'activity',
-            'id' => $activity->course_id
+            'id' => $activity->module_id
         ]);
     }
 

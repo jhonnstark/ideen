@@ -16,13 +16,13 @@ class Activity extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'active', 'course_id', 'description'
+        'name', 'active', 'module_id', 'description'
     ];
 
     /**
      * The student that belong to the Activity.
      */
-    public function material()
+    public function material(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Material::class);
     }
@@ -30,8 +30,8 @@ class Activity extends Model
     /**
      * Get the course that owns the Activity.
      */
-    public function course()
+    public function module(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Module::class);
     }
 }

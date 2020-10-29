@@ -28,7 +28,9 @@
 
                 <tr v-for="item in items" :key="item.id">
                     <th scope="row" class="text-center">
-                        <img :src="item.url" :alt="item.name" class="poster">
+                        <a :href="'/course/' + item.id"  class="">
+                            <img :src="item.url" :alt="item.name" class="poster">
+                        </a>
                     </th>
                     <td>{{ item.name }}</td>
                     <td class="text-center">

@@ -110,13 +110,13 @@ class TeacherDashboard extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Course $course
+     * @param Module $module
      * @return ActivityResource
      */
-    public function activity(Course $course)
+    public function activity(Module $module): ActivityResource
     {
-        $course->load('activity');
-        return new ActivityResource($course->activity);
+        $module->load('activity');
+        return new ActivityResource($module->activity);
     }
 
     /**
@@ -125,7 +125,7 @@ class TeacherDashboard extends Controller
      * @param Module $module
      * @return ContentResource
      */
-    public function content(Module $module)
+    public function content(Module $module): ContentResource
     {
         $module->load('content');
         return new ContentResource($module->content);
@@ -137,7 +137,7 @@ class TeacherDashboard extends Controller
      * @param Course $course
      * @return ModulesResource
      */
-    public function module(Course $course)
+    public function module(Course $course): ModulesResource
     {
         $course->load('module');
         return new ModulesResource($course->module);
@@ -151,7 +151,7 @@ class TeacherDashboard extends Controller
      */
     public function activityDetail(Activity $activity)
     {
-        $activities = $activity->load('course.activity')->course->activity;
+        $activities = $activity->load('module.activity')->module->activity;
         return view('detail', [
             'id' => $activity,
             'role' => 'teacher',
