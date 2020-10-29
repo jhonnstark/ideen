@@ -17,7 +17,7 @@ class CreateActivitiesTable extends Migration
             $table->id();
             $table->string('name');
             $table->mediumText('description');
-            $table->boolean('active');
+            $table->tinyInteger('score')->nullable();
             $table->foreignId('module_id')->constrained()
                 ->onDelete('cascade');
             $table->timestamps();
