@@ -53,7 +53,6 @@ class ActivityController extends Controller
     public function store(ActivityRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        $validated['active'] = $validated['active'] === 'true';
         $activity = Activity::create($validated);
         $activity->material()->create($this->materialController->store($request, 'activity'));
 

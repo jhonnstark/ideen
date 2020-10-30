@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ActivityRequest extends FormRequest
@@ -27,7 +26,6 @@ class ActivityRequest extends FormRequest
         return [
             'name' => 'bail|required|max:255|min:3',
             'description' => 'bail|required|max:255|min:10',
-            'active' => 'required|in:true,false',
             'material' => [
                 'required',
                 'file',

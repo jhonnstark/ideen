@@ -66,20 +66,6 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-md-6 offset-md-4">
-                <div class="form-check">
-                    <input
-                        v-model.trim="$v.record.active.$model"
-                        class="form-check-input" type="checkbox" name="active" id="active">
-
-                    <label class="form-check-label" for="active">
-                        Activo
-                    </label>
-                </div>
-            </div>
-        </div>
-
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit"
@@ -138,7 +124,6 @@ export default {
                 minLength: minLength(10),
                 maxLength: maxLength(255)
             },
-            active: {},
             material: {
                 required,
             }
@@ -167,7 +152,6 @@ export default {
                 const data = new FormData();
                 data.append('name', this.record.name);
                 data.append('description', this.record.description);
-                data.append('active', this.record.active);
                 data.append('module_id', this.id);
                 data.append('material', this.record.material);
                 this.isLoading = true;
@@ -181,7 +165,6 @@ export default {
                     if (!this.edit) {
                         this.record.name = null;
                         this.record.description = null;
-                        this.record.active = false;
                         this.editForm = true;
                         this.$swal('Guardado', 'Creado exitosamente.', 'success');
                     } else {
