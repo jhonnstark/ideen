@@ -235,7 +235,6 @@ class HomeController extends Controller
     public function storeActivity(ActivityRequest $request)
     {
         $validated = $request->validated();
-        $validated['active'] = $validated['active'] === 'true';
         $activity = Activity::create($validated);
         $activity->material()->create($this->materialController->store($request, 'activity'));
 

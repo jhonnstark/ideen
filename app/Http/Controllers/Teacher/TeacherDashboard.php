@@ -261,10 +261,31 @@ class TeacherDashboard extends Controller
     public function storeActivity(ActivityRequest $request)
     {
         $validated = $request->validated();
-        $validated['active'] = $validated['active'] === 'true';
         $activity = Activity::create($validated);
         $activity->material()->create($this->materialController->store($request, 'activity'));
 
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
+
+    public function score(Activity $activity)
+    {
+        return response()->json([
+            'status' => 200,
+            'message' => 'score',
+            'data' => $activity->score
+        ], 200);
+    }
+
+    public function scoreSave(Request $request, Activity $activity)
+    {
+        $request->validate([
+            'score' => 'integer|required|between:0,10',
+        ]);
+        $activity->score = $request->get('score');
+        $activity->save();
         return response()->json([
             'status' => 201,
             'message' => 'created',

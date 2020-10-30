@@ -187,12 +187,14 @@ Route::prefix('/teacher')
             ->group(function(){
                 Route::get('/{course}/activity/add', 'TeacherDashboard@createActivity')->name('createActivity');
                 Route::post('/{course}/activity/add', 'TeacherDashboard@storeActivity');
-                Route::get('/module/activity/{activity}', 'TeacherDashboard@activityDetail')->name('activityMaterial');
-                Route::get('/module/content/{content}', 'TeacherDashboard@contentDetail')->name('contentMaterial');
                 Route::get('/module/{module}', 'TeacherDashboard@moduleDetail')->name('moduleMaterial');
-                Route::get('/module/activity/{activity}/json', 'TeacherDashboard@activityJson');
-                Route::get('/module/content/{content}/json', 'TeacherDashboard@contentJson');
                 Route::get('/module/{module}/json', 'TeacherDashboard@moduleJson');
+                Route::get('/module/activity/{activity}', 'TeacherDashboard@activityDetail')->name('activityMaterial');
+                Route::get('/module/activity/{activity}/json', 'TeacherDashboard@activityJson');
+                Route::get('/module/activity/{activity}/score', 'TeacherDashboard@score');
+                Route::put('/module/activity/{activity}/score', 'TeacherDashboard@scoreSave');
+                Route::get('/module/content/{content}', 'TeacherDashboard@contentDetail')->name('contentMaterial');
+                Route::get('/module/content/{content}/json', 'TeacherDashboard@contentJson');
             });
     });
 
