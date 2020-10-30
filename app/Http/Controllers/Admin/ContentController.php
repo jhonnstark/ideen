@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ActivityRequest;
 use App\Http\Requests\ContentRequest;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\MaterialResource;
@@ -54,7 +53,6 @@ class ContentController extends Controller
     public function store(ContentRequest $request)
     {
         $validated = $request->validated();
-        $validated['active'] = $validated['active'] === 'true';
         $content = Content::create($validated);
         $content->material()->create($this->materialController->store($request, 'content'));
 

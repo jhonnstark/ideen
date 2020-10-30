@@ -15,7 +15,6 @@ use App\Models\Course;
 use App\Http\Resources\User as UserResource;
 use App\Models\Module;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -112,21 +111,9 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Course $course
-     * @return ActivityResource
-     */
-    public function activity(Course $course)
-    {
-        $course->load('activity');
-        return new ActivityResource($course->activity);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Course $course
      * @return ModulesResource
      */
-    public function module(Course $course)
+    public function module(Course $course): ModulesResource
     {
         $course->load('module');
         return new ModulesResource($course->module);
@@ -136,9 +123,21 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Module $module
+     * @return ActivityResource
+     */
+    public function activity(Module $module): ActivityResource
+    {
+        $module->load('activity');
+        return new ActivityResource($module->activity);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Module $module
      * @return ContentResource
      */
-    public function content(Module $module)
+    public function content(Module $module): ContentResource
     {
         $module->load('content');
         return new ContentResource($module->content);
@@ -152,7 +151,7 @@ class HomeController extends Controller
      */
     public function activityDetail(Activity $activity)
     {
-        $activities = $activity->load('course.activity')->course->activity;
+        $activities = $activity->load('module.activity')->module->activity;
         return view('detail', ['id' => $activity,'type' => 'activity', 'activities' => $activities]);
     }
 
@@ -236,7 +235,6 @@ class HomeController extends Controller
     public function storeActivity(ActivityRequest $request)
     {
         $validated = $request->validated();
-        $validated['active'] = $validated['active'] === 'true';
         $activity = Activity::create($validated);
         $activity->material()->create($this->materialController->store($request, 'activity'));
 

@@ -96,7 +96,6 @@ export default {
         }
     },
     created () {
-        console.log(this.type);
         axios
             .get(this.rute)
             .then(response => (this.file = response.data.data))
