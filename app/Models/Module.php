@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static create(array $validated)
  * @method static find($input)
+ * @property mixed id
  */
 class Module extends Model
 {
@@ -17,13 +18,13 @@ class Module extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'course_id', 'description'
+        'name', 'description', 'course_id'
     ];
 
     /**
      * Get the content for the course.
      */
-    public function content()
+    public function content(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Content::class);
     }
@@ -31,8 +32,16 @@ class Module extends Model
     /**
      * Get the course that owns the module.
      */
-    public function course()
+    public function course(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Course::class);
+    }
+
+    /**
+     * Get the activity for the course.
+     */
+    public function activity(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Activity::class);
     }
 }

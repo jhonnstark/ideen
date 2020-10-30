@@ -26,10 +26,13 @@
 
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-md-6">
                 <h5>{{ $id->name }}</h5>
                 <p>{{ $id->description }}</p>
             </div>
+            @isset($role)
+                <score-material id="{{ $id->id }}"></score-material>
+            @endisset
             <hr class="col-12">
         </div>
     </div>

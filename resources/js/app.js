@@ -53,6 +53,13 @@ Vue.component('course-list', require('./components/list/CourseList.vue').default
 Vue.component('table-list', require('./components/list/TableList.vue').default);
 Vue.component('my-course-list', require('./components/list/MyCoursesList.vue').default);
 Vue.component('my-class-list', require('./components/list/MyClassList.vue').default);
+Vue.component('content-list', require('./components/list/ContentList.vue').default);
+Vue.component('activity-list', require('./components/list/ActivityList.vue').default);
+Vue.component('class-list', require('./components/User/ClassList.vue').default);
+Vue.component('teacher-class-list', require('./components/Teacher/TeacherClassList.vue').default);
+Vue.component('exam-list', require('./components/list/ExamList.vue').default);
+Vue.component('module-list', require('./components/list/ModuleList.vue').default);
+
 Vue.component('course-form', require('./components/form/CourseForm.vue').default);
 Vue.component('register-form', require('./components/form/RegisterForm.vue').default);
 Vue.component('table-form', require('./components/form/TableForm.vue').default);
@@ -61,17 +68,12 @@ Vue.component('teacher-profile-form', require('./components/Teacher/TeacherProfi
 Vue.component('exam-form', require('./components/form/ExamForm.vue').default);
 Vue.component('question-form', require('./components/form/QuestionForm.vue').default);
 Vue.component('module-form', require('./components/form/ModuleForm.vue').default);
-
-Vue.component('content-list', require('./components/list/ContentList.vue').default);
-Vue.component('activity-list', require('./components/list/ActivityList.vue').default);
-Vue.component('class-list', require('./components/User/ClassList.vue').default);
 Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
-Vue.component('teacher-class-list', require('./components/Teacher/TeacherClassList.vue').default);
-Vue.component('exam-list', require('./components/list/ExamList.vue').default);
-Vue.component('module-list', require('./components/list/ModuleList.vue').default);
-Vue.component('detail', require('./components/Detail.vue').default);
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
+
+Vue.component('score-material', require('./components/form/ScoreMaterial.vue').default);
+Vue.component('detail', require('./components/Detail.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

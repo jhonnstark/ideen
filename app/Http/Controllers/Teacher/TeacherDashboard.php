@@ -110,13 +110,13 @@ class TeacherDashboard extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Course $course
+     * @param Module $module
      * @return ActivityResource
      */
-    public function activity(Course $course)
+    public function activity(Module $module): ActivityResource
     {
-        $course->load('activity');
-        return new ActivityResource($course->activity);
+        $module->load('activity');
+        return new ActivityResource($module->activity);
     }
 
     /**
@@ -125,7 +125,7 @@ class TeacherDashboard extends Controller
      * @param Module $module
      * @return ContentResource
      */
-    public function content(Module $module)
+    public function content(Module $module): ContentResource
     {
         $module->load('content');
         return new ContentResource($module->content);
@@ -137,7 +137,7 @@ class TeacherDashboard extends Controller
      * @param Course $course
      * @return ModulesResource
      */
-    public function module(Course $course)
+    public function module(Course $course): ModulesResource
     {
         $course->load('module');
         return new ModulesResource($course->module);
@@ -151,7 +151,7 @@ class TeacherDashboard extends Controller
      */
     public function activityDetail(Activity $activity)
     {
-        $activities = $activity->load('course.activity')->course->activity;
+        $activities = $activity->load('module.activity')->module->activity;
         return view('detail', [
             'id' => $activity,
             'role' => 'teacher',
@@ -261,10 +261,31 @@ class TeacherDashboard extends Controller
     public function storeActivity(ActivityRequest $request)
     {
         $validated = $request->validated();
-        $validated['active'] = $validated['active'] === 'true';
         $activity = Activity::create($validated);
         $activity->material()->create($this->materialController->store($request, 'activity'));
 
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
+
+    public function score(Activity $activity)
+    {
+        return response()->json([
+            'status' => 200,
+            'message' => 'score',
+            'data' => $activity->score
+        ], 200);
+    }
+
+    public function scoreSave(Request $request, Activity $activity)
+    {
+        $request->validate([
+            'score' => 'integer|required|between:0,10',
+        ]);
+        $activity->score = $request->get('score');
+        $activity->save();
         return response()->json([
             'status' => 201,
             'message' => 'created',

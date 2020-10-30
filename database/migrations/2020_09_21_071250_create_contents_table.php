@@ -17,7 +17,6 @@ class CreateContentsTable extends Migration
             $table->id();
             $table->string('name');
             $table->mediumText('description');
-            $table->boolean('active');
             $table->foreignId('module_id')->constrained()
                 ->onDelete('cascade');
             $table->timestamps();
