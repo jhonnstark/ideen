@@ -32,6 +32,8 @@
             </div>
             @isset($role)
                 <score-material id="{{ $id->id }}"></score-material>
+            @else
+                Calificación: {{ $id->score }}
             @endisset
             <hr class="col-12">
         </div>
@@ -39,20 +41,20 @@
 
     <div class="container">
         <div class="row">
+            @isset($contents)
             <div class="col-md-2">
-
-                @foreach($contents as $content)
-                    <a href="{{ route((isset($role) ? 'teacher.':'') . 'course.'. $type . 'Material', $content['id']) }}">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $content['name'] }}</h5>
-                                <p class="card-text">{{ $content['description'] }}</p>
+                    @foreach($contents as $content)
+                        <a href="{{ route((isset($role) ? 'teacher.':'') . 'course.'. $type . 'Material', $content['id']) }}">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $content['name'] }}</h5>
+                                    <p class="card-text">{{ $content['description'] }}</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                @endforeach
-
+                        </a>
+                    @endforeach
             </div>
+            @endisset
             <detail id="{{ $id }}" type="{{ $type }}"></detail>
         </div>
     </div>

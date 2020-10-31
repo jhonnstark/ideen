@@ -1,6 +1,6 @@
 <template>
 
-    <div class="col-md-10">
+    <div class="col-12 col-md">
         <div v-if="isLoading" class="row justify-content-center">
             <div class="on-load">
                 <div class="spinner"></div>

@@ -71,16 +71,23 @@ class ModuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Request $request
      * @param Module $module
      * @return ModulesResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Request $request, Module $module)
+    public function edit(Module $module)
     {
-        if ($request->wantsJson()) {
-            return new ModulesResource($module);
-        }
         return view('admin.edit', ['role' => 'module', 'id' => $module->id]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Module $module
+     * @return ModulesResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function moduleJson(Module $module)
+    {
+        return new ModulesResource($module);
     }
 
     /**
