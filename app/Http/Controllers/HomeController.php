@@ -151,8 +151,10 @@ class HomeController extends Controller
      */
     public function activityDetail(Activity $activity)
     {
-        $activities = $activity->load('module.activity')->module->activity;
-        return view('detail', ['id' => $activity,'type' => 'activity', 'activities' => $activities]);
+        return view('detail', [
+            'id' => $activity,
+            'type' => 'activity'
+        ]);
     }
 
     /**
@@ -217,14 +219,14 @@ class HomeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Course $course
+     * @param Module $module
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
      */
-    public function createActivity(Course $course)
+    public function createActivity(Module $module)
     {
         return view('activityAdd')
             ->with('role', 'activity')
-            ->with('course', $course->id);
+            ->with('course', $module->id);
     }
     /**
      * Store a newly created resource in storage.

@@ -88,6 +88,7 @@ Route::prefix('/admin')
                 Route::get('/edit/{course}/module/add', 'ModuleController@create')->name('module');
                 Route::post('/edit/{course}/module/add', 'ModuleController@store');
                 Route::get('/edit/module/{module}', 'ModuleController@edit');
+                Route::get('/edit/module/{module}/json', 'ModuleController@moduleJson');
                 Route::get('/edit/module/{module}/material', 'ModuleController@getMaterial');
                 Route::put('/edit/module/{module}', 'ModuleController@update');
                 Route::delete('/edit/module/delete/{module}', 'ModuleController@destroy');
@@ -208,8 +209,8 @@ Route::prefix('/course')
     ->group(function(){
         Route::get('/{course}', 'HomeController@courseInfo')->name('course');
         Route::get('/{course}/module', 'HomeController@module')->name('module');
-        Route::get('/{course}/activity/add', 'HomeController@createActivity')->name('createActivity');
-        Route::post('/{course}/activity/add', 'HomeController@storeActivity');
+        Route::get('/module/{module}/activity/add', 'HomeController@createActivity')->name('createActivity');
+        Route::post('/module/{module}/activity/add', 'HomeController@storeActivity');
         Route::get('/module/{module}/activity', 'HomeController@activity')->name('activity');
         Route::get('/module/{module}/content', 'HomeController@content')->name('content');
         Route::get('/module/{module}', 'HomeController@moduleDetail')->name('moduleMaterial');

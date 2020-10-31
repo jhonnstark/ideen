@@ -104,7 +104,7 @@ export default {
     },
     created() {
         if (this.edit) {
-            axios.get(this.rute)
+            axios.get(this.rute + '/json')
                 .then(response => {
                     this.record = response.data.data;
                 })
