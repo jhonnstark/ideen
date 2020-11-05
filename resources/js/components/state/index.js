@@ -71,21 +71,22 @@ const getters = {
     }
 }
 
-const options = {
-    state: {
-        exam: {
-            name: null,
-            description:null,
-            course_id:null
-        },
-        courses: [],
-        questions: []
+const state = {
+    exam: {
+        name: null,
+        description:null,
+        course_id:null
     },
+    courses: [],
+    questions: [],
+
+}
+
+const store = new Vuex.Store({
+    state,
     getters,
     mutations,
     actions
-};
-
-const store = new Vuex.Store(options)
+})
 
 export default store;

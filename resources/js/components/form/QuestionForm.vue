@@ -78,6 +78,9 @@
                 </div>
             </div>
         </form>
+
+        <answer-form v-if="isSaved" question="question.id"></answer-form>
+        <div class="dropdown-divider"></div>
     </div>
 
 </template>
@@ -85,6 +88,7 @@
 <script>
 import { maxLength, minLength, required } from "vuelidate/lib/validators";
 import { mapActions } from 'vuex'
+import AnswerForm from "./AnswerForm";
 
 export default {
     props: ['question'],
@@ -117,6 +121,9 @@ export default {
             },
             type: {}
         }
+    },
+    components: {
+        AnswerForm
     },
     methods: {
         register() {
@@ -155,6 +162,11 @@ export default {
             'deleteQuestion'
         ]),
     },
+    computed: {
+        isSaved() {
+            return Number.isInteger(this.question.id) && this.question.type === "choice"
+        }
+    }
 }
 </script>
 
