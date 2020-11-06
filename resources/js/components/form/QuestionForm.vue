@@ -79,7 +79,7 @@
             </div>
         </form>
 
-        <answer-form v-if="isSaved" question="question.id"></answer-form>
+        <answer-list v-if="isSaved" :question="question.id"></answer-list>
         <div class="dropdown-divider"></div>
     </div>
 
@@ -88,11 +88,14 @@
 <script>
 import { maxLength, minLength, required } from "vuelidate/lib/validators";
 import { mapActions } from 'vuex'
-import AnswerForm from "./AnswerForm";
+import AnswerList from "../list/AnswerList";
 
 export default {
     props: ['question'],
     name: "QuestionForm",
+    components: {
+        AnswerList
+    },
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -121,9 +124,6 @@ export default {
             },
             type: {}
         }
-    },
-    components: {
-        AnswerForm
     },
     methods: {
         register() {
