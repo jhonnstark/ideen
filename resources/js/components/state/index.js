@@ -26,6 +26,9 @@ const actions = {
     },
     async deleteQuestion ({commit}, question) {
         await api.deleteQuestion(question, () => commit('deleteQuestion', question))
+    },
+    async saveAnswer () {
+
     }
 }
 
@@ -52,6 +55,18 @@ const mutations = {
             exam_id: state.exam.id
         })
     },
+    newAnswer (state) {
+        let id = ""
+        let chars = "abcdefghijklmnopqrstuvwxyz"
+        for( let i=0; i < 5; i++ ) {
+            id += chars.charAt(Math.floor(Math.random() * chars.length))
+        }
+        state.answers.push({
+            id,
+            option: null,
+            exam_id: state.exam.id
+        })
+    },
     saveQuestion (state, { question, id }) {
         const removedId = state.questions.findIndex(item => item.id === id);
         state.questions.splice(removedId, 1, question);
@@ -71,21 +86,23 @@ const getters = {
     }
 }
 
-const options = {
-    state: {
-        exam: {
-            name: null,
-            description:null,
-            course_id:null
-        },
-        courses: [],
-        questions: []
+const state = {
+    exam: {
+        name: null,
+        description:null,
+        course_id:null
     },
+    courses: [],
+    questions: [],
+    answers: []
+
+}
+
+const store = new Vuex.Store({
+    state,
     getters,
     mutations,
     actions
-};
-
-const store = new Vuex.Store(options)
+})
 
 export default store;

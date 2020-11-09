@@ -34,8 +34,10 @@ export default {
             .then(response => cb(response.data.data))
     },
     async deleteQuestion(question, cb) {
-        await axios
-            .delete('/admin/question/delete/' + question )
-            .then(response => cb())
+        if (Number.isInteger(question)) {
+            await axios
+                .delete('/admin/question/delete/' + question)
+        }
+        cb()
     }
 }
