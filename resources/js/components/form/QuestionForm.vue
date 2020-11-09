@@ -78,6 +78,9 @@
                 </div>
             </div>
         </form>
+
+        <answer-list v-if="isSaved" :question="question.id"></answer-list>
+        <div class="dropdown-divider"></div>
     </div>
 
 </template>
@@ -85,10 +88,14 @@
 <script>
 import { maxLength, minLength, required } from "vuelidate/lib/validators";
 import { mapActions } from 'vuex'
+import AnswerList from "../list/AnswerList";
 
 export default {
     props: ['question'],
     name: "QuestionForm",
+    components: {
+        AnswerList
+    },
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -155,6 +162,11 @@ export default {
             'deleteQuestion'
         ]),
     },
+    computed: {
+        isSaved() {
+            return Number.isInteger(this.question.id) && this.question.type === "choice"
+        }
+    }
 }
 </script>
 
