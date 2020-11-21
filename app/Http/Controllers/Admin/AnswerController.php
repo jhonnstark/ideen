@@ -3,70 +3,52 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AnswerRequest;
+use App\Http\Resources\AnswerCollection;
 use App\Models\Answer;
+use App\Models\Question;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class AnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
+     * @param Question $question
      *
-     * @return Response
+     * @return AnswerCollection
      */
-    public function create()
+    public function index(Question $question): AnswerCollection
     {
-        //
+        return new AnswerCollection($question->answers);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param AnswerRequest $request
+     *
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(AnswerRequest $request): JsonResponse
     {
-        //
+        $answer = Answer::create($request->validated());
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+            'data' => $answer
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Answer $answer
-     * @return void
-     */
-    public function show(Answer $answer)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Answer $answer
-     * @return void
-     */
-    public function edit(Answer $answer)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
      * @param Answer $answer
+     *
      * @return void
      */
     public function update(Request $request, Answer $answer)
@@ -78,10 +60,16 @@ class AnswerController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Answer $answer
-     * @return void
+     *
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function destroy(Answer $answer)
+    public function destroy(Answer $answer): JsonResponse
     {
-        //
+        $answer->delete();
+        return response()->json([
+            'status' => 201,
+            'message' => 'deleted',
+        ], 201);
     }
 }

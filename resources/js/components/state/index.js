@@ -27,8 +27,11 @@ const actions = {
     async deleteQuestion ({commit}, question) {
         await api.deleteQuestion(question, () => commit('deleteQuestion', question))
     },
-    async saveAnswer () {
-
+    async saveAnswer ({commit}, { rute, answer, isEdit }) {
+        await api.saveAnswer(answer, rute, isEdit, answer => commit('saveAnswer', answer))
+    },
+    async deleteAnswer ({commit}, answer) {
+        await api.deleteAnswer(answer, () => commit('deleteAnswer', answer))
     }
 }
 
@@ -55,7 +58,7 @@ const mutations = {
             exam_id: state.exam.id
         })
     },
-    newAnswer (state) {
+    newAnswer (state, question) {
         let id = ""
         let chars = "abcdefghijklmnopqrstuvwxyz"
         for( let i=0; i < 5; i++ ) {
@@ -64,16 +67,24 @@ const mutations = {
         state.answers.push({
             id,
             option: null,
-            exam_id: state.exam.id
+            question_id: question
         })
     },
     saveQuestion (state, { question, id }) {
         const removedId = state.questions.findIndex(item => item.id === id);
         state.questions.splice(removedId, 1, question);
     },
+    saveAnswer (state, { answer, id }) {
+        const removedId = state.answers.findIndex(item => item.id === id);
+        state.answers.splice(removedId, 1, answer);
+    },
     deleteQuestion(state, question) {
         const removedId = state.questions.findIndex(item => item.id === question);
         state.questions.splice(removedId, 1)
+    },
+    deleteAnswer(state, answer) {
+        const removedId = state.answers.findIndex(item => item.id === answer);
+        state.answers.splice(removedId, 1)
     }
 }
 

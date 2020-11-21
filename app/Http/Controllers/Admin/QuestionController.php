@@ -13,15 +13,6 @@ use App\Http\Controllers\Controller;
 
 class QuestionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +20,7 @@ class QuestionController extends Controller
      * @param Exam $exam
      * @return QuestionCollection
      */
-    public function list(Exam $exam)
+    public function index(Exam $exam): QuestionCollection
     {
         return new QuestionCollection($exam->questions);
     }
@@ -40,7 +31,7 @@ class QuestionController extends Controller
      * @param QuestionRequest $request
      * @return JsonResponse
      */
-    public function store(QuestionRequest $request)
+    public function store(QuestionRequest $request): JsonResponse
     {
         $question = Question::create($request->validated());
         return response()->json([
@@ -48,28 +39,6 @@ class QuestionController extends Controller
             'message' => 'created',
             'data' => $question
         ], 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param Question $question
-     * @return void
-     */
-    public function show(Question $question)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Question $question
-     * @return void
-     */
-    public function edit(Question $question)
-    {
-        //
     }
 
     /**
@@ -91,7 +60,7 @@ class QuestionController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Question $question)
+    public function destroy(Question $question): JsonResponse
     {
         $question->delete();
         return response()->json([

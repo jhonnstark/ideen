@@ -39,5 +39,20 @@ export default {
                 .delete('/admin/question/delete/' + question)
         }
         cb()
-    }
+    },
+    async saveAnswer(answer, rute, isEdit, cb) {
+        await axios({
+            method: isEdit ? 'put' : 'post',
+            url: rute,
+            data: answer
+        })
+            .then(response => cb(response.data.data))
+    },
+    async deleteAnswer(question, cb) {
+        if (Number.isInteger(question)) {
+            await axios
+                .delete('/admin/answer/delete/' + question)
+        }
+        cb()
+    },
 }
