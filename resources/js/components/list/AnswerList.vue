@@ -2,7 +2,7 @@
     <div v-if="question" class="row justify-content-center air-around">
         <div class="col-md-8 offset-md-2">
             <h5>Respuestas</h5>
-            <answer-form v-for="(answer, index) in answers" :answer="answer" :key="index"></answer-form>
+            <answer-form v-for="(answer, index) in answersQuestion" :answer="answer" :key="index"></answer-form>
             <button
                 @click="newAnswer(question)"
                 class="btn btn-sm btn-primary" type="button">
@@ -30,7 +30,10 @@ export default {
     computed: {
         ...mapState([
             'answers',
-        ])
+        ]),
+        answersQuestion () {
+            return this.answers.filter(answer => answer.question_id === this.question)
+        }
     }
 }
 </script>

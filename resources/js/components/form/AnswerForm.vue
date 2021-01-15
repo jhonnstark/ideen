@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="option">
         <form
             @submit.prevent="register"
             action="#" method="POST" novalidate>
@@ -121,5 +121,7 @@ export default {
 </script>
 
 <style scoped>
-
+.option {
+    margin: 10px 0 5px;
+}
 </style>
