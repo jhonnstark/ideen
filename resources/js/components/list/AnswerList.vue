@@ -31,8 +31,10 @@ export default {
         ...mapState([
             'answers',
         ]),
+        //TODO: get the answers
         answersQuestion () {
-            return this.answers.filter(answer => answer.question_id === this.question)
+            console.log(this.answers)
+            return this.answers[this.question]
         }
     }
 }

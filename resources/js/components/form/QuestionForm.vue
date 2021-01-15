@@ -13,7 +13,6 @@
                         :class="{ 'is-invalid': $v.question.quiz.$error}"
                         :id="'quiz_' + question.id"
                         type="text"
-                        :disabled="isEdit"
                         class="form-control"
                         name="quiz" required autocomplete="quiz" autofocus>
 
@@ -100,7 +99,6 @@ export default {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
-            rute: '/admin/question/register',
             options: [{
                     id: 'choice',
                     name: 'Opción multiple'
@@ -109,7 +107,8 @@ export default {
                     id: 'open',
                     name: 'Abierta'
                 }],
-            isEdit: false,
+            isEdit: !!this.question.created_at,
+            rute: '',
             editForm: true,
             isDeleting: false,
             isLoading: false
@@ -126,8 +125,11 @@ export default {
         }
     },
     methods: {
+        reRute(){
+            this.rute = this.isEdit ? '/admin/question/edit/' + this.question.id : '/admin/question/register'
+        },
         register() {
-            if(!this.editForm) {
+            if(!this.editForm || !this.$v.$anyDirty) {
                 return;
             }
             if (this.$v.$invalid) {
@@ -159,13 +161,24 @@ export default {
         },
         ...mapActions([
             'saveQuestion',
+            'loadAnswers',
             'deleteQuestion'
         ]),
     },
     computed: {
         isSaved() {
             return Number.isInteger(this.question.id) && this.question.type === "choice"
+        },
+    },
+    watch: {
+        isEdit() {
+            this.reRute()
         }
+    },
+    created() {
+        this.reRute()
+        console.log('ewrwe')
+        this.loadAnswers(this.question.id);
     }
 }
 </script>

@@ -30,6 +30,9 @@ const actions = {
     async saveAnswer ({commit}, { rute, answer, isEdit }) {
         await api.saveAnswer(answer, rute, isEdit, answer => commit('saveAnswer', answer))
     },
+    async loadAnswers ({commit}, question ) {
+        await api.loadAnswers(question, answers => commit('setAnswers', { answers, question }))
+    },
     async deleteAnswer ({commit}, answer) {
         await api.deleteAnswer(answer, () => commit('deleteAnswer', answer))
     }
@@ -44,6 +47,9 @@ const mutations = {
     },
     setQuestions (state, questions) {
         state.questions = questions
+    },
+    setAnswers (state, { answers, question }) {
+        state.answers[question] = answers
     },
     newQuestion (state) {
         let id = ""
@@ -105,7 +111,7 @@ const state = {
     },
     courses: [],
     questions: [],
-    answers: []
+    answers: {}
 
 }
 

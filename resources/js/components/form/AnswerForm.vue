@@ -66,8 +66,8 @@ export default {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
-            rute: '/admin/answer/register',
-            isEdit: false,
+            isEdit: !!this.answer.created_at,
+            rute: '',
             editForm: true,
             isDeleting: false,
             isLoading: false,
@@ -81,8 +81,11 @@ export default {
         }
     },
     methods: {
+        reRute(){
+            this.rute = this.isEdit ? '/admin/answer/edit/' + this.answer.id : '/admin/answer/register'
+        },
         register() {
-            if(!this.editForm) {
+            if(!this.editForm || !this.$v.$anyDirty) {
                 return;
             }
             if (this.$v.$invalid) {
@@ -117,11 +120,19 @@ export default {
             'deleteAnswer'
         ]),
     },
+    watch: {
+        isEdit() {
+            this.reRute()
+        }
+    },
+    created() {
+        this.reRute()
+    }
 }
 </script>
 
 <style scoped>
 .option {
-    margin: 10px 0 5px;
+    margin: 20px 0;
 }
 </style>

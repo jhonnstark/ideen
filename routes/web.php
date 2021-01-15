@@ -150,12 +150,8 @@ Route::prefix('/admin')
         Route::prefix('/question')
             ->name('question.')
             ->group(function(){
-            //    Route::get('/', 'QuestionController@index')->name('list');
                 Route::get('{exam}/list', 'QuestionController@index');
-               // Route::get('/register', 'QuestionController@create')->name('register');
                 Route::post('/register', 'QuestionController@store');
-              //  Route::get('/edit/{question}', 'QuestionController@show')->name('edit');
-              //  Route::get('/edit/{question}/json', 'QuestionController@showJson');
                 Route::put('/edit/{question}', 'QuestionController@update');
                 Route::delete('/delete/{question}', 'QuestionController@destroy');
             });
@@ -163,7 +159,7 @@ Route::prefix('/admin')
         Route::prefix('/answer')
             ->name('answer.')
             ->group(function(){
-                Route::get('{exam}/list', 'AnswerController@index');
+                Route::get('{question}/list', 'AnswerController@index');
                 Route::post('/register', 'AnswerController@store');
                 Route::put('/edit/{answer}', 'AnswerController@update');
                 Route::delete('/delete/{answer}', 'AnswerController@destroy');

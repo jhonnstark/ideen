@@ -46,14 +46,19 @@ class AnswerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param AnswerRequest $request
      * @param Answer $answer
      *
-     * @return void
+     * @return JsonResponse
      */
-    public function update(Request $request, Answer $answer)
+    public function update(AnswerRequest $request, Answer $answer): JsonResponse
     {
-        //
+        $answer->update($request->validated());
+        return response()->json([
+            'status' => 201,
+            'message' => 'edited',
+            'data' => $answer
+        ], 201);
     }
 
     /**

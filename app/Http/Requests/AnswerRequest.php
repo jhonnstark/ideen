@@ -13,7 +13,7 @@ class AnswerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class AnswerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'option' => 'bail|required|max:255',
+            'question_id' => 'bail|required|exists:questions,id'
         ];
     }
 }
