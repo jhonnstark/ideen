@@ -177,7 +177,6 @@ export default {
     },
     created() {
         this.reRute()
-        console.log('ewrwe')
         this.loadAnswers(this.question.id);
     }
 }

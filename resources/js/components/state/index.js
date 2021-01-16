@@ -70,7 +70,10 @@ const mutations = {
         for( let i=0; i < 5; i++ ) {
             id += chars.charAt(Math.floor(Math.random() * chars.length))
         }
-        state.answers.push({
+        if (typeof state.answers[question] === 'undefined') {
+            state.answers[question] = []
+        }
+        state.answers[question].push({
             id,
             option: null,
             question_id: question
