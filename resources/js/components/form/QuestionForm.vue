@@ -146,6 +146,7 @@ export default {
             }).then(() => {
                     this.isEdit = true;
                     this.isLoading = false;
+                    this.editForm = true;
                     this.$swal('Guardado', 'Creado exitosamente.', 'success');
                 }).catch(error => console.log(error))
             }

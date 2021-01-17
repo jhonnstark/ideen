@@ -32,7 +32,6 @@ export default {
             'answers',
         ]),
         answersQuestion () {
-            console.log('answersQuestion', this.answers[this.question])
             return this.answers[this.question]
         }
     },

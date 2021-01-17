@@ -64,23 +64,17 @@ const mutations = {
         })
     },
     newAnswer (state, question) {
-        console.log('newAnswer', state.answers[question])
         let id = Common.makeID()
-        if (typeof state.answers[question] === 'undefined') {
-            state.answers[question] = []
-            console.log('typeof', state.answers[question])
-        }
         state.answers[question].push({
             id,
             option: null,
             question_id: question
         })
-        console.log('question', state.answers[question])
     },
     saveQuestion (state, { question, id }) {
         const removedId = state.questions.findIndex(item => item.id === id);
         state.questions.splice(removedId, 1, question);
-        state.answers[question] = []
+        state.answers = { ...state.answers, [question.id] : [] }
     },
     saveAnswer (state, { answer, id }) {
         const removedId = state.answers[answer.question_id].findIndex(item => item.id === id);
