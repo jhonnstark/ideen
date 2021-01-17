@@ -49,9 +49,11 @@ export default {
             .then(response => cb(response.data.data))
     },
     async loadAnswers(question, cb) {
-        await axios
-            .get('/admin/answer/' + question + '/list')
-            .then(response => cb(response.data.data))
+        if (Number.isInteger(question)) {
+            await axios
+                .get('/admin/answer/' + question + '/list')
+                .then(response => cb(response.data.data))
+        }
     },
     async deleteAnswer(question, cb) {
         if (Number.isInteger(question)) {

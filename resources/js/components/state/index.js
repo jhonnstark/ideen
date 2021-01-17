@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import api from '../api/api'
+import Common from "../common";
 
 /**
  * Vuex for the state
@@ -28,13 +29,14 @@ const actions = {
         await api.deleteQuestion(question, () => commit('deleteQuestion', question))
     },
     async saveAnswer ({commit}, { rute, answer, isEdit }) {
-        await api.saveAnswer(answer, rute, isEdit, answer => commit('saveAnswer', answer))
+        const id = answer.id
+        await api.saveAnswer(answer, rute, isEdit, answer => commit('saveAnswer', { answer, id }))
     },
     async loadAnswers ({commit}, question ) {
         await api.loadAnswers(question, answers => commit('setAnswers', { answers, question }))
     },
     async deleteAnswer ({commit}, answer) {
-        await api.deleteAnswer(answer, () => commit('deleteAnswer', answer))
+        await api.deleteAnswer(answer.id, () => commit('deleteAnswer', answer))
     }
 }
 
@@ -47,16 +49,13 @@ const mutations = {
     },
     setQuestions (state, questions) {
         state.questions = questions
+        state.questions.forEach(question => state.answers[question.id] = [])
     },
     setAnswers (state, { answers, question }) {
-        state.answers[question] = answers
+        state.answers = { ...state.answers, [question] : answers }
     },
     newQuestion (state) {
-        let id = ""
-        let chars = "abcdefghijklmnopqrstuvwxyz"
-        for( let i=0; i < 5; i++ ) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length))
-        }
+        let id = Common.makeID()
         state.questions.push({
             id,
             quiz: null,
@@ -65,35 +64,35 @@ const mutations = {
         })
     },
     newAnswer (state, question) {
-        let id = ""
-        let chars = "abcdefghijklmnopqrstuvwxyz"
-        for( let i=0; i < 5; i++ ) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length))
-        }
+        console.log('newAnswer', state.answers[question])
+        let id = Common.makeID()
         if (typeof state.answers[question] === 'undefined') {
             state.answers[question] = []
+            console.log('typeof', state.answers[question])
         }
         state.answers[question].push({
             id,
             option: null,
             question_id: question
         })
+        console.log('question', state.answers[question])
     },
     saveQuestion (state, { question, id }) {
         const removedId = state.questions.findIndex(item => item.id === id);
         state.questions.splice(removedId, 1, question);
+        state.answers[question] = []
     },
     saveAnswer (state, { answer, id }) {
-        const removedId = state.answers.findIndex(item => item.id === id);
-        state.answers.splice(removedId, 1, answer);
+        const removedId = state.answers[answer.question_id].findIndex(item => item.id === id);
+        state.answers[answer.question_id].splice(removedId, 1, answer);
     },
     deleteQuestion(state, question) {
         const removedId = state.questions.findIndex(item => item.id === question);
         state.questions.splice(removedId, 1)
     },
     deleteAnswer(state, answer) {
-        const removedId = state.answers.findIndex(item => item.id === answer);
-        state.answers.splice(removedId, 1)
+        const removedId = state.answers[answer.question_id].findIndex(item => item.id === answer.id);
+        state.answers[answer.question_id].splice(removedId, 1)
     }
 }
 

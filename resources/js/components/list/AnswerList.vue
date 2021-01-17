@@ -22,11 +22,6 @@ export default {
     components: {
         AnswerForm
     },
-    data() {
-        return {
-            answersQuestion: []
-        }
-    },
     methods: {
         ...mapMutations([
             'newAnswer',
@@ -36,11 +31,11 @@ export default {
         ...mapState([
             'answers',
         ]),
-        //TODO: get the answers
+        answersQuestion () {
+            console.log('answersQuestion', this.answers[this.question])
+            return this.answers[this.question]
+        }
     },
-    created() {
-        this.answersQuestion = this.answers[this.question]
-    }
 }
 </script>
 

@@ -47,8 +47,8 @@
                         <span v-if="!isDeleting">Borrar</span>
                     </button>
                     <span v-if="$v.$invalid && errors" class="text-danger" role="alert">
-                            <strong>Completa el formulario</strong>
-                        </span>
+                        <strong>Completa el formulario</strong>
+                    </span>
                 </div>
             </div>
         </form>
@@ -111,7 +111,7 @@ export default {
                 return;
             }
             this.isDeleting = true;
-            this.deleteAnswer(this.answer.id).then(() => {
+            this.deleteAnswer(this.answer).then(() => {
                 this.isDeleting = false;
             })
         },
