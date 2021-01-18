@@ -7,17 +7,24 @@ use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
+use App\Http\Resources\ExamCollection;
+use App\Http\Resources\ExamResource;
+use App\Http\Resources\ExamsCollection;
 use App\Http\Resources\MaterialResource;
 use App\Http\Resources\ModulesResource;
 use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
 use App\Http\Resources\User as UserResource;
+use App\Models\Exam;
 use App\Models\Module;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -43,7 +50,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\Support\Renderable
     {
         return view('home');
     }
@@ -53,7 +60,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function profile()
+    public function profile(): \Illuminate\Contracts\Support\Renderable
     {
         return view('profile', ['id' => Auth::id()]);
     }
@@ -61,9 +68,9 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \App\Http\Resources\User
+     * @return UserResource
      */
-    public function info()
+    public function info(): UserResource
     {
         return new UserResource(Auth::user());
     }
@@ -71,7 +78,7 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return CourseCollection|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return CourseCollection|Application|Factory|View
      */
     public function courses()
     {
@@ -83,7 +90,7 @@ class HomeController extends Controller
      *
      * @return CourseCollection
      */
-    public function list()
+    public function list(): CourseCollection
     {
         $user = Auth::user();
         $user->load('courses.teacher');
@@ -95,7 +102,7 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Course $course
-     * @return ActivityResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return ActivityResource|Application|Factory|View
      */
     public function courseInfo(Course $course)
     {
@@ -105,6 +112,40 @@ class HomeController extends Controller
             'img' => $course->url_big,
             'name' => $course->name
         ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     * @return ExamCollection
+     */
+    public function exam(Course $course): ExamCollection
+    {
+        $course->load('exam');
+        return new ExamCollection($course->exam);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Exam $exam
+     * @return View
+     */
+    public function solveExam(Exam $exam): View
+    {
+        return view('solveExam', ['id', $exam->id]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Exam $exam
+     * @return ExamResource
+     */
+    public function startExam(Exam $exam): ExamResource
+    {
+        return new ExamResource($exam);
     }
 
     /**
@@ -147,7 +188,7 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Activity $activity
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return MaterialResource|Application|Factory|View
      */
     public function activityDetail(Activity $activity)
     {
@@ -161,7 +202,7 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Module $module
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return MaterialResource|Application|Factory|View
      */
     public function moduleDetail(Module $module)
     {
@@ -176,7 +217,7 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Content $content
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return MaterialResource|Application|Factory|View
      */
     public function contentDetail(Content $content)
     {
@@ -188,7 +229,7 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Activity $activity
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return MaterialResource|Application|Factory|View
      */
     public function activityJson(Activity $activity)
     {
@@ -204,7 +245,7 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Content $content
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return MaterialResource|Application|Factory|View
      */
     public function contentJson(Content $content)
     {
@@ -220,7 +261,7 @@ class HomeController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Module $module
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
+     * @return Application|Factory|Response|View
      */
     public function createActivity(Module $module)
     {
@@ -234,7 +275,7 @@ class HomeController extends Controller
      * @param ActivityRequest $request
      * @return JsonResponse
      */
-    public function storeActivity(ActivityRequest $request)
+    public function storeActivity(ActivityRequest $request): JsonResponse
     {
         $validated = $request->validated();
         $activity = Activity::create($validated);
