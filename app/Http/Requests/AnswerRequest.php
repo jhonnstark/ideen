@@ -25,6 +25,7 @@ class AnswerRequest extends FormRequest
     {
         return [
             'option' => 'bail|required|max:255',
+            'correct' => 'boolean',
             'question_id' => 'bail|required|exists:questions,id'
         ];
     }
