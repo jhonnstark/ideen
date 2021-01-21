@@ -2,6 +2,7 @@ import Vuex from 'vuex'
 import Vue from 'vue'
 import api from '../api/api'
 import Common from "../common";
+import User from "./user";
 
 /**
  * Vuex for the state
@@ -112,6 +113,9 @@ const state = {
 }
 
 const store = new Vuex.Store({
+    modules: {
+        user: User
+    },
     state,
     getters,
     mutations,
