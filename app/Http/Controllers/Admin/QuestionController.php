@@ -13,15 +13,6 @@ use App\Http\Controllers\Controller;
 
 class QuestionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +20,7 @@ class QuestionController extends Controller
      * @param Exam $exam
      * @return QuestionCollection
      */
-    public function list(Exam $exam)
+    public function index(Exam $exam): QuestionCollection
     {
         return new QuestionCollection($exam->questions);
     }
@@ -40,7 +31,7 @@ class QuestionController extends Controller
      * @param QuestionRequest $request
      * @return JsonResponse
      */
-    public function store(QuestionRequest $request)
+    public function store(QuestionRequest $request): JsonResponse
     {
         $question = Question::create($request->validated());
         return response()->json([
@@ -51,37 +42,20 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param Question $question
-     * @return void
-     */
-    public function show(Question $question)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Question $question
-     * @return void
-     */
-    public function edit(Question $question)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param QuestionRequest $request
      * @param Question $question
-     * @return void
+     * @return JsonResponse
      */
-    public function update(Request $request, Question $question)
+    public function update(QuestionRequest $request, Question $question): JsonResponse
     {
-        //
+        $question->update($request->validated());
+        return response()->json([
+            'status' => 201,
+            'message' => 'edited',
+            'data' => $question
+        ], 201);
     }
 
     /**
@@ -91,7 +65,7 @@ class QuestionController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Question $question)
+    public function destroy(Question $question): JsonResponse
     {
         $question->delete();
         return response()->json([

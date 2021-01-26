@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static create(array $validated)
+ */
 class Answer extends Model
 {
 
@@ -13,7 +16,7 @@ class Answer extends Model
      * @var array
      */
     protected $fillable = [
-        'option', 'question_id'
+        'option', 'correct', 'question_id'
     ];
 
     /**
