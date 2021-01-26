@@ -25,6 +25,20 @@
                 </div>
             </div>
 
+            <div class="form-group row">
+                <div class="col-md-6 offset-md-4">
+                    <div class="form-check">
+                        <input
+                            v-model.trim="$v.answer.correct.$model"
+                            class="form-check-input" type="checkbox" name="correct" id="correct">
+
+                        <label class="form-check-label" for="correct">
+                            ¿ Es la correcta ?
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group row mb-0">
                 <div class="col-md-7 offset-md-3">
                     <button type="submit"
@@ -57,7 +71,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { mapActions} from "vuex";
+import { mapActions } from "vuex";
 
 export default {
     props: ['answer'],
@@ -77,7 +91,8 @@ export default {
         answer: {
             option: {
                 required,
-            }
+            },
+            correct: {}
         }
     },
     methods: {

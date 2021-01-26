@@ -114,7 +114,7 @@ const state = {
 
 const store = new Vuex.Store({
     modules: {
-        user: User
+        User
     },
     state,
     getters,

@@ -14,7 +14,7 @@ class AddCorrectFieldToAnswer extends Migration
     public function up()
     {
         Schema::table('answers', function (Blueprint $table) {
-            $table->boolean('correct');
+            $table->boolean('correct')->default(0);
         });
     }
 
