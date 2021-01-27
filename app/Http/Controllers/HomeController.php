@@ -134,7 +134,7 @@ class HomeController extends Controller
      */
     public function solveExam(Exam $exam): View
     {
-        return view('solveExam', ['id', $exam->id]);
+        return view('solveExam', ['id' => $exam->id]);
     }
 
     /**
@@ -145,6 +145,7 @@ class HomeController extends Controller
      */
     public function startExam(Exam $exam): ExamResource
     {
+        $exam->load('questions.answers');
         return new ExamResource($exam);
     }
 

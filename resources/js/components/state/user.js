@@ -1,16 +1,29 @@
+import api from '../api/api'
+
+const actions = {
+    async startExam ({commit}, examID) {
+        await api.startExam(examID, exam => commit('startExam', exam))
+    }
+}
+
+const mutations = {
+    startExam (stateStartExam, exam) {
+        stateStartExam.exam = exam
+    },
+}
+
+const  state = {
+    exam: {}
+}
+
 const User = {
-    state: {
-
-    },
-    mutations: {
-
-    },
+    namespaced: true,
+    state,
+    mutations,
     getters: {
 
     },
-    actions: {
-
-    }
+    actions
 }
 
 export default User

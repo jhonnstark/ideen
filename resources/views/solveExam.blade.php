@@ -24,7 +24,7 @@
                     <div class="card-header"></div>
                     <div class="card-body">
 
-                        <start-exam></start-exam>
+                        <start-exam id="{{ $id }}"></start-exam>
 
                     </div>
                 </div>

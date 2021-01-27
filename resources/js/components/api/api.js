@@ -62,4 +62,9 @@ export default {
         }
         cb()
     },
+    async startExam(exam, cb) {
+        await axios
+            .get(exam +'/start/')
+            .then(response => cb(response.data.data))
+    }
 }
