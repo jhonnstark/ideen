@@ -12988,12 +12988,16 @@ svg.btn-loading {
   margin-left: 5px;
 }
 
+.form-group {
+  width: 100%;
+}
+
 .form-group .v-select {
-  position: relative;
   flex: 1 1 auto;
-  width: 1%;
-  min-width: 0;
   margin-bottom: 0;
+  min-width: 0;
+  position: relative;
+  width: 1%;
 }
 
 .input-group > .v-select:not(:first-child) .vs__dropdown-toggle {

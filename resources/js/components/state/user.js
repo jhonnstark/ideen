@@ -13,7 +13,9 @@ const mutations = {
 }
 
 const  state = {
-    exam: {}
+    exam: {
+        teacher: {}
+    }
 }
 
 const User = {

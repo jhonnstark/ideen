@@ -78,6 +78,9 @@ Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
 Vue.component('score-material', require('./components/form/ScoreMaterial.vue').default);
 Vue.component('detail', require('./components/Detail.vue').default);
 Vue.component('start-exam', require('./components/User/StartExam.vue').default);
+Vue.component('question', require('./components/User/Question.vue').default);
+Vue.component('open-answer', require('./components/User/OpenAnswer.vue').default);
+Vue.component('answer', require('./components/User/Answer.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
