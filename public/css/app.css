@@ -12943,9 +12943,9 @@ svg.btn-loading {
 }
 
 .gutters {
-  margin-right: -15px;
-  margin-left: -15px;
   margin-bottom: 20px;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .spacer {
@@ -12953,8 +12953,8 @@ svg.btn-loading {
 }
 
 .air-around {
-  margin-top: 20px;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .navbar-logo {
@@ -13001,9 +13001,9 @@ svg.btn-loading {
 }
 
 .input-group > .v-select:not(:first-child) .vs__dropdown-toggle {
-  border-radius: 0 0.25rem 0.25rem 0;
   border: 1px solid #ced4da;
-  padding: 4px 0 5px 0;
+  border-radius: 0 0.25rem 0.25rem 0;
+  padding: 4px 0 5px;
 }
 
 .current-page {
@@ -13024,8 +13024,8 @@ svg.btn-loading {
   fill: #000;
   height: 100%;
   max-width: 100px;
-  width: 100%;
   min-width: 70px;
+  width: 100%;
 }
 
 .spin {
@@ -13055,9 +13055,9 @@ svg.btn-loading {
 }
 
 .on-load {
-  opacity: 0;
   -webkit-animation: fade-in-up 1s forwards;
           animation: fade-in-up 1s forwards;
+  opacity: 0;
 }
 
 @-webkit-keyframes fade-in-up {
@@ -13085,19 +13085,19 @@ svg.btn-loading {
 }
 
 .spinner {
-  pointer-events: none;
-  width: 32px;
-  height: 32px;
-  border: 2px solid transparent;
-  border-color: #f2f2f2;
-  border-top-color: #9561e2;
-  border-radius: 50%;
   -webkit-animation: spin 1s, colour-wheel 3s;
           animation: spin 1s, colour-wheel 3s;
   -webkit-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
   -webkit-animation-timing-function: ease-in-out;
           animation-timing-function: ease-in-out;
+  border: 2px solid transparent;
+  border-color: #f2f2f2;
+  border-radius: 50%;
+  border-top-color: #9561e2;
+  height: 32px;
+  pointer-events: none;
+  width: 32px;
 }
 
 @-webkit-keyframes spin {

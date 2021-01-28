@@ -14,6 +14,16 @@
             </div>
             <hr>
             <question v-for="question in exam.questions" :question="question" :key="question.id"></question>
+            <hr>
+
+            <div class="form-group row mb-0">
+                <div class="col-md-6 offset-md-4">
+                    <button type="button" class="btn btn-primary">
+                        Completar
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 </template>
@@ -38,6 +48,10 @@ export default {
         ...mapActions([
             'startExam',
         ]),
+
+        finishExam(){
+            this.$swal('Guardado', 'Creado exitosamente.', 'success');
+        }
     }
 }
 </script>

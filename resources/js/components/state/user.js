@@ -3,13 +3,19 @@ import api from '../api/api'
 const actions = {
     async startExam ({commit}, examID) {
         await api.startExam(examID, exam => commit('startExam', exam))
+    },
+    async saveClaim ({commit}, answer) {
+        await api.saveClaim(answer, claim => commit('saveClaim', claim))
     }
 }
 
 const mutations = {
-    startExam (stateStartExam, exam) {
-        stateStartExam.exam = exam
+    startExam (stateOld, exam) {
+        stateOld.exam = exam
     },
+    saveClaim(stateOld, claim) {
+        stateOld.claim = claim
+    }
 }
 
 const  state = {

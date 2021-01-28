@@ -38,4 +38,12 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class);
     }
+
+    /**
+     * @return HasMany
+     */
+    public function claims(): HasMany
+    {
+        return $this->hasMany(Claim::class);
+    }
 }

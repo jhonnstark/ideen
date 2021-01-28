@@ -209,9 +209,10 @@ Route::prefix('/course')
     ->name('course.')
     ->group(function(){
         Route::get('/{course}', 'HomeController@courseInfo')->name('course');
-        Route::get('/{course}/exam', 'HomeController@exam')->name('exam');
-        Route::get('/exam/{exam}', 'HomeController@solveExam')->name('solveExam');
-        Route::get('/exam/{exam}/start', 'HomeController@startExam')->name('startExam');
+        Route::get('/{course}/exam', 'ExamController@exam')->name('exam');
+        Route::get('/exam/{exam}', 'ExamController@solveExam')->name('solveExam');
+        Route::get('/exam/{exam}/start', 'ExamController@startExam')->name('startExam');
+        Route::post('/exam/{question}/claim', 'ExamController@saveClaim')->name('saveClaim');
         Route::get('/{course}/module', 'HomeController@module')->name('module');
         Route::get('/module/{module}/activity/add', 'HomeController@createActivity')->name('createActivity');
         Route::post('/module/{module}/activity/add', 'HomeController@storeActivity');

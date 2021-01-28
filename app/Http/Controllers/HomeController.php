@@ -7,16 +7,12 @@ use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
-use App\Http\Resources\ExamCollection;
-use App\Http\Resources\ExamResource;
-use App\Http\Resources\ExamUserResource;
 use App\Http\Resources\MaterialResource;
 use App\Http\Resources\ModulesResource;
 use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
 use App\Http\Resources\User as UserResource;
-use App\Models\Exam;
 use App\Models\Module;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -103,6 +99,7 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Course $course
+     *
      * @return ActivityResource|Application|Factory|View
      */
     public function courseInfo(Course $course)
@@ -113,41 +110,6 @@ class HomeController extends Controller
             'img' => $course->url_big,
             'name' => $course->name
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Course $course
-     * @return ExamCollection
-     */
-    public function exam(Course $course): ExamCollection
-    {
-        $course->load('exam');
-        return new ExamCollection($course->exam);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Exam $exam
-     * @return View
-     */
-    public function solveExam(Exam $exam): View
-    {
-        return view('solveExam', ['id' => $exam->id]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Exam $exam
-     * @return ExamUserResource
-     */
-    public function startExam(Exam $exam): ExamUserResource
-    {
-        $exam->load('questions.answers');
-        return new ExamUserResource($exam);
     }
 
     /**

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <label for="exampleFormControlTextarea1" class="form-group">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                <textarea v-model="answer" class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
             </label>
         </div>
     </div>
@@ -10,8 +10,13 @@
 
 <script>
 export default {
-    props: ['answers', 'question'],
-    name: "OpenAnswer"
+    props: ['question'],
+    name: "OpenAnswer",
+    data() {
+        return {
+            answer: ''
+        }
+    }
 }
 </script>
 

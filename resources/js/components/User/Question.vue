@@ -6,7 +6,7 @@
             </div>
         </div>
         <answer v-if="question.type === 'choice'" :answers="question.answers" :question="question.id"></answer>
-        <open-answer v-else :answers="question.answers" :question="question.id"></open-answer>
+        <open-answer v-else :question="question.id"></open-answer>
     </div>
 </template>
 
