@@ -4,33 +4,42 @@ const actions = {
     async startExam ({commit}, examID) {
         await api.startExam(examID, exam => commit('startExam', exam))
     },
+    async loadClaim ({commit}, question){
+        await api.loadClaim(question, claim => commit('loadClaim', claim))
+    },
     async saveClaim ({commit}, answer) {
-        await api.saveClaim(answer, claim => commit('saveClaim', claim))
+        await api.saveClaim(answer, claims => commit('saveClaim', claims))
     }
 }
 
 const mutations = {
-    startExam (stateOld, exam) {
-        stateOld.exam = exam
+    startExam (state, exam) {
+        state.exam = exam
     },
-    saveClaim(stateOld, claim) {
-        stateOld.claim = claim
+    saveClaim (state, claim) {
+        state.claims.push(claim)
+    },
+    loadClaim (state, claim) {
+        state.claims.push(claim)
     }
 }
 
-const  state = {
+const  stated = {
     exam: {
         teacher: {}
-    }
+    },
+    claims: []
+}
+
+const getters = {
+
 }
 
 const User = {
     namespaced: true,
-    state,
+    state: stated,
     mutations,
-    getters: {
-
-    },
+    getters,
     actions
 }
 

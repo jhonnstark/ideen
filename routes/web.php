@@ -213,6 +213,7 @@ Route::prefix('/course')
         Route::get('/exam/{exam}', 'ExamController@solveExam')->name('solveExam');
         Route::get('/exam/{exam}/start', 'ExamController@startExam')->name('startExam');
         Route::post('/exam/{question}/claim', 'ExamController@saveClaim')->name('saveClaim');
+        Route::get('/exam/{question}/claim', 'ExamController@loadClaim')->name('loadClaim');
         Route::get('/{course}/module', 'HomeController@module')->name('module');
         Route::get('/module/{module}/activity/add', 'HomeController@createActivity')->name('createActivity');
         Route::post('/module/{module}/activity/add', 'HomeController@storeActivity');

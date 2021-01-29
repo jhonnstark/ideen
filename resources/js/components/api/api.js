@@ -67,6 +67,11 @@ export default {
             .get(exam +'/start/')
             .then(response => cb(response.data.data))
     },
+    async loadClaim(question, cb) {
+        await axios
+            .get(question +'/claim/')
+            .then(response => cb(response.data.data))
+    },
     async saveClaim({ claim, question }, cb) {
         await axios
             .post(question +'/claim/', { claim })

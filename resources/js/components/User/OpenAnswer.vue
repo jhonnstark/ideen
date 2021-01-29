@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <label for="exampleFormControlTextarea1" class="form-group">
-                <textarea v-model="answer" class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                <textarea v-model="$v.answer.$model" class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
             </label>
         </div>
     </div>
@@ -10,6 +10,7 @@
 
 <script>
 import _ from 'lodash';
+import { required } from 'vuelidate/lib/validators';
 import { createNamespacedHelpers } from "vuex";
 
 const { mapState, mapActions } = createNamespacedHelpers('User')
@@ -23,22 +24,39 @@ export default {
             answer: ''
         }
     },
+    validations: {
+        answer: {
+            required,
+        },
+    },
     created() {
         this.throttledMethod = _.debounce(() => {
             let vm = this;
-            console.log('I only get fired once every 1 second, max!')
-            console.log(vm.question)
-            console.log(vm.answer)
             const data = {
                 question: vm.question,
                 claim: vm.answer
             }
-            console.log(data)
+            console.log('created')
             this.saveClaim(data)
         }, 1000)
+        this.loadClaim(this.question).then(() => {
+            const claimApi = this.claims.find(claim => claim.question_id === this.question)
+            this.answer = claimApi.profess
+        })
+    },
+    mounted() {
+
+    },
+    computed: {
+        ...mapState({
+            claims: state => state.claims,
+        })
     },
     watch: {
         answer() {
+            if (this.$v.$invalid || !this.$v.$anyDirty) {
+                return
+            }
             this.throttledMethod()
         }
     },
@@ -50,6 +68,7 @@ export default {
 
         ...mapActions([
             'saveClaim',
+            'loadClaim'
         ]),
     }
 }

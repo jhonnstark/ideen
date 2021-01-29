@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveClaimRequest;
+use App\Http\Resources\ClaimCollection;
+use App\Http\Resources\ClaimResource;
 use App\Http\Resources\ExamCollection;
 use App\Http\Resources\ExamUserResource;
 use App\Models\Answer;
@@ -76,7 +78,7 @@ class ExamController extends Controller
         $profess = is_int($request->claim)
             ? Answer::find($request->claim)->option
             : $request->claim;
-        $question->claims()->updateOrCreate(
+        $claim = $question->claims()->updateOrCreate(
             [
                 'user_id' => Auth::user()->id,
             ],
@@ -86,6 +88,20 @@ class ExamController extends Controller
         return response()->json([
             'status' => 201,
             'message' => 'saved',
+            'data' => $claim->first()
         ], 201);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Question $question
+     *
+     * @return ClaimResource
+     */
+    public function loadClaim(Question $question): ClaimResource
+    {
+        $question->load('claims');
+        return new ClaimResource($question->claims->first());
     }
 }

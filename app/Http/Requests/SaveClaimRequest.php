@@ -26,9 +26,24 @@ class SaveClaimRequest extends FormRequest
      */
     public function rules()
     {
-        // todo: search for claim when is an interger
         return [
             'claim' => 'required'
         ];
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function getValidatorInstance()
+    {
+        $validator = parent::getValidatorInstance();
+
+        $validator->sometimes('claim', 'exists:answers,id', function ($input) {
+            return is_int($input->claim);
+        });
+
+        return $validator;
     }
 }

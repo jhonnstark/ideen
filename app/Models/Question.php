@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static create(array $validated)
+ * @property mixed claims
  */
 class Question extends Model
 {
