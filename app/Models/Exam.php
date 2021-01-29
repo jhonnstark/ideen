@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $validated)
+ * @property mixed id
  */
 class Exam extends Model
 {

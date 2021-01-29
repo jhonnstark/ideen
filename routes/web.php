@@ -150,18 +150,19 @@ Route::prefix('/admin')
         Route::prefix('/question')
             ->name('question.')
             ->group(function(){
-
-                Route::get('/', 'QuestionController@index')->name('list');
-
-                Route::get('{exam}/list', 'QuestionController@list');
-                Route::get('/register', 'QuestionController@create')->name('register');
+                Route::get('{exam}/list', 'QuestionController@index');
                 Route::post('/register', 'QuestionController@store');
-
-                Route::get('/edit/{question}', 'QuestionController@show')->name('edit');
-                Route::get('/edit/{question}/json', 'QuestionController@showJson');
                 Route::put('/edit/{question}', 'QuestionController@update');
-
                 Route::delete('/delete/{question}', 'QuestionController@destroy');
+            });
+
+        Route::prefix('/answer')
+            ->name('answer.')
+            ->group(function(){
+                Route::get('{question}/list', 'AnswerController@index');
+                Route::post('/register', 'AnswerController@store');
+                Route::put('/edit/{answer}', 'AnswerController@update');
+                Route::delete('/delete/{answer}', 'AnswerController@destroy');
             });
 });
 
@@ -208,6 +209,9 @@ Route::prefix('/course')
     ->name('course.')
     ->group(function(){
         Route::get('/{course}', 'HomeController@courseInfo')->name('course');
+        Route::get('/{course}/exam', 'HomeController@exam')->name('exam');
+        Route::get('/exam/{exam}', 'HomeController@solveExam')->name('solveExam');
+        Route::get('/exam/{exam}/start', 'HomeController@startExam')->name('startExam');
         Route::get('/{course}/module', 'HomeController@module')->name('module');
         Route::get('/module/{module}/activity/add', 'HomeController@createActivity')->name('createActivity');
         Route::post('/module/{module}/activity/add', 'HomeController@storeActivity');

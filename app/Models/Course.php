@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -50,9 +53,10 @@ class Course extends Model
         return Storage::disk('s3')->url('poster_big/' . $this->poster);
     }
 
-
     /**
      * Get the category that owns the course.
+     *
+     * @return BelongsTo
      */
     public function category()
     {
@@ -61,33 +65,51 @@ class Course extends Model
 
     /**
      * Get the category that owns the course.
+     *
+     * @return BelongsTo
      */
-    public function level()
+    public function level(): BelongsTo
     {
         return $this->belongsTo(Level::class);
     }
 
     /**
      * The teacher that belong to the course.
+     *
+     * @return belongsToMany
      */
-    public function teacher()
+    public function teacher(): BelongsToMany
     {
         return $this->belongsToMany(Teacher::class, 'lecturings');
     }
 
     /**
      * The student that belong to the course.
+     *
+     * @return BelongsToMany
      */
-    public function student()
+    public function student(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'learnings');
     }
 
     /**
      * Get the activity for the course.
+     *
+     * @return HasMany
      */
-    public function module()
+    public function module(): HasMany
     {
         return $this->hasMany(Module::class);
+    }
+
+    /**
+     * Get the activity for the course.
+     *
+     * @return HasMany
+     */
+    public function exam(): HasMany
+    {
+        return $this->hasMany(Exam::class);
     }
 }

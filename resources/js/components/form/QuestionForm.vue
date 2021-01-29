@@ -13,7 +13,6 @@
                         :class="{ 'is-invalid': $v.question.quiz.$error}"
                         :id="'quiz_' + question.id"
                         type="text"
-                        :disabled="isEdit"
                         class="form-control"
                         name="quiz" required autocomplete="quiz" autofocus>
 
@@ -53,6 +52,15 @@
 
             <div class="form-group row mb-0">
                 <div class="col-md-7 offset-md-3">
+                    <button type="submit"
+                            :class="[ !$v.$invalid && $v.$anyDirty? 'btn-primary': 'btn-secondary']"
+                            class="btn">
+                        <svg
+                            v-if="isLoading"
+                            class="spin btn-loading"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 2.5a5.487 5.487 0 00-4.131 1.869l1.204 1.204A.25.25 0 014.896 6H1.25A.25.25 0 011 5.75V2.104a.25.25 0 01.427-.177l1.38 1.38A7.001 7.001 0 0114.95 7.16a.75.75 0 11-1.49.178A5.501 5.501 0 008 2.5zM1.705 8.005a.75.75 0 01.834.656 5.501 5.501 0 009.592 2.97l-1.204-1.204a.25.25 0 01.177-.427h3.646a.25.25 0 01.25.25v3.646a.25.25 0 01-.427.177l-1.38-1.38A7.001 7.001 0 011.05 8.84a.75.75 0 01.656-.834z"></path></svg>
+                        <span v-if="!isLoading">{{ isEdit ? 'Actualizar' : ' Agregar' }}</span>
+                    </button>
                     <button
                         @click="removeQuestion"
                         type="button"
@@ -62,15 +70,6 @@
                             class="spin btn-loading"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 2.5a5.487 5.487 0 00-4.131 1.869l1.204 1.204A.25.25 0 014.896 6H1.25A.25.25 0 011 5.75V2.104a.25.25 0 01.427-.177l1.38 1.38A7.001 7.001 0 0114.95 7.16a.75.75 0 11-1.49.178A5.501 5.501 0 008 2.5zM1.705 8.005a.75.75 0 01.834.656 5.501 5.501 0 009.592 2.97l-1.204-1.204a.25.25 0 01.177-.427h3.646a.25.25 0 01.25.25v3.646a.25.25 0 01-.427.177l-1.38-1.38A7.001 7.001 0 011.05 8.84a.75.75 0 01.656-.834z"></path></svg>
                         <span v-if="!isDeleting">Borrar</span>
-                    </button>
-                    <button type="submit"
-                            :class="[ !$v.$invalid && $v.$anyDirty? 'btn-primary': 'btn-secondary']"
-                            class="btn">
-                        <svg
-                            v-if="isLoading"
-                            class="spin btn-loading"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 2.5a5.487 5.487 0 00-4.131 1.869l1.204 1.204A.25.25 0 014.896 6H1.25A.25.25 0 011 5.75V2.104a.25.25 0 01.427-.177l1.38 1.38A7.001 7.001 0 0114.95 7.16a.75.75 0 11-1.49.178A5.501 5.501 0 008 2.5zM1.705 8.005a.75.75 0 01.834.656 5.501 5.501 0 009.592 2.97l-1.204-1.204a.25.25 0 01.177-.427h3.646a.25.25 0 01.25.25v3.646a.25.25 0 01-.427.177l-1.38-1.38A7.001 7.001 0 011.05 8.84a.75.75 0 01.656-.834z"></path></svg>
-                        <span v-if="!isLoading">{{ isEdit ? 'Actualizar' : ' Agregar' }}</span>
                     </button>
                     <span v-if="$v.$invalid && errors" class="text-danger" role="alert">
                             <strong>Completa el formulario</strong>
@@ -100,7 +99,6 @@ export default {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
-            rute: '/admin/question/register',
             options: [{
                     id: 'choice',
                     name: 'Opción multiple'
@@ -109,7 +107,8 @@ export default {
                     id: 'open',
                     name: 'Abierta'
                 }],
-            isEdit: false,
+            isEdit: !!this.question.created_at,
+            rute: '',
             editForm: true,
             isDeleting: false,
             isLoading: false
@@ -126,8 +125,11 @@ export default {
         }
     },
     methods: {
+        reRute(){
+            this.rute = this.isEdit ? '/admin/question/edit/' + this.question.id : '/admin/question/register'
+        },
         register() {
-            if(!this.editForm) {
+            if(!this.editForm || !this.$v.$anyDirty) {
                 return;
             }
             if (this.$v.$invalid) {
@@ -144,6 +146,7 @@ export default {
             }).then(() => {
                     this.isEdit = true;
                     this.isLoading = false;
+                    this.editForm = true;
                     this.$swal('Guardado', 'Creado exitosamente.', 'success');
                 }).catch(error => console.log(error))
             }
@@ -159,13 +162,23 @@ export default {
         },
         ...mapActions([
             'saveQuestion',
+            'loadAnswers',
             'deleteQuestion'
         ]),
     },
     computed: {
         isSaved() {
             return Number.isInteger(this.question.id) && this.question.type === "choice"
+        },
+    },
+    watch: {
+        isEdit() {
+            this.reRute()
         }
+    },
+    created() {
+        this.reRute()
+        this.loadAnswers(this.question.id);
     }
 }
 </script>

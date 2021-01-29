@@ -58,6 +58,7 @@ Vue.component('activity-list', require('./components/list/ActivityList.vue').def
 Vue.component('class-list', require('./components/User/ClassList.vue').default);
 Vue.component('teacher-class-list', require('./components/Teacher/TeacherClassList.vue').default);
 Vue.component('exam-list', require('./components/list/ExamList.vue').default);
+Vue.component('my-exam-list', require('./components/User/MyExamList.vue').default);
 Vue.component('module-list', require('./components/list/ModuleList.vue').default);
 Vue.component('answer-list', require('./components/list/AnswerList.vue').default);
 
@@ -76,6 +77,7 @@ Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
 
 Vue.component('score-material', require('./components/form/ScoreMaterial.vue').default);
 Vue.component('detail', require('./components/Detail.vue').default);
+Vue.component('start-exam', require('./components/User/StartExam.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

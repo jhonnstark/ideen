@@ -1,6 +1,8 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import api from '../api/api'
+import Common from "../common";
+import User from "./user";
 
 /**
  * Vuex for the state
@@ -27,8 +29,15 @@ const actions = {
     async deleteQuestion ({commit}, question) {
         await api.deleteQuestion(question, () => commit('deleteQuestion', question))
     },
-    async saveAnswer () {
-
+    async saveAnswer ({commit}, { rute, answer, isEdit }) {
+        const id = answer.id
+        await api.saveAnswer(answer, rute, isEdit, answer => commit('saveAnswer', { answer, id }))
+    },
+    async loadAnswers ({commit}, question ) {
+        await api.loadAnswers(question, answers => commit('setAnswers', { answers, question }))
+    },
+    async deleteAnswer ({commit}, answer) {
+        await api.deleteAnswer(answer.id, () => commit('deleteAnswer', answer))
     }
 }
 
@@ -41,13 +50,13 @@ const mutations = {
     },
     setQuestions (state, questions) {
         state.questions = questions
+        state.questions.forEach(question => state.answers[question.id] = [])
+    },
+    setAnswers (state, { answers, question }) {
+        state.answers = { ...state.answers, [question] : answers }
     },
     newQuestion (state) {
-        let id = ""
-        let chars = "abcdefghijklmnopqrstuvwxyz"
-        for( let i=0; i < 5; i++ ) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length))
-        }
+        let id = Common.makeID()
         state.questions.push({
             id,
             quiz: null,
@@ -55,25 +64,30 @@ const mutations = {
             exam_id: state.exam.id
         })
     },
-    newAnswer (state) {
-        let id = ""
-        let chars = "abcdefghijklmnopqrstuvwxyz"
-        for( let i=0; i < 5; i++ ) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length))
-        }
-        state.answers.push({
+    newAnswer (state, question) {
+        let id = Common.makeID()
+        state.answers[question].push({
             id,
             option: null,
-            exam_id: state.exam.id
+            question_id: question
         })
     },
     saveQuestion (state, { question, id }) {
         const removedId = state.questions.findIndex(item => item.id === id);
         state.questions.splice(removedId, 1, question);
+        state.answers = { ...state.answers, [question.id] : [] }
+    },
+    saveAnswer (state, { answer, id }) {
+        const removedId = state.answers[answer.question_id].findIndex(item => item.id === id);
+        state.answers[answer.question_id].splice(removedId, 1, answer);
     },
     deleteQuestion(state, question) {
         const removedId = state.questions.findIndex(item => item.id === question);
         state.questions.splice(removedId, 1)
+    },
+    deleteAnswer(state, answer) {
+        const removedId = state.answers[answer.question_id].findIndex(item => item.id === answer.id);
+        state.answers[answer.question_id].splice(removedId, 1)
     }
 }
 
@@ -94,11 +108,14 @@ const state = {
     },
     courses: [],
     questions: [],
-    answers: []
+    answers: {}
 
 }
 
 const store = new Vuex.Store({
+    modules: {
+        User
+    },
     state,
     getters,
     mutations,

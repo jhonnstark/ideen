@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState} from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 import ExamAdd from "../layouts/ExamAdd";
 import QuestionForm from "./QuestionForm";
 
