@@ -17,6 +17,15 @@ class ExamController extends Controller
 {
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Store a newly created resource in storage.
      *
      * @param Course $course
@@ -64,12 +73,15 @@ class ExamController extends Controller
      */
     public function saveClaim(Question $question, SaveClaimRequest $request): JsonResponse
     {
+        $profess = is_int($request->claim)
+            ? Answer::find($request->claim)->option
+            : $request->claim;
         $question->claims()->updateOrCreate(
             [
                 'user_id' => Auth::user()->id,
             ],
             [
-                'profess' => Answer::find($request->claim)->option
+                'profess' => $profess
             ]);
         return response()->json([
             'status' => 201,

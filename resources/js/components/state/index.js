@@ -100,7 +100,7 @@ const getters = {
     }
 }
 
-const state = {
+const stated = {
     exam: {
         name: null,
         description:null,
@@ -116,7 +116,7 @@ const store = new Vuex.Store({
     modules: {
         User
     },
-    state,
+    state: stated,
     getters,
     mutations,
     actions

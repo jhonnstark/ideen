@@ -21,6 +21,7 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
+
 const { mapState, mapActions } = createNamespacedHelpers('User')
 
 export default {

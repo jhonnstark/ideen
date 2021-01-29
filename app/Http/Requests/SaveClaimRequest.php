@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed claim
+ */
 class SaveClaimRequest extends FormRequest
 {
     /**
@@ -23,6 +26,7 @@ class SaveClaimRequest extends FormRequest
      */
     public function rules()
     {
+        // todo: search for claim when is an interger
         return [
             'claim' => 'required'
         ];
