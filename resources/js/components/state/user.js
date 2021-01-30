@@ -17,7 +17,12 @@ const mutations = {
         state.exam = exam
     },
     saveClaim (state, claim) {
-        state.claims.push(claim)
+        const removedId = state.claims.findIndex(item => item.id === claim.id);
+        if (removedId >= 0) {
+            state.claims.splice(removedId, 1, claim)
+        } else {
+            state.claims.push(claim)
+        }
     },
     loadClaim (state, claim) {
         state.claims.push(claim)

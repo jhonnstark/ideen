@@ -88,7 +88,7 @@ class ExamController extends Controller
         return response()->json([
             'status' => 201,
             'message' => 'saved',
-            'data' => $claim->first()
+            'data' => $claim
         ], 201);
     }
 
