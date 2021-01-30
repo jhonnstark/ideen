@@ -2,7 +2,11 @@
     <div class="spacer">
         <form
             @submit.prevent="register"
-            action="#" method="POST" novalidate>
+            action="#"
+            method="POST"
+            novalidate
+            class="question-form"
+        >
 
             <div class="form-group row">
                 <label :for="'quiz_' + question.id" class="col-md-3 col-form-label text-md-right">Pregunta</label>
@@ -184,5 +188,7 @@ export default {
 </script>
 
 <style scoped>
-
+.question-form {
+    padding: 20px 0;
+}
 </style>

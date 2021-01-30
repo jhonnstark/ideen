@@ -2,84 +2,106 @@
 
 namespace App\Http\Controllers;
 
-use App\Exam;
-use Illuminate\Http\Request;
+use App\Http\Requests\SaveClaimRequest;
+use App\Http\Resources\ClaimCollection;
+use App\Http\Resources\ClaimResource;
+use App\Http\Resources\ExamCollection;
+use App\Http\Resources\ExamUserResource;
+use App\Models\Answer;
+use App\Models\Course;
+use App\Models\Exam;
+use App\Models\Question;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ExamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
-     * Show the form for creating a new resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function create()
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Course $course
+     *
+     * @return ExamCollection
+     */
+    public function exam(Course $course): ExamCollection
+    {
+        $course->load('exam');
+        return new ExamCollection($course->exam);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Exam $exam
+     *
+     * @return View
      */
-    public function store(Request $request)
+    public function solveExam(Exam $exam): View
     {
-        //
+        return view('solveExam', ['id' => $exam->id]);
     }
 
     /**
-     * Display the specified resource.
+     * Store a newly created resource in storage.
      *
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * @param Exam $exam
+     *
+     * @return ExamUserResource
      */
-    public function show(Exam $exam)
+    public function startExam(Exam $exam): ExamUserResource
     {
-        //
+        $exam->load('questions.answers');
+        return new ExamUserResource($exam);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Store a newly created resource in storage.
      *
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * @param Question $question
+     * @param SaveClaimRequest $request
+     *
+     * @return JsonResponse
      */
-    public function edit(Exam $exam)
+    public function saveClaim(Question $question, SaveClaimRequest $request): JsonResponse
     {
-        //
+        $profess = is_int($request->claim)
+            ? Answer::find($request->claim)->option
+            : $request->claim;
+        $claim = $question->claims()->updateOrCreate(
+            [
+                'user_id' => Auth::user()->id,
+            ],
+            [
+                'profess' => $profess
+            ]);
+        return response()->json([
+            'status' => 201,
+            'message' => 'saved',
+            'data' => $claim
+        ], 201);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Exam $exam)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
+     * @param Question $question
      *
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * @return ClaimResource
      */
-    public function destroy(Exam $exam)
+    public function loadClaim(Question $question): ClaimResource
     {
-        //
+        $question->load('claims');
+        return new ClaimResource($question->claims->first());
     }
 }
