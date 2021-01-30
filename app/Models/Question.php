@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static create(array $validated)
+ * @property mixed claims
  */
 class Question extends Model
 {
@@ -37,5 +38,13 @@ class Question extends Model
     public function answers(): HasMany
     {
         return $this->hasMany(Answer::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function claims(): HasMany
+    {
+        return $this->hasMany(Claim::class);
     }
 }

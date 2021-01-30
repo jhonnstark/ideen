@@ -1,25 +1,29 @@
 .form {
     &-group {
+        width: 100%;
+
         .v-select {
-            position: relative;
             flex: 1 1 auto;
-            width: 1%;
+            margin-bottom: 0;
             min-width: 0;
-            margin-bottom: 0
+            position: relative;
+            width: 1%;
         }
     }
 }
-.input{
+
+.input {
     &-group {
         & > .v-select:not(:first-child) {
             .vs__dropdown-toggle {
-                border-radius: 0 0.25rem 0.25rem 0;
-                border: 1px solid #ced4da;
-                padding: 4px 0 5px 0;
+                border: 1px solid $border;
+                border-radius: 0 .25rem .25rem 0;
+                padding: 4px 0 5px;
             }
         }
     }
 }
+
 .current-page {
     width: 60px;
 }

@@ -7,18 +7,15 @@ use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
-use App\Http\Resources\ExamCollection;
-use App\Http\Resources\ExamResource;
-use App\Http\Resources\ExamsCollection;
 use App\Http\Resources\MaterialResource;
 use App\Http\Resources\ModulesResource;
 use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
 use App\Http\Resources\User as UserResource;
-use App\Models\Exam;
 use App\Models\Module;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -48,9 +45,9 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
-    public function index(): \Illuminate\Contracts\Support\Renderable
+    public function index(): Renderable
     {
         return view('home');
     }
@@ -58,9 +55,9 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
-    public function profile(): \Illuminate\Contracts\Support\Renderable
+    public function profile(): Renderable
     {
         return view('profile', ['id' => Auth::id()]);
     }
@@ -102,6 +99,7 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Course $course
+     *
      * @return ActivityResource|Application|Factory|View
      */
     public function courseInfo(Course $course)
@@ -112,40 +110,6 @@ class HomeController extends Controller
             'img' => $course->url_big,
             'name' => $course->name
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Course $course
-     * @return ExamCollection
-     */
-    public function exam(Course $course): ExamCollection
-    {
-        $course->load('exam');
-        return new ExamCollection($course->exam);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Exam $exam
-     * @return View
-     */
-    public function solveExam(Exam $exam): View
-    {
-        return view('solveExam', ['id', $exam->id]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Exam $exam
-     * @return ExamResource
-     */
-    public function startExam(Exam $exam): ExamResource
-    {
-        return new ExamResource($exam);
     }
 
     /**

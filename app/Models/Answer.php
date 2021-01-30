@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $validated)
+ * @method static first(mixed $claim)
+ * @method static find(mixed $claim)
  */
 class Answer extends Model
 {
