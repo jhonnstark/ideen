@@ -8,8 +8,10 @@
                             type="radio"
                             :id="'answer-' + answer.id"
                             :name="'answer-' + question"
+                            v-model="result"
+                            :value="answer.option"
                             :aria-label="answer.option"
-                            @click="saveClaim({ question, claim: answer.id})"
+                            @click="inputClick(answer.id)"
                         >
                     </label>
                 </div>
@@ -28,34 +30,46 @@ const { mapState, mapActions } = createNamespacedHelpers('User')
 export default {
     props: ['answers', 'question'],
     name: "Answer",
+    data() {
+        return {
+            claim: '',
+            result: ''
+        }
+    },
     computed: {
         ...mapState({
-            exam: state => state.exam,
+            claims: state => state.claims,
         })
     },
     created() {
         this.throttledMethod = _.debounce(() => {
-            // let vm = this;
-            // const data = {
-            //     question: vm.question,
-            //     claim: vm.answer
-            // }
-            console.log('created')
-            // this.saveClaim(data)
+            let vm = this;
+            const data = {
+                question: vm.question,
+                claim: vm.claim
+            }
+            this.saveClaim(data)
         }, 1000)
         this.loadClaim(this.question).then(() => {
             const claimApi = this.claims.find(claim => claim.question_id === this.question)
-            //this.answer = claimApi.profess
+            this.result = claimApi.profess
         })
     },
     methods: {
+
         ...mapActions([
             'saveClaim',
+            'loadClaim',
         ]),
 
         throttledMethod() {
 
         },
+
+        inputClick(answer_id) {
+            this.claim = answer_id
+            this.throttledMethod()
+        }
     }
 }
 </script>
