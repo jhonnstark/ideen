@@ -36,12 +36,12 @@ export default {
                 question: vm.question,
                 claim: vm.answer
             }
-            console.log('created')
             this.saveClaim(data)
         }, 1000)
         this.loadClaim(this.question).then(() => {
             const claimApi = this.claims.find(claim => claim.question_id === this.question)
-            this.answer = claimApi.profess
+            if (claimApi)
+                this.answer = claimApi.profess
         })
     },
     mounted() {

@@ -52,7 +52,8 @@ export default {
         }, 1000)
         this.loadClaim(this.question).then(() => {
             const claimApi = this.claims.find(claim => claim.question_id === this.question)
-            this.result = claimApi.profess
+            if (claimApi)
+                this.result = claimApi.profess
         })
     },
     methods: {

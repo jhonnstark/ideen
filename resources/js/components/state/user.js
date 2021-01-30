@@ -25,7 +25,9 @@ const mutations = {
         }
     },
     loadClaim (state, claim) {
-        state.claims.push(claim)
+        if (!Array.isArray(claim)) {
+            state.claims.push(claim)
+        }
     }
 }
 
