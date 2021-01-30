@@ -1,31 +1,35 @@
 <template>
-    <div class="card" v-if="exam.id">
-        <div class="card-header">
-            {{ exam.name }}
-        </div>
-        <div class="card-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <p>Instrucciones: {{ exam.description }}</p>
-                        <p>Evaluado por: {{ exam.teacher.name }} {{ this.exam.teacher.lastname }} {{ this.exam.teacher.mothers_lastname }}</p>
+    <div class="text-center">
+        <div class="card text-left" v-if="exam.id">
+            <div class="card-header">
+                {{ exam.name }}
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <p>Instrucciones: {{ exam.description }}</p>
+                            <p>Evaluado por: {{ exam.teacher.name }} {{ this.exam.teacher.lastname }} {{ this.exam.teacher.mothers_lastname }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <hr>
-            <question v-for="question in exam.questions" :question="question" :key="question.id"></question>
-            <hr>
+                <hr>
+                <question v-for="question in exam.questions" :question="question" :key="question.id"></question>
+                <hr>
 
-            <div class="form-group row mb-0">
-                <div class="col-md-6 offset-md-4">
-                    <button type="button" class="btn btn-primary">
-                        Completar
-                    </button>
+                <div class="form-group row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <button type="button" class="btn btn-primary">
+                            Completar
+                        </button>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
+        <loader v-else></loader>
     </div>
+
 </template>
 
 <script>

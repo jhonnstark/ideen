@@ -75,6 +75,8 @@ Vue.component('answer-form', require('./components/form/AnswerForm.vue').default
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
 
+Vue.component('loader', require('./components/layouts/Loader.vue').default);
+
 Vue.component('score-material', require('./components/form/ScoreMaterial.vue').default);
 Vue.component('detail', require('./components/Detail.vue').default);
 Vue.component('start-exam', require('./components/User/StartExam.vue').default);
