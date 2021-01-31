@@ -107,4 +107,21 @@ class ExamController extends Controller
         $question->load('claims');
         return new ClaimResource($question->claims->first());
     }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Exam $exam
+     *
+     * @return JsonResponse
+     */
+    public function finishExam(Exam $exam): JsonResponse
+    {
+        //todo: validate finished exam
+        return response()->json([
+            'status' => 201,
+            'message' => 'Finished',
+        ], 201);
+    }
 }

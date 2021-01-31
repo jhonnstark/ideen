@@ -76,5 +76,9 @@ export default {
         await axios
             .post(question +'/claim/', { claim })
             .then(response => cb(response.data.data))
+    },
+    async finishExam(rute, claims) {
+        await axios
+            .post(rute, { claims })
     }
 }
