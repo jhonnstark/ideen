@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ClaimResource extends JsonResource
@@ -9,11 +10,25 @@ class ClaimResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return parent::toArray($request);
+    }
+
+    /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @param  Request  $request
+     * @return array
+     */
+    public function with($request): array
+    {
+        return [
+            'status' => 200,
+            'message' => 'Claim saved',
+        ];
     }
 }

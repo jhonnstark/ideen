@@ -12970,18 +12970,34 @@ svg.btn-loading {
   border-color: #182254;
 }
 
+.table th,
+.table td {
+  height: 52px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .table th:first-child,
-.table th:first-child,
-.table td:first-child,
 .table td:first-child {
   width: 20px;
 }
 
 .table th:last-child,
-.table th:last-child,
-.table td:last-child,
 .table td:last-child {
   width: 120px;
+}
+
+.table th.name_exam,
+.table td.name_exam {
+  max-width: 200px;
+  min-width: 150px;
+  width: 200px;
+}
+
+.table th.long_text,
+.table td.long_text {
+  max-width: 0;
 }
 
 .btn svg + * {

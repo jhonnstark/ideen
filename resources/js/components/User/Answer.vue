@@ -20,7 +20,6 @@
         </div>
     </div>
 </template>
-
 <script>
 import { createNamespacedHelpers } from "vuex";
 import _ from "lodash";
