@@ -1,13 +1,16 @@
 import api from '../api/api'
 
 const actions = {
-    async startExam ({commit}, examID) {
-        await api.startExam(examID, exam => commit('startExam', exam))
+    async gradeExam ({commit}, examID) {
+        await api.gradeExam(examID, exam => commit('gradeExam', exam))
+    },
+    async finishExam ({commit}, rute) {
+
     },
 }
 
 const mutations = {
-    startExam (state, exam) {
+    gradeExam (state, exam) {
         state.exam = exam
     },
 }
@@ -15,7 +18,7 @@ const mutations = {
 
 const  stated = {
     exam: {
-        calification: {}
+        scores: {}
     },
 }
 
