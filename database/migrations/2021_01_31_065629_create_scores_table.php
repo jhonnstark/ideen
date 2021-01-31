@@ -15,7 +15,7 @@ class CreateScoresTable extends Migration
     {
         Schema::create('scores', function (Blueprint $table) {
             $table->id();
-            $table->double('mark');
+            $table->double('mark')->default(0);
             $table->foreignId('exam_id')->constrained()
                 ->onDelete('cascade');
             $table->foreignId('user_id')->constrained()
