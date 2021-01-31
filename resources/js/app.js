@@ -74,6 +74,7 @@ Vue.component('profile-form', require('./components/User/ProfileForm.vue').defau
 Vue.component('answer-form', require('./components/form/AnswerForm.vue').default);
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
+Vue.component('user-courses', require('./components/layouts/UserCourses.vue').default);
 
 Vue.component('loader', require('./components/layouts/Loader.vue').default);
 

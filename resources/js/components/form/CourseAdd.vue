@@ -90,9 +90,9 @@ export default {
                         course_id: this.course_id
                     }
                 }).then(response => {
-                    //todo: update curses table when added
-                        this.course_id = null;
-                        this.$swal('Agregado', 'Se agrego al curso exitosamente.', 'success');
+                    this.$emit('course-added')
+                    this.course_id = null;
+                    this.$swal('Agregado', 'Se agrego al curso exitosamente.', 'success');
                 }).catch(error => console.log(error))
             }
         }
