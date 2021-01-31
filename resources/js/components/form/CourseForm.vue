@@ -217,6 +217,9 @@ export default {
     },
     methods:{
         register() {
+            if(!this.canSubmit){
+                return;
+            }
             if (this.$v.$invalid || (this.record.poster === null && !this.isEdit)) {
                 this.errors = true;
             } else {
@@ -246,12 +249,16 @@ export default {
                         this.record.teacher_id = null;
                         this.record.active = false;
                         this.record.poster = null;
-                        this.isLoading = false;
                         this.$swal('Guardado', 'Creado exitosamente.', 'success');
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
                     }
-                }).catch(error => console.log(error))
+                }).catch(error => {
+                    this.$swal('Error', 'Algo ha ido mal.', 'error');
+                    console.log(error)
+                }).finally(() =>{
+                    this.isLoading = false;
+                })
             }
         },
         selectPoster(event) {
@@ -264,7 +271,7 @@ export default {
             return !!this.edit;
         },
         canSubmit(){
-            return !this.$v.$invalid && !this.errors && (this.record.poster !== null || this.isEdit);
+            return !this.isLoading && !this.$v.$invalid && !this.errors && (this.record.poster !== null || this.isEdit);
         }
     }
 }
