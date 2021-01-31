@@ -51,4 +51,14 @@ class Exam extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    /**
+     * Get the questions for the exam.
+     *
+     * @return HasMany
+     */
+    public function scores(): HasMany
+    {
+        return $this->hasMany(Score::class);
+    }
 }

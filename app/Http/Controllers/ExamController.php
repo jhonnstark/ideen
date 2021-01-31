@@ -62,6 +62,9 @@ class ExamController extends Controller
     public function startExam(Exam $exam): ExamUserResource
     {
         $exam->load('questions.answers');
+        $exam->scores()->firstOrCreate([
+           'user_id' => Auth::id()
+        ]);
         return new ExamUserResource($exam);
     }
 
@@ -80,7 +83,7 @@ class ExamController extends Controller
             : $request->claim;
         $claim = $question->claims()->updateOrCreate(
             [
-                'user_id' => Auth::user()->id,
+                'user_id' => Auth::id(),
             ],
             [
                 'profess' => $profess
@@ -103,5 +106,22 @@ class ExamController extends Controller
     {
         $question->load('claims');
         return new ClaimResource($question->claims->first());
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Exam $exam
+     *
+     * @return JsonResponse
+     */
+    public function finishExam(Exam $exam): JsonResponse
+    {
+        //todo: validate finished exam
+        return response()->json([
+            'status' => 201,
+            'message' => 'Finished',
+        ], 201);
     }
 }

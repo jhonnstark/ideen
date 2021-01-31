@@ -63,7 +63,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'course_id' => ['required'],
         ]);
-        $user->courses()->attach($validatedData['course_id']);
+        $user->courses()->syncWithoutDetaching($validatedData['course_id']);
         return response()->json([
             'status' => 201,
             'message' => 'created',

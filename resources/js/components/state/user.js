@@ -9,6 +9,9 @@ const actions = {
     },
     async saveClaim ({commit}, answer) {
         await api.saveClaim(answer, claims => commit('saveClaim', claims))
+    },
+    async finishExam ({commit, state}, rute) {
+        await api.finishExam(rute, state.claims)
     }
 }
 
