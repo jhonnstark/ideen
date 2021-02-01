@@ -2,7 +2,7 @@
     <div class="text-center">
         <div class="card text-left" v-if="exam.id">
             <div class="card-header">
-                {{ exam.name }}
+                <h5 class="card-text">{{ exam.name }}</h5>
             </div>
             <div class="card-body">
                 <div class="container">
