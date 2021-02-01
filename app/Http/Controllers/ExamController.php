@@ -27,6 +27,7 @@ class ExamController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -62,6 +63,7 @@ class ExamController extends Controller
     public function startExam(Exam $exam): ExamUserResource
     {
         $exam->load('questions.answers');
+        $exam->load('teacher');
         $exam->scores()->firstOrCreate([
            'user_id' => Auth::id()
         ]);

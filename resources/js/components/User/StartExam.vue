@@ -22,8 +22,7 @@
                         <button type="button"
                                 :class="[ isLoading? 'btn-secondary' : 'btn-primary']"
                                 class="btn"
-                                @click="finishExamed"
-                        >
+                                @click="finishExamed">
                             <svg
                                 v-if="isLoading"
                                 class="spin btn-loading"

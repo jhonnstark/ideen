@@ -3,6 +3,7 @@ import Vue from 'vue'
 import api from '../api/api'
 import Common from "../common";
 import User from "./user";
+import Teacher from "./teacher";
 
 /**
  * Vuex for the state
@@ -114,7 +115,8 @@ const stated = {
 
 const store = new Vuex.Store({
     modules: {
-        User
+        User,
+        Teacher
     },
     state: stated,
     getters,

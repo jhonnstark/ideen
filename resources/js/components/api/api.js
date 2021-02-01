@@ -80,5 +80,15 @@ export default {
     async finishExam(rute, claims) {
         await axios
             .post(rute, { claims })
-    }
+    },
+    async gradeExam(exam, cb) {
+        await axios
+            .get(exam + '/grade/')
+            .then(response => cb(response.data.data))
+    },
+    async loadScore(score, cb) {
+        await axios
+            .get(score +'/json/')
+            .then(response => cb(response.data.data))
+    },
 }
