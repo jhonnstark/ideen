@@ -18,6 +18,15 @@ class Score extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime:l jS \\of F Y h:i:s A',
+    ];
+
+    /**
      * The teacher that belong to the course.
      *
      * @return BelongsTo
