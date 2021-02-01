@@ -16,11 +16,5 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-
-            </div>
-        </div>
-    </div>
+    <score-exam id="{{ $id }}"></score-exam>
 @endsection

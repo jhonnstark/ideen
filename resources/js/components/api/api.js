@@ -83,7 +83,12 @@ export default {
     },
     async gradeExam(exam, cb) {
         await axios
-            .get(exam +'/grade/')
+            .get(exam + '/grade/')
+            .then(response => cb(response.data.data))
+    },
+    async loadScore(score, cb) {
+        await axios
+            .get(score +'/json/')
             .then(response => cb(response.data.data))
     },
 }

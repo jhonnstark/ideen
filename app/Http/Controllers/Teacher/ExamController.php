@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ExamCollection;
 use App\Http\Resources\ExamResource;
 use App\Http\Resources\ScoreCollection;
+use App\Http\Resources\ScoreResource;
 use App\Models\Course;
 use App\Models\Exam;
 use App\Models\Score;
@@ -67,11 +68,12 @@ class ExamController extends Controller
      *
      * @param Score $score
      *
-     * @return ScoreCollection
+     * @return ScoreResource
      */
-    public function getScoresJson(Score $score): ScoreCollection
+    public function getScoresJson(Score $score): ScoreResource
     {
-        $score->load('exam.questions.claims')->load('exam.questions.answers');
-        return new ScoreCollection($score);
+        $score
+            ->load(['exam.questions.claims', 'exam.questions.answers']);
+        return new ScoreResource($score);
     }
 }
