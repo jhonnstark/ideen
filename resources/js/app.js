@@ -56,7 +56,9 @@ Vue.component('my-class-list', require('./components/list/MyClassList.vue').defa
 Vue.component('content-list', require('./components/list/ContentList.vue').default);
 Vue.component('activity-list', require('./components/list/ActivityList.vue').default);
 Vue.component('class-list', require('./components/User/ClassList.vue').default);
-Vue.component('teacher-class-list', require('./components/Teacher/TeacherClassList.vue').default);
+Vue.component('teacher-class-list', require('./components/teacher/TeacherClassList.vue').default);
+Vue.component('grade-exam', require('./components/teacher/GradeExam.vue').default);
+Vue.component('score-exam', require('./components/teacher/scoreExam.vue').default);
 Vue.component('exam-list', require('./components/list/ExamList.vue').default);
 Vue.component('my-exam-list', require('./components/User/MyExamList.vue').default);
 Vue.component('module-list', require('./components/list/ModuleList.vue').default);
@@ -66,7 +68,7 @@ Vue.component('course-form', require('./components/form/CourseForm.vue').default
 Vue.component('register-form', require('./components/form/RegisterForm.vue').default);
 Vue.component('table-form', require('./components/form/TableForm.vue').default);
 Vue.component('material-form', require('./components/form/MaterialForm.vue').default);
-Vue.component('teacher-profile-form', require('./components/Teacher/TeacherProfileForm.vue').default);
+Vue.component('teacher-profile-form', require('./components/teacher/TeacherProfileForm.vue').default);
 Vue.component('exam-form', require('./components/form/ExamForm.vue').default);
 Vue.component('question-form', require('./components/form/QuestionForm.vue').default);
 Vue.component('module-form', require('./components/form/ModuleForm.vue').default);

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Claim extends Model
 {
@@ -18,16 +19,20 @@ class Claim extends Model
 
     /**
      * Get the state that owns the user.
+     *
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
      * The teacher that belong to the course.
+     *
+     * @return BelongsTo
      */
-    public function question()
+    public function question(): BelongsTo
     {
         return $this->belongsTo(Question::class);
     }
