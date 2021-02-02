@@ -51,7 +51,6 @@ export default {
         })
     },
     created() {
-        console.log(this.score)
         this.loadScore(this.id)
             .then(() => this.isLoading = false)
             .catch(error => console.log(error))
