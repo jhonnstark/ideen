@@ -1,4 +1,5 @@
 import api from '../api/api'
+import Common from "../common";
 
 const actions = {
     async gradeExam ({commit}, examID) {
@@ -10,6 +11,18 @@ const actions = {
     async loadScore ({commit}, scoreID) {
         await api.loadScore(scoreID, score => commit('loadScore', score))
     },
+    async addScore ({ commit, store }, claim) {
+        commit('cleanClaims', claim.id)
+        commit('addScore', claim)
+    },
+    async holdScore ({commit}, claim) {
+        commit('cleanClaims', claim.id)
+        commit('holdScore', claim)
+    },
+    async removeScore ({commit}, claim) {
+        commit('cleanClaims', claim.id)
+        commit('removeScore', claim)
+    }
 }
 
 const mutations = {
@@ -18,6 +31,23 @@ const mutations = {
     },
     loadScore (state, score) {
         state.score = score
+    },
+    addScore (state, claim) {
+        state.claims.correct.push(claim.id)
+    },
+    holdScore (state, claim) {
+        state.claims.inactive.push(claim.id)
+    },
+    removeScore (state, claim) {
+        state.claims.incorrect.push(claim.id)
+    },
+    cleanClaims (state, id) {
+        const results = Common.processClaims(id, state.claims)
+        Object.keys(results).map((result) => {
+            if (results[result] >= 0) {
+                state.claims[result].splice(results[result], 1)
+            }
+        })
     }
 }
 
@@ -26,7 +56,12 @@ const  stated = {
     exam: {
         scores: {}
     },
-    score: {}
+    score: {},
+    claims: {
+        correct: [],
+        inactive: [],
+        incorrect: []
+    }
 }
 
 const getters = {
