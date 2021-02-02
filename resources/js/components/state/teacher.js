@@ -5,13 +5,13 @@ const actions = {
     async gradeExam ({commit}, examID) {
         await api.gradeExam(examID, exam => commit('gradeExam', exam))
     },
-    async finishExam ({commit}, rute) {
-
-    },
     async loadScore ({commit}, scoreID) {
         await api.loadScore(scoreID, score => commit('loadScore', score))
     },
-    async addScore ({ commit, store }, claim) {
+    async saveMark ({commit, state}, mark) {
+        await api.saveMark(state.score.id, mark)
+    },
+    async addScore ({ commit }, claim) {
         commit('cleanClaims', claim.id)
         commit('addScore', claim)
     },

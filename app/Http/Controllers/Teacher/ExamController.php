@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FinishScoreRequest;
 use App\Http\Resources\ExamCollection;
 use App\Http\Resources\ExamResource;
-use App\Http\Resources\ScoreCollection;
 use App\Http\Resources\ScoreResource;
 use App\Models\Course;
 use App\Models\Exam;
 use App\Models\Score;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class ExamController extends Controller
@@ -72,8 +73,26 @@ class ExamController extends Controller
      */
     public function getScoresJson(Score $score): ScoreResource
     {
-        $score
-            ->load(['exam.questions.claims', 'exam.questions.answers']);
+        $score->load(['exam.questions.claims', 'exam.questions.answers']);
         return new ScoreResource($score);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Score $score
+     * @param FinishScoreRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function finishScores(Score $score, FinishScoreRequest $request): JsonResponse
+    {
+        $score->mark = $request->input('mark');
+        $score->finish_at = now();
+        $score->save();
+        return response()->json([
+            'status' => 201,
+            'message' => 'Finished',
+        ], 201);
     }
 }

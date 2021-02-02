@@ -91,4 +91,8 @@ export default {
             .get(score +'/json/')
             .then(response => cb(response.data.data))
     },
+    async saveMark(score, mark) {
+        await axios
+            .post(score +'/finish/', { mark })
+    }
 }
