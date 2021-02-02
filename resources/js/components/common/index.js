@@ -10,6 +10,13 @@ class Common {
     static isIDNumber(id) {
         return Number.isInteger(id) && !Number.isNaN(id)
     }
+    static processClaims(id, claims) {
+        const processed = {}
+        Object.keys(claims).map((result) => {
+            processed[result] = claims[result].indexOf(id)
+        })
+        return processed
+    }
 }
 
 export default Common

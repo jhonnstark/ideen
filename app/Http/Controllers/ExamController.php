@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveClaimRequest;
-use App\Http\Resources\ClaimCollection;
 use App\Http\Resources\ClaimResource;
 use App\Http\Resources\ExamCollection;
 use App\Http\Resources\ExamUserResource;
@@ -109,7 +108,6 @@ class ExamController extends Controller
         $question->load('claims');
         return new ClaimResource($question->claims->first());
     }
-
 
     /**
      * Store a newly created resource in storage.
