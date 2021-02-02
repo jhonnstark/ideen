@@ -60,6 +60,8 @@ Vue.component('teacher-class-list', require('./components/teacher/TeacherClassLi
 Vue.component('grade-exam', require('./components/teacher/GradeExam.vue').default);
 Vue.component('score-exam', require('./components/teacher/ScoreExam.vue').default);
 Vue.component('grade-question', require('./components/teacher/GradeQuestion.vue').default);
+Vue.component('choice-claim', require('./components/teacher/ChoiceClaim.vue').default);
+Vue.component('open-claim', require('./components/teacher/OpenClaim.vue').default);
 Vue.component('exam-list', require('./components/list/ExamList.vue').default);
 Vue.component('my-exam-list', require('./components/User/MyExamList.vue').default);
 Vue.component('module-list', require('./components/list/ModuleList.vue').default);
