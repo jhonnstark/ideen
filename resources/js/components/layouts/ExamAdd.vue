@@ -189,6 +189,7 @@ export default {
                 .then(() => {
                     this.record.exam = this.exam;
                     this.loadQuestions(this.exam.id);
+                    this.getModules(this.record.exam.course_id);
                 })
         }
         this.getCurses();

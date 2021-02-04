@@ -69,12 +69,33 @@ export default {
 
         finishExamed(){
 
-            this.finishExam(this.id + '/finish')
-            .then(() => {
-                //todo: confirmation swal
-                this.$swal('Completado', 'Respuestas salvadas exitosamente.', 'success');
-                //window.history.back()
-            })
+            this.$swal({
+                title: '<i>Completar</i>',
+                text: '¿Estas seguro de entregar tu examen?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                cancelButtonColor: '#d33',
+                focusConfirm: false,
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+
+                    this.isLoading = true
+                    //todo: confirmation swal
+                    this.finishExam(this.id + '/finish')
+                    .then(() => {
+                        this.isLoading = false
+                    })
+
+                },
+                allowOutsideClick: () => !this.$swal.isLoading()
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    this.$swal('Completado', 'Respuestas salvadas exitosamente.', 'success');
+                    window.history.back()
+                }
+            });
         }
     }
 }

@@ -69,7 +69,7 @@ class ExamController extends Controller
         if(is_null($score->finish_at)) {
             return view('solveExam', ['id' => $exam->id]);
         }
-        return view('seeGrade');
+        return view('seeGrade',  ['role' => '', 'exam' => $exam, 'score' => $score]);
     }
 
     /**
