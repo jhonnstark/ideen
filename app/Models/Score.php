@@ -24,6 +24,7 @@ class Score extends Model
      */
     protected $casts = [
         'created_at' => 'datetime:l jS \\of F Y h:i:s A',
+        'finish_at' => 'datetime:l jS \\of F Y h:i:s A',
     ];
 
     /**
