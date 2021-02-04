@@ -71,8 +71,9 @@ export default {
 
             this.finishExam(this.id + '/finish')
             .then(() => {
+                //todo: confirmation swal
                 this.$swal('Completado', 'Respuestas salvadas exitosamente.', 'success');
-                window.history.back()
+                //window.history.back()
             })
         }
     }

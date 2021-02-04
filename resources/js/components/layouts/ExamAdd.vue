@@ -69,9 +69,39 @@
                                     :options="courses"
                                     :disabled="record.isEdit"
                                     label="name"
-                                    id="course" name="course"></v-select>
+                                    @input="changeCourse"
+                                    id="course"
+                                    name="course"></v-select>
 
                                 <span v-if="!$v.record.exam.course_id.error" class="invalid-feedback" role="alert">
+                                    <strong>Campo invalido</strong>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="course" class="col-md-4 col-form-label text-md-right">Módulo</label>
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="module">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16"
+                                             height="16">
+                                            <path fill-rule="evenodd"
+                                                  d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>
+                                        </svg>
+                                    </label>
+                                </div>
+                                <v-select
+                                    v-model="record.exam.module_id"
+                                    :reduce="module => module.id"
+                                    :options="modules"
+                                    :disabled="record.isEdit"
+                                    label="name"
+                                    id="module" name="module"></v-select>
+
+                                <span v-if="!$v.record.exam.module_id.error" class="invalid-feedback" role="alert">
                                     <strong>Campo invalido</strong>
                                 </span>
                             </div>
@@ -119,7 +149,8 @@ export default {
                 exam: {
                     name: null,
                     description:null,
-                    course_id:null
+                    course_id:null,
+                    module_id:null
                 },
                 rute: window.location.pathname,
                 isEdit: !!this.edit,
@@ -137,6 +168,10 @@ export default {
                     maxLength: maxLength(255)
                 },
                 course_id: {
+                    required,
+                    integer
+                },
+                module_id: {
                     required,
                     integer
                 },
@@ -179,8 +214,14 @@ export default {
             }
         },
 
+        changeCourse(value) {
+            this.record.exam.module_id = null;
+            this.getModules(value);
+        },
+
         ...mapActions([
             'getCurses',
+            'getModules',
             'saveExam',
             'loadExam',
             'loadQuestions'
@@ -190,6 +231,7 @@ export default {
 
         ...mapGetters({
             courses: 'getAllCourses',
+            modules: 'getModules',
             exam: 'getExam'
         })
     }

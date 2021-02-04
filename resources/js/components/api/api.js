@@ -6,6 +6,11 @@ export default {
             .get('/admin/course/list')
             .then(response => cb(response.data.data))
     },
+    async getModules(course, cb) {
+        await axios
+            .get(`/admin/course/edit/${course}/module`)
+            .then(response => cb(response.data.data))
+    },
     async saveExam(exam, rute, isEdit, cb) {
         await axios({
                 method: isEdit ? 'put' : 'post',

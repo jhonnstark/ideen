@@ -36,6 +36,14 @@
             </div>
         </div>
         <activity-list role="{{ $role }}" id="{{ $id }}"></activity-list>
+
+        <div class="container">
+            <div class="row justify-content-between">
+                <h3>{{ __('Listado exam') }}</h3>
+                <hr class="col-12">
+            </div>
+        </div>
+        <my-exam-list role="{{ $role }}" id="{{ $id }}"></my-exam-list>
     @endisset
 
     @isset($name)

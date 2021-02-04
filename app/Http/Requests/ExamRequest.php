@@ -26,7 +26,8 @@ class ExamRequest extends FormRequest
         return [
             'name' => 'bail|required|max:255',
             'description' => 'bail|required|max:255',
-            'course_id' => 'bail|required|exists:courses,id'
+            'course_id' => 'bail|required|exists:courses,id',
+            'module_id' => 'bail|required|exists:modules,id'
         ];
     }
 }
