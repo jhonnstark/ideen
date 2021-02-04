@@ -88,7 +88,6 @@ class ExamController extends Controller
     public function finishScores(Score $score, FinishScoreRequest $request): JsonResponse
     {
         $score->mark = $request->input('mark');
-        $score->finish_at = now();
         $score->save();
         return response()->json([
             'status' => 201,

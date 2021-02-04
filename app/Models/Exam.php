@@ -43,6 +43,16 @@ class Exam extends Model
     }
 
     /**
+     * Get the course that owns the Activity.
+     *
+     * @return BelongsTo
+     */
+    public function module(): BelongsTo
+    {
+        return $this->belongsTo(Module::class);
+    }
+
+    /**
      * Get the questions for the exam.
      *
      * @return HasMany
