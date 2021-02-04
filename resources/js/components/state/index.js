@@ -14,6 +14,11 @@ const actions = {
     async getCurses ({commit}) {
         await api.getCourses(courses => commit('setCourses', courses))
     },
+    async getModules ({commit}, course) {
+        //todo: dont delete the modules and sort them by course id in the store
+        commit('setModules', [])
+        await api.getModules(course, modules => commit('setModules', modules))
+    },
     async loadExam ({commit}, rute ) {
         await api.loadExam(rute, exam => commit('setExam', exam))
     },
@@ -48,6 +53,9 @@ const mutations = {
     },
     setCourses (state, courses) {
         state.courses = courses
+    },
+    setModules (state, modules) {
+        state.modules = modules
     },
     setQuestions (state, questions) {
         state.questions = questions
@@ -98,6 +106,9 @@ const getters = {
     },
     getExam: state => {
         return state.exam
+    },
+    getModules: state => {
+        return state.modules
     }
 }
 
@@ -108,6 +119,7 @@ const stated = {
         course_id:null
     },
     courses: [],
+    modules: [],
     questions: [],
     answers: {}
 

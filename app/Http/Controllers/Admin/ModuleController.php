@@ -8,8 +8,12 @@ use App\Http\Resources\ContentResource;
 use App\Http\Resources\ModulesResource;
 use App\Models\Course;
 use App\Models\Module;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ModuleController extends Controller
 {
@@ -22,7 +26,7 @@ class ModuleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -32,7 +36,9 @@ class ModuleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @param Course $course
+     *
+     * @return Application|Factory|View
      */
     public function create(Course $course)
     {
@@ -45,9 +51,10 @@ class ModuleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param ModuleRequest $request
+     *
      * @return JsonResponse
      */
-    public function store(ModuleRequest $request)
+    public function store(ModuleRequest $request): JsonResponse
     {
         Module::create($request->validated());
         return response()->json([
@@ -62,7 +69,7 @@ class ModuleController extends Controller
      * @param Course $course
      * @return ModulesResource
      */
-    public function show(Course $course)
+    public function show(Course $course): ModulesResource
     {
         $course->load('module');
         return new ModulesResource($course->module);
@@ -72,7 +79,8 @@ class ModuleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Module $module
-     * @return ModulesResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     * @return Application|Factory|View
      */
     public function edit(Module $module)
     {
@@ -83,9 +91,10 @@ class ModuleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Module $module
-     * @return ModulesResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     * @return ModulesResource
      */
-    public function moduleJson(Module $module)
+    public function moduleJson(Module $module): ModulesResource
     {
         return new ModulesResource($module);
     }
@@ -95,9 +104,10 @@ class ModuleController extends Controller
      *
      * @param ModuleRequest $request
      * @param Module $module
+     *
      * @return JsonResponse
      */
-    public function update(ModuleRequest $request, Module $module)
+    public function update(ModuleRequest $request, Module $module): JsonResponse
     {
         $module->update($request->validated());
         return response()->json([
@@ -110,10 +120,12 @@ class ModuleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Module $module
+     *
      * @return JsonResponse
-     * @throws \Exception
+     *
+     * @throws Exception
      */
-    public function destroy(Module $module)
+    public function destroy(Module $module): JsonResponse
     {
         $module->delete();
         return response()->json([
