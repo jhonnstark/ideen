@@ -9,8 +9,12 @@ use App\Models\Course;
 use App\Models\Exam;
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class ExamController extends Controller
 {
@@ -23,7 +27,7 @@ class ExamController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return Application|Factory|Response|View
      */
     public function index()
     {
@@ -44,7 +48,8 @@ class ExamController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Course $course
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     *
+     * @return Application|Factory|View
      */
     public function create(Course $course)
     {
@@ -56,9 +61,10 @@ class ExamController extends Controller
      * Store a newly created resource in storage.
      *
      * @param ExamRequest $request
+     *
      * @return JsonResponse
      */
-    public function store(ExamRequest $request)
+    public function store(ExamRequest $request): JsonResponse
     {
         $validated = $request->validated();
         $teacher = Course::find($validated['course_id'])->teacher->first();
@@ -74,7 +80,8 @@ class ExamController extends Controller
      * Display the specified resource.
      *
      * @param Exam $exam
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     *
+     * @return Application|Factory|View
      */
     public function show(Exam $exam)
     {
@@ -91,7 +98,7 @@ class ExamController extends Controller
      * @param Exam $exam
      * @return ExamResource
      */
-    public function showJson(Exam $exam)
+    public function showJson(Exam $exam): ExamResource
     {
         return new ExamResource($exam);
     }
@@ -110,7 +117,7 @@ class ExamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Exam $exam
      * @return void
      */
@@ -126,7 +133,7 @@ class ExamController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Exam $exam)
+    public function destroy(Exam $exam): JsonResponse
     {
         $exam->delete();
         return response()->json([

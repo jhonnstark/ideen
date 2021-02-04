@@ -9,6 +9,7 @@ use App\Http\Resources\ExamUserResource;
 use App\Models\Answer;
 use App\Models\Course;
 use App\Models\Exam;
+use App\Models\Module;
 use App\Models\Question;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -43,13 +44,32 @@ class ExamController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Module $module
+     *
+     * @return ExamCollection
+     */
+    public function examModule(Module $module): ExamCollection
+    {
+        $module->load('exams');
+        return new ExamCollection($module->exams);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
      * @param Exam $exam
      *
      * @return View
      */
     public function solveExam(Exam $exam): View
     {
-        return view('solveExam', ['id' => $exam->id]);
+        $score = $exam->scores()->firstOrCreate([
+            'user_id' => Auth::id()
+        ]);
+        if(is_null($score->finish_at)) {
+            return view('solveExam', ['id' => $exam->id]);
+        }
+        return view('seeGrade');
     }
 
     /**
@@ -119,9 +139,15 @@ class ExamController extends Controller
     public function finishExam(Exam $exam): JsonResponse
     {
         //todo: validate finished exam
+        $score = $exam->scores()->firstOrCreate([
+            'user_id' => Auth::id()
+        ]);
+        $score->finish_at = now();
+        $score->save();
         return response()->json([
             'status' => 201,
             'message' => 'Finished',
+            'data' => $score
         ], 201);
     }
 }

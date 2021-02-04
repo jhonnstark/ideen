@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static create(array $validated)
  * @method static find($input)
  * @property mixed id
+ * @property mixed exams
  */
 class Module extends Model
 {
@@ -23,25 +26,41 @@ class Module extends Model
 
     /**
      * Get the content for the course.
+     *
+     * @return HasMany
      */
-    public function content(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function content(): HasMany
     {
         return $this->hasMany(Content::class);
     }
 
     /**
      * Get the course that owns the module.
+     *
+     * @return BelongsTo
      */
-    public function course(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
     }
 
     /**
      * Get the activity for the course.
+     *
+     * @return HasMany
      */
-    public function activity(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function activity(): HasMany
     {
         return $this->hasMany(Activity::class);
+    }
+
+    /**
+     * Get the activity for the course.
+     *
+     * @return HasMany
+     */
+    public function exams(): HasMany
+    {
+        return $this->hasMany(Exam::class);
     }
 }

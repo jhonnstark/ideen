@@ -72,10 +72,12 @@ export default {
             .catch(error => console.log(error))
     },
     methods: {
+
         ...mapActions([
             'loadScore',
             'saveMark',
         ]),
+
         finishExam(mark) {
             this.isLoading = true
             this.saveMark(mark).then(() => {
@@ -84,6 +86,7 @@ export default {
                 window.history.back()
             })
         }
+
     }
 }
 </script>

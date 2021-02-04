@@ -19,7 +19,7 @@ class Exam extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'teacher_id', 'course_id'
+        'name', 'description', 'teacher_id', 'course_id', 'module_id'
     ];
 
     /**
@@ -40,6 +40,16 @@ class Exam extends Model
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
+    }
+
+    /**
+     * Get the course that owns the Activity.
+     *
+     * @return BelongsTo
+     */
+    public function module(): BelongsTo
+    {
+        return $this->belongsTo(Module::class);
     }
 
     /**

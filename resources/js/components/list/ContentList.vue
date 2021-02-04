@@ -3,6 +3,7 @@
         <div class="row justify-content-center">
 
             <table class="table table-striped">
+                <caption>Contenidos</caption>
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
