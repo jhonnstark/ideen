@@ -197,7 +197,7 @@ Route::prefix('/teacher')
                 Route::post('/{course}/activity/add', 'TeacherDashboard@storeActivity');
                 Route::get('/module/{module}', 'TeacherDashboard@moduleDetail')->name('moduleMaterial');
                 Route::get('/module/{module}/json', 'TeacherDashboard@moduleJson');
-                Route::get('/module/{course}/exam', 'ExamController@exam')->name('examList');
+                Route::get('/module/{module}/exam', 'ExamController@examModule')->name('examModuleList');
                 Route::get('/module/exam/{exam}', 'ExamController@gradeExam')->name('gradeExam');
                 Route::get('/module/exam/{exam}/grade', 'ExamController@getGradesExam')->name('getGradesExam');
                 Route::get('/module/exam/grade/{score}', 'ExamController@getScores')->name('getScores');
