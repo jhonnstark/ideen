@@ -9,8 +9,10 @@ use App\Http\Resources\ExamResource;
 use App\Http\Resources\ScoreResource;
 use App\Models\Course;
 use App\Models\Exam;
+use App\Models\Module;
 use App\Models\Score;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\View\View;
 
 class ExamController extends Controller
@@ -26,6 +28,19 @@ class ExamController extends Controller
     {
         $course->load('exam');
         return new ExamCollection($course->exam);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Module $module
+     *
+     * @return ExamCollection
+     */
+    public function examModule(Module $module): ExamCollection
+    {
+        $module->load('exams');
+        return new ExamCollection($module->exams);
     }
 
     /**
