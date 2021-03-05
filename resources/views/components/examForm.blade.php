@@ -18,5 +18,5 @@
         </div>
     </div>
 
-    <exam-form course="{{ $course }}" edit="{{ $id ?? '' }}"></exam-form>
+    <exam-form role="{{ $role }}" edit="{{ $id ?? '' }}"></exam-form>
 @endsection

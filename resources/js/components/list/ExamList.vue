@@ -60,7 +60,7 @@ export default {
     },
     created () {
         axios
-            .get('/admin/' + this.role + '/list')
+            .get(this.role + '/list')
             .then(response => (this.items = response.data.data))
             .finally(() => this.isLoading = false)
     },
@@ -80,7 +80,7 @@ export default {
                 preConfirm: () => {
 
                     return axios
-                        .delete('/admin/' + this.role + '/delete/' + id)
+                        .delete(this.role + '/delete/' + id)
                         .then(response => {
                             const removedId = this.items.findIndex(item => item.id === id);
                             this.items.splice(removedId, 1);

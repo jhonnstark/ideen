@@ -37,20 +37,10 @@ import QuestionForm from "./QuestionForm";
 
 export default {
     name: "ExamForm",
-    props: ['course', 'edit'],
-    data() {
-        return {
-          //  rute: window.location.pathname + '/json'
-        }
-    },
+    props: ['role', 'edit'],
     components: {
         ExamAdd,
         QuestionForm
-    },
-    created() {
-        // if(this.edit) {
-        //    console.log(this.exam)
-        // }
     },
     methods: {
         ...mapMutations([
