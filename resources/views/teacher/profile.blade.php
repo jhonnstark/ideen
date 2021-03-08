@@ -6,7 +6,7 @@
         <div class="row justify-content-between">
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('teacher.home') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('teacher.dashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ __('Perfil') }}</li>
                 </ol>
             </nav>

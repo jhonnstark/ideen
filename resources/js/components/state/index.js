@@ -29,21 +29,21 @@ const actions = {
         const id = question.id
         await api.saveQuestion(question, rute, isEdit, question => commit('saveQuestion', { question, id }))
     },
-    async loadQuestions ({commit, state }, exam ) {
+    async loadQuestions ({ commit, state }, exam ) {
         await api.loadQuestions(state.role, exam, questions => commit('setQuestions', questions))
     },
-    async deleteQuestion ({commit}, question) {
-        await api.deleteQuestion(question, () => commit('deleteQuestion', question))
+    async deleteQuestion ({ commit, state }, question) {
+        await api.deleteQuestion(state.role, question, () => commit('deleteQuestion', question))
     },
     async saveAnswer ({commit}, { rute, answer, isEdit }) {
         const id = answer.id
         await api.saveAnswer(answer, rute, isEdit, answer => commit('saveAnswer', { answer, id }))
     },
-    async loadAnswers ({commit}, question ) {
-        await api.loadAnswers(question, answers => commit('setAnswers', { answers, question }))
+    async loadAnswers ({ commit, state }, question ) {
+        await api.loadAnswers(state.role, question, answers => commit('setAnswers', { answers, question }))
     },
-    async deleteAnswer ({commit}, answer) {
-        await api.deleteAnswer(answer.id, () => commit('deleteAnswer', answer))
+    async deleteAnswer ({ commit, state }, answer) {
+        await api.deleteAnswer(state.role, answer.id, () => commit('deleteAnswer', answer))
     }
 }
 

@@ -174,7 +174,7 @@ Route::prefix('/teacher')
     ->name('teacher.')
     ->namespace('Teacher')
     ->group(function(){
-        Route::get('/', 'TeacherDashboard@teacher')->name('home');
+        Route::get('/', 'TeacherDashboard@teacher')->name('dashboard');
         Route::get('/profile', 'TeacherDashboard@profile')->name('profile');
         Route::get('/profile/info', 'TeacherDashboard@info')->name('info');
         Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
