@@ -28,15 +28,15 @@
             </div>
         </div>
 
-{{--        <div class="row justify-content-center">--}}
-{{--            <div class="card col-sm">--}}
-{{--                <div class="card-body">--}}
-{{--                    <h5 class="card-title">Examenes</h5>--}}
-{{--                    <p class="card-text">Administración y creación de examenes.</p>--}}
-{{--                    <a href="{{ route('admin.exam.list') }}" class="btn btn-primary">Entrar</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+        <div class="row justify-content-center">
+            <div class="card col-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Examenes</h5>
+                    <p class="card-text">Administración y creación de examenes.</p>
+                    <a href="{{ route('teacher.exam.list') }}" class="btn btn-primary">Entrar</a>
+                </div>
+            </div>
+        </div>
 
     </div>
 

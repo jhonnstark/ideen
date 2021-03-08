@@ -58,7 +58,7 @@ export default {
     },
     mounted () {
         axios
-            .get('/teacher/courses/list')
+            .get('/teacher/course/list')
             .then(response => (this.items = response.data.data))
             .finally(() => this.isLoading = false)
     },

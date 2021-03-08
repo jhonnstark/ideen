@@ -6,8 +6,8 @@
         <div class="row justify-content-between">
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.exam.list') }}">{{ __('exam') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route($role . '.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route($role . '.exam.list') }}">{{ __('exam') }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ __('Register') }}</li>
                 </ol>
             </nav>
@@ -18,5 +18,5 @@
         </div>
     </div>
 
-    <exam-form course="{{ $course }}" edit="{{ $id ?? '' }}"></exam-form>
+    <exam-form role="{{ $role }}" edit="{{ $id ?? '' }}"></exam-form>
 @endsection

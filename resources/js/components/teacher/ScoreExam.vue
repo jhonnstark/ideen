@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <p>Empezado a las: {{ score.created_at }}</p>
                         <p>Total de preguntas: {{ score.exam.questions.length }}</p>
-                        <p class="points"><strong>Puntos: </strong>{{ mark }}</p>
+                        <p class="points"><strong>Puntos: </strong>{{ mark + '%' }}</p>
                         <button
                             @click="finishExam(mark)"
                             type="button"
@@ -59,12 +59,14 @@ export default {
     },
     computed: {
         mark() {
-            return this.claims.correct.length - this.claims.incorrect.length
+            let calification = this.claims.correct.length - this.claims.incorrect.length
+
+            return calification === 0 ? 0 : calification / this.claims.correct.length * 100
         },
         ...mapState({
             score: state => state.score,
             claims: state => state.claims,
-        })
+        }),
     },
     created() {
         this.loadScore(this.id)
