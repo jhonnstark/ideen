@@ -136,7 +136,7 @@
 
 <script>
 import { integer, maxLength, minLength, required } from "vuelidate/lib/validators";
-import { mapActions, mapGetters } from 'vuex'
+import {mapActions, mapGetters, mapMutations} from 'vuex'
 
 export default {
     name: "ExamAdd",
@@ -207,7 +207,7 @@ export default {
                 this.isLoading = true;
                 this.editForm = false;
                 this.saveExam(this.record).then(() => {
-                    this.record.rute = '/admin/exam/edit/' + this.exam.id
+                    this.record.rute = '/' + this.getRole() + '/exam/edit/' + this.exam.id
                     this.record.isEdit = true;
                     this.isLoading = false;
                     this.$swal('Guardado', 'Creado exitosamente.', 'success');
@@ -226,6 +226,10 @@ export default {
             'saveExam',
             'loadExam',
             'loadQuestions'
+        ]),
+
+        ...mapGetters([
+            'getRole'
         ]),
     },
     computed: {

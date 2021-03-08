@@ -174,20 +174,23 @@ Route::prefix('/teacher')
     ->name('teacher.')
     ->namespace('Teacher')
     ->group(function(){
-        Route::get('/', 'TeacherDashboard@teacher')->name('home');
+        Route::get('/', 'TeacherDashboard@teacher')->name('dashboard');
         Route::get('/profile', 'TeacherDashboard@profile')->name('profile');
         Route::get('/profile/info', 'TeacherDashboard@info')->name('info');
-        Route::get('/course/{course}/module', 'TeacherDashboard@module')->name('module');
-        Route::get('/course/module/{module}/activity', 'TeacherDashboard@activity')->name('activity');
-        Route::get('/course/module/{module}/content', 'TeacherDashboard@content')->name('content');
-        Route::get('/course/{course}', 'TeacherDashboard@courseInfo')->name('course');
         Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
-        Route::get('/courses/list', 'TeacherDashboard@list');
 
         Route::prefix('/course')
             ->name('course.')
             ->group(function(){
+                Route::get('/list', 'TeacherDashboard@list');
+
                 Route::get('/{course}/exam', 'ExamController@exam')->name('examList');
+                Route::get('/{course}', 'TeacherDashboard@courseInfo')->name('course');
+                Route::get('/{course}/module', 'TeacherDashboard@module')->name('module');
+                Route::get('/edit/{course}/module', 'TeacherDashboard@module')->name('module');
+                Route::get('/module/{module}/activity', 'TeacherDashboard@activity')->name('activity');
+                Route::get('/module/{module}/content', 'TeacherDashboard@content')->name('content');
+
                 Route::get('/exam/{exam}', 'ExamController@gradeExam')->name('gradeExam');
                 Route::get('/exam/{exam}/grade', 'ExamController@getGradesExam')->name('getGradesExam');
                 Route::get('/exam/grade/{score}', 'ExamController@getScores')->name('getScores');
@@ -209,6 +212,37 @@ Route::prefix('/teacher')
                 Route::put('/module/activity/{activity}/score', 'TeacherDashboard@scoreSave');
                 Route::get('/module/content/{content}', 'TeacherDashboard@contentDetail')->name('contentMaterial');
                 Route::get('/module/content/{content}/json', 'TeacherDashboard@contentJson');
+            });
+
+        Route::prefix('/exam')
+            ->name('exam.')
+            ->group(function(){
+                Route::get('/', 'ExamController@index')->name('list');
+                Route::get('/list', 'ExamController@list');
+                Route::get('/register', 'ExamController@create')->name('register');
+                Route::post('/register', 'ExamController@store');
+                Route::get('/edit/{exam}', 'ExamController@show')->name('edit');
+                Route::get('/edit/{exam}/json', 'ExamController@showJson');
+                Route::put('/edit/{exam}', 'ExamController@update');
+                Route::delete('/delete/{exam}', 'ExamController@destroy');
+            });
+
+        Route::prefix('/question')
+            ->name('question.')
+            ->group(function(){
+                Route::get('{exam}/list', 'QuestionController@index');
+                Route::post('/register', 'QuestionController@store');
+                Route::put('/edit/{question}', 'QuestionController@update');
+                Route::delete('/delete/{question}', 'QuestionController@destroy');
+            });
+
+        Route::prefix('/answer')
+            ->name('answer.')
+            ->group(function(){
+                Route::get('{question}/list', 'AnswerController@index');
+                Route::post('/register', 'AnswerController@store');
+                Route::put('/edit/{answer}', 'AnswerController@update');
+                Route::delete('/delete/{answer}', 'AnswerController@destroy');
             });
     });
 

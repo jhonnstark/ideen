@@ -71,7 +71,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { mapActions } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
     props: ['answer'],
@@ -96,9 +96,11 @@ export default {
         }
     },
     methods: {
+
         reRute(){
-            this.rute = this.isEdit ? '/admin/answer/edit/' + this.answer.id : '/admin/answer/register'
+            this.rute = this.isEdit ? '/' + this.getRole() + '/answer/edit/' + this.answer.id : '/' + this.getRole() + '/answer/register'
         },
+
         register() {
             if(!this.editForm || !this.$v.$anyDirty) {
                 return;
@@ -122,6 +124,7 @@ export default {
                 }).catch(error => console.log(error))
             }
         },
+
         removeAnswer(){
             if (this.isDeleting) {
                 return;
@@ -131,9 +134,14 @@ export default {
                 this.isDeleting = false;
             })
         },
+
         ...mapActions([
             'saveAnswer',
             'deleteAnswer'
+        ]),
+
+        ...mapGetters([
+            'getRole'
         ]),
     },
     watch: {

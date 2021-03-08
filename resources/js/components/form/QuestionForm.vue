@@ -90,7 +90,7 @@
 
 <script>
 import { maxLength, minLength, required } from "vuelidate/lib/validators";
-import { mapActions } from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import AnswerList from "../list/AnswerList";
 
 export default {
@@ -129,9 +129,11 @@ export default {
         }
     },
     methods: {
+
         reRute(){
-            this.rute = this.isEdit ? '/admin/question/edit/' + this.question.id : '/admin/question/register'
+            this.rute = this.isEdit ? '/' + this.getRole() + '/question/edit/' + this.question.id : '/' + this.getRole() + '/question/register'
         },
+
         register() {
             if(!this.editForm || !this.$v.$anyDirty) {
                 return;
@@ -155,6 +157,7 @@ export default {
                 }).catch(error => console.log(error))
             }
         },
+
         removeQuestion(){
             if (this.isDeleting) {
                 return;
@@ -164,10 +167,15 @@ export default {
                 this.isDeleting = false;
             })
         },
+
         ...mapActions([
             'saveQuestion',
             'loadAnswers',
             'deleteQuestion'
+        ]),
+
+        ...mapGetters([
+            'getRole'
         ]),
     },
     computed: {

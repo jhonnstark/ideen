@@ -37,9 +37,9 @@ class ExamController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return
+     * @return ExamCollection
      */
-    public function list()
+    public function list(): ExamCollection
     {
         return new ExamCollection(Exam::with('teacher')->with('course')->get());
     }
@@ -51,10 +51,10 @@ class ExamController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function create(Course $course)
+    public function create()
     {
         return view('components.examForm')
-            ->with('course', $course->id);
+            ->with('role', 'admin');
     }
 
     /**
@@ -87,7 +87,7 @@ class ExamController extends Controller
     {
         $exam->load('course');
         return view('components.examForm')
-            ->with('course', $exam->course->id)
+            ->with('role', 'admin')
             ->with('id', $exam->id);
     }
 
@@ -101,17 +101,6 @@ class ExamController extends Controller
     public function showJson(Exam $exam): ExamResource
     {
         return new ExamResource($exam);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Exam $exam
-     * @return void
-     */
-    public function edit(Exam $exam)
-    {
-        //
     }
 
     /**

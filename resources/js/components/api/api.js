@@ -1,14 +1,14 @@
 import axios from 'axios';
 
 export default {
-    async getCourses(cb) {
+    async getCourses(role, cb) {
         await axios
-            .get('/admin/course/list')
+            .get('/' + role + '/course/list')
             .then(response => cb(response.data.data))
     },
-    async getModules(course, cb) {
+    async getModules(role, course, cb) {
         await axios
-            .get(`/admin/course/edit/${course}/module`)
+            .get(`/${role}/course/edit/${course}/module`)
             .then(response => cb(response.data.data))
     },
     async saveExam(exam, rute, isEdit, cb) {
@@ -33,15 +33,15 @@ export default {
         })
             .then(response => cb(response.data.data))
     },
-    async loadQuestions(exam, cb) {
+    async loadQuestions(role, exam, cb) {
         await axios
-            .get('/admin/question/' + exam + '/list')
+            .get(`/${role}/question/${exam}/list`)
             .then(response => cb(response.data.data))
     },
-    async deleteQuestion(question, cb) {
+    async deleteQuestion(role, question, cb) {
         if (Number.isInteger(question)) {
             await axios
-                .delete('/admin/question/delete/' + question)
+                .delete(`/${role}/question/delete/${question}`)
         }
         cb()
     },
@@ -53,17 +53,17 @@ export default {
         })
             .then(response => cb(response.data.data))
     },
-    async loadAnswers(question, cb) {
+    async loadAnswers(role, question, cb) {
         if (Number.isInteger(question)) {
             await axios
-                .get('/admin/answer/' + question + '/list')
+                .get(`/${role}/answer/${question}/list`)
                 .then(response => cb(response.data.data))
         }
     },
-    async deleteAnswer(question, cb) {
+    async deleteAnswer(role, question, cb) {
         if (Number.isInteger(question)) {
             await axios
-                .delete('/admin/answer/delete/' + question)
+                .delete(`/${role}/answer/delete/${question}`)
         }
         cb()
     },

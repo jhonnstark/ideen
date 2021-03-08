@@ -11,13 +11,13 @@ import Teacher from "./teacher";
 Vue.use(Vuex)
 
 const actions = {
-    async getCurses ({commit}) {
-        await api.getCourses(courses => commit('setCourses', courses))
+    async getCurses ({ commit, state }) {
+        await api.getCourses(state.role, courses => commit('setCourses', courses))
     },
-    async getModules ({commit}, course) {
+    async getModules ({ commit, state }, course) {
         //todo: dont delete the modules and sort them by course id in the store
         commit('setModules', [])
-        await api.getModules(course, modules => commit('setModules', modules))
+        await api.getModules(state.role, course, modules => commit('setModules', modules))
     },
     async loadExam ({commit}, rute ) {
         await api.loadExam(rute, exam => commit('setExam', exam))
@@ -29,21 +29,21 @@ const actions = {
         const id = question.id
         await api.saveQuestion(question, rute, isEdit, question => commit('saveQuestion', { question, id }))
     },
-    async loadQuestions ({commit}, exam ) {
-        await api.loadQuestions(exam, questions => commit('setQuestions', questions))
+    async loadQuestions ({ commit, state }, exam ) {
+        await api.loadQuestions(state.role, exam, questions => commit('setQuestions', questions))
     },
-    async deleteQuestion ({commit}, question) {
-        await api.deleteQuestion(question, () => commit('deleteQuestion', question))
+    async deleteQuestion ({ commit, state }, question) {
+        await api.deleteQuestion(state.role, question, () => commit('deleteQuestion', question))
     },
     async saveAnswer ({commit}, { rute, answer, isEdit }) {
         const id = answer.id
         await api.saveAnswer(answer, rute, isEdit, answer => commit('saveAnswer', { answer, id }))
     },
-    async loadAnswers ({commit}, question ) {
-        await api.loadAnswers(question, answers => commit('setAnswers', { answers, question }))
+    async loadAnswers ({ commit, state }, question ) {
+        await api.loadAnswers(state.role, question, answers => commit('setAnswers', { answers, question }))
     },
-    async deleteAnswer ({commit}, answer) {
-        await api.deleteAnswer(answer.id, () => commit('deleteAnswer', answer))
+    async deleteAnswer ({ commit, state }, answer) {
+        await api.deleteAnswer(state.role, answer.id, () => commit('deleteAnswer', answer))
     }
 }
 
@@ -97,7 +97,10 @@ const mutations = {
     deleteAnswer(state, answer) {
         const removedId = state.answers[answer.question_id].findIndex(item => item.id === answer.id);
         state.answers[answer.question_id].splice(removedId, 1)
-    }
+    },
+    setRole(state, role) {
+        state.role = role
+    },
 }
 
 const getters = {
@@ -109,7 +112,10 @@ const getters = {
     },
     getModules: state => {
         return state.modules
-    }
+    },
+    getRole: state => {
+        return state.role
+    },
 }
 
 const stated = {
@@ -121,8 +127,8 @@ const stated = {
     courses: [],
     modules: [],
     questions: [],
-    answers: {}
-
+    answers: {},
+    role: '',
 }
 
 const store = new Vuex.Store({
