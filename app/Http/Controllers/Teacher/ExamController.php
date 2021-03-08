@@ -189,6 +189,7 @@ class ExamController extends Controller
         $exam->load('course');
         return view('components.examForm')
             ->with('course', $exam->course->id)
+            ->with('role', 'teacher')
             ->with('id', $exam->id);
     }
 

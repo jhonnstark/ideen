@@ -27,5 +27,5 @@
 
     </div>
 
-    <exam-list role="{{ $role }}"></exam-list>
+    <exam-list role="{{ $role }}" rute="teacher"></exam-list>
 @endsection
