@@ -1,14 +1,14 @@
 import axios from 'axios';
 
 export default {
-    async getCourses(cb) {
+    async getCourses(role, cb) {
         await axios
-            .get('/admin/course/list')
+            .get('/' + role + '/course/list')
             .then(response => cb(response.data.data))
     },
-    async getModules(course, cb) {
+    async getModules(role, course, cb) {
         await axios
-            .get(`/admin/course/edit/${course}/module`)
+            .get(`/${role}/course/edit/${course}/module`)
             .then(response => cb(response.data.data))
     },
     async saveExam(exam, rute, isEdit, cb) {
@@ -33,9 +33,9 @@ export default {
         })
             .then(response => cb(response.data.data))
     },
-    async loadQuestions(exam, cb) {
+    async loadQuestions(rute, exam, cb) {
         await axios
-            .get('/admin/question/' + exam + '/list')
+            .get(`/${role}/question/${exam}/list`)
             .then(response => cb(response.data.data))
     },
     async deleteQuestion(question, cb) {

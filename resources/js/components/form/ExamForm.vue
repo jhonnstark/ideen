@@ -45,7 +45,11 @@ export default {
     methods: {
         ...mapMutations([
             'newQuestion',
+            'setRole'
         ]),
+    },
+    created() {
+        this.setRole(this.role)
     },
     computed: {
         ...mapState([

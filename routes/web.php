@@ -178,14 +178,16 @@ Route::prefix('/teacher')
         Route::get('/profile', 'TeacherDashboard@profile')->name('profile');
         Route::get('/profile/info', 'TeacherDashboard@info')->name('info');
         Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
-        Route::get('/courses/list', 'TeacherDashboard@list');
 
         Route::prefix('/course')
             ->name('course.')
             ->group(function(){
+                Route::get('/list', 'TeacherDashboard@list');
+
                 Route::get('/{course}/exam', 'ExamController@exam')->name('examList');
                 Route::get('/{course}', 'TeacherDashboard@courseInfo')->name('course');
                 Route::get('/{course}/module', 'TeacherDashboard@module')->name('module');
+                Route::get('/edit/{course}/module', 'TeacherDashboard@module')->name('module');
                 Route::get('/module/{module}/activity', 'TeacherDashboard@activity')->name('activity');
                 Route::get('/module/{module}/content', 'TeacherDashboard@content')->name('content');
 
@@ -223,6 +225,24 @@ Route::prefix('/teacher')
                 Route::get('/edit/{exam}/json', 'ExamController@showJson');
                 Route::put('/edit/{exam}', 'ExamController@update');
                 Route::delete('/delete/{exam}', 'ExamController@destroy');
+            });
+
+        Route::prefix('/question')
+            ->name('question.')
+            ->group(function(){
+                Route::get('{exam}/list', 'QuestionController@index');
+                Route::post('/register', 'QuestionController@store');
+                Route::put('/edit/{question}', 'QuestionController@update');
+                Route::delete('/delete/{question}', 'QuestionController@destroy');
+            });
+
+        Route::prefix('/answer')
+            ->name('answer.')
+            ->group(function(){
+                Route::get('{question}/list', 'AnswerController@index');
+                Route::post('/register', 'AnswerController@store');
+                Route::put('/edit/{answer}', 'AnswerController@update');
+                Route::delete('/delete/{answer}', 'AnswerController@destroy');
             });
     });
 
