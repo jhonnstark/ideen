@@ -8,7 +8,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
                     @isset($role)
-                        <li class="breadcrumb-item"><a href="{{ route('teacher.course', $course) }}">Cursos</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('teacher.course.course', $course) }}">Cursos</a></li>
                     @endisset
 
                     @empty($role)
