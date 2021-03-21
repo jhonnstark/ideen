@@ -16,7 +16,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -136,7 +135,7 @@ class ExamController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return
+     * @return ExamCollection
      */
     public function list()
     {
@@ -147,8 +146,6 @@ class ExamController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @param Course $course
      *
      * @return Application|Factory|View
      */
