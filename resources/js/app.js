@@ -13,6 +13,7 @@ import vSelect from 'vue-select'
 import VuePlyr from 'vue-plyr'
 import Vuex from 'vuex'
 import store from "./components/state";
+import VueEllipseProgress from 'vue-ellipse-progress';
 // import Lingallery from 'lingallery';
 
 /**
@@ -36,6 +37,11 @@ Vue.use(Vuelidate)
  * Validation for forms
  */
 Vue.use(VueSweetalert2);
+
+/**
+ * Plugin to create beautiful and animated circular progress bars
+ */
+Vue.use(VueEllipseProgress);
 
 /**
  * The following block of code may be used to automatically register your

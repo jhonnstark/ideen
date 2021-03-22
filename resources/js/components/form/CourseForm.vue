@@ -138,6 +138,23 @@
                     </span>
             </div>
         </div>
+
+        <div class="card-progress-overlay" v-if="isLoading">
+            <vue-ellipse-progress
+                :progress="progress"
+                :determinate="determinate"
+                :size="180"
+                color="#0fa5df"
+                empty-color="#182254"
+                thickness="5"
+                :empty-thickness="3"
+                lineMode="out 5"
+                animation="rs 700 400"
+                fontSize="2rem"
+                :loading="uploading"
+                :legend-formatter="({ currentValue }) => `${currentValue} %`"
+            />
+        </div>
     </form>
 
 </template>
@@ -166,6 +183,9 @@ export default {
             category:[],
             poster: null,
             isLoading:false,
+            progress: 0,
+            uploading: this.progress === 0,
+            determinate: true,
             rute: this.edit
                 ? '/admin/' + this.role + '/edit/' + this.edit
                 : '/admin/' + this.role + '/register'
@@ -240,7 +260,9 @@ export default {
                 axios({
                     method: 'post',
                     url:  this.rute,
-                    data
+                    data,
+                    onUploadProgress: this.onUploadProgress,
+                    onDownloadProgress: this.onDownloadProgress,
                 }).then(response => {
                     if (!this.edit) {
                         this.record.name = null;
@@ -254,8 +276,8 @@ export default {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
                     }
                 }).catch(error => {
-                    this.$swal('Error', 'Algo ha ido mal.', 'error');
-                    console.log(error)
+                    console.log(error.response.data)
+                    this.$swal('Error', 'Algo ha ido mal: ' + error.response.data.message, 'error');
                 }).finally(() =>{
                     this.isLoading = false;
                 })
@@ -264,6 +286,12 @@ export default {
         selectPoster(event) {
             this.errors = false;
             this.record.poster = event.target.files[0];
+        },
+        onUploadProgress (progressEvent) {
+            this.progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        },
+        onDownloadProgress (progressEvent) {
+            this.progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
         }
     },
     computed: {
