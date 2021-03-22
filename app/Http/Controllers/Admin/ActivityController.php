@@ -9,10 +9,13 @@ use App\Http\Resources\MaterialResource;
 use App\Models\Activity;
 use App\Models\Module;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class ActivityController extends Controller
 {
@@ -35,13 +38,13 @@ class ActivityController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Module $module
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
+     * @return Application|Factory|Response|View
      */
     public function create(Module $module)
     {
         return view('admin.register')
             ->with('role', 'activity')
-            ->with('course', $module->id);
+            ->with('course', $module->course_id);
     }
 
     /**
@@ -68,7 +71,7 @@ class ActivityController extends Controller
      * @param Module $module
      * @return ActivityResource
      */
-    public function show(Module $module)
+    public function show(Module $module): ActivityResource
     {
         $module->load('activity');
         return new ActivityResource($module->activity);
@@ -79,7 +82,7 @@ class ActivityController extends Controller
      *
      * @param Request $request
      * @param Activity $activity
-     * @return ActivityResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return ActivityResource|Application|Factory|View
      */
     public function edit(Request $request, Activity $activity)
     {
@@ -98,7 +101,7 @@ class ActivityController extends Controller
      * @param Activity $activity
      * @return MaterialResource
      */
-    public function getMaterial(Activity $activity)
+    public function getMaterial(Activity $activity): MaterialResource
     {
         $material = $activity->load('material')->material->first();
         $url = Storage::disk('s3')->temporaryUrl(
@@ -115,7 +118,7 @@ class ActivityController extends Controller
      * @param Activity $activity
      * @return JsonResponse
      */
-    public function update(ActivityRequest $request, Activity $activity)
+    public function update(ActivityRequest $request, Activity $activity): JsonResponse
     {
         $activity->update($request->validated());
         return response()->json([
@@ -131,7 +134,7 @@ class ActivityController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Activity $activity)
+    public function destroy(Activity $activity): JsonResponse
     {
         $activity->delete();
         return response()->json([

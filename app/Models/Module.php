@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static find($input)
  * @property mixed id
  * @property mixed exams
+ * @property mixed course_id
  */
 class Module extends Model
 {

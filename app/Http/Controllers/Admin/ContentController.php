@@ -8,10 +8,13 @@ use App\Http\Resources\ContentResource;
 use App\Http\Resources\MaterialResource;
 use App\Models\Content;
 use App\Models\Module;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class ContentController extends Controller
 {
@@ -34,7 +37,7 @@ class ContentController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Module $module
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
+     * @return Application|Factory|Response|View
      */
     public function create(Module $module)
     {
@@ -79,7 +82,7 @@ class ContentController extends Controller
      *
      * @param Request $request
      * @param Content $content
-     * @return ContentResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return ContentResource|Application|Factory|View
      */
     public function edit(Request $request, Content $content)
     {
