@@ -159,7 +159,11 @@ export default {
                 axios({
                     method: this.edit ? 'put' : 'post',
                     url:  this.rute,
-                    data
+                    data,
+                    onUploadProgress (progressEvent) {
+                        let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                        console.log(percentCompleted)
+                    }
                 }).then(response => {
                     this.isLoading = false;
                     if (!this.edit) {

@@ -138,6 +138,10 @@
                     </span>
             </div>
         </div>
+
+        <div class="card-progress-overlay">
+            <vue-ellipse-progress :progress="progress"/>
+        </div>
     </form>
 
 </template>
@@ -166,6 +170,7 @@ export default {
             category:[],
             poster: null,
             isLoading:false,
+            progress: 0,
             rute: this.edit
                 ? '/admin/' + this.role + '/edit/' + this.edit
                 : '/admin/' + this.role + '/register'
@@ -240,7 +245,12 @@ export default {
                 axios({
                     method: 'post',
                     url:  this.rute,
-                    data
+                    data,
+                    onUploadProgress (progressEvent) {
+                        let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                        console.log(percentCompleted)
+                        this.progress = percentCompleted
+                    }
                 }).then(response => {
                     if (!this.edit) {
                         this.record.name = null;
@@ -254,8 +264,8 @@ export default {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
                     }
                 }).catch(error => {
-                    this.$swal('Error', 'Algo ha ido mal.', 'error');
-                    console.log(error)
+                    console.log(error.response.data)
+                    this.$swal('Error', 'Algo ha ido mal: ' + error.response.data.message, 'error');
                 }).finally(() =>{
                     this.isLoading = false;
                 })
