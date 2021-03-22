@@ -19,7 +19,6 @@
                                 :class="{ 'is-invalid': $v.record.exam.name.$error}"
                                 id="name"
                                 type="text"
-                                :disabled="record.isEdit"
                                 class="form-control"
                                 name="name" required autocomplete="name" autofocus>
 
@@ -37,7 +36,6 @@
                                 v-model.trim="$v.record.exam.description.$model"
                                 :class="{ 'is-invalid': $v.record.exam.description.$error }"
                                 id="description"
-                                :disabled="record.isEdit"
                                 rows="2"
                                 class="form-control" name="description" required autocomplete="description" autofocus>
                             </textarea>
@@ -67,7 +65,6 @@
                                     v-model="record.exam.course_id"
                                     :reduce="course => course.id"
                                     :options="courses"
-                                    :disabled="record.isEdit"
                                     label="name"
                                     @input="changeCourse"
                                     id="course"
@@ -97,7 +94,6 @@
                                     v-model="record.exam.module_id"
                                     :reduce="module => module.id"
                                     :options="modules"
-                                    :disabled="record.isEdit"
                                     label="name"
                                     id="module" name="module"></v-select>
 
@@ -184,7 +180,6 @@ export default {
     },
     created() {
         if (this.edit) {
-            this.editForm = false;
             this.loadExam(this.record.rute + (this.edit ? '/json' :''))
                 .then(() => {
                     this.record.exam = this.exam;
@@ -196,7 +191,7 @@ export default {
     },
     methods: {
         register() {
-            if(!this.editForm) {
+            if(!this.editForm || !this.$v.$anyDirty) {
                 return;
             }
             if (this.$v.$invalid) {
@@ -210,6 +205,7 @@ export default {
                     this.record.rute = '/' + this.getRole() + '/exam/edit/' + this.exam.id
                     this.record.isEdit = true;
                     this.isLoading = false;
+                    this.editForm = true;
                     this.$swal('Guardado', 'Creado exitosamente.', 'success');
                 }).catch(error => console.log(error))
             }

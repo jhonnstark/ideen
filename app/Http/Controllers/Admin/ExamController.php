@@ -106,13 +106,21 @@ class ExamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param ExamRequest $request
      * @param Exam $exam
-     * @return void
+     * @return JsonResponse
      */
-    public function update(Request $request, Exam $exam)
+    public function update(ExamRequest $request, Exam $exam): JsonResponse
     {
-        //
+        $validated = $request->validated();
+        $teacher = Course::find($validated['course_id'])->teacher->first();
+        $validated['teacher_id'] = $teacher->id;
+        $exam->update($validated);
+        return response()->json([
+            'status' => 201,
+            'message' => 'Updated exam',
+            'data' => $exam
+        ]);
     }
 
     /**
