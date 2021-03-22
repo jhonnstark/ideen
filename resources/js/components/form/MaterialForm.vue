@@ -86,6 +86,23 @@
                     </span>
             </div>
         </div>
+
+        <div class="card-progress-overlay" v-if="isLoading">
+            <vue-ellipse-progress
+                :progress="progress"
+                :determinate="determinate"
+                :size="180"
+                color="#0fa5df"
+                empty-color="#182254"
+                thickness="5"
+                :empty-thickness="3"
+                lineMode="out 5"
+                animation="rs 700 400"
+                fontSize="2rem"
+                :loading="uploading"
+                :legend-formatter="({ currentValue }) => `${currentValue} %`"
+            />
+        </div>
     </form>
 
 </template>
@@ -109,6 +126,9 @@ export default {
             },
             editForm: true,
             rute: window.location.pathname,
+            progress: 0,
+            uploading: this.progress === 0,
+            determinate: true,
             isLoading:false
         }
     },
@@ -160,10 +180,8 @@ export default {
                     method: this.edit ? 'put' : 'post',
                     url:  this.rute,
                     data,
-                    onUploadProgress (progressEvent) {
-                        let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-                        console.log(percentCompleted)
-                    }
+                    onDownloadProgress: this.onDownloadProgress,
+                    onUploadProgress: this.onUploadProgress
                 }).then(response => {
                     this.isLoading = false;
                     if (!this.edit) {
@@ -174,11 +192,24 @@ export default {
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
                     }
-                }).catch(error => console.log(error))
+                })
+                    .catch(error => {
+                        console.log(error.response.data)
+                        this.$swal('Error', 'Algo ha ido mal: ' + error.response.data.message, 'error');
+                    })
+                    .finally(() =>{
+                        this.isLoading = false;
+                    })
             }
         },
         selectMaterial(event) {
             this.record.material = event.target.files[0];
+        },
+        onUploadProgress (progressEvent) {
+            this.progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        },
+        onDownloadProgress (progressEvent) {
+            this.progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
         }
     },
     computed: {
