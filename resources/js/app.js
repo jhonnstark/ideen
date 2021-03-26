@@ -14,6 +14,7 @@ import VuePlyr from 'vue-plyr'
 import Vuex from 'vuex'
 import store from "./components/state";
 import VueEllipseProgress from 'vue-ellipse-progress';
+import VCalendar from 'v-calendar';
 // import Lingallery from 'lingallery';
 
 /**
@@ -43,6 +44,10 @@ Vue.use(VueSweetalert2);
  */
 Vue.use(VueEllipseProgress);
 
+/**
+ * An elegant calendar and datepicker plugin for Vuejs.
+ */
+Vue.use(VCalendar);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

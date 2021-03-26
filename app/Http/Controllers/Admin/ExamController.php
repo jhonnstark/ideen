@@ -47,8 +47,6 @@ class ExamController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Course $course
-     *
      * @return Application|Factory|View
      */
     public function create()
@@ -90,7 +88,6 @@ class ExamController extends Controller
             ->with('role', 'admin')
             ->with('id', $exam->id);
     }
-
 
     /**
      * Display the specified resource.

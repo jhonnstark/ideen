@@ -66,6 +66,30 @@
             </div>
         </div>
 
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label text-md-right">Duración del curso</label>
+            <div class="col-md-6">
+                <v-date-picker v-model="range" is-range>
+                    <template v-slot="{ inputValue, inputEvents }">
+                        <div class="flex justify-center items-center">
+                        <input
+                            name="active_at"
+                            :value="inputValue.start"
+                            v-on="inputEvents.start"
+                            class="form-control border px-2 py-1 w-32 rounded focus:outline-none focus:border-indigo-300"
+                        />
+                        <input
+                            name="close_at"
+                            :value="inputValue.end"
+                            v-on="inputEvents.end"
+                            class="form-control border px-2 py-1 w-32 rounded focus:outline-none focus:border-indigo-300"
+                        />
+                        </div>
+                    </template>
+                    </v-date-picker>
+            </div>
+        </div>
+
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit"
@@ -116,6 +140,10 @@ export default {
     props: ['role', 'id', 'edit'],
     data() {
         return {
+            range: {
+                start: new Date(),
+                end: new Date(),
+            },
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
             record: {
