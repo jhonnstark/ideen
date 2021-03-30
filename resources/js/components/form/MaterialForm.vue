@@ -93,21 +93,6 @@
                         </div>
                     </template>
                 </v-date-picker>
-                <p>
-                    {{ range }}
-                </p>
-                <p>
-                    {{ range.start }}
-                </p>
-                <p>
-                    {{ range.start }}
-                </p>
-                <p>
-                    {{ range.end }}
-                </p>
-                <p>
-                    {{ range.end | moment('YYYY-MM-DD hh:mm:ss')  }}
-                </p>
             </div>
         </div>
 
