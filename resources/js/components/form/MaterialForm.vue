@@ -69,24 +69,34 @@
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Duración del curso</label>
             <div class="col-md-6">
-                <v-date-picker v-model="range" is-range>
+                <v-date-picker
+                    v-model="range"
+                    is-range
+                    mode="dateTime"
+                    :minute-increment="5"
+                    :model-config="modelConfig"
+                    is-required
+                >
                     <template v-slot="{ inputValue, inputEvents }">
                         <div class="flex justify-center items-center">
                         <input
                             name="active_at"
                             :value="inputValue.start"
                             v-on="inputEvents.start"
-                            class="form-control border px-2 py-1 w-32 rounded focus:outline-none focus:border-indigo-300"
+                            class="form-control border px-2 py-1 w-32 rounded mb-3"
                         />
                         <input
                             name="close_at"
                             :value="inputValue.end"
                             v-on="inputEvents.end"
-                            class="form-control border px-2 py-1 w-32 rounded focus:outline-none focus:border-indigo-300"
+                            class="form-control border px-2 py-1 w-32 rounded mb-3"
                         />
                         </div>
                     </template>
-                    </v-date-picker>
+                </v-date-picker>
+                <p>
+                    {{ range }}
+                </p>
             </div>
         </div>
 
@@ -157,7 +167,10 @@ export default {
             progress: 0,
             uploading: this.progress === 0,
             determinate: true,
-            isLoading:false
+            isLoading:false,
+            modelConfig: {
+                type: 'string',
+            },
         }
     },
     validations: {
@@ -202,6 +215,8 @@ export default {
                 data.append('description', this.record.description);
                 data.append('module_id', this.id);
                 data.append('material', this.record.material);
+                data.append('active_at', this.range.start);
+                data.append('close_at', this.range.end);
                 this.isLoading = true;
 
                 axios({
@@ -237,7 +252,10 @@ export default {
             this.progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
         },
         onDownloadProgress (progressEvent) {
-            this.progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            this.progress = progressEvent.total === 0 ? 0 : Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            console.log('onDownloadProgress', this.progress)
+            console.log('onDownloadProgress', progressEvent.loaded)
+            console.log('onDownloadProgress', progressEvent.total)
         }
     },
     computed: {

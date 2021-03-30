@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static create(array $validated)
@@ -16,21 +18,25 @@ class Activity extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'module_id', 'description'
+        'name', 'module_id', 'description', 'close_at', 'active_at'
     ];
 
     /**
      * The student that belong to the Activity.
+     *
+     * @return BelongsToMany
      */
-    public function material(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function material(): BelongsToMany
     {
         return $this->belongsToMany(Material::class);
     }
 
     /**
      * Get the course that owns the Activity.
+     *
+     * @return BelongsTo
      */
-    public function module(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function module(): BelongsTo
     {
         return $this->belongsTo(Module::class);
     }

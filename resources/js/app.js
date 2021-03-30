@@ -15,8 +15,10 @@ import Vuex from 'vuex'
 import store from "./components/state";
 import VueEllipseProgress from 'vue-ellipse-progress';
 import VCalendar from 'v-calendar';
+import moment from 'vue-moment'
 // import Lingallery from 'lingallery';
 
+Vue.use(require('vue-moment'))
 /**
  * Lingallery
  */
