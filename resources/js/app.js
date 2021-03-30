@@ -18,7 +18,11 @@ import VCalendar from 'v-calendar';
 import moment from 'vue-moment'
 // import Lingallery from 'lingallery';
 
-Vue.use(require('vue-moment'))
+/**
+ * Handy Moment.js filters for your Vue.js project.
+ */
+Vue.use(moment)
+
 /**
  * Lingallery
  */

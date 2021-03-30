@@ -74,7 +74,6 @@
                     is-range
                     mode="dateTime"
                     :minute-increment="5"
-                    :model-config="modelConfig"
                     is-required
                 >
                     <template v-slot="{ inputValue, inputEvents }">
@@ -96,6 +95,18 @@
                 </v-date-picker>
                 <p>
                     {{ range }}
+                </p>
+                <p>
+                    {{ range.start }}
+                </p>
+                <p>
+                    {{ range.start }}
+                </p>
+                <p>
+                    {{ range.end }}
+                </p>
+                <p>
+                    {{ range.end | moment('YYYY-MM-DD hh:mm:ss')  }}
                 </p>
             </div>
         </div>
@@ -168,9 +179,6 @@ export default {
             uploading: this.progress === 0,
             determinate: true,
             isLoading:false,
-            modelConfig: {
-                type: 'string',
-            },
         }
     },
     validations: {
@@ -215,8 +223,8 @@ export default {
                 data.append('description', this.record.description);
                 data.append('module_id', this.id);
                 data.append('material', this.record.material);
-                data.append('active_at', this.range.start);
-                data.append('close_at', this.range.end);
+                data.append('active_at', this.$moment(this.range.start).format('YYYY-MM-DD hh:mm:ss'));
+                data.append('close_at',  this.$moment(this.range.end).format('YYYY-MM-DD hh:mm:ss'));
                 this.isLoading = true;
 
                 axios({
