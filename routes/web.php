@@ -106,6 +106,7 @@ Route::prefix('/admin')
                 Route::get('/edit/{module}/content/add', 'ContentController@create')->name('content');
                 Route::post('/edit/{module}/content/add', 'ContentController@store');
                 Route::get('/edit/module/content/{content}', 'ContentController@edit');
+                Route::get('/edit/module/content/{content}/json', 'ContentController@getJson');
                 Route::get('/edit/module/content/{content}/material', 'ContentController@getMaterial');
                 Route::put('/edit/module/content/{content}', 'ContentController@update');
                 Route::delete('/edit/module/content/delete/{content}', 'ContentController@destroy');
