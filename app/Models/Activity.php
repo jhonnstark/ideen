@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static create(array $validated)
+ * @property mixed module_id
  */
 class Activity extends Model
 {

@@ -75,21 +75,63 @@
                     mode="dateTime"
                     :minute-increment="5"
                     is-required
+                    :attributes="attrs"
+                    :select-attribute="selectDragAttribute"
+                    :drag-attribute="selectDragAttribute"
+                    @drag="dragValue = $event"
+                    :min-date="minDate"
                 >
-                    <template v-slot="{ inputValue, inputEvents }">
-                        <div class="flex justify-center items-center">
-                        <input
-                            name="active_at"
-                            :value="inputValue.start"
-                            v-on="inputEvents.start"
-                            class="form-control border px-2 py-1 w-32 rounded mb-3"
-                        />
-                        <input
-                            name="close_at"
-                            :value="inputValue.end"
-                            v-on="inputEvents.end"
-                            class="form-control border px-2 py-1 w-32 rounded mb-3"
-                        />
+                    <template v-slot:day-popover="{ format }">
+                        <div>
+                            {{ format(dragValue ? dragValue.start : range.start, 'MMM D') }}
+                            -
+                            {{ format(dragValue ? dragValue.end : range.end, 'MMM D') }}
+                        </div>
+                    </template>
+                    <template v-slot="{ inputValue, inputEvents, updateValue }">
+                        <div class="date-picker">
+                            <div class="date-picker-wrap">
+                                <svg
+                                    class="mx-2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                    ></path>
+                                </svg>
+                                <input
+                                    name="active_at"
+                                    :value="inputValue.start"
+                                    v-on="inputEvents.start"
+                                    class="form-control date-picker-input border w-32 rounded"
+                                />
+                            </div>
+                            <div class="date-picker-wrap">
+                                <svg
+                                    class="mx-2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                    ></path>
+                                </svg>
+                                <input
+                                    name="close_at"
+                                    :value="inputValue.end"
+                                    v-on="inputEvents.end"
+                                    class="form-control date-picker-input border w-32 rounded"
+                                />
+                            </div>
                         </div>
                     </template>
                 </v-date-picker>
@@ -99,7 +141,7 @@
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit"
-                        :class="[ !$v.$invalid? 'btn-primary': 'btn-secondary']"
+                        :class="[ !$v.$invalid && $v.$anyDirty? 'btn-primary': 'btn-secondary']"
                         class="btn">
                     <svg
                         v-if="isLoading"
@@ -147,8 +189,8 @@ export default {
     data() {
         return {
             range: {
-                start: new Date(),
-                end: new Date(),
+               start: new Date(),
+               end: new Date(),
             },
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
@@ -161,9 +203,17 @@ export default {
             editForm: true,
             rute: window.location.pathname,
             progress: 0,
-            uploading: this.progress === 0,
             determinate: true,
             isLoading:false,
+            attrs: [
+                {
+                    key: 'today',
+                    dot: true,
+                    dates: new Date(),
+                },
+            ],
+            dragValue: null,
+            minDate: new Date()
         }
     },
     validations: {
@@ -185,15 +235,23 @@ export default {
     },
     created() {
         if (this.edit) {
-            axios.get(this.rute)
+            axios.get(this.rute + '/json')
                 .then(response => {
-                    this.record = response.data.data;
+                    const record = response.data.data;
+                    record.material = null;
+                    this.record = record;
+                    this.range = {
+                        start: new Date(this.record.active_at),
+                        end: new Date(this.record.close_at),
+                    }
+                    this.minDate = this.range.start
                 })
+            this.id = this.edit;
         }
     },
     methods:{
         register() {
-            if(!this.editForm) {
+            if(!this.editForm || !this.$v.$anyDirty) {
                 return;
             }
             if (this.$v.$invalid) {
@@ -202,14 +260,20 @@ export default {
                 this.$v.$reset();
                 this.errors = false;
                 this.editForm = false;
+                let data;
 
-                const data = new FormData();
-                data.append('name', this.record.name);
-                data.append('description', this.record.description);
-                data.append('module_id', this.id);
-                data.append('material', this.record.material);
-                data.append('active_at', this.$moment(this.range.start).format('YYYY-MM-DD hh:mm:ss'));
-                data.append('close_at',  this.$moment(this.range.end).format('YYYY-MM-DD hh:mm:ss'));
+                if (!this.edit) {
+                    data = new FormData();
+                    data.append('name', this.record.name);
+                    data.append('description', this.record.description);
+                    data.append('module_id', this.id);
+                    data.append('active_at', this.$moment(this.range.start).format('YYYY-MM-DD hh:mm:ss'));
+                    data.append('close_at',  this.$moment(this.range.end).format('YYYY-MM-DD hh:mm:ss'));
+                    data.append('material', this.record.material);
+                } else {
+                    data = this.record;
+                    delete data.material;
+                }
                 this.isLoading = true;
 
                 axios({
@@ -218,24 +282,28 @@ export default {
                     data,
                     onDownloadProgress: this.onDownloadProgress,
                     onUploadProgress: this.onUploadProgress
-                }).then(response => {
+                })
+                .then(response => {
                     this.isLoading = false;
                     if (!this.edit) {
                         this.record.name = null;
                         this.record.description = null;
                         this.editForm = true;
+                        this.range.start = new Date();
+                        this.range.end = new Date();
                         this.$swal('Guardado', 'Creado exitosamente.', 'success');
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
                     }
                 })
-                    .catch(error => {
-                        console.log(error.response.data)
-                        this.$swal('Error', 'Algo ha ido mal: ' + error.response.data.message, 'error');
-                    })
-                    .finally(() =>{
-                        this.isLoading = false;
-                    })
+                .catch(error => {
+                    console.log(error.response.data)
+                    this.$swal('Error', 'Algo ha ido mal: ' + error.response.data.message, 'error');
+                })
+                .finally(() =>{
+                    this.isLoading = false;
+                    this.editForm = true;
+                })
             }
         },
         selectMaterial(event) {
@@ -246,19 +314,46 @@ export default {
         },
         onDownloadProgress (progressEvent) {
             this.progress = progressEvent.total === 0 ? 0 : Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            console.log('onDownloadProgress', this.progress)
-            console.log('onDownloadProgress', progressEvent.loaded)
-            console.log('onDownloadProgress', progressEvent.total)
-        }
+        },
     },
     computed: {
         isEdit() {
             return !!this.edit;
         },
+        uploading () {
+            return this.progress === 0;
+        },
+        selectDragAttribute() {
+            return {
+                popover: {
+                    visibility: 'hover',
+                    isInteractive: false, // Defaults to true when using slot
+                },
+            };
+        },
     }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.date-picker {
+    display: flex;
+    flex-flow: column;
 
+    &-wrap {
+        position: relative;
+        flex-grow: 1;
+    }
+
+    &-input {
+        padding-left: 2rem;
+        margin-bottom: 10px;
+    }
+
+    svg {
+        position: absolute;
+        width: 1rem;
+        height: 37px;
+    }
+}
 </style>
