@@ -180,7 +180,6 @@
 </template>
 
 <script>
-
 import { required, minLength, maxLength, requiredIf } from 'vuelidate/lib/validators';
 
 export default {
@@ -232,6 +231,14 @@ export default {
                 required: requiredIf('edit'),
             }
         },
+        range: {
+            start: {
+                required
+            },
+            end: {
+                required
+            }
+        }
     },
     created() {
         if (this.edit) {
@@ -243,10 +250,12 @@ export default {
                     this.range = {
                         start: new Date(this.record.active_at),
                         end: new Date(this.record.close_at),
-                    }
-                    this.minDate = this.range.start
+                    };
+                    this.minDate = this.$moment.min(
+                        this.$moment(this.range.start),
+                        this.$moment()
+                    ).format();
                 })
-            this.id = this.edit;
         }
     },
     methods:{
@@ -266,13 +275,15 @@ export default {
                     data = new FormData();
                     data.append('name', this.record.name);
                     data.append('description', this.record.description);
-                    data.append('module_id', this.id);
+                    data.append('module_id', this.module_id);
                     // fix pm and am
                     data.append('active_at', this.$moment(this.range.start).format('YYYY-MM-DD hh:mm:ss'));
                     data.append('close_at',  this.$moment(this.range.end).format('YYYY-MM-DD hh:mm:ss'));
                     data.append('material', this.record.material);
                 } else {
                     data = this.record;
+                    data.active_at = this.$moment(this.range.start).format('YYYY-MM-DD hh:mm:ss');
+                    data.close_at = this.$moment(this.range.end).format('YYYY-MM-DD hh:mm:ss');
                     delete data.material;
                 }
                 this.isLoading = true;
@@ -307,7 +318,7 @@ export default {
                 })
             }
         },
-        selectMaterial(event) {
+        selectMaterial (event) {
             this.record.material = event.target.files[0];
         },
         onUploadProgress (progressEvent) {
@@ -318,13 +329,13 @@ export default {
         },
     },
     computed: {
-        isEdit() {
+        isEdit () {
             return !!this.edit;
         },
         uploading () {
             return this.progress === 0;
         },
-        selectDragAttribute() {
+        selectDragAttribute () {
             return {
                 popover: {
                     visibility: 'hover',
@@ -332,6 +343,14 @@ export default {
                 },
             };
         },
+        module_id () {
+            return this.id ?? this.edit
+        }
+    },
+    watch: {
+        range: function (val) {
+            this.$v.$touch()
+        }
     }
 }
 </script>
