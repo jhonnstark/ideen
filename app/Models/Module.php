@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed id
  * @property mixed exams
  * @property mixed course_id
+ * @property mixed activity
  */
 class Module extends Model
 {

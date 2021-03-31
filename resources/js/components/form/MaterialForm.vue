@@ -252,7 +252,7 @@ export default {
                         start: new Date(this.record.active_at),
                         end: new Date(this.record.close_at),
                     }
-                    this.minDate = moment.min(this.range.start, new Date());
+                    this.minDate = this.$moment.min(new Date(this.range.start), new Date());
                 })
         }
     },
