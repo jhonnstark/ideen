@@ -14,6 +14,7 @@ use App\Models\Content;
 use App\Models\Course;
 use App\Http\Resources\User as UserResource;
 use App\Models\Module;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -133,7 +134,11 @@ class HomeController extends Controller
     public function activity(Module $module): ActivityResource
     {
         $module->load('activity');
-        return new ActivityResource($module->activity);
+        $activities = $module->activity->filter(function ($activity, $key) {
+            $today = Carbon::now();
+            return $today->between($activity->active_at, $activity->close_at);
+        });
+        return new ActivityResource($activities);
     }
 
     /**
