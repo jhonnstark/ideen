@@ -67,7 +67,7 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-md-4 col-form-label text-md-right">Duración del curso</label>
+            <label class="col-md-4 col-form-label text-md-right">Duración</label>
             <div class="col-md-6">
                 <v-date-picker
                     v-model="range"
@@ -301,8 +301,10 @@ export default {
                         this.record.name = null;
                         this.record.description = null;
                         this.editForm = true;
-                        this.range.start = new Date();
-                        this.range.end = new Date();
+                        this.range = {
+                            start: new Date(),
+                            end: new Date(),
+                        };
                         this.$swal('Guardado', 'Creado exitosamente.', 'success');
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
