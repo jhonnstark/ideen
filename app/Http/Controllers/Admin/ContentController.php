@@ -143,7 +143,7 @@ class ContentController extends Controller
      * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(Content $content)
+    public function destroy(Content $content): JsonResponse
     {
         $content->delete();
         return response()->json([

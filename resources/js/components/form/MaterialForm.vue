@@ -301,8 +301,10 @@ export default {
                         this.record.name = null;
                         this.record.description = null;
                         this.editForm = true;
-                        this.range.start = new Date();
-                        this.range.end = new Date();
+                        this.range = {
+                            start: new Date(),
+                            end: new Date(),
+                        };
                         this.$swal('Guardado', 'Creado exitosamente.', 'success');
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');

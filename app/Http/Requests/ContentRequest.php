@@ -26,6 +26,8 @@ class ContentRequest extends FormRequest
         return [
             'name' => 'bail|required|max:255|min:3',
             'description' => 'bail|required|max:255|min:10',
+            'active_at' => 'bail|required|date',
+            'close_at' => 'bail|required|date',
             'material' => [
                 'sometimes',
                 'file',
