@@ -181,7 +181,7 @@
 
 <script>
 
-import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength, requiredIf } from 'vuelidate/lib/validators';
 
 export default {
     name: "MaterialForm",
@@ -229,7 +229,7 @@ export default {
                 maxLength: maxLength(255)
             },
             material: {
-                required,
+                required: requiredIf('edit'),
             }
         },
     },
@@ -267,6 +267,7 @@ export default {
                     data.append('name', this.record.name);
                     data.append('description', this.record.description);
                     data.append('module_id', this.id);
+                    // fix pm and am
                     data.append('active_at', this.$moment(this.range.start).format('YYYY-MM-DD hh:mm:ss'));
                     data.append('close_at',  this.$moment(this.range.end).format('YYYY-MM-DD hh:mm:ss'));
                     data.append('material', this.record.material);
