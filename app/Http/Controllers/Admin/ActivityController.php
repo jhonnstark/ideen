@@ -44,7 +44,8 @@ class ActivityController extends Controller
     {
         return view('admin.register')
             ->with('role', 'activity')
-            ->with('course', $module->course_id);
+            ->with('course', $module->course_id)
+            ->with('module', $module->id);
     }
 
     /**
@@ -80,19 +81,28 @@ class ActivityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Request $request
      * @param Activity $activity
-     * @return ActivityResource|Application|Factory|View
+     *
+     * @return Application|Factory|View
      */
-    public function edit(Request $request, Activity $activity)
+    public function edit(Activity $activity)
     {
-        if ($request->wantsJson()) {
-            return new ActivityResource($activity);
-        }
         return view('admin.edit', [
             'role' => 'activity',
             'id' => $activity->module_id
         ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Activity $activity
+     *
+     * @return ActivityResource
+     */
+    public function getJson(Activity $activity): ActivityResource
+    {
+        return new ActivityResource($activity);
     }
 
     /**
