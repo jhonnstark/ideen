@@ -180,7 +180,6 @@
 </template>
 
 <script>
-
 import { required, minLength, maxLength, requiredIf } from 'vuelidate/lib/validators';
 
 export default {
@@ -251,8 +250,11 @@ export default {
                     this.range = {
                         start: new Date(this.record.active_at),
                         end: new Date(this.record.close_at),
-                    }
-                    this.minDate = this.$moment.min(new Date(this.range.start), new Date());
+                    };
+                    this.minDate = this.$moment.min(
+                        this.$moment(this.range.start),
+                        this.$moment()
+                    ).format();
                 })
         }
     },
