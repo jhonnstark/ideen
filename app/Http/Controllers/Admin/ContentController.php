@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContentRequest;
+use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\MaterialResource;
+use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Module;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -80,16 +83,25 @@ class ContentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Request $request
      * @param Content $content
-     * @return ContentResource|Application|Factory|View
+     *
+     * @return Application|Factory|View
      */
-    public function edit(Request $request, Content $content)
+    public function edit(Content $content)
     {
-        if ($request->wantsJson()) {
-            return new ContentResource($content);
-        }
         return view('admin.edit', ['role' => 'content', 'id' => $content->module_id]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Content $content
+     *
+     * @return ContentResource
+     */
+    public function getJson(Content $content): ContentResource
+    {
+        return new ContentResource($content);
     }
 
     /**
@@ -115,7 +127,7 @@ class ContentController extends Controller
      * @param Content $content
      * @return JsonResponse
      */
-    public function update(ContentRequest $request, Content $content)
+    public function update(ContentRequest $request, Content $content): JsonResponse
     {
         $content->update($request->validated());
         return response()->json([
