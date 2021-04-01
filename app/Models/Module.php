@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed exams
  * @property mixed course_id
  * @property mixed activity
+ * @property mixed content
  */
 class Module extends Model
 {
