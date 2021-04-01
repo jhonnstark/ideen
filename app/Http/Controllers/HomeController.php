@@ -76,7 +76,7 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return CourseCollection|Application|Factory|View
+     * @return Application|Factory|View
      */
     public function courses()
     {
@@ -101,7 +101,7 @@ class HomeController extends Controller
      *
      * @param Course $course
      *
-     * @return ActivityResource|Application|Factory|View
+     * @return Application|Factory|View
      */
     public function courseInfo(Course $course)
     {
@@ -117,6 +117,7 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Course $course
+     *
      * @return ModulesResource
      */
     public function module(Course $course): ModulesResource
@@ -129,22 +130,20 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Module $module
+     *
      * @return ActivityResource
      */
     public function activity(Module $module): ActivityResource
     {
         $module->load('activity');
-        $activities = $module->activity->filter(function ($activity, $key) {
-            $today = Carbon::now();
-            return $today->between($activity->active_at, $activity->close_at);
-        });
-        return new ActivityResource($activities);
+        return new ActivityResource($module->activity);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Module $module
+     *
      * @return ContentResource
      */
     public function content(Module $module): ContentResource
@@ -157,7 +156,8 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Activity $activity
-     * @return MaterialResource|Application|Factory|View
+     *
+     * @return Application|Factory|View
      */
     public function activityDetail(Activity $activity)
     {
@@ -171,7 +171,8 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Module $module
-     * @return MaterialResource|Application|Factory|View
+     *
+     * @return Application|Factory|View
      */
     public function moduleDetail(Module $module)
     {
@@ -186,7 +187,8 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Content $content
-     * @return MaterialResource|Application|Factory|View
+     *
+     * @return Application|Factory|View
      */
     public function contentDetail(Content $content)
     {
@@ -198,9 +200,10 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Activity $activity
-     * @return MaterialResource|Application|Factory|View
+     *
+     * @return MaterialResource
      */
-    public function activityJson(Activity $activity)
+    public function activityJson(Activity $activity): MaterialResource
     {
         $material = $activity->load('material')->material->first();
         $url = Storage::disk('s3')->temporaryUrl(
@@ -214,9 +217,9 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Content $content
-     * @return MaterialResource|Application|Factory|View
+     * @return MaterialResource
      */
-    public function contentJson(Content $content)
+    public function contentJson(Content $content): MaterialResource
     {
         $material = $content->load('material')->material->first();
         $url = Storage::disk('s3')->temporaryUrl(
@@ -230,10 +233,11 @@ class HomeController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Module $module
-     * @return Application|Factory|Response|View
+     * @return Application|Factory|View
      */
-    public function createActivity(Module $module)
+    public function createActivity(Activity $activity)
     {
+        return $activity;
         return view('activityAdd')
             ->with('role', 'activity')
             ->with('course', $module->id);

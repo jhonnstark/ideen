@@ -1,5 +1,11 @@
 .btn {
-    svg + * {
-        margin-left: 5px;
+    vertical-align: text-top;
+
+    svg {
+        vertical-align: sub;
+
+        & + * {
+            margin-left: 5px;
+        }
     }
 }

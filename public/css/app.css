@@ -13000,6 +13000,14 @@ svg.btn-loading {
   max-width: 0;
 }
 
+.btn {
+  vertical-align: text-top;
+}
+
+.btn svg {
+  vertical-align: sub;
+}
+
 .btn svg + * {
   margin-left: 5px;
 }
