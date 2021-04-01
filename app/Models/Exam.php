@@ -19,7 +19,7 @@ class Exam extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'teacher_id', 'course_id', 'module_id'
+        'name', 'description', 'time', 'teacher_id', 'course_id', 'module_id'
     ];
 
     /**
