@@ -264,13 +264,15 @@ Route::prefix('/course')
         Route::post('/exam/{question}/claim', 'ExamController@saveClaim')->name('saveClaim');
         Route::get('/exam/{question}/claim', 'ExamController@loadClaim')->name('loadClaim');
         Route::get('/{course}/module', 'HomeController@module')->name('module');
-        Route::get('/module/{module}/activity/add', 'HomeController@createActivity')->name('createActivity');
-        Route::post('/module/{module}/activity/add', 'HomeController@storeActivity');
         Route::get('/module/{module}/activity', 'HomeController@activity')->name('activity');
         Route::get('/module/{module}/content', 'HomeController@content')->name('content');
         Route::get('/module/{module}/exam', 'ExamController@examModule')->name('examModule');
         Route::get('/module/{module}', 'HomeController@moduleDetail')->name('moduleMaterial');
         Route::get('/module/{module}/json', 'HomeController@moduleJson');
+
+        Route::get('/module/activity/{activity}/homework', 'HomeController@createActivity')->name('createActivity');
+        Route::post('/module/activity/{activity}/homework', 'HomeController@storeActivity');
+
         Route::get('/module/activity/{activity}', 'HomeController@activityDetail')->name('activityMaterial');
         Route::get('/module/content/{content}', 'HomeController@contentDetail')->name('contentMaterial');
         Route::get('/module/activity/{activity}/json', 'HomeController@activityJson');

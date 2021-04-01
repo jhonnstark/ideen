@@ -26,12 +26,14 @@
         <div class="container">
             <div class="row justify-content-between">
                 <h3>{{ __('Listado Actividades') }}</h3>
+                @if($role !== '')
                 <div class="col-3 text-right">
-                    <a class="btn btn-primary btn-lg" href="{{ route($role === '' ? 'course.createActivity' : $role . '.course.createActivity', $id) }}" role="button">
+                    <a class="btn btn-primary btn-lg" href="{{ route($role . '.course.createActivity', $id) }}" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="18" height="18" fill="white"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"></path></svg>
                         Nuevo
                     </a>
                 </div>
+                @endif
                 <hr class="col-12">
             </div>
         </div>
