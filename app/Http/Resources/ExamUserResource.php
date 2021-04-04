@@ -5,6 +5,15 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property mixed id
+ * @property mixed name
+ * @property mixed description
+ * @property mixed teacher
+ * @property mixed questions
+ * @property mixed scores
+ * @property mixed time
+ */
 class ExamUserResource extends JsonResource
 {
     /**
@@ -13,12 +22,14 @@ class ExamUserResource extends JsonResource
      * @param Request $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'time' => $this->time,
+            'score' => $this->scores[0],
             'teacher' => TeacherUserResource::make($this->teacher),
             'questions' => QuestionUserResource::collection($this->questions),
         ];

@@ -18,12 +18,22 @@ class Score extends Model
     ];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'finish_at',
+    ];
+
+    /**
      * The attributes that should be cast.
      *
      * @var array
      */
     protected $casts = [
-        'created_at' => 'datetime:l jS \\of F Y h:i:s A',
+       // 'created_at' => 'datetime:l jS \\of F Y h:i:s A',
         'finish_at' => 'datetime:l jS \\of F Y h:i:s A',
     ];
 

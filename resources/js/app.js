@@ -16,7 +16,9 @@ import store from "./components/state";
 import VueEllipseProgress from 'vue-ellipse-progress';
 import VCalendar from 'v-calendar';
 import moment from 'vue-moment'
+
 // import Lingallery from 'lingallery';
+
 
 /**
  * Handy Moment.js filters for your Vue.js project.

@@ -26,6 +26,7 @@ class ExamController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('can.exam')->only(['start', 'solve', 'saveClaim', 'loadClaim']);
     }
 
     /**
@@ -61,14 +62,23 @@ class ExamController extends Controller
      *
      * @return View
      */
-    public function solveExam(Exam $exam): View
+    public function solve(Exam $exam): View
+    {
+        return view('solveExam', ['id' => $exam->id]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Exam $exam
+     *
+     * @return View
+     */
+    public function grade(Exam $exam): View
     {
         $score = $exam->scores()->firstOrCreate([
             'user_id' => Auth::id()
         ]);
-        if(is_null($score->finish_at)) {
-            return view('solveExam', ['id' => $exam->id]);
-        }
         return view('seeGrade',  ['role' => '', 'exam' => $exam, 'score' => $score]);
     }
 
@@ -79,12 +89,12 @@ class ExamController extends Controller
      *
      * @return ExamUserResource
      */
-    public function startExam(Exam $exam): ExamUserResource
+    public function start(Exam $exam): ExamUserResource
     {
         $exam->load('questions.answers');
         $exam->load('teacher');
         $exam->scores()->firstOrCreate([
-           'user_id' => Auth::id()
+            'user_id' => Auth::id()
         ]);
         return new ExamUserResource($exam);
     }
@@ -136,7 +146,7 @@ class ExamController extends Controller
      *
      * @return JsonResponse
      */
-    public function finishExam(Exam $exam): JsonResponse
+    public function finish(Exam $exam): JsonResponse
     {
         //todo: validate finished exam
         $score = $exam->scores()->firstOrCreate([
