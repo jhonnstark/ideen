@@ -26,6 +26,7 @@ class ExamController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('can.exam')->only(['startExam', 'solveExam', 'saveClaim', 'loadClaim']);
     }
 
     /**
@@ -83,9 +84,6 @@ class ExamController extends Controller
     {
         $exam->load('questions.answers');
         $exam->load('teacher');
-        $exam->scores()->firstOrCreate([
-           'user_id' => Auth::id()
-        ]);
         return new ExamUserResource($exam);
     }
 
