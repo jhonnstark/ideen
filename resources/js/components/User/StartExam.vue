@@ -11,6 +11,16 @@
                             <p>Instrucciones: {{ exam.description }}</p>
                             <p>Evaluado por: {{ exam.teacher.name }} {{ this.exam.teacher.lastname }} {{ this.exam.teacher.mothers_lastname }}</p>
                         </div>
+                        <div class="col">
+                            <vue-countdown
+                                :time="timeRemaining"
+                                :transform="transformSlotProps"
+                                v-slot="{ hours, minutes, seconds }"
+                                @end="onCountdownEnd"
+                            >
+                                <strong>Tiempo restante：{{ hours }} : {{ minutes }} : {{ seconds }}</strong>
+                            </vue-countdown>
+                        </div>
                     </div>
                 </div>
                 <hr>
@@ -42,6 +52,7 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
+import VueCountdown from '@chenfengyuan/vue-countdown';
 const { mapState, mapActions } = createNamespacedHelpers('User')
 
 export default {
@@ -52,11 +63,17 @@ export default {
             isLoading: false
         }
     },
+    components: {
+        VueCountdown,
+    },
     created() {
         this.startExam(this.id)
             .catch(error => console.log(error))
     },
     computed: {
+        timeRemaining(){
+            return this.$moment(this.exam.score.created_at).add(this.exam.time, 'm').diff(this.$moment())
+        },
         ...mapState({
             exam: state => state.exam,
         })
@@ -96,6 +113,20 @@ export default {
                     window.history.back()
                 }
             });
+        },
+
+        transformSlotProps(props) {
+            const formattedProps = {};
+
+            Object.entries(props).forEach(([key, value]) => {
+                formattedProps[key] = value < 10 ? `0${value}` : String(value);
+            });
+
+            return formattedProps;
+        },
+
+        onCountdownEnd() {
+            location.reload();
         }
     }
 }

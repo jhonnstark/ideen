@@ -11,6 +11,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed description
  * @property mixed teacher
  * @property mixed questions
+ * @property mixed scores
+ * @property mixed time
  */
 class ExamUserResource extends JsonResource
 {
@@ -26,6 +28,8 @@ class ExamUserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'time' => $this->time,
+            'score' => $this->scores[0],
             'teacher' => TeacherUserResource::make($this->teacher),
             'questions' => QuestionUserResource::collection($this->questions),
         ];

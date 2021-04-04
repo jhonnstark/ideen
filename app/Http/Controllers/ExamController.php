@@ -93,6 +93,9 @@ class ExamController extends Controller
     {
         $exam->load('questions.answers');
         $exam->load('teacher');
+        $exam->scores()->firstOrCreate([
+            'user_id' => Auth::id()
+        ]);
         return new ExamUserResource($exam);
     }
 

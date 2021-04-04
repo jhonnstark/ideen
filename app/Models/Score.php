@@ -33,7 +33,7 @@ class Score extends Model
      * @var array
      */
     protected $casts = [
-        'created_at' => 'datetime:l jS \\of F Y h:i:s A',
+       // 'created_at' => 'datetime:l jS \\of F Y h:i:s A',
         'finish_at' => 'datetime:l jS \\of F Y h:i:s A',
     ];
 

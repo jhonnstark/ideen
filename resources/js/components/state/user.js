@@ -36,7 +36,10 @@ const mutations = {
 
 const  stated = {
     exam: {
-        teacher: {}
+        teacher: {},
+        score: {
+            created_at: false
+        },
     },
     claims: []
 }
