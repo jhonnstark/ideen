@@ -258,30 +258,37 @@ Route::prefix('/course')
     ->group(function(){
         Route::get('/{course}', 'HomeController@courseInfo')->name('course');
         Route::get('/{course}/exam', 'ExamController@exam')->name('exam');
-        Route::get('/exam/{exam}', 'ExamController@solveExam')->name('solveExam');
-        Route::get('/exam/{exam}/start', 'ExamController@startExam')->name('startExam');
-        Route::post('/exam/{exam}/finish', 'ExamController@finishExam')->name('finishExam');
-        Route::post('/exam/{question}/claim', 'ExamController@saveClaim')->name('saveClaim');
-        Route::get('/exam/{question}/claim', 'ExamController@loadClaim')->name('loadClaim');
         Route::get('/{course}/module', 'HomeController@module')->name('module');
-        Route::get('/module/{module}/activity', 'HomeController@activity')->name('activity');
-        Route::get('/module/{module}/content', 'HomeController@content')->name('content');
-        Route::get('/module/{module}/exam', 'ExamController@examModule')->name('examModule');
-        Route::get('/module/{module}', 'HomeController@moduleDetail')->name('moduleMaterial');
-        Route::get('/module/{module}/json', 'HomeController@moduleJson');
 
-        Route::get('/module/activity/{activity}/homework', 'HomeController@createActivity')->name('createActivity');
-        Route::post('/module/activity/{activity}/homework', 'HomeController@storeActivity');
+        Route::prefix('/module')
+            ->name('module.')
+            ->group(function(){
+                Route::get('/{module}/activity', 'HomeController@activity')->name('activity');
+                Route::get('/{module}/content', 'HomeController@content')->name('content');
+                Route::get('/{module}/exam', 'ExamController@examModule')->name('examModule');
+                Route::get('/{module}', 'HomeController@moduleDetail')->name('moduleMaterial');
+                Route::get('/{module}/json', 'HomeController@moduleJson');
 
-        Route::get('/module/activity/{activity}', 'HomeController@activityDetail')->name('activityMaterial');
-        Route::get('/module/content/{content}', 'HomeController@contentDetail')->name('contentMaterial');
-        Route::get('/module/activity/{activity}/json', 'HomeController@activityJson');
-        Route::get('/module/content/{content}/json', 'HomeController@contentJson');
-        Route::get('/module/exam/{exam}', 'ExamController@solveExam')->name('solveExam');
-        Route::get('/module/exam/{exam}/start', 'ExamController@startExam')->name('startExam');
-        Route::post('/module/exam/{exam}/finish', 'ExamController@finishExam')->name('finishExam');
-        Route::get('/module/exam/{question}/claim', 'ExamController@loadClaim')->name('loadClaim');
-        Route::post('/module/exam/{question}/claim', 'ExamController@saveClaim')->name('saveClaim');
+                Route::get('/activity/{activity}/homework', 'HomeController@createActivity')->name('createActivity');
+                Route::post('/activity/{activity}/homework', 'HomeController@storeActivity');
+
+                Route::get('/activity/{activity}', 'HomeController@activityDetail')->name('activityMaterial');
+                Route::get('/content/{content}', 'HomeController@contentDetail')->name('contentMaterial');
+                Route::get('/activity/{activity}/json', 'HomeController@activityJson');
+                Route::get('/content/{content}/json', 'HomeController@contentJson');
+
+                Route::prefix('/exam')
+                    ->name('exam.')
+                    ->group(function(){
+                        Route::get('/{exam}', 'ExamController@solve')->name('solve');
+                        Route::get('/{exam}/start', 'ExamController@start')->name('start');
+                        Route::get('/{exam}/grade', 'ExamController@grade')->name('grade');
+                        Route::post('/{exam}/finish', 'ExamController@finish')->name('finish');
+                        Route::post('/{question}/claim', 'ExamController@saveClaim')->name('saveClaim');
+                        Route::get('/{question}/claim', 'ExamController@loadClaim')->name('loadClaim');
+                    });
+            });
+
     });
 
 Route::prefix('/courses')
