@@ -22,8 +22,13 @@ class ContinueExam
         $score = $exam->scores()->firstOrCreate([
             'user_id' => Auth::id()
         ]);
+        if(!is_null($score->finish_at)){
+            return redirect()->route('course.module.exam.grade', $exam->id);
+        }
         $shouldFinishAt = $score->created_at->addMinutes($exam->time);
         if ($shouldFinishAt->lessThanOrEqualTo(Carbon::now())) {
+            $score->finish_at = now();
+            $score->save();
             return redirect()->route('course.module.exam.grade', $exam->id);
         }
         return $next($request);
