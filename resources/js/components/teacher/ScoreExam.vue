@@ -60,8 +60,7 @@ export default {
     computed: {
         mark() {
             let calification = this.claims.correct.length - this.claims.incorrect.length
-
-            return calification === 0 ? 0 : calification / this.claims.correct.length * 100
+            return calification <= 0 ? 0 : calification / (this.claims.correct.length + this.claims.inactive.length) * 100
         },
         ...mapState({
             score: state => state.score,
