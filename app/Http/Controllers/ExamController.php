@@ -26,7 +26,8 @@ class ExamController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can.exam')->only(['start', 'solve', 'saveClaim', 'loadClaim']);
+        $this->middleware('can.exam')->only(['start', 'solve']);
+        $this->middleware('can.claim')->only(['saveClaim', 'loadClaim']);
     }
 
     /**
