@@ -12,13 +12,16 @@ class MaterialController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      * @param Request $request
      * @param $type
+     *
      * @return array
      */
-    public function store(Request $request, $type) {
-        $module = Module::find($request->input('module_id'));
-        $name = $module->id . '_' . $type . '_' . $request->material->getClientOriginalName();
+    public function store(Request $request, $type): array
+    {
+        $id = $request->input('module_id') ?? $request->input('activity_id');
+        $name = $id . '_' . $type . '_' . $request->material->getClientOriginalName();
 
         return [
             'size' => $request->material->getSize(),
