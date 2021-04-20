@@ -269,8 +269,8 @@ Route::prefix('/course')
                 Route::get('/{module}', 'HomeController@moduleDetail')->name('moduleMaterial');
                 Route::get('/{module}/json', 'HomeController@moduleJson');
 
-                Route::get('/activity/{activity}/homework', 'HomeController@createActivity')->name('createActivity');
-                Route::post('/activity/{activity}/homework', 'HomeController@storeActivity');
+                Route::get('/activity/{activity}/homework', 'HomeController@createHomework')->name('createHomework');
+                Route::post('/activity/{activity}/homework', 'HomeController@storeHomework');
 
                 Route::get('/activity/{activity}', 'HomeController@activityDetail')->name('activityMaterial');
                 Route::get('/content/{content}', 'HomeController@contentDetail')->name('contentMaterial');
