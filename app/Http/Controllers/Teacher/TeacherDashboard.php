@@ -258,7 +258,7 @@ class TeacherDashboard extends Controller
      * @param ActivityRequest $request
      * @return JsonResponse
      */
-    public function storeActivity(ActivityRequest $request)
+    public function storeActivity(ActivityRequest $request): JsonResponse
     {
         $validated = $request->validated();
         $activity = Activity::create($validated);
@@ -270,7 +270,11 @@ class TeacherDashboard extends Controller
         ], 201);
     }
 
-    public function score(Activity $activity)
+    /**
+     * @param Activity $activity
+     * @return JsonResponse
+     */
+    public function score(Activity $activity): JsonResponse
     {
         return response()->json([
             'status' => 200,
@@ -279,7 +283,12 @@ class TeacherDashboard extends Controller
         ], 200);
     }
 
-    public function scoreSave(Request $request, Activity $activity)
+    /**
+     * @param Request $request
+     * @param Activity $activity
+     * @return JsonResponse
+     */
+    public function scoreSave(Request $request, Activity $activity): JsonResponse
     {
         $request->validate([
             'score' => 'integer|required|between:0,10',

@@ -4,7 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @method static create(array $validated)
+ */
 class Homework extends Model
 {
 
@@ -14,7 +18,7 @@ class Homework extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'url', 'ext', 'size', 'user_id', 'activity_id'
+        'name', 'user_id', 'description', 'activity_id'
     ];
 
     /**
@@ -28,12 +32,22 @@ class Homework extends Model
     }
 
     /**
-     * Get the state that owns the user.
+     * Get the activity that owns the homework.
      *
      * @return BelongsTo
      */
     public function activity(): BelongsTo
     {
         return $this->belongsTo(Activity::class);
+    }
+
+    /**
+     * The material that belong to the homework.
+     *
+     * @return BelongsToMany
+     */
+    public function material(): BelongsToMany
+    {
+        return $this->belongsToMany(Material::class);
     }
 }

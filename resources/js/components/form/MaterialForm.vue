@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group row" v-if="role === 'activity'">
             <label class="col-md-4 col-form-label text-md-right">Duración</label>
             <div class="col-md-6">
                 <v-date-picker
@@ -275,7 +275,8 @@ export default {
                     data = new FormData();
                     data.append('name', this.record.name);
                     data.append('description', this.record.description);
-                    data.append('module_id', this.module_id);
+                    data.append('module_id', this.foreign_id);
+                    data.append('activity_id', this.foreign_id);
                     // fix pm and am
                     data.append('active_at', this.$moment(this.range.start).format('YYYY-MM-DD hh:mm:ss'));
                     data.append('close_at',  this.$moment(this.range.end).format('YYYY-MM-DD hh:mm:ss'));
@@ -345,7 +346,7 @@ export default {
                 },
             };
         },
-        module_id () {
+        foreign_id () {
             return this.id ?? this.edit
         }
     },

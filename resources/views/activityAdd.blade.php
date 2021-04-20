@@ -7,13 +7,11 @@
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-                    @isset($role)
+                    @if($role === 'activity')
                         <li class="breadcrumb-item"><a href="{{ route('teacher.course.course', $course) }}">Cursos</a></li>
-                    @endisset
-
-                    @empty($role)
-                        <li class="breadcrumb-item"><a href="{{ route('course.course', $course) }}">{{ __('Cursos') }}</a></li>
-                    @endempty
+                    @else
+                        <li class="breadcrumb-item"><a href="{{ route('course.module.activityMaterial', $course) }}">{{ __('Actividades') }}</a></li>
+                    @endif
                     <li class="breadcrumb-item active" aria-current="page">{{ __('Register') }}</li>
                 </ol>
             </nav>

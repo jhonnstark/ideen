@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Admin\MaterialController;
-use App\Http\Requests\ActivityRequest;
+use App\Http\Requests\HomeworkRequest;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
@@ -13,13 +13,12 @@ use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
 use App\Http\Resources\User as UserResource;
+use App\Models\Homework;
 use App\Models\Module;
-use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -232,27 +231,28 @@ class HomeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Module $module
+     * @param Activity $activity
      * @return Application|Factory|View
      */
-    public function createActivity(Activity $activity)
+    public function createHomework(Activity $activity)
     {
-        return $activity;
         return view('activityAdd')
-            ->with('role', 'activity')
-            ->with('course', $module->id);
+            ->with('role', 'homework')
+            ->with('course', $activity->id);
     }
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param ActivityRequest $request
+     * @param HomeworkRequest $request
      * @return JsonResponse
      */
-    public function storeActivity(ActivityRequest $request): JsonResponse
+    public function storeHomework(HomeworkRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        $activity = Activity::create($validated);
-        $activity->material()->create($this->materialController->store($request, 'activity'));
+        $validated['user_id'] = Auth::id();
+        $homework = Homework::create($validated);
+        $homework->material()->create($this->materialController->store($request, 'homework'));
 
         return response()->json([
             'status' => 201,

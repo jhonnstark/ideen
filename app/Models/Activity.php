@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed module_id
  * @property mixed active_at
  * @property mixed close_at
+ * @property mixed id
  */
 class Activity extends Model
 {
@@ -57,7 +58,7 @@ class Activity extends Model
     }
 
     /**
-     * Get the course that owns the Activity.
+     * Get the module that owns the Activity.
      *
      * @return BelongsTo
      */
