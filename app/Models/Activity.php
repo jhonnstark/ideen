@@ -57,7 +57,7 @@ class Activity extends Model
     }
 
     /**
-     * Get the course that owns the Activity.
+     * Get the module that owns the Activity.
      *
      * @return BelongsTo
      */

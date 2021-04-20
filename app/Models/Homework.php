@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Homework extends Model
 {
@@ -28,12 +29,22 @@ class Homework extends Model
     }
 
     /**
-     * Get the state that owns the user.
+     * Get the activity that owns the homework.
      *
      * @return BelongsTo
      */
     public function activity(): BelongsTo
     {
         return $this->belongsTo(Activity::class);
+    }
+
+    /**
+     * The material that belong to the homework.
+     *
+     * @return BelongsToMany
+     */
+    public function material(): BelongsToMany
+    {
+        return $this->belongsToMany(Material::class);
     }
 }
