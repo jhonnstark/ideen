@@ -91,6 +91,11 @@ export default {
             .get(courseID +'/students/')
             .then(response => cb(response.data.data))
     },
+    async loadHomework(activityID, cb) {
+        await axios
+            .get(activityID +'/homework/')
+            .then(response => cb(response.data.data))
+    },
     async gradeExam(exam, cb) {
         await axios
             .get(exam + '/grade/')

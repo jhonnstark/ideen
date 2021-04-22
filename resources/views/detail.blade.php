@@ -55,19 +55,26 @@
         <div class="row">
             @isset($contents)
             <div class="col-md-2">
-                    @foreach($contents as $content)
-                        <a href="{{ route((isset($role) ? 'teacher.':'') . 'course.module.'. $type . 'Material', $content['id']) }}">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h6 class="card-title">{{ $content['name'] }}</h6>
-                                    <p class="card-text">{{ $content['description'] }}</p>
-                                </div>
+                <h6 class="card-title">Actividades:</h6>
+                @foreach($contents as $content)
+                    <a href="{{ route((isset($role) ? 'teacher.':'') . 'course.module.'. $type . 'Material', $content['id']) }}">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-activity">{{ $content['name'] }}</h6>
+                                <p class="card-text">{{ $content['description'] }}</p>
                             </div>
-                        </a>
-                    @endforeach
+                        </div>
+                    </a>
+                @endforeach
             </div>
             @endisset
             <detail id="{{ $id }}" type="{{ $type }}"></detail>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <h3>{{ __('Listado Tareas') }}</h3>
+        </div>
+    </div>
+    <homework-list id="{{ $id->id }}"></homework-list>
 @endsection

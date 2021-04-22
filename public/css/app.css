@@ -13070,6 +13070,16 @@ svg.btn-loading {
   font-size: 1.4rem;
 }
 
+.card-activity {
+  color: #182254;
+  font-size: 1.05rem;
+}
+
+.card-text {
+  color: #000;
+  line-height: 1.4;
+}
+
 .card-body {
   position: relative;
 }

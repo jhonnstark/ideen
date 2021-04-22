@@ -201,20 +201,26 @@ Route::prefix('/teacher')
                 Route::post('/exam/grade/{score}/finish', 'ExamController@finishScores')->name('finishScores');
                 Route::get('/{course}/activity/add', 'TeacherDashboard@createActivity')->name('createActivity');
                 Route::post('/{course}/activity/add', 'TeacherDashboard@storeActivity');
-                Route::get('/module/{module}', 'TeacherDashboard@moduleDetail')->name('moduleMaterial');
-                Route::get('/module/{module}/json', 'TeacherDashboard@moduleJson');
-                Route::get('/module/{module}/exam', 'ExamController@examModule')->name('examModuleList');
-                Route::get('/module/exam/{exam}', 'ExamController@gradeExam')->name('gradeExam');
-                Route::get('/module/exam/{exam}/grade', 'ExamController@getGradesExam')->name('getGradesExam');
-                Route::get('/module/exam/grade/{score}', 'ExamController@getScores')->name('getScores');
-                Route::get('/module/exam/grade/{score}/json', 'ExamController@getScoresJson')->name('getScoresJson');
-                Route::post('/module/exam/grade/{score}/finish', 'ExamController@finishScores')->name('finishScores');
-                Route::get('/module/activity/{activity}', 'TeacherDashboard@activityDetail')->name('activityMaterial');
-                Route::get('/module/activity/{activity}/json', 'TeacherDashboard@activityJson');
-                Route::get('/module/activity/{activity}/score', 'TeacherDashboard@score');
-                Route::put('/module/activity/{activity}/score', 'TeacherDashboard@scoreSave');
-                Route::get('/module/content/{content}', 'TeacherDashboard@contentDetail')->name('contentMaterial');
-                Route::get('/module/content/{content}/json', 'TeacherDashboard@contentJson');
+
+                Route::prefix('/module')
+                    ->name('module.')
+                    ->group(function(){
+                        Route::get('/{module}', 'TeacherDashboard@moduleDetail')->name('moduleMaterial');
+                        Route::get('/{module}/json', 'TeacherDashboard@moduleJson');
+                        Route::get('/{module}/exam', 'ExamController@examModule')->name('examModuleList');
+                        Route::get('/exam/{exam}', 'ExamController@gradeExam')->name('gradeExam');
+                        Route::get('/exam/{exam}/grade', 'ExamController@getGradesExam')->name('getGradesExam');
+                        Route::get('/exam/grade/{score}', 'ExamController@getScores')->name('getScores');
+                        Route::get('/exam/grade/{score}/json', 'ExamController@getScoresJson')->name('getScoresJson');
+                        Route::post('/exam/grade/{score}/finish', 'ExamController@finishScores')->name('finishScores');
+                        Route::get('/activity/{activity}', 'TeacherDashboard@activityDetail')->name('activityMaterial');
+                        Route::get('/activity/{activity}/json', 'TeacherDashboard@activityJson');
+                        Route::get('/activity/{activity}/score', 'TeacherDashboard@score');
+                        Route::put('/activity/{activity}/score', 'TeacherDashboard@scoreSave');
+                        Route::get('/activity/{activity}/homework', 'TeacherDashboard@homework')->name('homework');
+                        Route::get('/content/{content}', 'TeacherDashboard@contentDetail')->name('contentMaterial');
+                        Route::get('/content/{content}/json', 'TeacherDashboard@contentJson');
+                    });
             });
 
         Route::prefix('/exam')

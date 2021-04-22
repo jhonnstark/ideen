@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static create(array $validated)
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed active_at
  * @property mixed close_at
  * @property mixed id
+ * @property mixed homework
  */
 class Activity extends Model
 {
@@ -65,5 +67,15 @@ class Activity extends Model
     public function module(): BelongsTo
     {
         return $this->belongsTo(Module::class);
+    }
+
+    /**
+     * Get the homework that owns the Activity.
+     *
+     * @return HasMany
+     */
+    public function homework(): HasMany
+    {
+        return $this->hasMany(Homework::class);
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
+use App\Http\Resources\HomeworkCollection;
 use App\Http\Resources\MaterialResource;
 use App\Http\Resources\ModulesResource;
 use App\Http\Resources\Teacher;
@@ -154,6 +155,18 @@ class TeacherDashboard extends Controller
     {
         $course->load('student');
         return new UserCollection($course->student);
+    }
+
+    /**
+     * Loads the students of a course.
+     *
+     * @param Activity $activity
+     * @return HomeworkCollection
+     */
+    public function homework(Activity $activity): HomeworkCollection
+    {
+        $activity->load('homework.user');
+        return new HomeworkCollection($activity->homework);
     }
 
     /**

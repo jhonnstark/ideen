@@ -77,6 +77,7 @@ Vue.component('activity-list', require('./components/list/ActivityList.vue').def
 Vue.component('class-list', require('./components/User/ClassList.vue').default);
 Vue.component('teacher-class-list', require('./components/teacher/TeacherClassList.vue').default);
 Vue.component('student-list', require('./components/teacher/StudentList.vue').default);
+Vue.component('homework-list', require('./components/teacher/HomeworkList.vue').default);
 Vue.component('grade-exam', require('./components/teacher/GradeExam.vue').default);
 Vue.component('score-exam', require('./components/teacher/ScoreExam.vue').default);
 Vue.component('grade-question', require('./components/teacher/GradeQuestion.vue').default);
