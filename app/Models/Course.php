@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 /**
  * @method static find($course_id)
+ * @property mixed module
+ * @property mixed student
  */
 class Course extends Model
 {

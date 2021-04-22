@@ -11,6 +11,7 @@ use App\Http\Resources\CourseCollection;
 use App\Http\Resources\MaterialResource;
 use App\Http\Resources\ModulesResource;
 use App\Http\Resources\Teacher;
+use App\Http\Resources\UserCollection;
 use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
@@ -132,7 +133,7 @@ class TeacherDashboard extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Loads the modules of a course.
      *
      * @param Course $course
      * @return ModulesResource
@@ -141,6 +142,18 @@ class TeacherDashboard extends Controller
     {
         $course->load('module');
         return new ModulesResource($course->module);
+    }
+
+    /**
+     * Loads the students of a course.
+     *
+     * @param Course $course
+     * @return UserCollection
+     */
+    public function students(Course $course): UserCollection
+    {
+        $course->load('student');
+        return new UserCollection($course->student);
     }
 
     /**

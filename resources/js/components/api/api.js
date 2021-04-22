@@ -86,6 +86,11 @@ export default {
         await axios
             .post(rute, { claims })
     },
+    async loadStudents(courseID, cb) {
+        await axios
+            .get(courseID +'/students/')
+            .then(response => cb(response.data.data))
+    },
     async gradeExam(exam, cb) {
         await axios
             .get(exam + '/grade/')

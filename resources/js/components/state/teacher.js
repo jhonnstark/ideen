@@ -2,6 +2,9 @@ import api from '../api/api'
 import Common from "../common";
 
 const actions = {
+    async loadStudents ({commit}, courseID) {
+        await api.loadStudents(courseID, students => commit('loadStudents', students))
+    },
     async gradeExam ({commit}, examID) {
         await api.gradeExam(examID, exam => commit('gradeExam', exam))
     },
@@ -26,6 +29,9 @@ const actions = {
 }
 
 const mutations = {
+    loadStudents (state, students) {
+        state.students = students
+    },
     gradeExam (state, exam) {
         state.exam = exam
     },
