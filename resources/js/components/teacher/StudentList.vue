@@ -10,6 +10,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellidos</th>
                     <th scope="col">Email</th>
+                    <th scope="col" class="text-right">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
