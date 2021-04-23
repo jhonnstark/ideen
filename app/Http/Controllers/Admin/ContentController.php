@@ -40,7 +40,7 @@ class ContentController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Module $module
-     * @return Application|Factory|Response|View
+     * @return Application|Factory|View
      */
     public function create(Module $module)
     {
@@ -56,7 +56,7 @@ class ContentController extends Controller
      * @param ContentRequest $request
      * @return JsonResponse
      */
-    public function store(ContentRequest $request)
+    public function store(ContentRequest $request): JsonResponse
     {
         $validated = $request->validated();
         $content = Content::create($validated);
@@ -74,7 +74,7 @@ class ContentController extends Controller
      * @param Module $module
      * @return ContentResource
      */
-    public function show(Module $module)
+    public function show(Module $module): ContentResource
     {
         $module->load('content');
         return new ContentResource($module->content);
@@ -110,7 +110,7 @@ class ContentController extends Controller
      * @param Content $content
      * @return MaterialResource
      */
-    public function getMaterial(Content $content)
+    public function getMaterial(Content $content): MaterialResource
     {
         $material = $content->load('material')->material->first();
         $url = Storage::disk('s3')->temporaryUrl(
