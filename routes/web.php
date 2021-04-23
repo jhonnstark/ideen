@@ -98,9 +98,10 @@ Route::prefix('/admin')
                 Route::get('/edit/{module}/activity/add', 'ActivityController@create')->name('activity');
                 Route::post('/edit/{module}/activity/add', 'ActivityController@store');
                 Route::get('/edit/module/activity/{activity}', 'ActivityController@edit');
+                Route::put('/edit/module/activity/{activity}', 'ActivityController@update');
                 Route::get('/edit/module/activity/{activity}/json', 'ActivityController@getJson');
                 Route::get('/edit/module/activity/{activity}/material', 'ActivityController@getMaterial');
-                Route::put('/edit/module/activity/{activity}', 'ActivityController@update');
+                Route::get('/edit/module/activity/{activity}/homework', 'ActivityController@homework')->name('homework');
                 Route::delete('/edit/module/activity/delete/{activity}', 'ActivityController@destroy');
 
                 Route::get('/edit/module/{module}/content', 'ContentController@show');

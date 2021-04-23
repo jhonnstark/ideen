@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ActivityResource;
+use App\Http\Resources\HomeworkCollection;
 use App\Http\Resources\MaterialResource;
 use App\Models\Activity;
 use App\Models\Module;
@@ -12,6 +13,7 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -88,7 +90,8 @@ class ActivityController extends Controller
     {
         return view('admin.edit', [
             'role' => 'activity',
-            'id' => $activity->module_id
+            'id' => $activity->module_id,
+            'activity' => $activity->id
         ]);
     }
 
@@ -150,5 +153,17 @@ class ActivityController extends Controller
             'status' => 204,
             'message' => 'Deleted activity'
         ],204 );
+    }
+
+    /**
+     * Loads the students of a course.
+     *
+     * @param Activity $activity
+     * @return HomeworkCollection
+     */
+    public function homework(Activity $activity): HomeworkCollection
+    {
+        $activity->load('homework.user');
+        return new HomeworkCollection($activity->homework);
     }
 }
