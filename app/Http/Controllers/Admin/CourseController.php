@@ -6,10 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use App\Http\Requests\CourseUpdateRequest;
 use App\Http\Resources\CourseCollection;
+use App\Http\Resources\UserCollection;
 use App\Models\Course;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Resources\Course as CourseResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 use Intervention\Image\Facades\Image;
 
 class CourseController extends Controller
@@ -23,9 +28,9 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('admin.list', $this->role);
     }
@@ -33,9 +38,9 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return
+     * @return CourseCollection
      */
-    public function list()
+    public function list(): CourseCollection
     {
         return new CourseCollection(Course::with('teacher')->withCount('student')->get());
     }
@@ -43,9 +48,9 @@ class CourseController extends Controller
     /**
      * Display a register form of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.register', $this->role);
     }
@@ -54,9 +59,9 @@ class CourseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CourseRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function store(CourseRequest $request)
+    public function store(CourseRequest $request): JsonResponse
     {
         $validated = $request->except(['poster']);
         $course = Course::create($validated);
@@ -84,7 +89,7 @@ class CourseController extends Controller
      * Display the specified resource.
      *
      * @param Course $course
-     * @return CourseResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function show(Course $course)
     {
@@ -98,7 +103,7 @@ class CourseController extends Controller
      *
      * @param Request $request
      * @param Course $course
-     * @return CourseResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|CourseResource
      */
     public function showJson(Request $request, Course $course)
     {
@@ -111,11 +116,11 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CourseRequest $request
+     * @param CourseUpdateRequest $request
      * @param Course $course
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function update(CourseUpdateRequest $request, Course $course)
+    public function update(CourseUpdateRequest $request, Course $course): JsonResponse
     {
         $validated = $request->except(['poster']);
         $course->update($validated);
@@ -147,15 +152,27 @@ class CourseController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Course $course
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(Course $course)
+    public function destroy(Course $course): JsonResponse
     {
         $course->delete();
         return response()->json([
             'status' => 204,
             'message' => 'Deleted Course'
         ],204 );
+    }
+
+    /**
+     * Loads the students of a course.
+     *
+     * @param Course $course
+     * @return UserCollection
+     */
+    public function students(Course $course): UserCollection
+    {
+        $course->load('student');
+        return new UserCollection($course->student);
     }
 }

@@ -97,7 +97,6 @@
                 <hr class="col-12">
             </div>
         </div>
-
         <activity-list role="{{ $role }}" id="{{ $id }}"></activity-list>
     @endif
 
@@ -115,6 +114,13 @@
             </div>
         </div>
         <module-list role="{{ $role }}" id="{{ $id }}"></module-list>
+        <div class="container">
+            <div class="row justify-content-between">
+                <h3>{{ __('Listado alumnos') }}</h3>
+                <hr class="col-12">
+            </div>
+        </div>
+        <student-list role="{{ $role }}" id="{{ $id }}"></student-list>
     @endif
 
 @endsection

@@ -82,6 +82,7 @@ Route::prefix('/admin')
                 Route::get('/edit/{course}', 'CourseController@show')->name('edit');
                 Route::get('/edit/{course}/json', 'CourseController@showJson');
                 Route::post('/edit/{course}', 'CourseController@update');
+                Route::get('/edit/{course}/students', 'CourseController@students')->name('students');
                 Route::delete('/delete/{course}', 'CourseController@destroy');
 
                 Route::get('/edit/{course}/module', 'ModuleController@show');
