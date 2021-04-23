@@ -21,7 +21,7 @@
                 </tr>
 
                 <tr v-else-if="homework.length === 0">
-                    <td colspan="4" class="text-center">
+                    <td colspan="5" class="text-center">
                         Lista vacía.
                     </td>
                 </tr>
