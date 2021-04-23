@@ -218,6 +218,10 @@ Route::prefix('/teacher')
                         Route::get('/activity/{activity}/score', 'TeacherDashboard@score');
                         Route::put('/activity/{activity}/score', 'TeacherDashboard@scoreSave');
                         Route::get('/activity/{activity}/homework', 'TeacherDashboard@homework')->name('homework');
+                        Route::get('/activity/homework/{homework}', 'TeacherDashboard@homeworkDetail')->name('homeworkDetail');
+                        Route::get('/activity/homework/{homework}/json', 'TeacherDashboard@homeworkJson')->name('homeworkJson');
+                        Route::get('/activity/homework/{homework}/score', 'TeacherDashboard@homeworkScore')->name('homeworkScore');
+                        Route::put('/activity/homework/{homework}/score', 'TeacherDashboard@homeworkScoreSave')->name('homeworkScoreSave');
                         Route::get('/content/{content}', 'TeacherDashboard@contentDetail')->name('contentMaterial');
                         Route::get('/content/{content}/json', 'TeacherDashboard@contentJson');
                     });

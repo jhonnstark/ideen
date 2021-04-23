@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed close_at
  * @property mixed id
  * @property mixed homework
+ * @property mixed material
+ * @property mixed score
  */
 class Activity extends Model
 {

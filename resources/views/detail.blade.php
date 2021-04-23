@@ -71,10 +71,13 @@
             <detail id="{{ $id }}" type="{{ $type }}"></detail>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <h3>{{ __('Listado Tareas') }}</h3>
+
+    @isset($contents)
+        <div class="container">
+            <div class="row">
+                <h3>{{ __('Listado Tareas') }}</h3>
+            </div>
         </div>
-    </div>
-    <homework-list id="{{ $id->id }}"></homework-list>
+        <homework-list id="{{ $id->id }}"></homework-list>
+    @endisset
 @endsection

@@ -16,12 +16,17 @@ use App\Http\Resources\UserCollection;
 use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
+use App\Models\Homework;
 use App\Models\Module;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class TeacherDashboard extends Controller
 {
@@ -43,7 +48,7 @@ class TeacherDashboard extends Controller
     /**
      * Show the teacher dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function teacher()
     {
@@ -53,7 +58,7 @@ class TeacherDashboard extends Controller
     /**
      * Show the teacher dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function profile()
     {
@@ -73,7 +78,7 @@ class TeacherDashboard extends Controller
     /**
      * Show the teacher dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function courses()
     {
@@ -97,7 +102,7 @@ class TeacherDashboard extends Controller
      * Store a newly created resource in storage.
      *
      * @param Course $course
-     * @return ActivityResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function courseInfo(Course $course)
     {
@@ -172,8 +177,23 @@ class TeacherDashboard extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Homework $homework
+     * @return Application|Factory|View
+     */
+    public function homeworkDetail(Homework $homework)
+    {
+        return view('detail', [
+            'id' => $homework,
+            'role' => 'teacher',
+            'type' => 'homework',
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
      * @param Activity $activity
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function activityDetail(Activity $activity)
     {
@@ -190,7 +210,7 @@ class TeacherDashboard extends Controller
      * Store a newly created resource in storage.
      *
      * @param Content $content
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function contentDetail(Content $content)
     {
@@ -207,7 +227,7 @@ class TeacherDashboard extends Controller
      * Store a newly created resource in storage.
      *
      * @param Module $module
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function moduleDetail(Module $module)
     {
@@ -221,10 +241,26 @@ class TeacherDashboard extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Activity $activity
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Homework $homework
+     * @return MaterialResource
      */
-    public function activityJson(Activity $activity)
+    public function homeworkJson(Homework $homework): MaterialResource
+    {
+        $material = $homework->load('material')->material->first();
+        $url = Storage::disk('s3')->temporaryUrl(
+            $material->url, now()->addMinutes(5)
+        );
+        $material->url = $url;
+        return new MaterialResource($material);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Activity $activity
+     * @return MaterialResource
+     */
+    public function activityJson(Activity $activity): MaterialResource
     {
         $material = $activity->load('material')->material->first();
         $url = Storage::disk('s3')->temporaryUrl(
@@ -238,9 +274,9 @@ class TeacherDashboard extends Controller
      * Store a newly created resource in storage.
      *
      * @param Content $content
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return MaterialResource
      */
-    public function contentJson(Content $content)
+    public function contentJson(Content $content): MaterialResource
     {
         $material = $content->load('material')->material->first();
         $url = Storage::disk('s3')->temporaryUrl(
@@ -254,9 +290,9 @@ class TeacherDashboard extends Controller
      * Store a newly created resource in storage.
      *
      * @param Module $module
-     * @return MaterialResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return MaterialResource
      */
-    public function moduleJson(Module $module)
+    public function moduleJson(Module $module): MaterialResource
     {
         $material = $module->load('material')->material->first();
         $url = Storage::disk('s3')->temporaryUrl(
@@ -270,7 +306,7 @@ class TeacherDashboard extends Controller
      * Show the form for creating a new resource.
      *
      * @param Course $course
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function createActivity(Course $course)
     {
@@ -298,6 +334,7 @@ class TeacherDashboard extends Controller
 
     /**
      * @param Activity $activity
+     *
      * @return JsonResponse
      */
     public function score(Activity $activity): JsonResponse
@@ -310,8 +347,23 @@ class TeacherDashboard extends Controller
     }
 
     /**
+     * @param Homework $homework
+     *
+     * @return JsonResponse
+     */
+    public function homeworkScore(Homework $homework): JsonResponse
+    {
+        return response()->json([
+            'status' => 200,
+            'message' => 'homework score',
+            'data' => $homework->score
+        ], 200);
+    }
+
+    /**
      * @param Request $request
      * @param Activity $activity
+     *
      * @return JsonResponse
      */
     public function scoreSave(Request $request, Activity $activity): JsonResponse
@@ -321,6 +373,25 @@ class TeacherDashboard extends Controller
         ]);
         $activity->score = $request->get('score');
         $activity->save();
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
+
+    /**
+     * @param Request $request
+     * @param Activity $activity
+     *
+     * @return JsonResponse
+     */
+    public function homeworkScoreSave(Request $request, Homework $homework): JsonResponse
+    {
+        $request->validate([
+            'score' => 'integer|required|between:0,10',
+        ]);
+        $homework->score = $request->get('score');
+        $homework->save();
         return response()->json([
             'status' => 201,
             'message' => 'created',
