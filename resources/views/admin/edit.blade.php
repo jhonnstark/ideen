@@ -54,6 +54,14 @@
                 <detail id="{{ $id }}" type="{{ $role }}" edit="material"></detail>
             </div>
         </div>
+        @isset($activity)
+            <div class="container">
+                <div class="row">
+                    <h3>{{ __('Listado Tareas') }}</h3>
+                </div>
+            </div>
+            <homework-list id="{{ $activity }}"></homework-list>
+        @endisset
     @endif
 
     @if($role == 'teacher' || $role == 'user')
