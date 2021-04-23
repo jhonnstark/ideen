@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static create(array $validated)
+ * @property mixed material
+ * @property mixed score
  */
 class Homework extends Model
 {
@@ -18,7 +20,7 @@ class Homework extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id', 'description', 'activity_id'
+        'name', 'user_id', 'description', 'activity_id', 'score'
     ];
 
     /**

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed course_id
  * @property mixed activity
  * @property mixed content
+ * @property mixed material
  */
 class Module extends Model
 {
