@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ContentRequest extends FormRequest
@@ -36,5 +37,18 @@ class ContentRequest extends FormRequest
             ],
             'module_id' => 'bail|required|exists:modules,id'
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'active_at' => Carbon::now(),
+            'close_at' => Carbon::now(),
+        ]);
     }
 }
