@@ -9,7 +9,6 @@ use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\MaterialResource;
 use App\Http\Resources\ModulesResource;
-use App\Http\Resources\UserCollection;
 use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Course;
@@ -20,7 +19,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -260,17 +258,5 @@ class HomeController extends Controller
             'status' => 201,
             'message' => 'created',
         ], 201);
-    }
-
-    /**
-     * Loads the students of a course.
-     *
-     * @param Course $course
-     * @return UserCollection
-     */
-    public function students(Course $course): UserCollection
-    {
-        $course->load('student');
-        return new UserCollection($course->student);
     }
 }
