@@ -272,6 +272,7 @@ Route::prefix('/course')
         Route::get('/{course}', 'HomeController@courseInfo')->name('course');
         Route::get('/{course}/exam', 'ExamController@exam')->name('exam');
         Route::get('/{course}/module', 'HomeController@module')->name('module');
+        Route::get('/{course}/students', 'HomeController@students')->name('module');
 
         Route::prefix('/module')
             ->name('module.')
