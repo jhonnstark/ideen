@@ -60,6 +60,7 @@
     </div>
     <div class="container">
         <div class="row justify-content-between">
+            <result-user exam="{{ $exam }}" homework="{{ $homework }}"></result-user>
         </div>
     </div>
 @endsection
