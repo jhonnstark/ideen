@@ -22,15 +22,44 @@
     </div>
     <div class="container">
         <div class="row justify-content-between">
-            <div class="col-12">
+            <div class="col-1">
+                <img class="profile__img" src="{{ asset('img/idtech.jpg') }}" alt="{{ $user->email }}">
+            </div>
+            <div class="col-11">
                 <h4>{{ $user->name . ' ' . $user->laste_name . ' ' . $user->mothers_lastname }}</h4>
+                <p>{{ $user->email }}</p>
             </div>
-            <div class="col-m-6">
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-md-6">
                 <h5>Actividades</h5>
+                <ul>
+                    @foreach ($user->homework as $homework)
+                        <li>
+                            <p>Nombre: {{ $homework->name }}</p>
+                            <p>Descripción: {{ $homework->description }}</p>
+                            <p><b>Calificación: {{ $homework->score ?? 'No calificado'}}</b></p>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-            <div class="col-m-6">
+            <div class="col-md-6">
                 <h5>Examenes</h5>
+                <ul>
+                    @foreach ($user->score as $score)
+                        <li>
+                            <p>{{ $score->exam->name }}</p>
+                            <p><b>Calificación: {{ $score->mark }}</b></p>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-between">
         </div>
     </div>
 @endsection

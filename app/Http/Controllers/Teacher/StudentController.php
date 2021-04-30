@@ -31,11 +31,21 @@ class StudentController extends Controller
     /**
      * Loads the students of a course.
      *
+     * @param Course $course
      * @param User $student
      * @return Application|Factory|View
      */
-    public function student(User $student)
+    public function student(Course $course, User $student)
     {
+        $student->load(['score' => function ($query) use ($course){
+            $query->whereHas('exam', function ($query) use ($course){
+                $query->where('course_id', $course->id);
+            });
+        }])->load(['homework' => function ($query) use ($course){
+            $query->whereHas('activity.module', function ($query) use ($course){
+                $query->where('course_id', $course->id);
+            });
+        }]);
         return view('teacher.student', ['user' => $student, 'role' => 'teacher']);
     }
 }

@@ -12938,6 +12938,10 @@ svg.btn-loading {
   width: 100%;
 }
 
+p {
+  font-size: 1.05rem;
+}
+
 .container .row {
   margin-bottom: 22px;
 }
@@ -13325,5 +13329,9 @@ svg.btn-loading {
   100% {
     transform: translate(24px, 0);
   }
+}
+
+.profile__img {
+  height: 100px;
 }
 
