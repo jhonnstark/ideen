@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserProfile extends Model
 {
@@ -18,16 +19,20 @@ class UserProfile extends Model
 
     /**
      * Get the state that owns the user.
+     *
+     * @return BelongsTo
      */
-    public function state()
+    public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);
     }
 
     /**
      * Get the state that owns the user.
+     *
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
