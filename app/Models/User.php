@@ -3,9 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property mixed score
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -39,17 +45,41 @@ class User extends Authenticatable
 
     /**
      * Get the user profile record associated with the user.
+     *
+     * @return HasOne
      */
-    public function userProfile()
+    public function userProfile(): HasOne
     {
         return $this->hasOne(UserProfile::class);
     }
 
     /**
      * The course that belong to the user.
+     *
+     * @return BelongsToMany
      */
-    public function courses()
+    public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'learnings');
+    }
+
+    /**
+     * Get the homework record associated with the user.
+     *
+     * @return HasMany
+     */
+    public function homework(): HasMany
+    {
+        return $this->hasMany(Homework::class);
+    }
+
+    /**
+     * Get the scores record associated with the user.
+     *
+     * @return HasMany
+     */
+    public function score(): HasMany
+    {
+        return $this->hasMany(Score::class);
     }
 }
