@@ -98,7 +98,7 @@ export default {
             const activitySum = activityGrade.reduce(this.reducer)
             const scoreGrade = JSON.parse(this.grades)
             const scoreSum = scoreGrade.reduce(this.reducer)
-            return (activitySum / activityGrade.length * 0.6 ) + (scoreSum / scoreGrade.length * .3)
+            return (activitySum / activityGrade.length * 0.6 ) + (scoreSum / scoreGrade.length * .03)
         },
 
         ...mapMutations([

@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * @property mixed score
  * @property mixed homework
+ * @property mixed id
  */
 class User extends Authenticatable
 {

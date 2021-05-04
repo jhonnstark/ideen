@@ -4,7 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class QuestionRequest extends FormRequest
+/**
+ * @property mixed result
+ */
+class ResultRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +27,7 @@ class QuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'quiz' => 'bail|required|max:255',
-            'type' => 'bail|required|in:choice,open',
-            'exam_id' => 'bail|required|exists:exams,id'
+            'result' => 'bail|required|numeric|max:10|min:0',
         ];
     }
 }

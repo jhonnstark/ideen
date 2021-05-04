@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ResultRequest;
 use App\Http\Resources\UserCollection;
 use App\Models\Course;
+use App\Models\Result;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -64,15 +66,23 @@ class StudentController extends Controller
     /**
      * Loads the students of a course.
      *
+     * @param ResultRequest $request
      * @param Course $course
      * @param User $student
      *
      * @return JsonResponse
      */
-    public function result(Course $course, User $student): JsonResponse
+    public function result(ResultRequest $request, Course $course, User $student): JsonResponse
     {
+        $result = Result::firstOrCreate([
+            'user_id' => $course->id,
+            'course_id' => $student->id
+        ]);
+        $result->score = $request->result;
+        $result->save();
         return response()->json([
-            'status' => 200
+            'status' => 200,
+            'data' => $result
         ]);
     }
 }
