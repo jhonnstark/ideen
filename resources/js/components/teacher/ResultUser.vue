@@ -78,7 +78,8 @@ export default {
                 this.errors = false;
                 this.isLoading = true;
                 this.saveResult({
-                    result: this.result
+                    result: this.result,
+                    route: window.location.pathname
                 })
                     .then(() => {
                         this.isLoading = false;

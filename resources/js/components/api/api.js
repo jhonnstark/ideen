@@ -110,7 +110,7 @@ export default {
         await axios
             .post(score +'/finish/', { mark })
     },
-    async saveResult(result) {
-        await axios.post('/result', { result })
+    async saveResult(result, rute) {
+        await axios.post(rute + '/result', { result })
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,21 @@ class StudentController extends Controller
             'role' => 'teacher',
             'exam' => $exam,
             'activity' => $homework
+        ]);
+    }
+
+    /**
+     * Loads the students of a course.
+     *
+     * @param Course $course
+     * @param User $student
+     *
+     * @return JsonResponse
+     */
+    public function result(Course $course, User $student): JsonResponse
+    {
+        return response()->json([
+            'status' => 200
         ]);
     }
 }

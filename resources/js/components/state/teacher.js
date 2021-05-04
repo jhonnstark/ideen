@@ -29,8 +29,8 @@ const actions = {
         commit('cleanClaims', claim.id)
         commit('removeScore', claim)
     },
-    async saveResult ({commit}, result) {
-        await api.saveResult(result)
+    async saveResult ({commit}, { result, route }) {
+        await api.saveResult(result, route)
     }
 }
 

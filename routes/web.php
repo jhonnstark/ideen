@@ -193,6 +193,7 @@ Route::prefix('/teacher')
                 Route::get('/{course}/module', 'TeacherDashboard@module')->name('module');
                 Route::get('/{course}/students', 'StudentController@index')->name('students');
                 Route::get('/{course}/student/{student}', 'StudentController@student')->name('students');
+                Route::post('/{course}/student/{student}/result', 'StudentController@result')->name('students');
                 Route::get('/edit/{course}/module', 'TeacherDashboard@module')->name('module');
                 Route::get('/module/{module}/activity', 'TeacherDashboard@activity')->name('activity');
                 Route::get('/module/{module}/content', 'TeacherDashboard@content')->name('content');
