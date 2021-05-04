@@ -1,7 +1,8 @@
 <template>
     <div class="row justify-content-between">
+        <hr class="col-12">
         <div class="col-12">
-            <p>La calificación final es: <b>{{ result }}</b></p>
+            <p class="text-center">La calificación final es: <b>{{ result }}</b></p>
         </div>
 
         <div class="col-12">
@@ -10,21 +11,21 @@
                 action="#" method="POST" novalidate>
 
                 <div class="form-group row">
-                    <div class="col-md-6 offset-md-4">
+                    <div class="col-md-6 offset-md-5">
                         <div class="form-check">
                             <input
                                 v-model.trim="$v.extra.$model"
                                 class="form-check-input" type="checkbox" name="correct" id="correct">
 
                             <label class="form-check-label" for="correct">
-                                ¿ Es la correcta ?
+                                10 % de la calificación
                             </label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group row mb-0">
-                    <div class="col-md-7 offset-md-3">
+                    <div class="col-md-7 offset-md-5">
                         <button type="submit"
                                 :class="[ !isLoading ? 'btn-primary': 'btn-secondary']"
                                 class="btn">
@@ -66,6 +67,7 @@ export default {
         this.setActivities(this.activities)
         this.setGrades(this.grades)
         this.isLoading = false
+        this.result = this.calcResult()
     },
     methods:{
         register() {
@@ -86,6 +88,18 @@ export default {
             }
         },
 
+        reducer (accumulator, currentValue) {
+            return accumulator + currentValue
+        },
+
+        calcResult () {
+            const activityGrade = JSON.parse(this.activities)
+            const activitySum = activityGrade.reduce(this.reducer)
+            const scoreGrade = JSON.parse(this.grades)
+            const scoreSum = scoreGrade.reduce(this.reducer)
+            return (activitySum / activityGrade.length * 0.6 ) + (scoreSum / scoreGrade.length * .3)
+        },
+
         ...mapMutations([
            'setActivities',
            'setGrades',
@@ -97,7 +111,7 @@ export default {
     },
     watch: {
         extra() {
-            this.result = this.extra ? 1 : 0
+            this.result = this.calcResult() + (this.extra ? 1 : 0)
         }
     },
 }

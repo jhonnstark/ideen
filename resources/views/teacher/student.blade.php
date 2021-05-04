@@ -33,8 +33,9 @@
     </div>
     <div class="container">
         <div class="row justify-content-between">
+            <hr class="col-12">
             <div class="col-md-6">
-                <h5>Actividades</h5>
+                <h5 class="profile__title">Actividades</h5>
                 <ul>
                     @foreach ($user->homework as $homework)
                         <li>
@@ -46,7 +47,7 @@
                 </ul>
             </div>
             <div class="col-md-6">
-                <h5>Examenes</h5>
+                <h5 class="profile__title">Examenes</h5>
                 <ul>
                     @foreach ($user->score as $score)
                         <li>

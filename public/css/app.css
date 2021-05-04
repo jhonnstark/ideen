@@ -13335,3 +13335,7 @@ p {
   height: 100px;
 }
 
+.profile__title {
+  margin-bottom: 1.1rem;
+}
+
