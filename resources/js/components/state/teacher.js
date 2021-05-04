@@ -28,6 +28,9 @@ const actions = {
     async removeScore ({commit}, claim) {
         commit('cleanClaims', claim.id)
         commit('removeScore', claim)
+    },
+    async saveResult ({commit}, result) {
+        await api.saveResult(result)
     }
 }
 
@@ -60,6 +63,12 @@ const mutations = {
                 state.claims[result].splice(results[result], 1)
             }
         })
+    },
+    setActivities (state, activities) {
+        state.activities = activities
+    },
+    setGrades (state, grades) {
+        state.grades = grades
     }
 }
 
@@ -74,7 +83,9 @@ const  stated = {
         inactive: [],
         incorrect: []
     },
-    homework: []
+    homework: [],
+    activities: [],
+    grades: [],
 }
 
 const getters = {

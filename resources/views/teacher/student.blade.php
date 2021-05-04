@@ -40,7 +40,7 @@
                         <li>
                             <p>Nombre: {{ $homework->name }}</p>
                             <p>Descripción: {{ $homework->description }}</p>
-                            <p><b>Calificación: {{ $homework->score ?? 'No calificado'}}</b></p>
+                            <p><b>Calificación: {{ $homework->score ?? 'Pendiente'}}</b></p>
                         </li>
                     @endforeach
                 </ul>
@@ -51,16 +51,12 @@
                     @foreach ($user->score as $score)
                         <li>
                             <p>{{ $score->exam->name }}</p>
-                            <p><b>Calificación: {{ $score->mark }}</b></p>
+                            <p><b>Calificación: {{ $score->mark ?? 'Pendiente' }}</b></p>
                         </li>
                     @endforeach
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="row justify-content-between">
-            <result-user exam="{{ $exam }}" homework="{{ $homework }}"></result-user>
-        </div>
+        <result-user activities="{{ $activity }}" grades="{{ $exam }}"></result-user>
     </div>
 @endsection

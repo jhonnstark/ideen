@@ -109,5 +109,8 @@ export default {
     async saveMark(score, mark) {
         await axios
             .post(score +'/finish/', { mark })
+    },
+    async saveResult(result) {
+        await axios.post('/result', { result })
     }
 }

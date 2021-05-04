@@ -46,17 +46,17 @@ class StudentController extends Controller
                 $query->where('course_id', $course->id);
             });
         }]);
-        $exam = $student->score->map(function ($score){
-            return $score->score;
-        })->sum();
-        $homework =$student->homework->map(function ($homework){
+        $exam = $student->score->map(function ($score) {
+            return $score->mark;
+        });
+        $homework =$student->homework->map(function ($homework) {
             return $homework->score;
-        })->sum();
+        });
         return view('teacher.student', [
             'user' => $student,
             'role' => 'teacher',
             'exam' => $exam,
-            'homework' => $homework
+            'activity' => $homework
         ]);
     }
 }
