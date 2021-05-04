@@ -31,11 +31,14 @@
                 <p>{{ $id->description }}</p>
             </div>
             @isset($role)
-                <score-material id="{{ $id->id }}"></score-material>
+                @if($type === 'activity')
+                    <score-material id="{{ $id->id }}"></score-material>
+                @endif
             @else
                 <div class="col-md-3">
                     <h4>Calificación: {{ $id->score }}</h4>
                 </div>
+
                 @empty($contents)
                 <div class="col-3 text-right">
                     <a class="btn btn-primary btn-lg" href="{{ route('course.module.createHomework', $id) }}" role="button">
@@ -55,7 +58,7 @@
         <div class="row">
             @isset($contents)
             <div class="col-md-2">
-                <h6 class="card-title">Actividades:</h6>
+                <h6 class="card-title">Lista:</h6>
                 @foreach($contents as $content)
                     <a href="{{ route((isset($role) ? 'teacher.':'') . 'course.module.'. $type . 'Material', $content['id']) }}">
                         <div class="card">
@@ -72,12 +75,12 @@
         </div>
     </div>
 
-    @isset($contents)
+    @if($type === 'activity')
         <div class="container">
             <div class="row">
                 <h3>{{ __('Listado Tareas') }}</h3>
             </div>
         </div>
         <homework-list id="{{ $id->id }}"></homework-list>
-    @endisset
+    @endif
 @endsection

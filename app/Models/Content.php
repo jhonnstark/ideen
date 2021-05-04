@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * @method static create(array $validated)
  * @property mixed material
+ * @property mixed module
  */
 class Content extends Model
 {
