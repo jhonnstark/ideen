@@ -31,12 +31,12 @@
                 <p>{{ $id->description }}</p>
             </div>
             @isset($role)
-                @if($type === 'activity')
+                @if($type === 'homework')
                     <score-material id="{{ $id->id }}"></score-material>
                 @endif
             @else
                 <div class="col-md-3">
-                    <h4>Calificación: {{ $id->score }}</h4>
+                    <h4>Valor: 100</h4>
                 </div>
 
                 @empty($contents)
@@ -76,11 +76,13 @@
     </div>
 
     @if($type === 'activity')
+        @isset($role)
         <div class="container">
             <div class="row">
                 <h3>{{ __('Listado Tareas') }}</h3>
             </div>
         </div>
         <homework-list id="{{ $id->id }}"></homework-list>
+        @endisset
     @endif
 @endsection

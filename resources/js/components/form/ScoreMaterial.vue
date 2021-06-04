@@ -71,7 +71,7 @@ export default {
         score: {
             required,
             decimal,
-            between: between(0, 10)
+            between: between(0, 100)
         }
     },
     created () {
