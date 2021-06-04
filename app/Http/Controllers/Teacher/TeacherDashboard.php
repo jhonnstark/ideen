@@ -368,7 +368,7 @@ class TeacherDashboard extends Controller
     public function scoreSave(Request $request, Activity $activity): JsonResponse
     {
         $request->validate([
-            'score' => 'integer|required|between:0,10',
+            'score' => 'integer|required|between:0,100',
         ]);
         $activity->score = $request->get('score');
         $activity->save();
@@ -387,7 +387,7 @@ class TeacherDashboard extends Controller
     public function homeworkScoreSave(Request $request, Homework $homework): JsonResponse
     {
         $request->validate([
-            'score' => 'integer|required|between:0,10',
+            'score' => 'integer|required|between:0,100',
         ]);
         $homework->score = $request->get('score');
         $homework->save();
