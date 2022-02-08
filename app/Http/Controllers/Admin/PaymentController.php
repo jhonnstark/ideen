@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Http\Resources\CourseCollection;
 use App\Http\Resources\PaymentCollection;
 use App\Http\Resources\UserCollection;
 use App\Models\Payment;
@@ -15,7 +13,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -162,11 +159,12 @@ class PaymentController extends Controller
      */
     public function suspend(User $user): JsonResponse
     {
-//        $user->delete();
+        $user->toggleSuspend();
         return response()->json([
             'status' => 204,
-            'message' => 'Deleted user'
-        ],204 );
+            'message' => 'Updated user',
+            'data' => $user->deactivated_at
+        ],200 );
     }
 
     /**

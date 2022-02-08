@@ -15,6 +15,7 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed id
  * @property mixed payments
  * @property mixed $courses
+ * @property mixed $deactivated_at
  * @method static create(array $record)
  */
 class User extends Authenticatable
@@ -47,6 +48,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    public function toggleSuspend(): void
+    {
+        if (is_null($this->deactivated_at)) {
+            $this->deactivated_at = now();
+        } else {
+            $this->deactivated_at = null;
+        }
+        $this->save();
+    }
 
     /**
      * Get the user profile record associated with the user.
