@@ -71,6 +71,27 @@ Route::prefix('/admin')
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
+        Route::prefix('/payment')
+            ->name('payment.')
+            ->group(function(){
+                Route::get('/', 'UserController@index')->name('list');
+                Route::get('/list', 'UserController@list');
+                Route::get('/courses/{user}', 'UserController@courses');
+                Route::put('/courses/{user}/detach', 'UserController@detach');
+                Route::get('/register', 'UserController@create')->name('register');
+                Route::post('/register', 'UserController@store');
+                Route::get('/edit/{user}', 'UserController@show')->name('edit');
+                Route::put('/edit/{user}', 'UserController@update');
+                Route::post('/edit/{user}/associate', 'UserController@associate');
+                Route::delete('/delete/{user}', 'UserController@destroy');
+            });
+
+        Route::prefix('/services')
+            ->name('services.')
+            ->group(function(){
+                Route::get('/', 'AdminDashboard@services')->name('dashboard');
+            });
+
 
         Route::prefix('/course')
             ->name('course.')
