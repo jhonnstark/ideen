@@ -11,7 +11,7 @@ class CreatePaymentsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->double('discount', 8, 2)->nullable();
             $table->double('price', 8, 2);
             $table->double('total', 8, 2);
+            $table->timestamp('paid_at')->nullable();
             $table->foreignId('user_id')->constrained()
                 ->onDelete('cascade');
             $table->timestamps();
@@ -30,7 +31,7 @@ class CreatePaymentsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('payments');
     }
