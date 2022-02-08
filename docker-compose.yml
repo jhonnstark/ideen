@@ -13,8 +13,8 @@ services:
       SERVICE_TAGS: dev
       REDIS_HOST: redis
     working_dir: /var/www
-    depends_on:
-      - db
+      #    depends_on:
+      #- db
 #      - redis
     volumes:
       - ./:/var/www
