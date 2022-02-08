@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\CourseCollection;
+use App\Http\Resources\PaymentCollection;
 use App\Http\Resources\UserCollection;
+use App\Models\Payment;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -58,39 +61,6 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @param User $user
-     * @return JsonResponse
-     */
-    public function associate(Request $request, User $user): JsonResponse
-    {
-        $validatedData = $request->validate([
-            'course_id' => ['required'],
-        ]);
-        $user->courses()->syncWithoutDetaching($validatedData['course_id']);
-        return response()->json([
-            'status' => 201,
-            'message' => 'created',
-        ], 201);
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param User $user
-     * @return CourseCollection
-     */
-    public function courses(User $user): CourseCollection
-    {
-        $user->load('courses.teacher');
-        $courses = $user->courses;
-        return new CourseCollection($courses);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
      * @param UserRequest $request
      * @return JsonResponse
      */
@@ -106,50 +76,78 @@ class PaymentController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     */
+//    public function associate(Request $request, User $user): JsonResponse
+//    {
+//        $validatedData = $request->validate([
+//            'course_id' => ['required'],
+//        ]);
+//        $user->courses()->syncWithoutDetaching($validatedData['course_id']);
+//        return response()->json([
+//            'status' => 201,
+//            'message' => 'created',
+//        ], 201);
+//    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     */
+//    public function detach(Request $request, User $user): JsonResponse
+//    {
+////        $user->courses()->detach($request->input('id'));
+//        return response()->json([
+//            'status' => 200,
+//            'message' => 'Updated user'
+//        ]);
+//    }
+
+    /**
+     * return payments list for a user.
+     *
+     * @param User $user
+     * @return PaymentCollection
+     */
+    public function payments(User $user): PaymentCollection
+    {
+        $user->load('payments');
+        return new PaymentCollection($user->payments);
+    }
+
+    /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param User $user
-     * @return UserResource|Application|Factory|View
+     * @return Application|Factory|View
      */
-    public function show(Request $request, User $user)
+    public function show(User $user)
     {
-        if ($request->wantsJson()) {
-            return new UserResource($user);
-        }
         $role = $this->role['role'];
         $id = $user->id;
-        return view('admin.edit', compact('role', 'id'));
+        return view('admin.list', compact('role', 'id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param User $user
+     * @param Payment $payment
      * @return JsonResponse
      */
-    public function update(Request $request, User $user): JsonResponse
+    public function update(Payment $payment): JsonResponse
     {
-//        $user->update($request->validated());
+        $payment->paid_at = now();
+        $payment->save();
 
         return response()->json([
-            'status' => 200,
-            'message' => 'Updated user'
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param User $user
-     * @return JsonResponse
-     */
-    public function detach(Request $request, User $user): JsonResponse
-    {
-//        $user->courses()->detach($request->input('id'));
-        return response()->json([
+            'data' => $payment,
             'status' => 200,
             'message' => 'Updated user'
         ]);
@@ -160,14 +158,30 @@ class PaymentController extends Controller
      *
      * @param User $user
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(User $user): JsonResponse
+    public function suspend(User $user): JsonResponse
     {
 //        $user->delete();
         return response()->json([
             'status' => 204,
             'message' => 'Deleted user'
+        ],204 );
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Payment $payment
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function destroy(Payment $payment): JsonResponse
+    {
+        $payment->delete();
+        return response()->json([
+            'status' => 204,
+            'message' => 'Deleted payment'
         ],204 );
     }
 }

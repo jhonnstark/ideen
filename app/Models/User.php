@@ -13,6 +13,9 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed score
  * @property mixed homework
  * @property mixed id
+ * @property mixed payments
+ * @property mixed $courses
+ * @method static create(array $record)
  */
 class User extends Authenticatable
 {
@@ -24,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname', 'mothers_lastname', 'email', 'password',
+        'name', 'lastname', 'mothers_lastname', 'email', 'password', 'deactivated_at'
     ];
 
     /**
@@ -90,7 +93,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function payment(): HasMany
+    public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
     }

@@ -7,8 +7,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Apellidos</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Status</th>
                     <th scope="col" class="text-right">Acciones</th>
                 </tr>
                 </thead>
@@ -27,17 +27,16 @@
 
                 <tr v-else v-for="item in items" :key="item.id">
                     <th scope="row">{{ item.id }}</th>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.lastname }}</td>
+                    <td>{{ item.name }} {{ item.lastname }}</td>
                     <td>{{ item.email }}</td>
+                    <td>{{ item.deactivated_at !== null ? 'Suspendido' : 'Activo' }}</td>
                     <td class="text-right">
-                        <a :href="'/admin/' + role + '/edit/' + item.id" class="btn btn-primary">
+                        <a :href="'/admin/' + role + '/list/' + item.id" class="btn btn-primary">
                             <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z"/></svg>
                         </a>
                         <button @click="erase(item.id)" type="button" class="btn btn-danger">
 <!--                            <svg width="18" height="16" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1152 896q0-104-40.5-198.5t-109.5-163.5-163.5-109.5-198.5-40.5-198.5 40.5-163.5 109.5-109.5 163.5-40.5 198.5 40.5 198.5 109.5 163.5 163.5 109.5 198.5 40.5 198.5-40.5 163.5-109.5 109.5-163.5 40.5-198.5zm768 0q0-104-40.5-198.5t-109.5-163.5-163.5-109.5-198.5-40.5h-386q119 90 188.5 224t69.5 288-69.5 288-188.5 224h386q104 0 198.5-40.5t163.5-109.5 109.5-163.5 40.5-198.5zm128 0q0 130-51 248.5t-136.5 204-204 136.5-248.5 51h-768q-130 0-248.5-51t-204-136.5-136.5-204-51-248.5 51-248.5 136.5-204 204-136.5 248.5-51h768q130 0 248.5 51t204 136.5 136.5 204 51 248.5z"/></svg>-->
                             <svg width="18" height="16" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg"><path d="M0 896q0-130 51-248.5t136.5-204 204-136.5 248.5-51h768q130 0 248.5 51t204 136.5 136.5 204 51 248.5-51 248.5-136.5 204-204 136.5-248.5 51h-768q-130 0-248.5-51t-204-136.5-136.5-204-51-248.5zm1408 512q104 0 198.5-40.5t163.5-109.5 109.5-163.5 40.5-198.5-40.5-198.5-109.5-163.5-163.5-109.5-198.5-40.5-198.5 40.5-163.5 109.5-109.5 163.5-40.5 198.5 40.5 198.5 109.5 163.5 163.5 109.5 198.5 40.5z"/></svg>
-
                         </button>
                     </td>
                 </tr>
@@ -66,7 +65,6 @@ export default {
     },
     methods: {
         erase(id) {
-
             this.$swal({
                 title: '<i>Suspender</i>',
                 text: 'Será suspendida la cuenta',
@@ -80,11 +78,9 @@ export default {
                 preConfirm: () => {
 
                     return axios
-                        .delete('/admin/' + this.role + '/delete/' + id)
+                        .delete('/admin/' + this.role + '/suspend/' + id)
                         .then(response => {
                             this.$swal('Guardado', 'Suspendido exitosamente.', 'success');
-                            const removedId = this.items.findIndex(item => item.id === id);
-                            this.items.splice(removedId, 1);
                         })
                         .catch(error => {
                             this.$swal.showValidationMessage(
@@ -95,6 +91,7 @@ export default {
                 },
                 allowOutsideClick: () => !this.$swal.isLoading()
             }).then((result) => {
+                console.log('result', result);
                 if(result.isConfirmed) {
                     this.$swal('Borrado', 'Se ha suspendido exitosamente', 'success')
                 }

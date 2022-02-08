@@ -76,18 +76,18 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'PaymentController@index')->name('list');
                 Route::get('/list', 'PaymentController@list');
+                Route::get('/list/{user}', 'PaymentController@show')->name('show');
+                Route::get('/list/{user}/bills', 'PaymentController@payments')->name('show');
+                Route::delete('/suspend/{user}', 'PaymentController@suspend');
+
                 Route::get('/register', 'PaymentController@create')->name('register');
                 Route::post('/register', 'PaymentController@store');
 
-//                Route::get('/courses/{user}', 'PaymentController@courses');
 //                Route::put('/courses/{user}/detach', 'PaymentController@detach');
-
-                Route::get('/edit/{user}', 'PaymentController@show')->name('edit');
-                Route::put('/edit/{user}', 'PaymentController@update');
-
 //                Route::post('/edit/{user}/associate', 'PaymentController@associate');
 
-                Route::delete('/delete/{user}', 'PaymentController@destroy');
+                Route::put('/paid/{payment}', 'PaymentController@update');
+                Route::delete('/delete/{payment}', 'PaymentController@destroy');
             });
 
         Route::prefix('/services')
