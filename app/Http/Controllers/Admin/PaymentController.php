@@ -125,13 +125,14 @@ class PaymentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UserUpdateRequest $request
+     * @param Request $request
      * @param User $user
      * @return JsonResponse
      */
-    public function update(UserUpdateRequest $request, User $user): JsonResponse
+    public function update(Request $request, User $user): JsonResponse
     {
-        $user->update($request->validated());
+//        $user->update($request->validated());
+
         return response()->json([
             'status' => 200,
             'message' => 'Updated user'
@@ -147,7 +148,7 @@ class PaymentController extends Controller
      */
     public function detach(Request $request, User $user): JsonResponse
     {
-        $user->courses()->detach($request->input('id'));
+//        $user->courses()->detach($request->input('id'));
         return response()->json([
             'status' => 200,
             'message' => 'Updated user'
@@ -163,7 +164,7 @@ class PaymentController extends Controller
      */
     public function destroy(User $user): JsonResponse
     {
-        $user->delete();
+//        $user->delete();
         return response()->json([
             'status' => 204,
             'message' => 'Deleted user'

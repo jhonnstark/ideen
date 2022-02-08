@@ -61,29 +61,33 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'UserController@index')->name('list');
                 Route::get('/list', 'UserController@list');
-                Route::get('/courses/{user}', 'UserController@courses');
-                Route::put('/courses/{user}/detach', 'UserController@detach');
                 Route::get('/register', 'UserController@create')->name('register');
                 Route::post('/register', 'UserController@store');
                 Route::get('/edit/{user}', 'UserController@show')->name('edit');
                 Route::put('/edit/{user}', 'UserController@update');
                 Route::post('/edit/{user}/associate', 'UserController@associate');
+                Route::get('/courses/{user}', 'UserController@courses');
+                Route::put('/courses/{user}/detach', 'UserController@detach');
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
         Route::prefix('/payment')
             ->name('payment.')
             ->group(function(){
-                Route::get('/', 'UserController@index')->name('list');
-                Route::get('/list', 'UserController@list');
-                Route::get('/courses/{user}', 'UserController@courses');
-                Route::put('/courses/{user}/detach', 'UserController@detach');
-                Route::get('/register', 'UserController@create')->name('register');
-                Route::post('/register', 'UserController@store');
-                Route::get('/edit/{user}', 'UserController@show')->name('edit');
-                Route::put('/edit/{user}', 'UserController@update');
-                Route::post('/edit/{user}/associate', 'UserController@associate');
-                Route::delete('/delete/{user}', 'UserController@destroy');
+                Route::get('/', 'PaymentController@index')->name('list');
+                Route::get('/list', 'PaymentController@list');
+                Route::get('/register', 'PaymentController@create')->name('register');
+                Route::post('/register', 'PaymentController@store');
+
+//                Route::get('/courses/{user}', 'PaymentController@courses');
+//                Route::put('/courses/{user}/detach', 'PaymentController@detach');
+
+                Route::get('/edit/{user}', 'PaymentController@show')->name('edit');
+                Route::put('/edit/{user}', 'PaymentController@update');
+
+//                Route::post('/edit/{user}/associate', 'PaymentController@associate');
+
+                Route::delete('/delete/{user}', 'PaymentController@destroy');
             });
 
         Route::prefix('/services')

@@ -17,6 +17,7 @@
     "exam": "Examenes",
     "module": "Modulos",
     "homework": "Tarea",
+    "payment": "Pagos",
     "Exam Register": "Creación de examenes",
     "Formulario admins": "Formulario de creación de administradores",
     "Formulario user": "Formulario de creación de alumnos",
@@ -36,6 +37,7 @@
     "Listado category": "Listado de categorías",
     "Listado exam": "Listado de examenes",
     "Listado modulos": "Listado de modulos",
+    "Listado payment": "Listado de pagos de alumnos",
     "Teacher Login": "Login de profesor",
     "Logout": "Logout",
     "Login": "Login"

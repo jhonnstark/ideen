@@ -84,4 +84,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Score::class);
     }
+
+    /**
+     * Get the scores record associated with the user.
+     *
+     * @return HasMany
+     */
+    public function payment(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
 }
