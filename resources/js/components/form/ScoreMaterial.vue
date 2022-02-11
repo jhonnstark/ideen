@@ -82,6 +82,9 @@ export default {
     },
     methods:{
         register() {
+            if (this.isLoading) {
+                return;
+            }
             if(!this.editForm) {
                 return;
             }

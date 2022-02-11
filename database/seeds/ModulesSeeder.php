@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Activity;
+use App\Models\Content;
 use Illuminate\Database\Seeder;
 
 class ModulesSeeder extends Seeder

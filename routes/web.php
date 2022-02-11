@@ -83,6 +83,7 @@ Route::prefix('/admin')
                 Route::get('/register', 'PaymentController@create')->name('register');
                 Route::post('/register', 'PaymentController@store');
 
+                Route::get('/paid/{payment}', 'PaymentController@getPaidBill');
                 Route::put('/paid/{payment}', 'PaymentController@update');
                 Route::delete('/delete/{payment}', 'PaymentController@destroy');
             });

@@ -86,6 +86,9 @@ export default {
     },
     methods:{
         register() {
+            if (this.isLoading) {
+                return;
+            }
             if (this.$v.$invalid) {
                 this.errors = true;
             } else {

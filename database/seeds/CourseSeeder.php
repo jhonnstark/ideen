@@ -10,7 +10,7 @@ class CourseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         factory(Course::class, 10)
             ->create()

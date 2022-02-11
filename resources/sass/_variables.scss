@@ -14,7 +14,7 @@ $pink:   #f66d9b;
 $red:    #e3342f;
 $orange: #f6993f;
 $yellow: #ffed4a;
-$green:  #38c172;
+$green: #1ea854;
 $teal:   #4dc0b5;
 $cyan:   #6cb2eb;
 $grey:   #f2f2f2;
@@ -24,3 +24,11 @@ $black:  #000;
 $ideen:  #0fa5df;
 $white-alpha: rgba(255, 255, 255, 1);
 $transparent: rgba(255, 255, 255, 0);
+
+$theme-colors: () !default;
+$theme-colors: map-merge(
+        (
+            "ideen":    $ideen,
+        ),
+        $theme-colors
+);

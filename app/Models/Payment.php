@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
+ * @property mixed $id
+ * @property mixed $url
+ * @property mixed $user_id
  * @property Carbon|mixed $paid_at
  * @method static create($record)
  */

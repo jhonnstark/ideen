@@ -82,7 +82,7 @@
                     </div>
 
                     <input
-                        v-model.trim="$v.record.total.$model"
+                        v-model.number.trim="$v.record.total.$model"
                         :class="{ 'is-invalid': $v.record.total.$error }"
                         id="total"
                         type="text"
@@ -160,15 +160,15 @@ export default {
             },
             total: {
                 decimal,
-                minValue: minValue(0)
+                minValue: minValue(0.01)
             }
         },
     },
-    created() {
-
-    },
     methods:{
         register() {
+            if (this.isLoading) {
+                return;
+            }
             if (this.$v.$invalid) {
                 this.errors = true;
             } else {
@@ -193,13 +193,11 @@ export default {
             }
         },
     },
-    computed: {
-
-    },
     watch: {
         record: {
             handler(val){
-                this.record.total = this.record.price * (1 - this.record.discount / 100);
+                this.record.price = parseFloat(this.record.price).toFixed(2);
+                this.record.total = Number.parseFloat(this.record.price * (1 - this.record.discount / 100)).toFixed(2);
             },
             deep: true
         }
