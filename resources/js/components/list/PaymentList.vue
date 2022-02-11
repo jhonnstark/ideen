@@ -34,7 +34,7 @@
                         <a :href="'/admin/' + role + '/list/' + item.id" class="btn btn-primary">
                             <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z"/></svg>
                         </a>
-                        <button @click="erase(item.id)" type="button" class="btn" :class="item.deactivated_at === null ? 'btn-danger': 'btn-secondary'">
+                        <button @click="erase(item.id, item.deactivated_at)" type="button" class="btn" :class="item.deactivated_at === null ? 'btn-danger': 'btn-secondary'">
                             <svg v-if="item.deactivated_at !== null" width="18" height="16" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1152 896q0-104-40.5-198.5t-109.5-163.5-163.5-109.5-198.5-40.5-198.5 40.5-163.5 109.5-109.5 163.5-40.5 198.5 40.5 198.5 109.5 163.5 163.5 109.5 198.5 40.5 198.5-40.5 163.5-109.5 109.5-163.5 40.5-198.5zm768 0q0-104-40.5-198.5t-109.5-163.5-163.5-109.5-198.5-40.5h-386q119 90 188.5 224t69.5 288-69.5 288-188.5 224h386q104 0 198.5-40.5t163.5-109.5 109.5-163.5 40.5-198.5zm128 0q0 130-51 248.5t-136.5 204-204 136.5-248.5 51h-768q-130 0-248.5-51t-204-136.5-136.5-204-51-248.5 51-248.5 136.5-204 204-136.5 248.5-51h768q130 0 248.5 51t204 136.5 136.5 204 51 248.5z"/></svg>
                             <svg v-else width="18" height="16" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg"><path d="M0 896q0-130 51-248.5t136.5-204 204-136.5 248.5-51h768q130 0 248.5 51t204 136.5 136.5 204 51 248.5-51 248.5-136.5 204-204 136.5-248.5 51h-768q-130 0-248.5-51t-204-136.5-136.5-204-51-248.5zm1408 512q104 0 198.5-40.5t163.5-109.5 109.5-163.5 40.5-198.5-40.5-198.5-109.5-163.5-163.5-109.5-198.5-40.5-198.5 40.5-163.5 109.5-109.5 163.5-40.5 198.5 40.5 198.5 109.5 163.5 163.5 109.5 198.5 40.5z"/></svg>
                         </button>
@@ -64,11 +64,20 @@ export default {
             .finally(() => this.isLoading = false)
     },
     methods: {
-        erase(id) {
+        erase(id, deactivated_at) {
+            let title = '<i>Suspender</i>';
+            let text = 'Será suspendida la cuenta';
+            let icon = 'warning';
+            if (deactivated_at !== null) {
+                title = '<i>Activar</i>';
+                text = 'La cuenta será activada';
+                icon = 'info';
+            }
+
             this.$swal({
-                title: '<i>Suspender</i>',
-                text: 'Será suspendida la cuenta',
-                icon: 'warning',
+                title: title,
+                text: text,
+                icon: icon,
                 showCancelButton: true,
                 confirmButtonText: 'Confirmar',
                 cancelButtonText: 'Cancelar',
