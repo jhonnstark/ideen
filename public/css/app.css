@@ -13133,6 +13133,10 @@ p {
   margin-top: 20px;
 }
 
+.form-separator {
+  border-color: #ced4da;
+}
+
 .navbar-logo {
   max-height: 80px;
 }
@@ -13208,6 +13212,27 @@ p {
 
 .current-page {
   width: 60px;
+}
+
+.date-picker {
+  display: flex;
+  flex-flow: column;
+}
+
+.date-picker-wrap {
+  position: relative;
+  flex-grow: 1;
+}
+
+.date-picker-input {
+  padding-left: 2rem;
+  margin-bottom: 10px;
+}
+
+.date-picker svg {
+  position: absolute;
+  width: 1rem;
+  height: 37px;
 }
 
 .card-image {

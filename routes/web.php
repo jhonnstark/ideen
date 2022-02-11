@@ -71,6 +71,12 @@ Route::prefix('/admin')
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
+        Route::prefix('/state')
+            ->name('state.')
+            ->group(function(){
+                Route::get('/list', 'StateController@list');
+            });
+
         Route::prefix('/payment')
             ->name('payment.')
             ->group(function(){

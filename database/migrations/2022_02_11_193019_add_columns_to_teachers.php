@@ -21,12 +21,16 @@ class AddColumnsToTeachers extends Migration
             $table->unsignedInteger('age')->nullable();
             $table->string('address')->nullable();
             $table->string('municipality')->nullable();
-            $table->boolean('birth_certificate')->nullable();
-            $table->boolean('school_certificate')->nullable();
+            $table->boolean('degree_certificate')->nullable();
+            $table->boolean('professional_license')->nullable();
             $table->boolean('curp_certificate')->nullable();
             $table->string('emergency_phone')->nullable();
             $table->string('facebook')->nullable();
             $table->string('curp')->nullable();
+            $table->string('rfc')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('account_number')->nullable();
+            $table->string('account_clabe')->nullable();
             $table->foreignId('state_id')->nullable()->constrained();
         });
     }
@@ -46,12 +50,16 @@ class AddColumnsToTeachers extends Migration
             $table->dropColumn('age');
             $table->dropColumn('address');
             $table->dropColumn('municipality');
-            $table->dropColumn('birth_certificate');
-            $table->dropColumn('school_certificate');
+            $table->dropColumn('degree_certificate');
+            $table->dropColumn('professional_license');
             $table->dropColumn('curp_certificate');
             $table->dropColumn('emergency_phone');
             $table->dropColumn('facebook');
             $table->dropColumn('curp');
+            $table->dropColumn('rfc');
+            $table->dropColumn('bank');
+            $table->dropColumn('account_number');
+            $table->dropColumn('account_clabe');
             $table->dropForeign(['state_id']);
             $table->dropColumn('state_id');
         });
