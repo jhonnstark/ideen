@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaymentRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\PaymentCollection;
 use App\Http\Resources\UserCollection;
@@ -58,54 +59,22 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param UserRequest $request
+     * @param PaymentRequest $request
      * @return JsonResponse
      */
-    public function store(UserRequest $request): JsonResponse
+    public function store(PaymentRequest $request): JsonResponse
     {
-        $record = $request->validated();
-        $record['password'] = Hash::make($record['password']);
-        User::create($record);
+        $payment = $request->validated();
+        $payment['total'] = $payment['price'] * (1 - $payment['discount'] / 100);
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->payments()->save(new Payment($payment));
+        }
         return response()->json([
             'status' => 201,
             'message' => 'created',
         ], 201);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @param User $user
-     * @return JsonResponse
-     */
-//    public function associate(Request $request, User $user): JsonResponse
-//    {
-//        $validatedData = $request->validate([
-//            'course_id' => ['required'],
-//        ]);
-//        $user->courses()->syncWithoutDetaching($validatedData['course_id']);
-//        return response()->json([
-//            'status' => 201,
-//            'message' => 'created',
-//        ], 201);
-//    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param User $user
-     * @return JsonResponse
-     */
-//    public function detach(Request $request, User $user): JsonResponse
-//    {
-////        $user->courses()->detach($request->input('id'));
-//        return response()->json([
-//            'status' => 200,
-//            'message' => 'Updated user'
-//        ]);
-//    }
 
     /**
      * return payments list for a user.

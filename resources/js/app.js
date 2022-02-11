@@ -101,6 +101,8 @@ Vue.component('question-form', require('./components/form/QuestionForm.vue').def
 Vue.component('module-form', require('./components/form/ModuleForm.vue').default);
 Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
 Vue.component('answer-form', require('./components/form/AnswerForm.vue').default);
+Vue.component('payment-form', require('./components/form/PaymentForm.vue').default);
+
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
 Vue.component('user-courses', require('./components/layouts/UserCourses.vue').default);

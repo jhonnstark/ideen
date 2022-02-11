@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property Carbon|mixed $paid_at
+ * @method static create($record)
  */
 class Payment extends Model
 {

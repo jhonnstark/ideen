@@ -83,9 +83,6 @@ Route::prefix('/admin')
                 Route::get('/register', 'PaymentController@create')->name('register');
                 Route::post('/register', 'PaymentController@store');
 
-//                Route::put('/courses/{user}/detach', 'PaymentController@detach');
-//                Route::post('/edit/{user}/associate', 'PaymentController@associate');
-
                 Route::put('/paid/{payment}', 'PaymentController@update');
                 Route::delete('/delete/{payment}', 'PaymentController@destroy');
             });
