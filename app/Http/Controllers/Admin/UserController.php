@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\UserCollection;
+use App\Models\UserProfile;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -98,7 +99,8 @@ class UserController extends Controller
     {
         $record = $request->validated();
         $record['password'] = Hash::make($record['password']);
-        User::create($record);
+        $user = User::create($record);
+        $user->userProfile()->save(new UserProfile($request->all()));
         return response()->json([
             'status' => 201,
             'message' => 'created',

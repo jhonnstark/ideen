@@ -179,7 +179,7 @@
         </div>
 
         <div class="form-group row">
-            <label for="address" class="col-md-4 col-form-label text-md-right">Matricula</label>
+            <label for="address" class="col-md-4 col-form-label text-md-right">Dirección</label>
 
             <div class="col-md-6">
                 <input
@@ -462,7 +462,7 @@
                 <span
                     v-if="!$v.record.password.error"
                     class="invalid-feedback" role="alert">
-                    <strong class="text-muted">>Campo invalido</strong>
+                    <strong class="text-muted">Campo invalido</strong>
                 </span>
 
             </div>
@@ -480,7 +480,7 @@
                 <span
                     v-if="!$v.record.password_confirmation.error"
                     class="invalid-feedback" role="alert">
-                    <strong class="text-muted">>Campo invalido</strong>
+                    <strong class="text-muted">Campo invalido</strong>
                 </span>
             </div>
         </div>
@@ -532,7 +532,7 @@ export default {
                 address: null,
                 municipality: null,
                 state_id: null,
-                birthday: null,
+                birthday: new Date(),
                 birthplace: null,
                 age: 1,
                 emergency_phone: null,
@@ -623,7 +623,6 @@ export default {
                 maxLength: maxLength(255)
             },
             facebook: {
-                required,
                 minLength: minLength(5),
                 maxLength: maxLength(255)
             },
@@ -713,7 +712,7 @@ export default {
     },
     watch: {
         birthday: function (val) {
-            console.log(val)
+            this.record.birthday = this.$moment(val).format('YYYY-MM-DD');
         }
     }
 }

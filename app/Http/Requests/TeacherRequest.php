@@ -11,7 +11,7 @@ class TeacherRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,13 +21,24 @@ class TeacherRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'email' => 'bail|required|email|unique:teachers,email|max:255',
             'name' => 'required',
             'lastname' => 'required',
             'mothers_lastname' => 'required',
+            'phone' => 'required|alpha_num',
+            'enrollment' => 'required',
+            'address' => 'required',
+            'municipality' => 'required',
+            'state_id' => 'required|exists:states,id',
+            'birthday' => 'required|date',
+            'birthplace' => 'required',
+            'age' => 'required|numeric|min:1',
+            'emergency_phone' => 'required|alpha_num',
+            'facebook' => 'required',
+            'curp' => 'required',
             'password' => 'required|confirmed',
         ];
     }
