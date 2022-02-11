@@ -13,6 +13,10 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed score
  * @property mixed homework
  * @property mixed id
+ * @property mixed payments
+ * @property mixed $courses
+ * @property mixed $deactivated_at
+ * @method static create(array $record)
  */
 class User extends Authenticatable
 {
@@ -24,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname', 'mothers_lastname', 'email', 'password',
+        'name', 'lastname', 'mothers_lastname', 'email', 'password', 'deactivated_at'
     ];
 
     /**
@@ -44,6 +48,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    public function toggleSuspend(): void
+    {
+        if (is_null($this->deactivated_at)) {
+            $this->deactivated_at = now();
+        } else {
+            $this->deactivated_at = null;
+        }
+        $this->save();
+    }
 
     /**
      * Get the user profile record associated with the user.
@@ -83,5 +102,25 @@ class User extends Authenticatable
     public function score(): HasMany
     {
         return $this->hasMany(Score::class);
+    }
+
+    /**
+     * Get the scores record associated with the user.
+     *
+     * @return HasMany
+     */
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    /**
+     * Determine if the user has verified their email address.
+     *
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return is_null($this->deactivated_at);
     }
 }

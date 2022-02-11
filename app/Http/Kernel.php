@@ -65,5 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'can.exam' => \App\Http\Middleware\ContinueExam::class,
         'can.claim' => \App\Http\Middleware\ContinueClaim::class,
+        'is.active' => \App\Http\Middleware\EnsureUserIsActive::class,
+        'not.active' => \App\Http\Middleware\RedirectIfActive::class
     ];
 }

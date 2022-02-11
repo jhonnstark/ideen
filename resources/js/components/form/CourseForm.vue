@@ -240,6 +240,9 @@ export default {
             if(!this.canSubmit){
                 return;
             }
+            if (this.isLoading) {
+                return;
+            }
             if (this.$v.$invalid || (this.record.poster === null && !this.isEdit)) {
                 this.errors = true;
             } else {

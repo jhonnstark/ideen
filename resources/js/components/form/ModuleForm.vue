@@ -112,6 +112,10 @@ export default {
     },
     methods:{
         register() {
+            if (this.isLoading) {
+                return
+            }
+
             if (this.$v.$invalid) {
                 this.errors = true;
             } else {
@@ -132,7 +136,7 @@ export default {
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
                     }
-                }).catch(error => console.log(error))
+                }).catch(error => console.log(error));
             }
         }
     },

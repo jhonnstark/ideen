@@ -88,6 +88,8 @@ Vue.component('exam-list', require('./components/list/ExamList.vue').default);
 Vue.component('my-exam-list', require('./components/User/MyExamList.vue').default);
 Vue.component('module-list', require('./components/list/ModuleList.vue').default);
 Vue.component('answer-list', require('./components/list/AnswerList.vue').default);
+Vue.component('payment-list', require('./components/list/PaymentList.vue').default);
+Vue.component('bills-list', require('./components/list/BillsList.vue').default);
 
 Vue.component('course-form', require('./components/form/CourseForm.vue').default);
 Vue.component('register-form', require('./components/form/RegisterForm.vue').default);
@@ -99,6 +101,8 @@ Vue.component('question-form', require('./components/form/QuestionForm.vue').def
 Vue.component('module-form', require('./components/form/ModuleForm.vue').default);
 Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
 Vue.component('answer-form', require('./components/form/AnswerForm.vue').default);
+Vue.component('payment-form', require('./components/form/PaymentForm.vue').default);
+
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
 Vue.component('user-courses', require('./components/layouts/UserCourses.vue').default);

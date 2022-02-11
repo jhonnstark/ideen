@@ -61,14 +61,37 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'UserController@index')->name('list');
                 Route::get('/list', 'UserController@list');
-                Route::get('/courses/{user}', 'UserController@courses');
-                Route::put('/courses/{user}/detach', 'UserController@detach');
                 Route::get('/register', 'UserController@create')->name('register');
                 Route::post('/register', 'UserController@store');
                 Route::get('/edit/{user}', 'UserController@show')->name('edit');
                 Route::put('/edit/{user}', 'UserController@update');
                 Route::post('/edit/{user}/associate', 'UserController@associate');
+                Route::get('/courses/{user}', 'UserController@courses');
+                Route::put('/courses/{user}/detach', 'UserController@detach');
                 Route::delete('/delete/{user}', 'UserController@destroy');
+            });
+
+        Route::prefix('/payment')
+            ->name('payment.')
+            ->group(function(){
+                Route::get('/', 'PaymentController@index')->name('list');
+                Route::get('/list', 'PaymentController@list');
+                Route::get('/list/{user}', 'PaymentController@show')->name('show');
+                Route::get('/list/{user}/bills', 'PaymentController@payments')->name('show');
+                Route::put('/suspend/{user}', 'PaymentController@suspend');
+
+                Route::get('/register', 'PaymentController@create')->name('register');
+                Route::post('/register', 'PaymentController@store');
+
+                Route::get('/paid/{payment}', 'PaymentController@getPaidBill');
+                Route::put('/paid/{payment}', 'PaymentController@update');
+                Route::delete('/delete/{payment}', 'PaymentController@destroy');
+            });
+
+        Route::prefix('/services')
+            ->name('services.')
+            ->group(function(){
+                Route::get('/', 'AdminDashboard@services')->name('dashboard');
             });
 
 
@@ -265,6 +288,7 @@ Route::prefix('/teacher')
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/deactivated', 'HomeController@deactivated')->name('deactivated');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/profile/info', 'HomeController@info')->name('info');
 

@@ -7,11 +7,14 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\UserCollection;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
@@ -25,9 +28,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('admin.list', $this->role);
     }
@@ -37,7 +40,7 @@ class UserController extends Controller
      *
      * @return UserCollection
      */
-    public function list()
+    public function list(): UserCollection
     {
         return new UserCollection(User::all());
     }
@@ -45,9 +48,9 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.register', $this->role);
     }
@@ -55,10 +58,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @param User $user
      * @return JsonResponse
      */
-    public function associate(Request $request, User $user)
+    public function associate(Request $request, User $user): JsonResponse
     {
         $validatedData = $request->validate([
             'course_id' => ['required'],
@@ -77,7 +81,7 @@ class UserController extends Controller
      * @param User $user
      * @return CourseCollection
      */
-    public function courses(User $user)
+    public function courses(User $user): CourseCollection
     {
         $user->load('courses.teacher');
         $courses = $user->courses;
@@ -90,7 +94,7 @@ class UserController extends Controller
      * @param UserRequest $request
      * @return JsonResponse
      */
-    public function store(UserRequest $request)
+    public function store(UserRequest $request): JsonResponse
     {
         $record = $request->validated();
         $record['password'] = Hash::make($record['password']);
@@ -106,7 +110,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param User $user
-     * @return UserResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return UserResource|Application|Factory|View
      */
     public function show(Request $request, User $user)
     {
@@ -121,11 +125,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UserUpdateRequest $request
      * @param User $user
      * @return JsonResponse
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $user): JsonResponse
     {
         $user->update($request->validated());
         return response()->json([
@@ -139,9 +143,9 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param User $user
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function detach(Request $request, User $user)
+    public function detach(Request $request, User $user): JsonResponse
     {
         $user->courses()->detach($request->input('id'));
         return response()->json([
@@ -157,7 +161,7 @@ class UserController extends Controller
      * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(User $user)
+    public function destroy(User $user): JsonResponse
     {
         $user->delete();
         return response()->json([

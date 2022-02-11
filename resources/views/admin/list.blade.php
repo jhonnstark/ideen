@@ -33,6 +33,12 @@
         <table-list role="{{ $role }}"></table-list>
     @elseif($role == 'exam')
         <exam-list role="{{ $role }}" rute="admin"></exam-list>
+    @elseif($role == 'payment')
+        @isset($id)
+            <bills-list role="{{ $role }}" id="{{ $id }}"></bills-list>
+        @else
+            <payment-list role="{{ $role }}"></payment-list>
+        @endif
     @else
         <admin-list role="{{ $role }}"></admin-list>
     @endif
