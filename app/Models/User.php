@@ -113,4 +113,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Payment::class);
     }
+
+    /**
+     * Determine if the user has verified their email address.
+     *
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return is_null($this->deactivated_at);
+    }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
-use App\Http\Requests\UserRequest;
 use App\Http\Resources\PaymentCollection;
 use App\Http\Resources\UserCollection;
 use App\Models\Payment;
@@ -12,9 +11,7 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class PaymentController extends Controller
