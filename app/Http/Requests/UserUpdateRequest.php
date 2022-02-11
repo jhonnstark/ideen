@@ -28,6 +28,16 @@ class UserUpdateRequest extends FormRequest
             'name' => 'required',
             'lastname' => 'required',
             'mothers_lastname' => 'required',
+            'phone' => 'required|alpha_num',
+            'enrollment' => 'required',
+            'address' => 'required',
+            'municipality' => 'required',
+            'state_id' => 'required|exists:states,id',
+            'birthday' => 'required|date',
+            'birthplace' => 'required',
+            'age' => 'required|numeric|min:1',
+            'emergency_phone' => 'required|alpha_num',
+            'curp' => 'required',
         ];
     }
 }

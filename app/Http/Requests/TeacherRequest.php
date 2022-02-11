@@ -37,7 +37,6 @@ class TeacherRequest extends FormRequest
             'birthplace' => 'required',
             'age' => 'required|numeric|min:1',
             'emergency_phone' => 'required|alpha_num',
-            'facebook' => 'required',
             'curp' => 'required',
             'password' => 'required|confirmed',
         ];

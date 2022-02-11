@@ -666,6 +666,7 @@ export default {
             axios.get('/admin/' + this.role + '/edit/' + this.edit)
                 .then(response => {
                     this.record = response.data.data;
+                    this.birthday = response.data.data.birthday
                 })
         }
         axios
@@ -674,6 +675,9 @@ export default {
     },
     methods:{
         register() {
+            if (this.isLoading) {
+                return;
+            }
             if (this.$v.$invalid
                 || (!this.isEdit && this.record.password === '')) {
                 this.errors = true;
@@ -701,6 +705,26 @@ export default {
             this.record.email = null;
             this.record.lastname = null;
             this.record.mothers_lastname = null;
+            this.phone = null;
+            this.enrollment = null;
+            this.address = null;
+            this.municipality = null;
+            this.state_id = null;
+            this.birthday = new Date();
+            this.birthplace = null;
+            this.age = 1;
+            this.emergency_phone = null;
+            this.facebook = null;
+            this.curp = null;
+            this.rfc = null;
+            this.bank = null;
+            this.account_number = null;
+            this.account_clabe = null;
+            this.degree_certificate = false;
+            this.birth_certificate = false;
+            this.professional_license = false;
+            this.school_certificate = false;
+            this.curp_certificate = false;
             this.record.password = null;
             this.record.password_confirmation = null;
         }
