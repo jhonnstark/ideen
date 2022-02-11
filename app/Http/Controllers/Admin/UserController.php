@@ -134,6 +134,7 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, User $user): JsonResponse
     {
         $user->update($request->validated());
+        $user->userProfile()->update($request->except(['name', 'lastname', 'mothers_lastname', 'email']));
         return response()->json([
             'status' => 200,
             'message' => 'Updated user'

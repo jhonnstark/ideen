@@ -111,7 +111,7 @@ class TeacherController extends Controller
      */
     public function update(TeacherUpdateRequest $request, Teacher $teacher): JsonResponse
     {
-        $teacher->update($request->validated());
+        $teacher->update($request->all());
         return response()->json([
             'status' => 200,
             'message' => 'Update teacher'

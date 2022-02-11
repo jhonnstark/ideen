@@ -23,6 +23,7 @@ mix.js('resources/js/app.js', 'public/js')
         files: [
             'resources/views/**/*.php',
             // 'app/**/*.php',
+            'app/Http/Resources/*.php',
             'routes/**/*.php',
             'public/js/*.js',
             'resources/js/components/*.vue',
