@@ -22,7 +22,8 @@ mix.js('resources/js/app.js', 'public/js')
         proxy: 'localhost',
         files: [
             'resources/views/**/*.php',
-            'app/**/*.php', 'routes/**/*.php',
+            // 'app/**/*.php',
+            'routes/**/*.php',
             'public/js/*.js',
             'resources/js/components/*.vue',
             'public/css/*.css'

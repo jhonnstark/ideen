@@ -52,7 +52,7 @@
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
-    name: "CourseForm",
+    name: "TableForm",
     props: ['role', 'edit'],
     data() {
         return {
