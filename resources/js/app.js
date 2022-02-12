@@ -16,6 +16,7 @@ import store from "./components/state";
 import VueEllipseProgress from 'vue-ellipse-progress';
 import VCalendar from 'v-calendar';
 import moment from 'vue-moment'
+import ToggleButton from 'vue-js-toggle-button'
 
 // import Lingallery from 'lingallery';
 
@@ -56,6 +57,12 @@ Vue.use(VueEllipseProgress);
  * An elegant calendar and datepicker plugin for Vuejs.
  */
 Vue.use(VCalendar);
+
+/**
+ * An elegant toggle for Vuejs.
+ */
+Vue.use(ToggleButton)
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

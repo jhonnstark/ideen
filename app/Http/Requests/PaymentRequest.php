@@ -24,8 +24,10 @@ class PaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required',
-            'discount' => 'required|numeric|min:0|max:100',
+            'invoice' => 'required_if:signing_up,0|numeric|nullable',
+            'signing_up' => 'required_if:invoice,null|numeric|min:0',
+            'discount' => 'required|numeric|min:0|max:40',
+            'scholarship' => 'required|numeric|min:0|max:40',
             'price' => 'required|numeric|min:0',
             'total' => 'required|numeric|min:0',
         ];

@@ -28,11 +28,15 @@
                 <div class="card">
                     <div class="card-header">
                         <p>{{ __('Formulario '.$role) }}</p>
-                        @if($role === 'payment')
-                            <h5>{{ $name }}</h5>
-                        @endif
                     </div>
                     <div class="card-body">
+                        @if($role === 'payment')
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <h5 class="text-center">{{ $name }}</h5>
+                                </div>
+                            </div>
+                        @endif
 
                         @if($role === 'course')
                             <course-form role="{{ $role }}"></course-form>

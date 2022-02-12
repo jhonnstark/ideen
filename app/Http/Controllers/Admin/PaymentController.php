@@ -73,7 +73,7 @@ class PaymentController extends Controller
     public function store(PaymentRequest $request, User $user): JsonResponse
     {
         $payment = $request->validated();
-        $payment['total'] = $payment['price'] * (1 - $payment['discount'] / 100);
+        $payment['total'] = $payment['price'] * (1 - $payment['scholarship'] / 100);
         $user->payments()->save(new Payment($payment));
         return response()->json([
             'status' => 201,

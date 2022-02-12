@@ -26,7 +26,7 @@
                 </tr>
 
                 <tr v-else v-for="item in items" :key="item.id">
-                    <td>{{ item.description }}</td>
+                    <td>{{ item.invoice }}</td>
                     <td>$ {{ item.price }}</td>
                     <td>{{ item.discount }} %</td>
                     <td>$ {{ item.total }}</td>
