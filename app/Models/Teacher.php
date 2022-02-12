@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @method static create(array $record)
+ */
 class Teacher extends Authenticatable
 {
     use Notifiable;
@@ -15,7 +18,29 @@ class Teacher extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname', 'mothers_lastname', 'email', 'password',
+        'name',
+        'lastname',
+        'mothers_lastname',
+        'email',
+        'password',
+        'phone',
+        'enrollment',
+        'birthday',
+        'birthplace',
+        'age',
+        'address',
+        'municipality',
+        'degree_certificate',
+        'professional_license',
+        'curp_certificate',
+        'emergency_phone',
+        'facebook',
+        'curp',
+        'rfc',
+        'bank',
+        'account_number',
+        'account_clabe',
+        'state_id',
     ];
 
     /**

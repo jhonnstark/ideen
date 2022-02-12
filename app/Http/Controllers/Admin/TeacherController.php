@@ -10,8 +10,12 @@ use App\Http\Resources\CourseCollection;
 use App\Http\Resources\TeacherCollection;
 use App\Models\Teacher;
 use App\Http\Resources\Teacher as TeacherResource;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class TeacherController extends Controller
 {
@@ -24,9 +28,9 @@ class TeacherController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('admin.list', $this->role);
     }
@@ -36,7 +40,7 @@ class TeacherController extends Controller
      *
      * @return
      */
-    public function list()
+    public function list(): TeacherCollection
     {
         return new TeacherCollection(Teacher::all());
     }
@@ -44,9 +48,9 @@ class TeacherController extends Controller
     /**
      * Display a register form of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.register', $this->role);
     }
@@ -57,7 +61,7 @@ class TeacherController extends Controller
      * @param Teacher $teacher
      * @return CourseCollection
      */
-    public function courses(Teacher $teacher)
+    public function courses(Teacher $teacher): CourseCollection
     {
         $teacher->load('courses');
         $courses = $teacher->courses->loadCount('student');
@@ -68,11 +72,11 @@ class TeacherController extends Controller
      * Store a newly created resource in storage.
      *
      * @param TeacherRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function store(TeacherRequest $request)
+    public function store(TeacherRequest $request): JsonResponse
     {
-        $record = $request->validated();
+        $record = $request->all();
         $record['password'] = Hash::make($record['password']);
         Teacher::create($record);
         return response()->json([
@@ -86,7 +90,7 @@ class TeacherController extends Controller
      *
      * @param Request $request
      * @param Teacher $teacher
-     * @return TeacherResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return TeacherResource|Application|Factory|View
      */
     public function show(Request $request, Teacher $teacher)
     {
@@ -103,11 +107,11 @@ class TeacherController extends Controller
      *
      * @param TeacherUpdateRequest $request
      * @param Teacher $teacher
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function update(TeacherUpdateRequest $request, Teacher $teacher)
+    public function update(TeacherUpdateRequest $request, Teacher $teacher): JsonResponse
     {
-        $teacher->update($request->validated());
+        $teacher->update($request->all());
         return response()->json([
             'status' => 200,
             'message' => 'Update teacher'
@@ -119,9 +123,9 @@ class TeacherController extends Controller
      *
      * @param Request $request
      * @param Teacher $teacher
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function detach(Request $request, Teacher $teacher)
+    public function detach(Request $request, Teacher $teacher): JsonResponse
     {
         $teacher->courses()->detach($request->input('id'));
         return response()->json([
@@ -134,10 +138,10 @@ class TeacherController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Teacher $teacher
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(Teacher $teacher)
+    public function destroy(Teacher $teacher): JsonResponse
     {
         $teacher->delete();
         return response()->json([

@@ -94,6 +94,7 @@ Vue.component('bills-list', require('./components/list/BillsList.vue').default);
 Vue.component('course-form', require('./components/form/CourseForm.vue').default);
 Vue.component('register-form', require('./components/form/RegisterForm.vue').default);
 Vue.component('table-form', require('./components/form/TableForm.vue').default);
+Vue.component('level-form', require('./components/form/LevelForm.vue').default);
 Vue.component('material-form', require('./components/form/MaterialForm.vue').default);
 Vue.component('teacher-profile-form', require('./components/teacher/TeacherProfileForm.vue').default);
 Vue.component('exam-form', require('./components/form/ExamForm.vue').default);

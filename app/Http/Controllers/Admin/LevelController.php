@@ -7,8 +7,11 @@ use App\Http\Requests\LevelRequest;
 use App\Http\Resources\LevelCollection;
 use App\Http\Resources\LevelResource;
 use App\Models\Level;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class LevelController extends Controller
 {
@@ -22,9 +25,9 @@ class LevelController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('admin.list', $this->role);
     }
@@ -32,9 +35,9 @@ class LevelController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return
+     * @return LevelCollection
      */
-    public function list()
+    public function list(): LevelCollection
     {
         return new LevelCollection(Level::all());
     }
@@ -42,9 +45,9 @@ class LevelController extends Controller
     /**
      * Display a register form of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.register', $this->role);
     }
@@ -55,7 +58,7 @@ class LevelController extends Controller
      * @param LevelRequest $request
      * @return JsonResponse
      */
-    public function store(LevelRequest $request)
+    public function store(LevelRequest $request): JsonResponse
     {
         Level::create($request->validated());
         return response()->json([
@@ -69,7 +72,7 @@ class LevelController extends Controller
      *
      * @param Request $request
      * @param Level $level
-     * @return LevelResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return LevelResource|Application|Factory|View
      */
     public function show(Request $request, Level $level)
     {
@@ -88,7 +91,7 @@ class LevelController extends Controller
      * @param Level $level
      * @return JsonResponse
      */
-    public function update(LevelRequest $request, Level $level)
+    public function update(LevelRequest $request, Level $level): JsonResponse
     {
         $level->update($request->validated());
         return response()->json([
@@ -102,8 +105,9 @@ class LevelController extends Controller
      *
      * @param Level $level
      * @return JsonResponse
+     * @throws \Exception
      */
-    public function destroy(Level $level)
+    public function destroy(Level $level): JsonResponse
     {
         $level->delete();
         return response()->json([
