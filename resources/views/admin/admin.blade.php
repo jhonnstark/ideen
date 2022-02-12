@@ -165,7 +165,7 @@
                     </svg>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Servicios escolares</h5>
+                    <h5 class="card-title">Constancias</h5>
                     <p class="card-text">Documentación, historiales y constancias.</p>
                     <a href="{{ route('admin.services.dashboard') }}" class="btn btn-primary">Entrar</a>
                 </div>
