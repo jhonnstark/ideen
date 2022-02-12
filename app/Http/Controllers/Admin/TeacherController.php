@@ -38,7 +38,7 @@ class TeacherController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return
+     * @return TeacherCollection
      */
     public function list(): TeacherCollection
     {

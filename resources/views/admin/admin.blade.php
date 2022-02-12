@@ -167,7 +167,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Constancias</h5>
                     <p class="card-text">Constancias para alumnos y profesores.</p>
-                    <a href="{{ route('admin.services.dashboard') }}" class="btn btn-primary">Entrar</a>
+{{--                    <a href="{{ route('admin.services.dashboard') }}" class="btn btn-primary">Entrar</a>--}}
                 </div>
             </div>
         </div>

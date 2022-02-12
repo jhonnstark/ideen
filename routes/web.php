@@ -94,16 +94,6 @@ Route::prefix('/admin')
                 Route::delete('/delete/{payment}', 'PaymentController@destroy');
             });
 
-        Route::prefix('/services')
-            ->name('services.')
-            ->group(function(){
-                Route::get('/', 'AdminDashboard@services')->name('dashboard');
-                Route::get('/user/list', 'AdminDashboard@user')->name('user.list');
-                Route::get('/user/json', 'AdminDashboard@userJson');
-                Route::get('/teacher/list', 'AdminDashboard@teacher')->name('teacher.list');
-                Route::get('/teacher/json', 'AdminDashboard@teacherJson');
-            });
-
 
         Route::prefix('/course')
             ->name('course.')
