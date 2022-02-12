@@ -130,4 +130,14 @@ class User extends Authenticatable
     {
         return is_null($this->deactivated_at);
     }
+
+    /**
+     * The material that belong to the user.
+     *
+     * @return BelongsToMany
+     */
+    public function material(): BelongsToMany
+    {
+        return $this->belongsToMany(Material::class, 'certificates');
+    }
 }

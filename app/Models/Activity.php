@@ -52,7 +52,7 @@ class Activity extends Model
     }
 
     /**
-     * The student that belong to the Activity.
+     * The material that belong to the Activity.
      *
      * @return BelongsToMany
      */
