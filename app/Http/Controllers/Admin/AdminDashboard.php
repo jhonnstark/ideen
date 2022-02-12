@@ -27,4 +27,24 @@ class AdminDashboard extends Controller
     {
         return view('admin.services');
     }
+
+    /**
+     * Show the user list.
+     *
+     * @return Renderable
+     */
+    public function user(): Renderable
+    {
+        return view('admin.list');
+    }
+
+    /**
+     * Show the admin dashboard.
+     *
+     * @return Renderable
+     */
+    public function teacher(): Renderable
+    {
+        return view('admin.list');
+    }
 }

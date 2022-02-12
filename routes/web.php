@@ -52,7 +52,7 @@ Route::prefix('/admin')
                 Route::get('/register', 'TeacherController@create')->name('register');
                 Route::post('/register', 'TeacherController@store');
                 Route::get('/edit/{teacher}', 'TeacherController@show')->name('edit');
-                Route::put('/edit/{teacher}', 'TeacherController@update');
+                Route::put('/edit/{teacher}','TeacherController@update');
                 Route::delete('/delete/{teacher}', 'TeacherController@destroy');
             });
 
@@ -98,6 +98,10 @@ Route::prefix('/admin')
             ->name('services.')
             ->group(function(){
                 Route::get('/', 'AdminDashboard@services')->name('dashboard');
+                Route::get('/user/list', 'AdminDashboard@user')->name('user.list');
+                Route::get('/user/json', 'AdminDashboard@userJson');
+                Route::get('/teacher/list', 'AdminDashboard@teacher')->name('teacher.list');
+                Route::get('/teacher/json', 'AdminDashboard@teacherJson');
             });
 
 
