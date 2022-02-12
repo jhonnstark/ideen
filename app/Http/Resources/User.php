@@ -11,6 +11,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $mothers_lastname
  * @property mixed $email
  * @property mixed $userProfile
+ * @property mixed $id
+ * @property mixed $deactivated_at
  * @method load(string $string)
  */
 class User extends JsonResource
@@ -25,6 +27,7 @@ class User extends JsonResource
     {
         $this->load('userProfile');
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'lastname' => $this->lastname,
             'mothers_lastname' => $this->mothers_lastname,

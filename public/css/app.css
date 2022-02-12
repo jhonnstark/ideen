@@ -13156,6 +13156,8 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding: 0.7rem;
+  vertical-align: middle;
 }
 
 .table th:first-child,

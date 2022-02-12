@@ -86,8 +86,8 @@ Route::prefix('/admin')
                 Route::get('/list/{user}/bills', 'PaymentController@payments')->name('show');
                 Route::put('/suspend/{user}', 'PaymentController@suspend');
 
-                Route::get('/register', 'PaymentController@create')->name('register');
-                Route::post('/register', 'PaymentController@store');
+                Route::get('/register/{user}', 'PaymentController@create')->name('register');
+                Route::post('/register/{user}', 'PaymentController@store');
 
                 Route::get('/paid/{payment}', 'PaymentController@getPaidBill');
                 Route::put('/paid/{payment}', 'PaymentController@update');

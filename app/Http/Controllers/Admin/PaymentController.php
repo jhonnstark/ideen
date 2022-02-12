@@ -39,21 +39,29 @@ class PaymentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return UserCollection
+     * @return JsonResponse
      */
-    public function list(): UserCollection
+    public function list(): JsonResponse
     {
-        return new UserCollection(User::all());
+        return response()->json([
+            'data' => User::with('payments')->get(),
+            'status' => 200,
+            'message' => 'Users listed',
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param User $user
      * @return View
      */
-    public function create(): View
+    public function create(User $user): View
     {
-        return view('admin.register', $this->role);
+        $role = $this->role['role'];
+        $id = $user->id;
+        $name = $user->name . ' ' . $user->lastname . ' ' . $user->mothers_lastname;
+        return view('admin.register', compact('role', 'id', 'name'));
     }
 
     /**
@@ -62,14 +70,11 @@ class PaymentController extends Controller
      * @param PaymentRequest $request
      * @return JsonResponse
      */
-    public function store(PaymentRequest $request): JsonResponse
+    public function store(PaymentRequest $request, User $user): JsonResponse
     {
         $payment = $request->validated();
         $payment['total'] = $payment['price'] * (1 - $payment['discount'] / 100);
-        $users = User::all();
-        foreach ($users as $user) {
-            $user->payments()->save(new Payment($payment));
-        }
+        $user->payments()->save(new Payment($payment));
         return response()->json([
             'status' => 201,
             'message' => 'created',

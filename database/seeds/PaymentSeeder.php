@@ -12,7 +12,7 @@ class PaymentSeeder extends Seeder
     public function run(): void
     {
         \App\Models\User::all()->each(function ($student) {
-            $student->payments()->saveMany(factory(\App\Models\Payment::class, 10)->make());
+            $student->payments()->saveMany(factory(\App\Models\Payment::class, 1)->make());
         });
     }
 }

@@ -16,6 +16,9 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed payments
  * @property mixed $courses
  * @property mixed $deactivated_at
+ * @property mixed $lastname
+ * @property mixed $name
+ * @property mixed $mothers_lastname
  * @method static create(array $record)
  */
 class User extends Authenticatable
@@ -33,7 +36,6 @@ class User extends Authenticatable
         'mothers_lastname',
         'email',
         'password',
-        'deactivated_at',
     ];
 
     /**

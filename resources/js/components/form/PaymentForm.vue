@@ -128,7 +128,7 @@ import {required, minLength, maxLength, between, decimal, minValue} from 'vuelid
 
 export default {
     name: "CourseForm",
-    props: ['role'],
+    props: ['role', 'id'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -139,7 +139,7 @@ export default {
                 discount: 0,
                 total: 0,
             },
-            rute: '/admin/' + this.role + '/register',
+            rute: '/admin/' + this.role + '/register/' + this.id,
             isLoading:false
         }
     },
@@ -163,6 +163,8 @@ export default {
                 minValue: minValue(0.01)
             }
         },
+    },
+    created() {
     },
     methods:{
         register() {
