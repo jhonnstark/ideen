@@ -15,13 +15,12 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->double('discount', 8, 2)->nullable();
+            $table->string('invoice')->nullable();
+            $table->double('signing_up', 8, 2)->nullable();
             $table->double('price', 8, 2);
+            $table->double('discount', 5, 2)->nullable();
+            $table->double('scholarship', 5, 2)->nullable();
             $table->double('total', 8, 2);
-            $table->string('name')->nullable();
-            $table->string('url')->nullable();
-            $table->timestamp('paid_at')->nullable();
             $table->foreignId('user_id')->constrained()
                 ->onDelete('cascade');
             $table->timestamps();

@@ -24,7 +24,7 @@ class Content extends Model
     ];
 
     /**
-     * The student that belong to the course.
+     * The material that belong to the course.
      *
      * @return BelongsToMany
      */

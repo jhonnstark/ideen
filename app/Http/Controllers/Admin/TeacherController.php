@@ -10,15 +10,32 @@ use App\Http\Resources\CourseCollection;
 use App\Http\Resources\TeacherCollection;
 use App\Models\Teacher;
 use App\Http\Resources\Teacher as TeacherResource;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TeacherController extends Controller
 {
+    /**
+     * MaterialController instance.
+     */
+    private $materialController;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->materialController = new MaterialController();
+    }
 
     /**
      * Display a listing view of the resource.
@@ -38,7 +55,7 @@ class TeacherController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return
+     * @return TeacherCollection
      */
     public function list(): TeacherCollection
     {
@@ -116,6 +133,31 @@ class TeacherController extends Controller
             'status' => 200,
             'message' => 'Update teacher'
         ]);
+    }
+
+    /**
+     * Store a new certificate in the S3
+     *
+     * @param Teacher $teacher
+     * @return TeacherResource
+     */
+    public function certificate(Teacher $teacher): TeacherResource
+    {
+        $storeCertificate = $this->materialController->storeCertificate($this->role['role'], $teacher->toArray());
+        $teacher->material()->create($storeCertificate);
+        return new TeacherResource($teacher);
+    }
+
+    /**
+     * Show the certificate in the S3
+     *
+     * @param Teacher $teacher
+     * @return StreamedResponse
+     */
+    public function download(Teacher $teacher): StreamedResponse
+    {
+        $material = $teacher->material()->first();
+        return Storage::disk('s3')->download($material->url);
     }
 
     /**

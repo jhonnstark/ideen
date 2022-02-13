@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, 1)->create()
+        factory(User::class, 2)->create()
             ->each(function ($user) {
                 $user->userProfile()->save(factory(UserProfile::class)->make());
             });

@@ -47,12 +47,14 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'TeacherController@index')->name('list');
                 Route::get('/list', 'TeacherController@list');
+                Route::get('/certificate/{teacher}', 'TeacherController@download');
+                Route::put('/certificate/{teacher}', 'TeacherController@certificate');
                 Route::get('/courses/{teacher}', 'TeacherController@courses');
                 Route::put('/courses/{teacher}/detach', 'TeacherController@detach');
                 Route::get('/register', 'TeacherController@create')->name('register');
                 Route::post('/register', 'TeacherController@store');
                 Route::get('/edit/{teacher}', 'TeacherController@show')->name('edit');
-                Route::put('/edit/{teacher}', 'TeacherController@update');
+                Route::put('/edit/{teacher}','TeacherController@update');
                 Route::delete('/delete/{teacher}', 'TeacherController@destroy');
             });
 
@@ -61,6 +63,8 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'UserController@index')->name('list');
                 Route::get('/list', 'UserController@list');
+                Route::get('/certificate/{user}', 'UserController@download');
+                Route::put('/certificate/{user}', 'UserController@certificate');
                 Route::get('/register', 'UserController@create')->name('register');
                 Route::post('/register', 'UserController@store');
                 Route::get('/edit/{user}', 'UserController@show')->name('edit');
@@ -86,18 +90,12 @@ Route::prefix('/admin')
                 Route::get('/list/{user}/bills', 'PaymentController@payments')->name('show');
                 Route::put('/suspend/{user}', 'PaymentController@suspend');
 
-                Route::get('/register', 'PaymentController@create')->name('register');
-                Route::post('/register', 'PaymentController@store');
+                Route::get('/register/{user}', 'PaymentController@create')->name('register');
+                Route::post('/register/{user}', 'PaymentController@store');
 
                 Route::get('/paid/{payment}', 'PaymentController@getPaidBill');
                 Route::put('/paid/{payment}', 'PaymentController@update');
                 Route::delete('/delete/{payment}', 'PaymentController@destroy');
-            });
-
-        Route::prefix('/services')
-            ->name('services.')
-            ->group(function(){
-                Route::get('/', 'AdminDashboard@services')->name('dashboard');
             });
 
 

@@ -8,9 +8,12 @@ use App\Http\Requests\AdminUpdateRequest;
 use App\Http\Resources\AdminCollection;
 use App\Models\Admin;
 use App\Http\Resources\Admin as AdminResource;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class AdminController extends Controller
 {
@@ -24,9 +27,9 @@ class AdminController extends Controller
     /**
      * Display a listing view of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('admin.list', $this->role);
     }
@@ -36,7 +39,7 @@ class AdminController extends Controller
      *
      * @return AdminCollection
      */
-    public function list()
+    public function list(): AdminCollection
     {
         return new AdminCollection(Admin::all());
     }
@@ -44,9 +47,9 @@ class AdminController extends Controller
     /**
      * Display a register form of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.register', $this->role);
     }
@@ -55,9 +58,9 @@ class AdminController extends Controller
      * Store a newly created resource in storage.
      *
      * @param AdminRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function store(AdminRequest $request)
+    public function store(AdminRequest $request): JsonResponse
     {
         $record = $request->validated();
         $record['password'] = Hash::make($record['password']);
@@ -73,7 +76,7 @@ class AdminController extends Controller
      *
      * @param Request $request
      * @param Admin $admin
-     * @return AdminResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return AdminResource|Application|Factory|View
      */
     public function show(Request $request, Admin $admin)
     {
@@ -90,9 +93,9 @@ class AdminController extends Controller
      *
      * @param AdminUpdateRequest $request
      * @param Admin $admin
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function update(AdminUpdateRequest $request, Admin $admin)
+    public function update(AdminUpdateRequest $request, Admin $admin): JsonResponse
     {
         $admin->update($request->validated());
         return response()->json([
@@ -105,10 +108,10 @@ class AdminController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Admin $admin
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(Admin $admin)
+    public function destroy(Admin $admin): JsonResponse
     {
         $admin->delete();
         return response()->json([

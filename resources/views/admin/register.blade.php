@@ -26,23 +26,32 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Formulario '.$role) }}</div>
+                    <div class="card-header">
+                        <p>{{ __('Formulario '.$role) }}</p>
+                    </div>
                     <div class="card-body">
+                        @if($role === 'payment')
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <h5 class="text-center">{{ $name }}</h5>
+                                </div>
+                            </div>
+                        @endif
 
-                        @if($role == 'course')
+                        @if($role === 'course')
                             <course-form role="{{ $role }}"></course-form>
-                        @elseif($role == 'module')
+                        @elseif($role === 'module')
                             <module-form role="{{ $role }}" id="{{ $course }}"></module-form>
-                        @elseif($role == 'category')
+                        @elseif($role === 'category')
                             <table-form role="{{ $role }}"></table-form>
-                        @elseif($role == 'level')
+                        @elseif($role === 'level')
                             <level-form role="{{ $role }}"></level-form>
-                        @elseif($role == 'activity')
+                        @elseif($role === 'activity')
                             <material-form role="{{ $role }}" id="{{ $module }}"></material-form>
-                        @elseif($role == 'content')
+                        @elseif($role === 'content')
                             <material-form role="{{ $role }}" id="{{ $module }}"></material-form>
-                        @elseif($role == 'payment')
-                            <payment-form role="{{ $role }}"></payment-form>
+                        @elseif($role === 'payment')
+                            <payment-form role="{{ $role }}" id="{{ $id }}"></payment-form>
                         @else
                             <register-form role="{{ $role }}"></register-form>
                         @endif

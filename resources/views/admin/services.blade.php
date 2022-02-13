@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row justify-content-between">
-            <h1>Servicios escolares</h1>
+            <h1>Constancias</h1>
             <hr class="col-12">
         </div>
     </div>
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Profesores</h5>
                     <p class="card-text">Lista de profesores.</p>
-                    <a href="{{ route('admin.teacher.list') }}" class="btn btn-primary">Entrar</a>
+                    <a href="{{ route('admin.services.teacher.list') }}" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Alumnos</h5>
                     <p class="card-text">Lista de alumnos.</p>
-                    <a href="{{ route('admin.user.list')  }}" class="btn btn-primary">Entrar</a>
+                    <a href="{{ route('admin.services.user.list')  }}" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
 

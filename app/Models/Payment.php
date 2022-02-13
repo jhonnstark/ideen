@@ -22,7 +22,7 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        'description', 'discount', 'price', 'total', 'paid_at', 'user_id'
+        'invoice', 'discount', 'price', 'total', 'signing_up', 'user_id', 'scholarship'
     ];
 
     /**
