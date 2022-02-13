@@ -8,6 +8,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\Teacher as TeacherResource;
 use App\Http\Resources\UserCollection;
+use App\Models\Teacher;
 use App\Models\UserProfile;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -16,7 +17,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UserController extends Controller
 {
@@ -167,6 +170,18 @@ class UserController extends Controller
         $storeCertificate = $this->materialController->storeCertificate($this->role['role'], $user->toArray());
         $user->material()->create($storeCertificate);
         return new UserResource($user);
+    }
+
+    /**
+     * Show the certificate in the S3
+     *
+     * @param User $user
+     * @return StreamedResponse
+     */
+    public function download(User $user): StreamedResponse
+    {
+        $material = $user->material()->first();
+        return Storage::disk('s3')->download($material->url);
     }
 
     /**

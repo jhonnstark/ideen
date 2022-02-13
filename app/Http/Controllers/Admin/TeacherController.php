@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TeacherController extends Controller
 {
@@ -145,6 +146,18 @@ class TeacherController extends Controller
         $storeCertificate = $this->materialController->storeCertificate($this->role['role'], $teacher->toArray());
         $teacher->material()->create($storeCertificate);
         return new TeacherResource($teacher);
+    }
+
+    /**
+     * Show the certificate in the S3
+     *
+     * @param Teacher $teacher
+     * @return StreamedResponse
+     */
+    public function download(Teacher $teacher): StreamedResponse
+    {
+        $material = $teacher->material()->first();
+        return Storage::disk('s3')->download($material->url);
     }
 
     /**
