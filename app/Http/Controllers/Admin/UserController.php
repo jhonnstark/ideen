@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\CourseCollection;
+use App\Http\Resources\Teacher as TeacherResource;
 use App\Http\Resources\UserCollection;
 use App\Models\UserProfile;
 use Illuminate\Contracts\Foundation\Application;
@@ -19,6 +20,20 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
+    /**
+     * MaterialController instance.
+     */
+    private $materialController;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->materialController = new MaterialController();
+    }
 
     /**
      * Display a listing view of the resource.
@@ -139,6 +154,19 @@ class UserController extends Controller
             'status' => 200,
             'message' => 'Updated user'
         ]);
+    }
+
+    /**
+     * Store a new certificate in the S3
+     *
+     * @param User $user
+     * @return UserResource
+     */
+    public function certificate(User $user): UserResource
+    {
+        $storeCertificate = $this->materialController->storeCertificate($this->role['role'], $user->toArray());
+        $user->material()->create($storeCertificate);
+        return new UserResource($user);
     }
 
     /**

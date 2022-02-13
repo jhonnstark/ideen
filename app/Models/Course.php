@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed module
  * @property mixed student
  * @property mixed id
+ * @property mixed $url_big
+ * @property mixed $name
  */
 class Course extends Model
 {

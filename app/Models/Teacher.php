@@ -8,6 +8,8 @@ use Illuminate\Notifications\Notifiable;
 
 /**
  * @method static create(array $record)
+ * @property mixed $material
+ * @property mixed $id
  */
 class Teacher extends Authenticatable
 {

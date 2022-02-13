@@ -13,6 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $userProfile
  * @property mixed $id
  * @property mixed $deactivated_at
+ * @property mixed $material
  * @method load(string $string)
  */
 class User extends JsonResource
@@ -25,7 +26,7 @@ class User extends JsonResource
      */
     public function toArray($request): array
     {
-        $this->load('userProfile');
+        $this->load(['userProfile', 'material']);
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -47,6 +48,7 @@ class User extends JsonResource
             'emergency_phone' => $this->userProfile->emergency_phone,
             'facebook' => $this->userProfile->facebook,
             'curp' => $this->userProfile->curp,
+            'material' => $this->material
         ];
     }
 

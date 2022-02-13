@@ -10,15 +10,31 @@ use App\Http\Resources\CourseCollection;
 use App\Http\Resources\TeacherCollection;
 use App\Models\Teacher;
 use App\Http\Resources\Teacher as TeacherResource;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class TeacherController extends Controller
 {
+    /**
+     * MaterialController instance.
+     */
+    private $materialController;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->materialController = new MaterialController();
+    }
 
     /**
      * Display a listing view of the resource.
@@ -116,6 +132,19 @@ class TeacherController extends Controller
             'status' => 200,
             'message' => 'Update teacher'
         ]);
+    }
+
+    /**
+     * Store a new certificate in the S3
+     *
+     * @param Teacher $teacher
+     * @return TeacherResource
+     */
+    public function certificate(Teacher $teacher): TeacherResource
+    {
+        $storeCertificate = $this->materialController->storeCertificate($this->role['role'], $teacher->toArray());
+        $teacher->material()->create($storeCertificate);
+        return new TeacherResource($teacher);
     }
 
     /**

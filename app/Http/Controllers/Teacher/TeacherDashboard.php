@@ -49,7 +49,7 @@ class TeacherDashboard extends Controller
      *
      * @return Renderable
      */
-    public function teacher()
+    public function teacher(): Renderable
     {
         return view('teacher.teacher');
     }
@@ -59,7 +59,7 @@ class TeacherDashboard extends Controller
      *
      * @return Renderable
      */
-    public function profile()
+    public function profile(): Renderable
     {
         return view('teacher.profile', ['id' => Auth::id()]);
     }
@@ -69,7 +69,7 @@ class TeacherDashboard extends Controller
      *
      * @return Teacher
      */
-    public function info()
+    public function info(): Teacher
     {
         return new Teacher(Auth::user());
     }
@@ -79,7 +79,7 @@ class TeacherDashboard extends Controller
      *
      * @return Renderable
      */
-    public function courses()
+    public function courses(): Renderable
     {
         return view('teacher.courses', ['id' => Auth::id()]);
     }
@@ -89,7 +89,7 @@ class TeacherDashboard extends Controller
      *
      * @return CourseCollection
      */
-    public function list()
+    public function list(): CourseCollection
     {
         $user = Auth::user();
         $user->load('courses');
