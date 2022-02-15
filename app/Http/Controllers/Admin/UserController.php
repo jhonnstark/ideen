@@ -180,6 +180,7 @@ class UserController extends Controller
      */
     public function certificate(User $user): UserResource
     {
+        $user->load('userProfile');
         $storeCertificate = $this->materialController->storeCertificate($this->role['role'], $user->toArray());
         $user->material()->create($storeCertificate);
         return new UserResource($user);

@@ -46,6 +46,7 @@ class MaterialController extends Controller
         $name = $model['id'] . '_' . $role . '_constancia';
         $url = 'certificados/' . $role . '/' . $name .'.pdf';
         $view = $role === 'user' ? 'certificate' : 'work_proof';
+        $model['date'] = now()->locale('es')->isoFormat('LL');
         $content = PDF::loadView($view, $model)->output();
         Storage::disk('s3')->put($url, $content);
 

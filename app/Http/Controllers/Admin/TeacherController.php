@@ -144,7 +144,7 @@ class TeacherController extends Controller
     public function certificateView(Teacher $teacher)
     {
         $date = now()->locale('es')->isoFormat('LL');
-        return view('work_proof', $teacher);
+        return view('work_proof', $teacher)->with('date', $date);
     }
 
     /**
