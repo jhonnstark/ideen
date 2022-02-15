@@ -160,6 +160,19 @@ class UserController extends Controller
     }
 
     /**
+     * Show a new certificate
+     *
+     * @param User $user
+     * @return Application|Factory|View
+     */
+    public function certificateView(User $user)
+    {
+        $date = now()->locale('es')->isoFormat('LL');
+        $user->load('userProfile');
+        return view('certificate', $user)->with('date', $date);
+    }
+
+    /**
      * Store a new certificate in the S3
      *
      * @param User $user

@@ -76,7 +76,7 @@ export default {
     methods: {
         generate(id) {
             axios
-                .put('/admin/' + this.role + '/certificate/' + id)
+                .post('/admin/' + this.role + '/certificate/' + id)
                 .then(response => {
                     this.$swal('Guardado', 'Constancia generada exitosamente.', 'success');
                     this.items = this.items.map((item) => {

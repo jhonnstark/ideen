@@ -136,6 +136,18 @@ class TeacherController extends Controller
     }
 
     /**
+     * Show a new certificate
+     *
+     * @param Teacher $teacher
+     * @return Application|Factory|View
+     */
+    public function certificateView(Teacher $teacher)
+    {
+        $date = now()->locale('es')->isoFormat('LL');
+        return view('work_proof', $teacher);
+    }
+
+    /**
      * Store a new certificate in the S3
      *
      * @param Teacher $teacher

@@ -17,55 +17,35 @@
                 margin: 0;
             }
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
 
+        <div class="wrap">
+
+            <div class="logo">
+
+            </div>
+            <div class="date">
+
+            </div>
             <div class="content">
+                <h5>Mexicali Baja California {{  }}</h5>
                 <div class="title m-b-md">
                     {{ $name }}
+
+                    Por medio de la presente y en virtud de los archivos que obran en esta institución
+                    hago constar que la C. EDGAR MICHAEL GARCÍA LARIOS, está inscrito como
+                    alumno del Instituto de Educación Superior en Emprendimiento y Negocios
+                    IDEEN, y cursa el NOVENO CUATRIMESTRE de la LICENCIATURA EN
+                    DERECHO, con número de RVOE-BC-L062-M1/16 en el turno matutino.
+                    Sin más por el momento, se extiende la presente para los fines que al interesado
+                    convengan.
+                    Quedo a sus órdenes en caso de que requieran alguna información adicional.
+                </div>
+                <h5>Atentamente</h5>
+                <div class="sign">
+
                 </div>
             </div>
         </div>
