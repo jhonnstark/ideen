@@ -95,6 +95,13 @@ Route::prefix('/admin')
                 Route::get('/register/{user}', 'PaymentController@create')->name('register');
                 Route::post('/register/{user}', 'PaymentController@store');
 
+                Route::prefix('/bill')
+                    ->name('bill.')
+                    ->group(function(){
+                        Route::get('/register/{user}', 'PaymentController@create')->name('register');
+                        Route::post('/register/{user}', 'PaymentController@store');
+                    });
+
                 Route::get('/paid/{payment}', 'PaymentController@getPaidBill');
                 Route::put('/paid/{payment}', 'PaymentController@update');
                 Route::delete('/delete/{payment}', 'PaymentController@destroy');
