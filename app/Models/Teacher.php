@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static create(array $record)
  * @property mixed $material
  * @property mixed $id
+ * @property mixed created_at
  */
 class Teacher extends Authenticatable
 {

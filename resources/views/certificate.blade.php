@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Recibo</title>
+        <title>Constancia de estudios</title>
 
         <!-- Styles -->
         <style>
@@ -17,7 +17,7 @@
                 margin: 0;
             }
             .wrap {
-                margin: 0 30px;
+                margin: 0 50px;
             }
             .logo {
                 height: 200px;
@@ -25,8 +25,18 @@
             .date {
                 text-align: right;
             }
+            .date p {
+                font-family: sans-serif;
+                font-weight: normal;
+            }
             .title {
                 text-align: justify;
+            }
+            .title p {
+                line-height: 1.5;
+                font-family: sans-serif;
+                font-weight: normal;
+                margin: 16px 0;
             }
             .sign {
                 font-weight: bold;
@@ -49,11 +59,9 @@
     </head>
     <body>
         <div class="wrap">
-            <div class="logo">
-
-            </div>
+            <div class="logo"></div>
             <div class="date">
-                <p>Mexicali Baja California {{ $date }}</p>
+                <p>Mexicali Baja California, {{ $date }}</p>
             </div>
             <div class="content">
                 <h5>A QUIEN CORRESPONDA. - <br>
