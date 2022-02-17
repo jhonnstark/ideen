@@ -89,7 +89,7 @@ Route::prefix('/admin')
                 Route::get('/', 'PaymentController@index')->name('list');
                 Route::get('/list', 'PaymentController@list');
                 Route::get('/list/{user}', 'PaymentController@show')->name('show');
-                Route::get('/list/{user}/bills', 'PaymentController@payments');
+                Route::get('/list/{user}/bills', 'BillController@index');
                 Route::put('/suspend/{user}', 'PaymentController@suspend');
 
                 Route::get('/register/{user}', 'PaymentController@create')->name('register');
@@ -98,8 +98,8 @@ Route::prefix('/admin')
                 Route::prefix('/bill')
                     ->name('bill.')
                     ->group(function(){
-                        Route::get('/register/{user}', 'PaymentController@create')->name('register');
-                        Route::post('/register/{user}', 'PaymentController@store');
+                        Route::get('/register/{user}', 'BillController@create')->name('register');
+                        Route::post('/register/{user}', 'BillController@store');
                     });
 
                 Route::get('/paid/{payment}', 'PaymentController@getPaidBill');

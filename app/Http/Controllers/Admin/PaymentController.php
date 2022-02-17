@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
-use App\Http\Resources\BillCollection;
-use App\Http\Resources\PaymentCollection;
-use App\Http\Resources\UserCollection;
 use App\Models\Payment;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
@@ -81,18 +78,6 @@ class PaymentController extends Controller
             'status' => 201,
             'message' => 'created',
         ], 201);
-    }
-
-    /**
-     * return payments list for a user.
-     *
-     * @param User $user
-     * @return BillCollection
-     */
-    public function payments(User $user): BillCollection
-    {
-        $user->load('bills');
-        return new BillCollection($user->bills);
     }
 
     /**
