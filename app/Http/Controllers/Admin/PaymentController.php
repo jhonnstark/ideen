@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
+use App\Http\Resources\BillCollection;
 use App\Http\Resources\PaymentCollection;
 use App\Http\Resources\UserCollection;
 use App\Models\Payment;
@@ -68,6 +69,7 @@ class PaymentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param PaymentRequest $request
+     * @param User $user
      * @return JsonResponse
      */
     public function store(PaymentRequest $request, User $user): JsonResponse
@@ -85,12 +87,12 @@ class PaymentController extends Controller
      * return payments list for a user.
      *
      * @param User $user
-     * @return PaymentCollection
+     * @return BillCollection
      */
-    public function payments(User $user): PaymentCollection
+    public function payments(User $user): BillCollection
     {
-        $user->load('payments');
-        return new PaymentCollection($user->payments);
+        $user->load('bills');
+        return new BillCollection($user->bills);
     }
 
     /**
