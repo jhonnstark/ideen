@@ -110,6 +110,7 @@ Vue.component('module-form', require('./components/form/ModuleForm.vue').default
 Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
 Vue.component('answer-form', require('./components/form/AnswerForm.vue').default);
 Vue.component('payment-form', require('./components/form/PaymentForm.vue').default);
+Vue.component('bill-form', require('./components/form/BillForm.vue').default);
 
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);

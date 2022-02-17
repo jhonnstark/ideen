@@ -81,19 +81,6 @@ class PaymentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param User $user
-     * @return Application|Factory|View
-     */
-    public function show(User $user)
-    {
-        $role = $this->role['role'];
-        $id = $user->id;
-        return view('admin.list', compact('role', 'id'));
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param Payment $payment

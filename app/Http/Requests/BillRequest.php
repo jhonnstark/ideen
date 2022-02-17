@@ -11,9 +11,9 @@ class BillRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,13 @@ class BillRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'description' => 'required',
+            'discount' => 'required|numeric',
+            'total' => 'required|numeric',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }

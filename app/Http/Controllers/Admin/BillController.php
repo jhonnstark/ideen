@@ -7,6 +7,8 @@ use App\Http\Requests\BillRequest;
 use App\Http\Resources\BillCollection;
 use App\Models\Bill;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -17,7 +19,7 @@ class BillController extends Controller
     /**
      * Display a listing view of the resource.
      */
-    private $role = ['role' => 'payment'];
+    private $role = ['role' => 'bills'];
 
     /**
      * return payments list for a user.
@@ -29,6 +31,19 @@ class BillController extends Controller
     {
         $user->load('bills');
         return new BillCollection($user->bills);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param User $user
+     * @return Application|Factory|View
+     */
+    public function show(User $user)
+    {
+        $role = $this->role['role'];
+        $id = $user->id;
+        return view('admin.list', compact('role', 'id'));
     }
 
     /**

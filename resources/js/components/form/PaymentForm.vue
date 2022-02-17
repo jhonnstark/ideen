@@ -193,7 +193,7 @@
 import { required, minLength, maxLength, between, decimal, minValue, numeric, requiredIf, requiredUnless } from 'vuelidate/lib/validators';
 
 export default {
-    name: "CourseForm",
+    name: "PaymentForm",
     props: ['role', 'id'],
     data() {
         return {

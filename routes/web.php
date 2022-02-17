@@ -88,25 +88,25 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'PaymentController@index')->name('list');
                 Route::get('/list', 'PaymentController@list');
-                Route::get('/list/{user}', 'PaymentController@show')->name('show');
-                Route::get('/list/{user}/bills', 'BillController@index');
                 Route::put('/suspend/{user}', 'PaymentController@suspend');
 
                 Route::get('/register/{user}', 'PaymentController@create')->name('register');
                 Route::post('/register/{user}', 'PaymentController@store');
 
-                Route::prefix('/bill')
-                    ->name('bill.')
-                    ->group(function(){
-                        Route::get('/register/{user}', 'BillController@create')->name('register');
-                        Route::post('/register/{user}', 'BillController@store');
-                    });
 
                 Route::get('/paid/{payment}', 'PaymentController@getPaidBill');
                 Route::put('/paid/{payment}', 'PaymentController@update');
                 Route::delete('/delete/{payment}', 'PaymentController@destroy');
             });
 
+        Route::prefix('/bills')
+            ->name('bills.')
+            ->group(function(){
+                Route::get('/list/{user}', 'BillController@show')->name('list');
+                Route::get('/list/{user}/bills', 'BillController@index');
+                Route::get('/register/{user}', 'BillController@create')->name('register');
+                Route::post('/register/{user}', 'BillController@store');
+            });
 
         Route::prefix('/course')
             ->name('course.')
