@@ -79,7 +79,9 @@ class User extends Authenticatable
      */
     public function userProfile(): HasOne
     {
-        return $this->hasOne(UserProfile::class);
+        return $this->hasOne(UserProfile::class)->withDefault([
+            'birthday' => null,
+        ]);
     }
 
     /**
