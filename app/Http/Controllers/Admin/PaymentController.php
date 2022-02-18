@@ -81,46 +81,6 @@ class PaymentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param Payment $payment
-     * @return JsonResponse
-     */
-    public function update(Payment $payment): JsonResponse
-    {
-        $payment->paid_at = now();
-
-        $userId = $payment->user_id;
-        $name = $payment->id . '_' . $userId . '_' . $this->role['role'] . '_bill';
-        $payment['url'] = 'recibos/'. $name .'.pdf';
-        $payment['name'] = $name;
-        $data = [
-            'titulo' => 'recibo'
-        ];
-
-        $content = PDF::loadView('bill', $data)->output();
-        Storage::disk('s3')->put($payment['url'], $content);
-        $payment->save();
-
-        return response()->json([
-            'data' => $payment,
-            'status' => 200,
-            'message' => 'Updated user'
-        ]);
-    }
-
-    /**
-     * Downloads the generated pdf
-     *
-     * @param Payment $payment
-     * @return StreamedResponse
-     */
-    public function getPaidBill(Payment $payment): StreamedResponse
-    {
-        return Storage::disk('s3')->download($payment->url);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param User $user

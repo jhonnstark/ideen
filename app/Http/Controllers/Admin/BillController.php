@@ -6,12 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BillRequest;
 use App\Http\Resources\BillCollection;
 use App\Models\Bill;
+use App\Models\Payment;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BillController extends Controller
 {
@@ -43,7 +47,8 @@ class BillController extends Controller
     {
         $role = $this->role['role'];
         $id = $user->id;
-        return view('admin.billsList', compact('role', 'id'));
+        $user->load('payments');
+        return view('admin.billsList', compact('role', 'id', 'user'));
     }
 
     /**
@@ -70,11 +75,67 @@ class BillController extends Controller
     public function store(BillRequest $request, User $user): JsonResponse
     {
         $payment = $request->validated();
-        $payment['total'] = $payment['price'] * (1 - $payment['discount'] / 100);
         $user->bills()->save(new Bill($payment));
         return response()->json([
             'status' => 201,
             'message' => 'created',
         ], 201);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Bill $bill
+     * @return JsonResponse
+     */
+    public function update(Bill $bill): JsonResponse
+    {
+        $bill->paid_at = now();
+        $userId = $bill->user_id;
+        $name = $bill->id . '_' . $userId . '_' . $this->role['role'] . '_bill';
+        $bill['url'] = 'recibos/'. $name .'.pdf';
+        $bill['name'] = $name;
+        $data = [
+            'titulo' => 'recibo'
+        ];
+
+        $content = PDF::loadView('bill', $data)->output();
+        Storage::disk('s3')->put($bill['url'], $content);
+        $bill->save();
+
+        return response()->json([
+            'data' => $bill,
+            'status' => 200,
+            'message' => 'Updated user'
+        ]);
+    }
+
+    /**
+     * Downloads the generated pdf
+     *
+     * @param Bill $bill
+     * @return StreamedResponse
+     */
+    public function getPaidBill(Bill $bill): StreamedResponse
+    {
+        return Storage::disk('s3')->download($bill->url);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Bill $bill
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function destroy(Bill $bill): JsonResponse
+    {
+        if ($bill->paid_at === null) {
+            $bill->delete();
+        }
+        return response()->json([
+            'status' => 204,
+            'message' => 'Deleted bill'
+        ],204 );
     }
 }

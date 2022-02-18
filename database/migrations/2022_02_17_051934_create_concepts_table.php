@@ -15,6 +15,8 @@ class CreateConceptsTable extends Migration
     {
         Schema::create('concepts', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->double('total', 8, 2)->default(0);
             $table->timestamps();
         });
     }

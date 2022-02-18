@@ -26,6 +26,7 @@ class BillRequest extends FormRequest
         return [
             'description' => 'required',
             'discount' => 'required|numeric',
+            'price' => 'required|numeric',
             'total' => 'required|numeric',
             'user_id' => 'required|exists:users,id'
         ];

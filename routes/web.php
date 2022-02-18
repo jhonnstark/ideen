@@ -89,13 +89,8 @@ Route::prefix('/admin')
                 Route::get('/', 'PaymentController@index')->name('list');
                 Route::get('/list', 'PaymentController@list');
                 Route::put('/suspend/{user}', 'PaymentController@suspend');
-
                 Route::get('/register/{user}', 'PaymentController@create')->name('register');
                 Route::post('/register/{user}', 'PaymentController@store');
-
-
-                Route::get('/paid/{payment}', 'PaymentController@getPaidBill');
-                Route::put('/paid/{payment}', 'PaymentController@update');
                 Route::delete('/delete/{payment}', 'PaymentController@destroy');
             });
 
@@ -106,6 +101,9 @@ Route::prefix('/admin')
                 Route::get('/list/{user}/bills', 'BillController@index');
                 Route::get('/register/{user}', 'BillController@create')->name('register');
                 Route::post('/register/{user}', 'BillController@store');
+                Route::get('/paid/{bill}', 'BillController@getPaidBill');
+                Route::put('/paid/{bill}', 'BillController@update');
+                Route::delete('/delete/{bill}', 'BillController@destroy');
             });
 
         Route::prefix('/course')
