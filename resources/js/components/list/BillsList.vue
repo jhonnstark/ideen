@@ -1,6 +1,12 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
+            <div class="col">
+                <bill-form :role="role" :id="id"></bill-form>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
 
             <table class="table">
                 <thead class="thead-dark">
@@ -69,6 +75,9 @@ export default {
             .finally(() => this.isLoading = false)
     },
     methods: {
+        tabsHandler(data) {
+            console.log(data);
+        },
         paid(id) {
             axios
                 .put('/admin/' + this.role + '/paid/' + id)

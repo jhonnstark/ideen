@@ -8,10 +8,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     @if($role === 'activity' || $role === 'content' || $role === 'module')
-                        <li class="breadcrumb-item"><a
-                                href="{{ route('admin.course.edit', $course) }}">{{ __('Cursos') }}</a></li>
-                    @elseif($role === 'bills')
-                        <li class="breadcrumb-item"><a href="{{ route('admin.' . $role. '.list', $id) }}">{{ __($role) }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.course.edit', $course) }}">{{ __('Cursos') }}</a></li>
                     @else
                         <li class="breadcrumb-item"><a href="{{ route('admin.' . $role. '.list') }}">{{ __($role) }}</a></li>
                     @endif
@@ -33,7 +30,7 @@
                         <p>{{ __('Formulario '.$role) }}</p>
                     </div>
                     <div class="card-body">
-                        @if($role === 'payment' || $role === 'bills')
+                        @if($role === 'payment')
                             <div class="form-group row">
                                 <div class="col-12">
                                     <h5 class="text-center">{{ $name }}</h5>
@@ -54,8 +51,6 @@
                         @elseif($role === 'content')
                             <material-form role="{{ $role }}" id="{{ $module }}"></material-form>
                         @elseif($role === 'payment')
-                            <payment-form role="{{ $role }}" id="{{ $id }}"></payment-form>
-                        @elseif($role === 'bills')
                             <payment-form role="{{ $role }}" id="{{ $id }}"></payment-form>
                         @else
                             <register-form role="{{ $role }}"></register-form>

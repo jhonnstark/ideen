@@ -6,10 +6,11 @@
         <input type="hidden" name="_token" :value="csrf">
 
         <div class="form-group row">
-            <label for="name" class="col-md-4 col-form-label text-md-right">¿Pagó la inscripción?</label>
+            <label for="inscription" class="col-md-4 col-form-label text-md-right">¿Pagó la inscripción?</label>
 
             <div class="col-md-6">
                 <toggle-button
+                    id="inscription"
                     color="#0fa5df"
                     :sync="true"
                     :labels="{checked: 'Si', unchecked: 'No'}"
@@ -77,8 +78,8 @@
                 <div class="input-group mb-3">
                     <v-select
                         v-model="record.discount"
-                        id="scholarship"
-                        name="scholarship"
+                        id="discount"
+                        name="discount"
                         :options="scholarship"
                         label="name"
                         :reduce="scholarship => scholarship.id"

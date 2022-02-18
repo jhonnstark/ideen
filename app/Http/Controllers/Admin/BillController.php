@@ -43,7 +43,7 @@ class BillController extends Controller
     {
         $role = $this->role['role'];
         $id = $user->id;
-        return view('admin.list', compact('role', 'id'));
+        return view('admin.billsList', compact('role', 'id'));
     }
 
     /**

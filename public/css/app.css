@@ -13144,7 +13144,7 @@ p {
 
 .table th:last-child,
 .table td:last-child {
-  width: 120px;
+  min-width: 120px;
 }
 
 .table th.name_exam,
