@@ -6,15 +6,37 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\CourseCollection;
+use App\Http\Resources\Teacher as TeacherResource;
 use App\Http\Resources\UserCollection;
+use App\Models\Teacher;
+use App\Models\UserProfile;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UserController extends Controller
 {
+    /**
+     * MaterialController instance.
+     */
+    private $materialController;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->materialController = new MaterialController();
+    }
 
     /**
      * Display a listing view of the resource.
@@ -25,9 +47,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('admin.list', $this->role);
     }
@@ -37,7 +59,7 @@ class UserController extends Controller
      *
      * @return UserCollection
      */
-    public function list()
+    public function list(): UserCollection
     {
         return new UserCollection(User::all());
     }
@@ -45,9 +67,9 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.register', $this->role);
     }
@@ -55,10 +77,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @param User $user
      * @return JsonResponse
      */
-    public function associate(Request $request, User $user)
+    public function associate(Request $request, User $user): JsonResponse
     {
         $validatedData = $request->validate([
             'course_id' => ['required'],
@@ -77,7 +100,7 @@ class UserController extends Controller
      * @param User $user
      * @return CourseCollection
      */
-    public function courses(User $user)
+    public function courses(User $user): CourseCollection
     {
         $user->load('courses.teacher');
         $courses = $user->courses;
@@ -90,11 +113,12 @@ class UserController extends Controller
      * @param UserRequest $request
      * @return JsonResponse
      */
-    public function store(UserRequest $request)
+    public function store(UserRequest $request): JsonResponse
     {
         $record = $request->validated();
         $record['password'] = Hash::make($record['password']);
-        User::create($record);
+        $user = User::create($record);
+        $user->userProfile()->save(new UserProfile($request->all()));
         return response()->json([
             'status' => 201,
             'message' => 'created',
@@ -106,7 +130,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param User $user
-     * @return UserResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return UserResource|Application|Factory|View
      */
     public function show(Request $request, User $user)
     {
@@ -121,13 +145,14 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UserUpdateRequest $request
      * @param User $user
      * @return JsonResponse
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $user): JsonResponse
     {
         $user->update($request->validated());
+        $user->userProfile()->update($request->except(['name', 'lastname', 'mothers_lastname', 'email']));
         return response()->json([
             'status' => 200,
             'message' => 'Updated user'
@@ -135,13 +160,52 @@ class UserController extends Controller
     }
 
     /**
+     * Show a new certificate
+     *
+     * @param User $user
+     * @return Application|Factory|View
+     */
+    public function certificateView(User $user)
+    {
+        $date = now()->locale('es')->isoFormat('LL');
+        $user->load('userProfile');
+        return view('certificate', $user)->with('date', $date);
+    }
+
+    /**
+     * Store a new certificate in the S3
+     *
+     * @param User $user
+     * @return UserResource
+     */
+    public function certificate(User $user): UserResource
+    {
+        $user->load('userProfile');
+        $storeCertificate = $this->materialController->storeCertificate($this->role['role'], $user->toArray());
+        $user->material()->create($storeCertificate);
+        return new UserResource($user);
+    }
+
+    /**
+     * Show the certificate in the S3
+     *
+     * @param User $user
+     * @return StreamedResponse
+     */
+    public function download(User $user): StreamedResponse
+    {
+        $material = $user->material()->first();
+        return Storage::disk('s3')->download($material->url);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
      * @param User $user
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function detach(Request $request, User $user)
+    public function detach(Request $request, User $user): JsonResponse
     {
         $user->courses()->detach($request->input('id'));
         return response()->json([
@@ -157,7 +221,7 @@ class UserController extends Controller
      * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(User $user)
+    public function destroy(User $user): JsonResponse
     {
         $user->delete();
         return response()->json([

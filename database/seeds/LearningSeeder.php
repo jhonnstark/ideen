@@ -15,7 +15,7 @@ class LearningSeeder extends Seeder
         $student = \App\Models\User::select('id')->get()->toArray();
         $student = collect($student)->flatten()->all();
         \App\Models\Course::all()->each(function ($course) use ($student){
-            $course->student()->attach(Arr::random($student, rand(1,9)));
+            $course->student()->attach(Arr::random($student, rand(1,count($student))));
         });
     }
 }

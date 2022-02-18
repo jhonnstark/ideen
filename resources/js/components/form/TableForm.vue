@@ -52,7 +52,7 @@
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
-    name: "CourseForm",
+    name: "TableForm",
     props: ['role', 'edit'],
     data() {
         return {
@@ -86,6 +86,9 @@ export default {
     },
     methods:{
         register() {
+            if (this.isLoading) {
+                return;
+            }
             if (this.$v.$invalid) {
                 this.errors = true;
             } else {

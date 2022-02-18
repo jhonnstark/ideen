@@ -260,6 +260,9 @@ export default {
     },
     methods:{
         register() {
+            if (this.isLoading) {
+                return;
+            }
             if(!this.editForm || !this.$v.$anyDirty) {
                 return;
             }
@@ -359,24 +362,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.date-picker {
-    display: flex;
-    flex-flow: column;
-
-    &-wrap {
-        position: relative;
-        flex-grow: 1;
-    }
-
-    &-input {
-        padding-left: 2rem;
-        margin-bottom: 10px;
-    }
-
-    svg {
-        position: absolute;
-        width: 1rem;
-        height: 37px;
-    }
-}
 </style>

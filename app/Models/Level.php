@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static create(array $validated)
+ */
 class Level extends Model
 {
 
@@ -13,7 +16,7 @@ class Level extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name', 'quarter', 'periods'
     ];
 
 }

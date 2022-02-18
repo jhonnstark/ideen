@@ -16,6 +16,7 @@ import store from "./components/state";
 import VueEllipseProgress from 'vue-ellipse-progress';
 import VCalendar from 'v-calendar';
 import moment from 'vue-moment'
+import ToggleButton from 'vue-js-toggle-button'
 
 // import Lingallery from 'lingallery';
 
@@ -56,6 +57,12 @@ Vue.use(VueEllipseProgress);
  * An elegant calendar and datepicker plugin for Vuejs.
  */
 Vue.use(VCalendar);
+
+/**
+ * An elegant toggle for Vuejs.
+ */
+Vue.use(ToggleButton)
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -88,10 +95,13 @@ Vue.component('exam-list', require('./components/list/ExamList.vue').default);
 Vue.component('my-exam-list', require('./components/User/MyExamList.vue').default);
 Vue.component('module-list', require('./components/list/ModuleList.vue').default);
 Vue.component('answer-list', require('./components/list/AnswerList.vue').default);
+Vue.component('payment-list', require('./components/list/PaymentList.vue').default);
+Vue.component('bills-list', require('./components/list/BillsList.vue').default);
 
 Vue.component('course-form', require('./components/form/CourseForm.vue').default);
 Vue.component('register-form', require('./components/form/RegisterForm.vue').default);
 Vue.component('table-form', require('./components/form/TableForm.vue').default);
+Vue.component('level-form', require('./components/form/LevelForm.vue').default);
 Vue.component('material-form', require('./components/form/MaterialForm.vue').default);
 Vue.component('teacher-profile-form', require('./components/teacher/TeacherProfileForm.vue').default);
 Vue.component('exam-form', require('./components/form/ExamForm.vue').default);
@@ -99,6 +109,9 @@ Vue.component('question-form', require('./components/form/QuestionForm.vue').def
 Vue.component('module-form', require('./components/form/ModuleForm.vue').default);
 Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
 Vue.component('answer-form', require('./components/form/AnswerForm.vue').default);
+Vue.component('payment-form', require('./components/form/PaymentForm.vue').default);
+Vue.component('bill-form', require('./components/form/BillForm.vue').default);
+
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
 Vue.component('user-courses', require('./components/layouts/UserCourses.vue').default);

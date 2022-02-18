@@ -41,6 +41,8 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('is.active')->except(['deactivated']);
+        $this->middleware('not.active')->only(['deactivated']);
         $this->materialController = new MaterialController();
     }
 
@@ -272,5 +274,15 @@ class HomeController extends Controller
     {
         $course->load('student');
         return new UserCollection($course->student);
+    }
+
+    /**
+     * Loads the deactivated screen
+     *
+     * @return Application|Factory|View
+     */
+    public function deactivated()
+    {
+        return view('deactivatedUser');
     }
 }

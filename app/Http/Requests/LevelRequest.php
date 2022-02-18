@@ -11,7 +11,7 @@ class LevelRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,10 +21,12 @@ class LevelRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => 'bail|required|unique:levels,name|max:255',
+            'name' => 'bail|required|max:255',
+            'quarter' => 'required|numeric|min:1|max:4',
+            'periods' => 'required|numeric|min:1|max:3',
         ];
     }
 }

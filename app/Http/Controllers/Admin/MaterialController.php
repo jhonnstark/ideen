@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Module;
+use App\Models\Teacher;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,6 +30,30 @@ class MaterialController extends Controller
             'size' => $request->material->getSize(),
             'url' => Storage::disk('s3')->putFileAs('material', $request->material, $name),
             'ext' => $request->material->getClientOriginalExtension(),
+            'name' => $name
+        ];
+    }
+
+    /**
+     * Store a newly created certificate in storage.
+     *
+     * @param string $role
+     * @param array $model
+     * @return array
+     */
+    public function storeCertificate(string $role, array $model): array
+    {
+        $name = $model['id'] . '_' . $role . '_constancia';
+        $url = 'certificados/' . $role . '/' . $name .'.pdf';
+        $view = $role === 'user' ? 'certificate' : 'work_proof';
+        $model['date'] = now()->locale('es')->isoFormat('LL');
+        $content = PDF::loadView($view, $model)->output();
+        Storage::disk('s3')->put($url, $content);
+
+        return [
+            'size' => 0,
+            'url' => $url,
+            'ext' => 'pdf',
             'name' => $name
         ];
     }

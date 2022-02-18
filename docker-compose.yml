@@ -13,8 +13,8 @@ services:
       SERVICE_TAGS: dev
       REDIS_HOST: redis
     working_dir: /var/www
-    depends_on:
-      - db
+      #    depends_on:
+      #- db
 #      - redis
     volumes:
       - ./:/var/www
@@ -40,25 +40,25 @@ services:
       - app-network
 
   #MySQL Service
-  db:
-    image: mysql:5.7.22
-    container_name: db
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: ideen
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: 6fz7CXXL4VS57mGOm2M0
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    volumes:
-      - dbdata:/var/lib/mysql
-      - ./mysql/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - app-network
+#  db:
+#    image: mysql:5.7.22
+#    container_name: db
+#    restart: unless-stopped
+#    tty: true
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      MYSQL_DATABASE: ideen
+#      MYSQL_ROOT_PASSWORD: password
+#      MYSQL_USER: admin
+#      MYSQL_PASSWORD: 6fz7CXXL4VS57mGOm2M0
+#      SERVICE_TAGS: dev
+#      SERVICE_NAME: mysql
+#    volumes:
+#      - dbdata:/var/lib/mysql
+#      - ./mysql/my.cnf:/etc/mysql/my.cnf
+#    networks:
+#      - app-network
 
 #  redis:
 #    image: redis:5-alpine

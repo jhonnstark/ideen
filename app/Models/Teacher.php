@@ -2,9 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @method static create(array $record)
+ * @property mixed $material
+ * @property mixed $id
+ * @property mixed created_at
+ */
 class Teacher extends Authenticatable
 {
     use Notifiable;
@@ -15,7 +22,29 @@ class Teacher extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname', 'mothers_lastname', 'email', 'password',
+        'name',
+        'lastname',
+        'mothers_lastname',
+        'email',
+        'password',
+        'phone',
+        'enrollment',
+        'birthday',
+        'birthplace',
+        'age',
+        'address',
+        'municipality',
+        'degree_certificate',
+        'professional_license',
+        'curp_certificate',
+        'emergency_phone',
+        'facebook',
+        'curp',
+        'rfc',
+        'bank',
+        'account_number',
+        'account_clabe',
+        'state_id',
     ];
 
     /**
@@ -30,8 +59,18 @@ class Teacher extends Authenticatable
     /**
      * The course that belong to the teacher.
      */
-    public function courses()
+    public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'lecturings');
+    }
+
+    /**
+     * The student that belong to the Activity.
+     *
+     * @return BelongsToMany
+     */
+    public function material(): BelongsToMany
+    {
+        return $this->belongsToMany(Material::class, 'work_proofs');
     }
 }

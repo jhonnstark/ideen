@@ -47,12 +47,15 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'TeacherController@index')->name('list');
                 Route::get('/list', 'TeacherController@list');
+                Route::get('/certificate/{teacher}', 'TeacherController@download');
+                Route::get('/certificate/{teacher}/view', 'TeacherController@certificateView');
+                Route::post('/certificate/{teacher}', 'TeacherController@certificate');
                 Route::get('/courses/{teacher}', 'TeacherController@courses');
                 Route::put('/courses/{teacher}/detach', 'TeacherController@detach');
                 Route::get('/register', 'TeacherController@create')->name('register');
                 Route::post('/register', 'TeacherController@store');
                 Route::get('/edit/{teacher}', 'TeacherController@show')->name('edit');
-                Route::put('/edit/{teacher}', 'TeacherController@update');
+                Route::put('/edit/{teacher}','TeacherController@update');
                 Route::delete('/delete/{teacher}', 'TeacherController@destroy');
             });
 
@@ -61,16 +64,48 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'UserController@index')->name('list');
                 Route::get('/list', 'UserController@list');
-                Route::get('/courses/{user}', 'UserController@courses');
-                Route::put('/courses/{user}/detach', 'UserController@detach');
+                Route::get('/certificate/{user}', 'UserController@download');
+                Route::get('/certificate/{user}/view', 'UserController@certificateView');
+                Route::post('/certificate/{user}', 'UserController@certificate');
                 Route::get('/register', 'UserController@create')->name('register');
                 Route::post('/register', 'UserController@store');
                 Route::get('/edit/{user}', 'UserController@show')->name('edit');
                 Route::put('/edit/{user}', 'UserController@update');
                 Route::post('/edit/{user}/associate', 'UserController@associate');
+                Route::get('/courses/{user}', 'UserController@courses');
+                Route::put('/courses/{user}/detach', 'UserController@detach');
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
+        Route::prefix('/state')
+            ->name('state.')
+            ->group(function(){
+                Route::get('/list', 'StateController@list');
+            });
+
+        Route::prefix('/payment')
+            ->name('payment.')
+            ->group(function(){
+                Route::get('/', 'PaymentController@index')->name('list');
+                Route::get('/list', 'PaymentController@list');
+                Route::put('/suspend/{user}', 'PaymentController@suspend');
+                Route::get('/register/{user}', 'PaymentController@create')->name('register');
+                Route::post('/register/{user}', 'PaymentController@store');
+                Route::delete('/delete/{payment}', 'PaymentController@destroy');
+            });
+
+        Route::prefix('/bills')
+            ->name('bills.')
+            ->group(function(){
+                Route::get('/list/{user}', 'BillController@show')->name('list');
+                Route::get('/list/{user}/bills', 'BillController@index');
+                Route::get('/register/{user}', 'BillController@create')->name('register');
+                Route::post('/register/{user}', 'BillController@store');
+                Route::get('/paid/{bill}', 'BillController@getPaidBill');
+                Route::put('/paid/{bill}', 'BillController@update');
+                Route::get('/view/{bill}', 'BillController@certificateView');
+                Route::delete('/delete/{bill}', 'BillController@destroy');
+            });
 
         Route::prefix('/course')
             ->name('course.')
@@ -265,6 +300,7 @@ Route::prefix('/teacher')
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/deactivated', 'HomeController@deactivated')->name('deactivated');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/profile/info', 'HomeController@info')->name('info');
 
