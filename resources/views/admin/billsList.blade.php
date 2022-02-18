@@ -21,7 +21,7 @@
 
         <div class="row justify-content-between">
             <div class="col">
-                <p>Nombre: <b>{{ $user['name'] . ' ' . $user['lastname'] . ' ' . $user['mothers_lastname']  }}</b></p>
+                <p>Nombre: <b>{{ $user['name'] . ' ' . $user['lastname'] . ' ' . $user['mothers_lastname'] }}</b></p>
                 @if($user['payments']['invoice'] === null)
                     <p>Inscripción: <b>$ {{ $user['payments']['signing_up'] }}</b></p>
                 @else

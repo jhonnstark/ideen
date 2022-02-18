@@ -103,6 +103,7 @@ Route::prefix('/admin')
                 Route::post('/register/{user}', 'BillController@store');
                 Route::get('/paid/{bill}', 'BillController@getPaidBill');
                 Route::put('/paid/{bill}', 'BillController@update');
+                Route::get('/view/{bill}', 'BillController@certificateView');
                 Route::delete('/delete/{bill}', 'BillController@destroy');
             });
 

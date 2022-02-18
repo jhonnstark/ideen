@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property mixed $url
@@ -21,4 +22,14 @@ class Bill extends Model
     protected $fillable = [
         'description', 'discount', 'price', 'total'
     ];
+
+    /**
+     * Get the user that owns the payment.
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

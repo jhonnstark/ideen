@@ -6,13 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BillRequest;
 use App\Http\Resources\BillCollection;
 use App\Models\Bill;
-use App\Models\Payment;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -95,11 +93,9 @@ class BillController extends Controller
         $name = $bill->id . '_' . $userId . '_' . $this->role['role'] . '_bill';
         $bill['url'] = 'recibos/'. $name .'.pdf';
         $bill['name'] = $name;
-        $data = [
-            'titulo' => 'recibo'
-        ];
+        $bill['date'] = now()->locale('es')->isoFormat('LL');
 
-        $content = PDF::loadView('bill', $data)->output();
+        $content = PDF::loadView('bill', $bill)->output();
         Storage::disk('s3')->put($bill['url'], $content);
         $bill->save();
 
@@ -119,6 +115,19 @@ class BillController extends Controller
     public function getPaidBill(Bill $bill): StreamedResponse
     {
         return Storage::disk('s3')->download($bill->url);
+    }
+
+    /**
+     * Show a new certificate
+     *
+     * @param Bill $bill
+     * @return Application|Factory|View
+     */
+    public function certificateView(Bill $bill)
+    {
+        $date = now()->locale('es')->isoFormat('LL');
+        $bill->load('user');
+        return view('bill', $bill)->with('date', $date);
     }
 
     /**

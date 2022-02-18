@@ -5,15 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
 use App\Models\Payment;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PaymentController extends Controller
 {
