@@ -8,12 +8,13 @@
         }
     }
 
+    .description {
+        max-width: 500px;
+    }
+
     th,
     td {
         height: 52px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         padding: 0.7rem;
         vertical-align: middle;
 
@@ -22,7 +23,7 @@
         }
 
         &:last-child {
-            width: 120px;
+            min-width: 120px;
         }
 
         &.name_exam {

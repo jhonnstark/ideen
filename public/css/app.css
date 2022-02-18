@@ -13126,12 +13126,13 @@ p {
   border-color: #182254;
 }
 
+.table .description {
+  max-width: 500px;
+}
+
 .table th,
 .table td {
   height: 52px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   padding: 0.7rem;
   vertical-align: middle;
 }
@@ -13143,7 +13144,7 @@ p {
 
 .table th:last-child,
 .table td:last-child {
-  width: 120px;
+  min-width: 120px;
 }
 
 .table th.name_exam,

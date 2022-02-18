@@ -9,63 +9,66 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                background: #fff;
+                color: #000;
                 font-family: sans-serif;
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
             }
-
-            .full-height {
-                height: 100vh;
+            .wrap {
+                margin: 0 50px;
             }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
+            p {
+                font-family: sans-serif;
+                font-weight: normal;
             }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
+            h1, b {
+                font-weight: bold;
                 text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
             }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-
-            <div class="content">
-                <div class="title m-b-md">
-                    {{ $titulo }}
+        <div class="wrap">
+            <h1>INSTITUTO DE EDUCACIÓN SUPERIOR EN EMPRENDIMIENTO Y NEGOCIOS</h1>
+            <div class="subtitulo">
+                <p>Blvd. Adolfo López Mateos # 1015, Colonia Industrial, C.P.  21010</p>
+                <p>Teléfono:  (686) 488.50.43 / (686) 838.77.97</p>
+            </div>
+            <h2>Recibo</h2>
+            <div class="user">
+                <div class="name">
+                    <p>NOMBRE:	{{ $user['name'] . ' ' . $user['lastname'] . ' ' . $user['mothers_lastname'] }}</p>
+                    <p>Carrera</p>
+                </div>
+                <div class="folio">
+                    <p>Folio: {{ $id }}</p>
+                    <p>Fecha: {{ $date }}</p>
+                </div>
+            </div>
+            <div class="recibo">
+                <div class="description">
+                    <h5>Descripción</h5>
+                    <div class="list">
+                        <p>{{ $description }}</p>
+                    </div>
+                    <p>Total</p>
+                </div>
+                <div class="total">
+                    <h5>Importe</h5>
+                    <div class="list">
+                        <p>$ {{ $price }}</p>
+                    </div>
+                    <p>$ {{ $total }}</p>
+                </div>
+                <p>Este recibo no es comprobante fiscal y será canjeable al contar con el número de matrícula</p>
+            </div>
+            <div class="sign">
+                <div class="sign_name"></div>
+                <div class="sign_name"></div>
+                <div class="logo">
+                    <p class="copy">Copia ALUMNO</p>
                 </div>
             </div>
         </div>

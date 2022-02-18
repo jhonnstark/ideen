@@ -4,70 +4,94 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Recibo</title>
+        <title>Constancia de trabajo</title>
 
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                background: no-repeat center/100% 100% url("{{ public_path('img/certificate.png') }}"), #fff;
+                color: #000;
                 font-family: sans-serif;
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
             }
-
-            .full-height {
-                height: 100vh;
+            .wrap {
+                margin: 0 50px;
             }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
+            .logo {
+                height: 200px;
             }
-
-            .position-ref {
-                position: relative;
+            .date {
+                text-align: right;
             }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
+            .date p {
+                font-family: sans-serif;
+                font-weight: normal;
             }
-
-            .content {
-                text-align: center;
-            }
-
             .title {
-                font-size: 84px;
+                text-align: justify;
+                line-height: 1.5;
             }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
+            .title p {
+                line-height: 1.5;
+                font-family: sans-serif;
+                font-weight: normal;
+                margin: 16px 0;
+            }
+            .sign {
+                font-weight: bold;
+                text-align: center;
+                line-height: 1.4;
+                position: absolute;
+                right: 0;
+                left: 0;
+                bottom: 120px;
+            }
+            .sign p {
+                margin: 0;
+                font-size: .77em;
+            }
+            h5, b {
+                font-weight: bold;
                 text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
             }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-
-            <div class="content">
-                <div class="title m-b-md">
-                    {{ $name }}
-                </div>
+    <div class="wrap">
+        <div class="logo"></div>
+        <div class="date">
+            <p>Mexicali Baja California {{ $date }}</p>
+        </div>
+        <div class="content">
+            <h5>A QUIEN CORRESPONDA. - <br>
+                PRESENTE
+            </h5>
+            <div class="title m-b-md">
+                <p>
+                    Por medio de la presente y con base en los documentos que obran en el Instituto de
+                    Educación en Emprendimiento y Negocios, hago constar que el
+                    <b>LIC. {{ $name }}</b>
+                    se ha desempeñado como docente en el nivel BACHILLERATO de esta institución desde
+                    el año de {{ $year }} hasta la fecha, periodo en el cual ha impartido las asignaturas de
+                    ALGEBRA, GEOMETRÍA Y TRIGONOMETRÍA, CALCULO INTEGRAL, CALCULO DIFERENCIAL Y PROBABILIDAD Y ESTADÍSTICA.
+                </p>
+                <p>
+                    Sin más por el momento, se extiende la presente para los fines que al interesado
+                    convengan.
+                </p>
+                <p>
+                    Quedo a sus órdenes en caso de que requieran alguna información adicional.
+                </p>
+            </div>
+            <div class="sign">
+                <h5>Atentamente</h5>
+                <p>Lic. Jesús Emmanuel Sánchez Verde</p>
+                <p>Coordinador Académico IDEEN</p>
+                <p>Instituto de Educación Superior en Emprendimiento y Negocios</p>
             </div>
         </div>
+    </div>
     </body>
 </html>

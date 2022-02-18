@@ -19,6 +19,7 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed $lastname
  * @property mixed $name
  * @property mixed $mothers_lastname
+ * @property mixed $bills
  * @method static create(array $record)
  */
 class User extends Authenticatable
@@ -114,11 +115,21 @@ class User extends Authenticatable
     /**
      * Get the scores record associated with the user.
      *
+     * @return HasOne
+     */
+    public function payments(): HasOne
+    {
+        return $this->hasOne(Payment::class);
+    }
+
+    /**
+     * Get the scores record associated with the user.
+     *
      * @return HasMany
      */
-    public function payments(): HasMany
+    public function bills(): HasMany
     {
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(Bill::class);
     }
 
     /**

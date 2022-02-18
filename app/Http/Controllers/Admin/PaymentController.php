@@ -4,18 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
-use App\Http\Resources\PaymentCollection;
-use App\Http\Resources\UserCollection;
 use App\Models\Payment;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PaymentController extends Controller
 {
@@ -68,6 +61,7 @@ class PaymentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param PaymentRequest $request
+     * @param User $user
      * @return JsonResponse
      */
     public function store(PaymentRequest $request, User $user): JsonResponse
@@ -79,71 +73,6 @@ class PaymentController extends Controller
             'status' => 201,
             'message' => 'created',
         ], 201);
-    }
-
-    /**
-     * return payments list for a user.
-     *
-     * @param User $user
-     * @return PaymentCollection
-     */
-    public function payments(User $user): PaymentCollection
-    {
-        $user->load('payments');
-        return new PaymentCollection($user->payments);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param User $user
-     * @return Application|Factory|View
-     */
-    public function show(User $user)
-    {
-        $role = $this->role['role'];
-        $id = $user->id;
-        return view('admin.list', compact('role', 'id'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Payment $payment
-     * @return JsonResponse
-     */
-    public function update(Payment $payment): JsonResponse
-    {
-        $payment->paid_at = now();
-
-        $userId = $payment->user_id;
-        $name = $payment->id . '_' . $userId . '_' . $this->role['role'] . '_bill';
-        $payment['url'] = 'recibos/'. $name .'.pdf';
-        $payment['name'] = $name;
-        $data = [
-            'titulo' => 'recibo'
-        ];
-
-        $content = PDF::loadView('bill', $data)->output();
-        Storage::disk('s3')->put($payment['url'], $content);
-        $payment->save();
-
-        return response()->json([
-            'data' => $payment,
-            'status' => 200,
-            'message' => 'Updated user'
-        ]);
-    }
-
-    /**
-     * Downloads the generated pdf
-     *
-     * @param Payment $payment
-     * @return StreamedResponse
-     */
-    public function getPaidBill(Payment $payment): StreamedResponse
-    {
-        return Storage::disk('s3')->download($payment->url);
     }
 
     /**

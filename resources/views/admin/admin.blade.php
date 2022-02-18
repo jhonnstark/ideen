@@ -50,21 +50,10 @@
 
             <div class="card card-image col-sm">
                 <div class="card-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M0 3.75A.75.75 0 01.75 3h7.497c1.566 0 2.945.8 3.751 2.014A4.496 4.496 0 0115.75 3h7.5a.75.75 0 01.75.75v15.063a.75.75 0 01-.755.75l-7.682-.052a3 3 0 00-2.142.878l-.89.891a.75.75 0 01-1.061 0l-.902-.901a3 3 0 00-2.121-.879H.75a.75.75 0 01-.75-.75v-15zm11.247 3.747a3 3 0 00-3-2.997H1.5V18h6.947a4.5 4.5 0 012.803.98l-.003-11.483zm1.503 11.485V7.5a3 3 0 013-3h6.75v13.558l-6.927-.047a4.5 4.5 0 00-2.823.971z"></path></svg>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Cursos (Grupos)</h5>
-                    <p class="card-text">Administración y registro de cursos.</p>
-                    <a href="{{ route('admin.course.list') }}" class="btn btn-primary">Entrar</a>
-                </div>
-            </div>
-
-            <div class="card card-image col-sm">
-                <div class="card-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M7.75 6.5a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z"></path><path fill-rule="evenodd" d="M2.5 1A1.5 1.5 0 001 2.5v8.44c0 .397.158.779.44 1.06l10.25 10.25a1.5 1.5 0 002.12 0l8.44-8.44a1.5 1.5 0 000-2.12L12 1.44A1.5 1.5 0 0010.94 1H2.5zm0 1.5h8.44l10.25 10.25-8.44 8.44L2.5 10.94V2.5z"></path></svg>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Categorías (Ciclos)</h5>
+                    <h5 class="card-title">Categorías</h5>
                     <p class="card-text">Administración y registro de categorías.</p>
                     <a href="{{ route('admin.category.list') }}" class="btn btn-primary">Entrar</a>
                 </div>
@@ -75,7 +64,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3.604 3.089A.75.75 0 014 3.75V8.5h.75a.75.75 0 010 1.5h-3a.75.75 0 110-1.5h.75V5.151l-.334.223a.75.75 0 01-.832-1.248l1.5-1a.75.75 0 01.77-.037zM8.75 5.5a.75.75 0 000 1.5h11.5a.75.75 0 000-1.5H8.75zm0 6a.75.75 0 000 1.5h11.5a.75.75 0 000-1.5H8.75zm0 6a.75.75 0 000 1.5h11.5a.75.75 0 000-1.5H8.75zM5.5 15.75c0-.704-.271-1.286-.72-1.686a2.302 2.302 0 00-1.53-.564c-.535 0-1.094.178-1.53.565-.449.399-.72.982-.72 1.685a.75.75 0 001.5 0c0-.296.104-.464.217-.564A.805.805 0 013.25 15c.215 0 .406.072.533.185.113.101.217.268.217.565 0 .332-.069.48-.21.657-.092.113-.216.24-.403.419l-.147.14c-.152.144-.33.313-.52.504l-1.5 1.5a.75.75 0 00-.22.53v.25c0 .414.336.75.75.75H5A.75.75 0 005 19H3.31l.47-.47c.176-.176.333-.324.48-.465l.165-.156a5.98 5.98 0 00.536-.566c.358-.447.539-.925.539-1.593z"></path></svg>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Niveles (Programas)</h5>
+                    <h5 class="card-title">Niveles</h5>
                     <p class="card-text">Administración y registro de niveles.</p>
                     <a href="{{ route('admin.level.list') }}" class="btn btn-primary">Entrar</a>
                 </div>
@@ -83,6 +72,17 @@
         </div>
 
         <div class="row justify-content-center gap-10">
+
+            <div class="card card-image col-sm">
+                <div class="card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M0 3.75A.75.75 0 01.75 3h7.497c1.566 0 2.945.8 3.751 2.014A4.496 4.496 0 0115.75 3h7.5a.75.75 0 01.75.75v15.063a.75.75 0 01-.755.75l-7.682-.052a3 3 0 00-2.142.878l-.89.891a.75.75 0 01-1.061 0l-.902-.901a3 3 0 00-2.121-.879H.75a.75.75 0 01-.75-.75v-15zm11.247 3.747a3 3 0 00-3-2.997H1.5V18h6.947a4.5 4.5 0 012.803.98l-.003-11.483zm1.503 11.485V7.5a3 3 0 013-3h6.75v13.558l-6.927-.047a4.5 4.5 0 00-2.823.971z"></path></svg>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Cursos</h5>
+                    <p class="card-text">Administración y registro de cursos.</p>
+                    <a href="{{ route('admin.course.list') }}" class="btn btn-primary">Entrar</a>
+                </div>
+            </div>
 
             <div class="card card-image col-sm">
                 <div class="card-icon">
@@ -114,60 +114,6 @@
                     <h5 class="card-title">Pagos y recibos</h5>
                     <p class="card-text">Administración de pagos y creacion de recibos.</p>
                     <a href="{{ route('admin.payment.list') }}" class="btn btn-primary">Entrar</a>
-                </div>
-            </div>
-            <div class="card card-image col-sm">
-                <div class="card-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="32" height="32" viewBox="0 0 8.4666665 8.4666669">
-                        <defs>
-                            <pattern
-                                y="0"
-                                x="0"
-                                height="6"
-                                width="6"
-                                patternUnits="userSpaceOnUse"
-                                id="EMFhbasepattern"/>
-                            <pattern
-                                y="0"
-                                x="0"
-                                height="6"
-                                width="6"
-                                patternUnits="userSpaceOnUse"
-                                id="EMFhbasepattern-3"/>
-                            <pattern
-                                y="0"
-                                x="0"
-                                height="6"
-                                width="6"
-                                patternUnits="userSpaceOnUse"
-                                id="EMFhbasepattern-2"/>
-                            <pattern
-                                y="0"
-                                x="0"
-                                height="6"
-                                width="6"
-                                patternUnits="userSpaceOnUse"
-                                id="EMFhbasepattern-1"/>
-                            <pattern
-                                y="0"
-                                x="0"
-                                height="6"
-                                width="6"
-                                patternUnits="userSpaceOnUse"
-                                id="EMFhbasepattern-5"/>
-                        </defs>
-                        <g transform="translate(0,-288.53332)">
-                            <path
-                                style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-                                d="m 5.8643481,289.0625 c -0.616356,0 -1.1188462,0.4868 -1.118844,1.07913 -1.3e-6,0.34224 0.1704875,0.64626 0.4311684,0.84454 -0.2057121,0.11443 -0.3872341,0.27515 -0.5366403,0.46109 -0.2574723,0.32043 -0.4200791,0.72172 -0.4632315,1.13657 H 3.0393935 v -0.12132 h 1.070749 v -2.20436 H 0.91477166 v 0.20789 1.99647 H 1.9863639 v 0.0307 0.0906 H 0.52916666 v 8.3e-4 0.20547 8.3e-4 0.8146 2.86527 H 7.9375 v -3.88616 H 7.93581 v -8.3e-4 H 7.5552728 c -0.043154,-0.41485 -0.2057578,-0.81613 -0.4632315,-1.13655 -0.1496529,-0.18625 -0.3322471,-0.34736 -0.5391714,-0.46191 0.2601486,-0.19831 0.4311697,-0.50189 0.4311684,-0.84374 2.2e-6,-0.59233 -0.5033322,-1.07912 -1.1196878,-1.07912 z m 0,0.41579 c 0.3815726,0 0.6893644,0.29359 0.6893631,0.66334 1.3e-6,0.36332 -0.2976309,0.65254 -0.6699562,0.66252 -0.00657,-9e-5 -0.012814,-0.002 -0.019406,-0.002 -0.00659,0 -0.012835,0.002 -0.019406,0.002 -0.3722186,-0.009 -0.6657389,-0.29921 -0.6657376,-0.66252 -1.3e-6,-0.36975 0.3035715,-0.66334 0.6851445,-0.66334 z m -4.5184085,1.19563 H 3.676443 v 1.37599 H 1.3459396 Z m 4.5049082,0.54602 c 0.00461,7e-5 0.00887,0.002 0.0135,0.002 0.00463,0 0.00889,-0.002 0.0135,-0.002 0.3244571,0.005 0.6365379,0.18344 0.8733056,0.47809 0.1948816,0.24254 0.2743489,0.56984 0.3189464,0.8858 H 4.6619699 c 0.044598,-0.31595 0.1240653,-0.64326 0.3189464,-0.8858 0.2367556,-0.29464 0.5455808,-0.47314 0.8699315,-0.47809 z m -4.88966904,1.77805 H 4.1582376 7.5038005 v 0.19334 H 0.96117876 Z m -0.00168,0.60751 H 7.5038079 v 2.44948 H 0.95949876 Z"
-                                inkscape:connector-curvature="0"/>
-                        </g>
-                    </svg>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Constancias</h5>
-                    <p class="card-text">Constancias para alumnos y profesores.</p>
-{{--                    <a href="{{ route('admin.services.dashboard') }}" class="btn btn-primary">Entrar</a>--}}
                 </div>
             </div>
         </div>

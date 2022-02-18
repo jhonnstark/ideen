@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
 use App\Http\Requests\TeacherUpdateRequest;
-use App\Http\Resources\Course;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\TeacherCollection;
 use App\Models\Teacher;
 use App\Http\Resources\Teacher as TeacherResource;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -136,6 +134,19 @@ class TeacherController extends Controller
     }
 
     /**
+     * Show a new certificate
+     *
+     * @param Teacher $teacher
+     * @return Application|Factory|View
+     */
+    public function certificateView(Teacher $teacher)
+    {
+        $date = now()->locale('es')->isoFormat('LL');
+        $teacher['year'] = $teacher->created_at->year;
+        return view('work_proof', $teacher)->with('date', $date);
+    }
+
+    /**
      * Store a new certificate in the S3
      *
      * @param Teacher $teacher
@@ -143,6 +154,7 @@ class TeacherController extends Controller
      */
     public function certificate(Teacher $teacher): TeacherResource
     {
+        $teacher['year'] = $teacher->created_at->year;
         $storeCertificate = $this->materialController->storeCertificate($this->role['role'], $teacher->toArray());
         $teacher->material()->create($storeCertificate);
         return new TeacherResource($teacher);
