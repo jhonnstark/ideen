@@ -6,6 +6,12 @@
                 <hr class="col-12">
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <bill-form :role="role" :id="id" :payment="payment" v-on:bill-added="updateList"></bill-form>
+                <hr class="col-12">
+            </div>
+        </div>
 
         <div class="row justify-content-center">
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Concept;
 use Illuminate\Database\Seeder;
 
 class ConceptSeeder extends Seeder
@@ -11,6 +12,6 @@ class ConceptSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Concept::class, 10)->create();
     }
 }

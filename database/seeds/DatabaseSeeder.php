@@ -9,21 +9,21 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $this->call(StateSeeder::class);
         $this->call(AdminSeeder::class);
         $this->call(TeacherSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(CategorySeeder::class);
-        $this->call(LevelSeeder::class);
-        $this->call(PaymentSeeder::class);
-        $this->call(CourseSeeder::class);
-        $this->call(LecturingSeeder::class);
-        $this->call(LearningSeeder::class);
+//        $this->call(CategorySeeder::class);
+//        $this->call(LevelSeeder::class);
+//        $this->call(PaymentSeeder::class);
+//        $this->call(CourseSeeder::class);
+//        $this->call(LecturingSeeder::class);
+//        $this->call(LearningSeeder::class);
 //        $this->call(ModulesSeeder::class);
-        //$this->call(ActivitySeeder::class);
-        //$this->call(ContentSeeder::class);
-        //$this->call(MaterialSeeder::class);
+//        $this->call(ActivitySeeder::class);
+//        $this->call(ContentSeeder::class);
+//        $this->call(ConceptSeeder::class);
     }
 }

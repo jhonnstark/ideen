@@ -10,7 +10,7 @@ class CategorySeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         factory(Category::class, 1)->create();
     }
