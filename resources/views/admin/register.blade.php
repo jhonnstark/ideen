@@ -52,6 +52,8 @@
                             <material-form role="{{ $role }}" id="{{ $module }}"></material-form>
                         @elseif($role === 'payment')
                             <payment-form role="{{ $role }}" id="{{ $id }}"></payment-form>
+                        @elseif($role === 'concept')
+                            <concept-form role="{{ $role }}"></concept-form>
                         @else
                             <register-form role="{{ $role }}"></register-form>
                         @endif

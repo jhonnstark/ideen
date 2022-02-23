@@ -29,16 +29,18 @@
                     <div class="card-header">{{ __('Formulario '.$role) }}</div>
                     <div class="card-body">
 
-                        @if($role == 'course')
+                        @if($role === 'course')
                             <course-form role="{{ $role }}" edit="{{ $id }}"></course-form>
-                        @elseif($role == 'module')
+                        @elseif($role === 'module')
                             <module-form role="{{ $role }}" edit="{{ $id }}"></module-form>
-                        @elseif($role == 'category')
+                        @elseif($role === 'category')
                             <table-form role="{{ $role }}" edit="{{ $id }}"></table-form>
-                        @elseif($role == 'level')
+                        @elseif($role === 'level')
                             <level-form role="{{ $role }}" edit="{{ $id }}"></level-form>
-                        @elseif($role == 'activity' || $role == 'content')
+                        @elseif($role === 'activity' || $role === 'content')
                             <material-form role="{{ $role }}" edit="{{ $id }}"></material-form>
+                        @elseif($role === 'concept')
+                            <concept-form role="{{ $role }}" edit="{{ $id }}"></concept-form>
                         @else
                             <register-form role="{{ $role }}" edit="{{ $id }}"></register-form>
                         @endif
