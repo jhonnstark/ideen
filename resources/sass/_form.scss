@@ -48,3 +48,36 @@
         height: 37px;
     }
 }
+
+.vs__clear {
+    svg {
+        fill: $blue;
+    }
+}
+
+.vs__selected {
+    margin: 2px;
+}
+
+.vs__actions {
+    padding-top: 0;
+}
+
+.vs__dropdown-text {
+    position: relative;
+
+    em {
+        position: absolute;
+        right: 0;
+        top: 0;
+        min-width: 55px;
+        text-align: right;
+
+        &:before {
+            content: '$';
+            left: 0;
+            top: 0;
+            position: absolute;
+        }
+    }
+}

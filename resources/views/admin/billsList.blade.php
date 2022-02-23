@@ -23,16 +23,16 @@
             <div class="col">
                 <p>Nombre: <b>{{ $user['name'] . ' ' . $user['lastname'] . ' ' . $user['mothers_lastname'] }}</b></p>
                 @if($user['payments']['invoice'] === null)
-                    <p>Inscripción: <b>$ {{ $user['payments']['signing_up'] }}</b></p>
+                    <p>Inscripción: <b>$ {{ money_format('%n', $user['payments']['signing_up']) }}</b></p>
                 @else
                     <p>Folio de Inscripción: <b># {{ $user['payments']['invoice'] }}</b></p>
                 @endif
                 <p>Descuento: <b>{{ $user['payments']['discount'] }} %</b></p>
             </div>
             <div class="col">
-                <p>Mensualidad: <b>$ {{ $user['payments']['price'] }}</b></p>
+                <p>Mensualidad: <b>$ {{ money_format('%n', $user['payments']['price']) }}</b></p>
                 <p>Beca: <b>{{ $user['payments']['scholarship'] }} %</b></p>
-                <p>Mensualidad Neta: <b>$ {{ $user['payments']['total'] }}</b></p>
+                <p>Mensualidad Neta: <b>$ {{ money_format('%n', $user['payments']['total']) }}</b></p>
             </div>
         </div>
         <hr class="col-12">

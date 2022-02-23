@@ -6,6 +6,12 @@
                 <hr class="col-12">
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <concept-add :role="role" :id="id" v-on:concept-added="updateList"></concept-add>
+                <hr class="col-12">
+            </div>
+        </div>
 
         <div class="row justify-content-center">
 
@@ -60,8 +66,10 @@
 </template>
 
 <script>
+import ConceptAdd from "../form/ConceptAdd";
 export default {
     name: "BillsList",
+    components: {ConceptAdd},
     props: ['role', 'id', 'payment'],
     data: function () {
         return {
