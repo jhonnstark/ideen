@@ -97,6 +97,7 @@ Vue.component('module-list', require('./components/list/ModuleList.vue').default
 Vue.component('answer-list', require('./components/list/AnswerList.vue').default);
 Vue.component('payment-list', require('./components/list/PaymentList.vue').default);
 Vue.component('bills-list', require('./components/list/BillsList.vue').default);
+Vue.component('concept-list', require('./components/list/ConceptList.vue').default);
 
 Vue.component('course-form', require('./components/form/CourseForm.vue').default);
 Vue.component('register-form', require('./components/form/RegisterForm.vue').default);
@@ -111,6 +112,7 @@ Vue.component('profile-form', require('./components/User/ProfileForm.vue').defau
 Vue.component('answer-form', require('./components/form/AnswerForm.vue').default);
 Vue.component('payment-form', require('./components/form/PaymentForm.vue').default);
 Vue.component('bill-form', require('./components/form/BillForm.vue').default);
+Vue.component('concept-form', require('./components/form/ConceptForm.vue').default);
 
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('concept-add', require('./components/form/ConceptAdd.vue').default);

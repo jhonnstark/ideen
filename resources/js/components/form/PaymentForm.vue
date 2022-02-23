@@ -117,6 +117,7 @@
                 </div>
             </div>
         </div>
+
         <div class="form-group row">
             <label for="scholarship" class="col-md-4 col-form-label text-md-right">Beca</label>
             <div class="col-md-6">
@@ -138,6 +139,7 @@
                 </div>
             </div>
         </div>
+
         <div class="form-group row">
             <label for="total" class="col-md-4 col-form-label text-md-right">Total</label>
             <div class="col-md-6">
