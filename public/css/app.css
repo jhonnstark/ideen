@@ -13214,6 +13214,37 @@ p {
   height: 37px;
 }
 
+.vs__clear svg {
+  fill: #182254;
+}
+
+.vs__selected {
+  margin: 2px;
+}
+
+.vs__actions {
+  padding-top: 0;
+}
+
+.vs__dropdown-text {
+  position: relative;
+}
+
+.vs__dropdown-text em {
+  position: absolute;
+  right: 0;
+  top: 0;
+  min-width: 55px;
+  text-align: right;
+}
+
+.vs__dropdown-text em:before {
+  content: "$";
+  left: 0;
+  top: 0;
+  position: absolute;
+}
+
 .card-image {
   flex-direction: row;
 }

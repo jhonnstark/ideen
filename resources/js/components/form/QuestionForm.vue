@@ -135,6 +135,9 @@ export default {
         },
 
         register() {
+            if (this.isLoading) {
+                return;
+            }
             if(!this.editForm || !this.$v.$anyDirty) {
                 return;
             }

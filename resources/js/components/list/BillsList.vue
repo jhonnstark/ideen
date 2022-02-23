@@ -8,7 +8,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col">
-                <bill-form :role="role" :id="id" :payment="payment" v-on:bill-added="updateList"></bill-form>
+                <concept-add :role="role" :id="id" v-on:concept-added="updateList"></concept-add>
                 <hr class="col-12">
             </div>
         </div>
@@ -66,8 +66,10 @@
 </template>
 
 <script>
+import ConceptAdd from "../form/ConceptAdd";
 export default {
     name: "BillsList",
+    components: {ConceptAdd},
     props: ['role', 'id', 'payment'],
     data: function () {
         return {

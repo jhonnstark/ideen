@@ -112,7 +112,7 @@ export default {
                 price: this.payment.total,
                 discount: 0,
                 user_id: this.id,
-                total: this.payment.total,
+                total: Number.parseFloat(this.payment.total).toFixed(2),
             },
             discount: false,
             rute: '/admin/' + this.role + '/register/' + this.id,
