@@ -91,11 +91,13 @@ class BillController extends Controller
         $bill->paid_at = now();
         $userId = $bill->user_id;
         $name = $bill->id . '_' . $userId . '_' . $this->role['role'] . '_bill';
+        $bill->load('user');
         $bill['url'] = 'recibos/'. $name .'.pdf';
         $bill['name'] = $name;
-        $bill['date'] = now()->locale('es')->isoFormat('LL');
+        $recipe = $bill->toArray();
+        $recipe['date'] = now()->locale('es')->isoFormat('LL');
 
-        $content = PDF::loadView('bill', $bill)->output();
+        $content = PDF::loadView('bill', $recipe)->output();
         Storage::disk('s3')->put($bill['url'], $content);
         $bill->save();
 
@@ -104,17 +106,6 @@ class BillController extends Controller
             'status' => 200,
             'message' => 'Updated user'
         ]);
-    }
-
-    /**
-     * Downloads the generated pdf
-     *
-     * @param Bill $bill
-     * @return StreamedResponse
-     */
-    public function getPaidBill(Bill $bill): StreamedResponse
-    {
-        return Storage::disk('s3')->download($bill->url);
     }
 
     /**
@@ -128,6 +119,17 @@ class BillController extends Controller
         $date = now()->locale('es')->isoFormat('LL');
         $bill->load('user');
         return view('bill', $bill)->with('date', $date);
+    }
+
+    /**
+     * Downloads the generated pdf
+     *
+     * @param Bill $bill
+     * @return StreamedResponse
+     */
+    public function getPaidBill(Bill $bill): StreamedResponse
+    {
+        return Storage::disk('s3')->download($bill->url);
     }
 
     /**
