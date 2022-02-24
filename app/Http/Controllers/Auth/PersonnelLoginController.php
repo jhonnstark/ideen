@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class TeacherLoginController extends Controller
+class PersonnelLoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ class TeacherLoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::TEACHER;
+    protected $redirectTo = RouteServiceProvider::PERSONNEL;
 
     /**
      * Create a new controller instance.
@@ -51,7 +51,7 @@ class TeacherLoginController extends Controller
      */
     public function showLoginForm(): View
     {
-        return view('auth.login', ['url' => 'teacher']);
+        return view('auth.login', ['url' => 'personnel']);
     }
 
     /**
@@ -61,6 +61,6 @@ class TeacherLoginController extends Controller
      */
     protected function guard(): StatefulGuard
     {
-        return Auth::guard('teacher');
+        return Auth::guard('personnel');
     }
 }

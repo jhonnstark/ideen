@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Admin;
+use App\Models\Personnel;
 use Illuminate\Database\Seeder;
 
-class AdminSeeder extends Seeder
+class PersonnelSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        factory(Admin::class)->create();
+        factory(Personnel::class)->create();
     }
 }

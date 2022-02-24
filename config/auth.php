@@ -51,9 +51,9 @@ return [
             'provider' => 'finance',
         ],
 
-        'school' => [
+        'personnel' => [
             'driver' => 'session',
-            'provider' => 'school',
+            'provider' => 'personnel',
         ],
 
         'teacher' => [
@@ -101,6 +101,16 @@ return [
             'model' => App\Models\Teacher::class,
         ],
 
+        'personnel' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Personnel::class,
+        ],
+
+//        'teachers' => [
+//            'driver' => 'eloquent',
+//            'model' => App\Models\Teacher::class,
+//        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -139,6 +149,13 @@ return [
 
         'teacher' => [
             'provider' => 'teachers',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'personnel' => [
+            'provider' => 'personnel',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

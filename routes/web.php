@@ -218,6 +218,55 @@ Route::prefix('/admin')
             });
 });
 
+Route::get('/personnel/login', 'Auth\PersonnelLoginController@showLoginForm')->name('personnel.login');
+Route::post('/personnel/login', 'Auth\PersonnelLoginController@login');
+
+Route::prefix('/personnel')
+    ->middleware('auth:personnel')
+    ->name('personnel.')
+    ->namespace('Personnel')
+    ->group(function(){
+        Route::get('/', 'PersonnelDashboard@personnel')->name('dashboard');
+        Route::get('/profile', 'PersonnelDashboard@profile')->name('profile');
+        Route::get('/profile/info', 'PersonnelDashboard@info')->name('info');
+
+
+        Route::prefix('/teacher')
+            ->name('teacher.')
+            ->group(function(){
+                Route::get('/', 'TeacherController@index')->name('list');
+                Route::get('/list', 'TeacherController@list');
+                Route::get('/certificate/{teacher}', 'TeacherController@download');
+                Route::get('/certificate/{teacher}/view', 'TeacherController@certificateView');
+                Route::post('/certificate/{teacher}', 'TeacherController@certificate');
+                Route::get('/courses/{teacher}', 'TeacherController@courses');
+                Route::put('/courses/{teacher}/detach', 'TeacherController@detach');
+                Route::get('/register', 'TeacherController@create')->name('register');
+                Route::post('/register', 'TeacherController@store');
+                Route::get('/edit/{teacher}', 'TeacherController@show')->name('edit');
+                Route::put('/edit/{teacher}','TeacherController@update');
+                Route::delete('/delete/{teacher}', 'TeacherController@destroy');
+            });
+
+        Route::prefix('/user')
+            ->name('user.')
+            ->group(function(){
+                Route::get('/', 'UserController@index')->name('list');
+                Route::get('/list', 'UserController@list');
+                Route::get('/certificate/{user}', 'UserController@download');
+                Route::get('/certificate/{user}/view', 'UserController@certificateView');
+                Route::post('/certificate/{user}', 'UserController@certificate');
+                Route::get('/register', 'UserController@create')->name('register');
+                Route::post('/register', 'UserController@store');
+                Route::get('/edit/{user}', 'UserController@show')->name('edit');
+                Route::put('/edit/{user}', 'UserController@update');
+                Route::post('/edit/{user}/associate', 'UserController@associate');
+                Route::get('/courses/{user}', 'UserController@courses');
+                Route::put('/courses/{user}/detach', 'UserController@detach');
+                Route::delete('/delete/{user}', 'UserController@destroy');
+            });
+    });
+
 Route::get('/teacher/login', 'Auth\TeacherLoginController@showLoginForm')->name('teacher.login');
 Route::post('/teacher/login', 'Auth\TeacherLoginController@login');
 

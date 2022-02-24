@@ -42,6 +42,7 @@ class AdminLoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('guest:admin')->except('logout');
         $this->middleware('guest:teacher')->except('logout');
+        $this->middleware('guest:personnel')->except('logout');
     }
 
     /**
