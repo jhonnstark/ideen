@@ -46,6 +46,16 @@ return [
             'provider' => 'admins',
         ],
 
+        'finance' => [
+            'driver' => 'session',
+            'provider' => 'finance',
+        ],
+
+        'school' => [
+            'driver' => 'session',
+            'provider' => 'school',
+        ],
+
         'teacher' => [
             'driver' => 'session',
             'provider' => 'teachers',

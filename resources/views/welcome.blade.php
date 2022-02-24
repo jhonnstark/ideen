@@ -78,7 +78,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    IDEENNET
+                    IDtech MX
                 </div>
             </div>
         </div>
