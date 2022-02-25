@@ -1,9 +1,8 @@
 <?php
 
-use App\Models\Content;
 use Illuminate\Database\Seeder;
 
-class ContentSeeder extends Seeder
+class CycleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +11,6 @@ class ContentSeeder extends Seeder
      */
     public function run(): void
     {
-        factory(Content::class, 3)->create();
+        factory(\App\Models\Cycle::class, 5)->create();
     }
 }

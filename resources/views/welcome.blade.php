@@ -70,6 +70,8 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
+                        <a href="{{ route('personnel.login') }}">Login como servicios escolares</a>
+                        <a href="{{ route('finance.login') }}">Login como cobranza</a>
                         <a href="{{ route('teacher.login') }}">Login como profesor</a>
                         <a href="{{ route('login') }}">Login para alumnos</a>
                     @endauth
