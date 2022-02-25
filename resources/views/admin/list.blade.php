@@ -36,7 +36,7 @@
     @elseif($role == 'exam')
         <exam-list role="{{ $role }}" rute="admin"></exam-list>
     @elseif($role == 'payment')
-        <payment-list role="{{ $role }}"></payment-list>
+        <payment-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></payment-list>
     @elseif($role == 'concept')
         <concept-list role="{{ $role }}"></concept-list>
     @else

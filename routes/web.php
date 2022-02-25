@@ -83,7 +83,6 @@ Route::prefix('/admin')
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
-
         Route::prefix('/payment')
             ->name('payment.')
             ->group(function(){
@@ -279,6 +278,30 @@ Route::prefix('/finance')
         Route::get('/', 'FinanceDashboard@finance')->name('dashboard');
         Route::get('/profile', 'FinanceDashboard@profile')->name('profile');
         Route::get('/profile/info', 'FinanceDashboard@info')->name('info');
+
+        Route::prefix('/payment')
+            ->name('payment.')
+            ->group(function(){
+                Route::get('/', 'PaymentController@index')->name('list');
+                Route::get('/list', 'PaymentController@list');
+                Route::put('/suspend/{user}', 'PaymentController@suspend');
+                Route::get('/register/{user}', 'PaymentController@create')->name('register');
+                Route::post('/register/{user}', 'PaymentController@store');
+                Route::delete('/delete/{payment}', 'PaymentController@destroy');
+            });
+
+        Route::prefix('/bills')
+            ->name('bills.')
+            ->group(function(){
+                Route::get('/list/{user}', 'BillController@show')->name('list');
+                Route::get('/list/{user}/bills', 'BillController@index');
+                Route::get('/register/{user}', 'BillController@create')->name('register');
+                Route::post('/register/{user}', 'BillController@store');
+                Route::get('/paid/{bill}', 'BillController@getPaidBill');
+                Route::put('/paid/{bill}', 'BillController@update');
+                Route::get('/view/{bill}', 'BillController@certificateView');
+                Route::delete('/delete/{bill}', 'BillController@destroy');
+            });
     });
 
 

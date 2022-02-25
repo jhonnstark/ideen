@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Admin\MaterialController;
+use App\Http\Controllers\Finance\MaterialController;
 use App\Http\Requests\HomeworkRequest;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;

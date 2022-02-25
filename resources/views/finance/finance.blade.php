@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Pagos y recibos</h5>
                     <p class="card-text">Administración de pagos y creacion de recibos.</p>
-                    <a href="{{ route('admin.payment.list') }}" class="btn btn-primary">Entrar</a>
+                    <a href="{{ route('finance.payment.list') }}" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
 

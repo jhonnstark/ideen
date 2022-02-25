@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Personnel;
 
-use App\Http\Controllers\Admin\MaterialController;
+use App\Http\Controllers\Finance\MaterialController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
 use App\Http\Requests\TeacherUpdateRequest;
