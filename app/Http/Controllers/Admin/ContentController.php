@@ -4,18 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContentRequest;
-use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\MaterialResource;
-use App\Models\Activity;
 use App\Models\Content;
 use App\Models\Module;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 

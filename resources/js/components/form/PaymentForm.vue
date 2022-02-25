@@ -197,7 +197,7 @@ import { required, minLength, maxLength, between, decimal, minValue, numeric, re
 
 export default {
     name: "PaymentForm",
-    props: ['role', 'id'],
+    props: ['role', 'id', 'type'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -233,7 +233,7 @@ export default {
                     name: '40%',
                 },
             ],
-            rute: '/admin/' + this.role + '/register/' + this.id,
+            rute: '/' + this.type + '/' + this.role + '/register/' + this.id,
             isLoading:false
         }
     },
@@ -306,7 +306,7 @@ export default {
                 }).catch(error => console.log(error))
                 .finally(() =>{
                     this.isLoading = false;
-                    window.location = '/admin/' + this.role
+                    window.location = '/' + this.type + '/' + this.role
                 });
             }
         },
@@ -314,8 +314,10 @@ export default {
     watch: {
         record: {
             handler(val){
-                this.record.price = parseFloat(this.record.price).toFixed(2);
-                this.record.signing_up = parseFloat(this.record.signing_up).toFixed(2);
+                const price = parseFloat(this.record.price).toFixed(2);
+                this.record.price = price === 'NaN' ? 0 : price;
+                const signingUp = parseFloat(this.record.signing_up).toFixed(2);
+                this.record.signing_up = signingUp === 'NaN' ? 0 : signingUp;
                 const total = this.record.price * (1 - this.record.scholarship / 100);
                 this.record.total = Number.parseFloat(total).toFixed(2);
             },

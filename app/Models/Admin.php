@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 
 /**
  * @method static create(array $record)
+ * @property mixed $id
  */
 class Admin extends Authenticatable
 {

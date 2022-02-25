@@ -32,7 +32,7 @@
                     <td>{{ item.email }}</td>
                     <td class="text-right">
 
-                        <a :href="'/admin/' + role + '/certificate/' + item.id" class="btn btn-primary" v-if="item.material && item.material.length > 0" target="_blank">
+                        <a :href="'/' + type + '/' + role + '/certificate/' + item.id" class="btn btn-primary" v-if="item.material && item.material.length > 0" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a.119.119 0 010 .136c-.412.621-1.242 1.75-2.366 2.717C10.825 11.758 9.473 12.5 8 12.5c-1.473 0-2.824-.742-3.955-1.715C2.92 9.818 2.09 8.69 1.679 8.068a.119.119 0 010-.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z"></path></svg>
                         </a>
                         <button @click="generate(item.id)" type="button" class="btn btn-ideen" v-else-if="role !== 'admins'">
@@ -41,7 +41,7 @@
                         </button>
 
 
-                        <a :href="'/admin/' + role + '/edit/' + item.id" class="btn btn-primary">
+                        <a :href="'/' + type + '/' + role + '/edit/' + item.id" class="btn btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"></path></svg>
                         </a>
                         <button @click="erase(item.id)" type="button" class="btn btn-danger">
@@ -59,7 +59,7 @@
 <script>
 export default {
     name: "AdminList",
-    props: ['role'],
+    props: ['role', 'type'],
     data: function () {
         return {
             isLoading: true,
@@ -68,7 +68,7 @@ export default {
     },
     created () {
         axios
-            .get('/admin/' + this.role + '/list')
+            .get('/' + this.type + '/' + this.role + '/list')
             .then(response => (this.items = response.data.data))
             .catch(error => (this.items = []))
             .finally(() => this.isLoading = false)
@@ -76,7 +76,7 @@ export default {
     methods: {
         generate(id) {
             axios
-                .post('/admin/' + this.role + '/certificate/' + id)
+                .post('/' + this.type + '/' + this.role + '/certificate/' + id)
                 .then(response => {
                     this.$swal('Guardado', 'Constancia generada exitosamente.', 'success');
                     this.items = this.items.map((item) => {
@@ -107,7 +107,7 @@ export default {
                 preConfirm: () => {
 
                     return axios
-                        .delete('/admin/' + this.role + '/delete/' + id)
+                        .delete('/' + this.type + '/' + this.role + '/delete/' + id)
                         .then(response => {
                             this.$swal('Guardado', 'Creado exitosamente.', 'success');
                             const removedId = this.items.findIndex(item => item.id === id);

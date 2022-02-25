@@ -51,7 +51,7 @@
                         @elseif($role === 'content')
                             <material-form role="{{ $role }}" id="{{ $module }}"></material-form>
                         @elseif($role === 'payment')
-                            <payment-form role="{{ $role }}" id="{{ $id }}"></payment-form>
+                            <payment-form role="{{ $role }}" id="{{ $id }}" type="{{ $type ?? 'admin' }}"></payment-form>
                         @elseif($role === 'concept')
                             <concept-form role="{{ $role }}"></concept-form>
                         @else

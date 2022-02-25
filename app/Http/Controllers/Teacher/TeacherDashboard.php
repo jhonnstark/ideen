@@ -342,7 +342,7 @@ class TeacherDashboard extends Controller
             'status' => 200,
             'message' => 'score',
             'data' => $activity->score
-        ], 200);
+        ]);
     }
 
     /**
@@ -380,7 +380,7 @@ class TeacherDashboard extends Controller
 
     /**
      * @param Request $request
-     * @param Activity $activity
+     * @param Homework $homework
      *
      * @return JsonResponse
      */

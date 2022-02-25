@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Providers\RouteServiceProvider;
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
@@ -11,7 +12,7 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \Closure  $next
      * @param  string|null  $guard
      * @return mixed
@@ -24,6 +25,12 @@ class RedirectIfAuthenticated
             }
             if('teacher' === $guard) {
                 return redirect(RouteServiceProvider::TEACHER);
+            }
+            if('personnel' === $guard) {
+                return redirect(RouteServiceProvider::PERSONNEL);
+            }
+            if('finance' === $guard) {
+                return redirect(RouteServiceProvider::FINANCE);
             }
             return redirect(RouteServiceProvider::HOME);
         }
