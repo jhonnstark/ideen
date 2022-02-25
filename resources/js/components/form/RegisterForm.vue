@@ -517,7 +517,7 @@ import {required, minLength, maxLength, sameAs, email, alphaNum, integer, minVal
 
 export default {
     name: "RegisterForm",
-    props: ['role', 'edit'],
+    props: ['role', 'edit', 'type'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -554,8 +554,8 @@ export default {
             state: [],
             birthday: new Date(),
             rute: this.edit
-                ? '/admin/' + this.role + '/edit/' + this.edit
-                : '/admin/' + this.role + '/register',
+                ? '/' + this.type + '/' + this.role + '/edit/' + this.edit
+                : '/' + this.type + '/' + this.role + '/register',
             isLoading:false
         }
     },
@@ -663,7 +663,7 @@ export default {
     },
     created() {
         if (this.edit) {
-            axios.get('/admin/' + this.role + '/edit/' + this.edit)
+            axios.get('/' + this.type + '/' + this.role + '/edit/' + this.edit)
                 .then(response => {
                     this.record = response.data.data;
                     this.birthday = response.data.data.birthday

@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed homework
  * @property mixed material
  * @property mixed score
+ * @property mixed $module
  */
 class Activity extends Model
 {

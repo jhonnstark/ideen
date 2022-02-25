@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed $material
  * @property mixed $id
  * @property mixed created_at
+ * @property mixed $courses
  */
 class Teacher extends Authenticatable
 {

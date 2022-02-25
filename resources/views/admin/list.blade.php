@@ -40,6 +40,6 @@
     @elseif($role == 'concept')
         <concept-list role="{{ $role }}"></concept-list>
     @else
-        <admin-list role="{{ $role }}"></admin-list>
+        <admin-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></admin-list>
     @endif
 @endsection

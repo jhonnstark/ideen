@@ -45,6 +45,20 @@ class RouteServiceProvider extends ServiceProvider
     public const TEACHER = '/teacher';
 
     /**
+     * The path to the "teacher dashboard" route for your application.
+     *
+     * @var string
+     */
+    public const PERSONNEL = '/personnel';
+
+    /**
+     * The path to the "teacher dashboard" route for your application.
+     *
+     * @var string
+     */
+    public const FINANCE = '/finance';
+
+    /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void

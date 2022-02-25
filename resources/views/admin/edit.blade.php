@@ -42,7 +42,7 @@
                         @elseif($role === 'concept')
                             <concept-form role="{{ $role }}" edit="{{ $id }}"></concept-form>
                         @else
-                            <register-form role="{{ $role }}" edit="{{ $id }}"></register-form>
+                            <register-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></register-form>
                         @endif
 
                     </div>
@@ -78,7 +78,7 @@
     @endif
 
     @if($role == 'teacher')
-        <my-course-list role="{{ $role }}" id="{{ $id }}"></my-course-list>
+        <my-course-list role="{{ $role }}" id="{{ $id }}" type="{{ $type ?? 'admin' }}"></my-course-list>
     @elseif($role == 'user')
         <user-courses role="{{ $role }}" id="{{ $id }}"></user-courses>
     @endif

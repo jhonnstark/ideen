@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -41,6 +41,7 @@ class TeacherLoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('guest:admin')->except('logout');
         $this->middleware('guest:teacher')->except('logout');
+        $this->middleware('guest:personnel')->except('logout');
     }
 
     /**
@@ -48,7 +49,7 @@ class TeacherLoginController extends Controller
      *
      * @return View
      */
-    public function showLoginForm()
+    public function showLoginForm(): View
     {
         return view('auth.login', ['url' => 'teacher']);
     }
@@ -56,9 +57,9 @@ class TeacherLoginController extends Controller
     /**
      * Get the guard to be used during authentication.
      *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     * @return StatefulGuard
      */
-    protected function guard()
+    protected function guard(): StatefulGuard
     {
         return Auth::guard('teacher');
     }
