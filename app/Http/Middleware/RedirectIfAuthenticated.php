@@ -29,6 +29,9 @@ class RedirectIfAuthenticated
             if('personnel' === $guard) {
                 return redirect(RouteServiceProvider::PERSONNEL);
             }
+            if('finance' === $guard) {
+                return redirect(RouteServiceProvider::FINANCE);
+            }
             return redirect(RouteServiceProvider::HOME);
         }
 

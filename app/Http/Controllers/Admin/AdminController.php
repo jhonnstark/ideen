@@ -18,7 +18,6 @@ use Illuminate\View\View;
 class AdminController extends Controller
 {
 
-
     /**
      * Display a listing view of the resource.
      */

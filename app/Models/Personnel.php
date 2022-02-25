@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property mixed $id
+ * @method static create($record)
+ */
 class Personnel extends Authenticatable
 {
     use Notifiable;

@@ -268,6 +268,20 @@ Route::prefix('/personnel')
             });
     });
 
+Route::get('/finance/login', 'Auth\FinanceLoginController@showLoginForm')->name('finance.login');
+Route::post('/finance/login', 'Auth\FinanceLoginController@login');
+
+Route::prefix('/finance')
+    ->middleware('auth:finance')
+    ->name('finance.')
+    ->namespace('finance')
+    ->group(function(){
+        Route::get('/', 'FinanceDashboard@finance')->name('dashboard');
+        Route::get('/profile', 'FinanceDashboard@profile')->name('profile');
+        Route::get('/profile/info', 'FinanceDashboard@info')->name('info');
+    });
+
+
 Route::get('/teacher/login', 'Auth\TeacherLoginController@showLoginForm')->name('teacher.login');
 Route::post('/teacher/login', 'Auth\TeacherLoginController@login');
 
