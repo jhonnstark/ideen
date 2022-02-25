@@ -77,14 +77,14 @@ import {integer, required} from 'vuelidate/lib/validators';
 
 export default {
     name: "ConceptAdd",
-    props: ['role', 'id'],
+    props: ['role', 'id', 'type'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
             concept_id: null,
             concepts: [],
-            rute: '/admin/concept/register/' + this.id,
+            rute: '/' + this.type + '/concept/register/' + this.id,
             isLoading:false
         }
     },
@@ -96,7 +96,7 @@ export default {
     },
     created() {
         axios
-            .get('/admin/concept/list')
+            .get('/' + this.type + '/concept/list')
             .then(response => (this.concepts = response.data.data))
     },
     methods:{

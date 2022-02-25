@@ -106,6 +106,11 @@ return [
             'model' => App\Models\Personnel::class,
         ],
 
+        'finance' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Finance::class,
+        ],
+
 //        'teachers' => [
 //            'driver' => 'eloquent',
 //            'model' => App\Models\Teacher::class,
@@ -156,6 +161,13 @@ return [
 
         'personnel' => [
             'provider' => 'personnel',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'finance' => [
+            'provider' => 'finance',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
