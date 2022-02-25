@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Finance\MaterialController;
+use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Requests\HomeworkRequest;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
@@ -20,7 +20,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
