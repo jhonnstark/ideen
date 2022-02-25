@@ -21,6 +21,12 @@ Auth::routes();
 
 Route::get('/admin/login', 'Auth\AdminLoginController@showLoginForm');
 Route::post('/admin/login', 'Auth\AdminLoginController@Login');
+Route::prefix('/admin/state')
+    ->namespace('Admin')
+    ->name('state.')
+    ->group(function(){
+        Route::get('/list', 'StateController@list');
+    });
 
 Route::prefix('/admin')
     ->name('admin.')
@@ -77,11 +83,6 @@ Route::prefix('/admin')
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
-        Route::prefix('/state')
-            ->name('state.')
-            ->group(function(){
-                Route::get('/list', 'StateController@list');
-            });
 
         Route::prefix('/payment')
             ->name('payment.')

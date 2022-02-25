@@ -39,7 +39,7 @@ class TeacherController extends Controller
     /**
      * Display a listing view of the resource.
      */
-    private $role = ['role' => 'teacher'];
+    private $role = ['role' => 'teacher', 'type' => 'personnel'];
 
     /**
      * Display a listing of the resource.
@@ -115,7 +115,8 @@ class TeacherController extends Controller
         }
         $role = $this->role['role'];
         $id = $teacher->id;
-        return view('admin.edit', compact('role', 'id'));
+        $type = $this->role['type'];
+        return view('admin.edit', compact('role', 'id', 'type'));
     }
 
     /**

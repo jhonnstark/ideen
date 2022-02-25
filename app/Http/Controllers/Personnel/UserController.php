@@ -40,7 +40,7 @@ class UserController extends Controller
     /**
      * Display a listing view of the resource.
      */
-    private $role = ['role' => 'user'];
+    private $role = ['role' => 'user', 'type' => 'personnel'];
 
 
     /**
