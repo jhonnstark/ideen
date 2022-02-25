@@ -102,7 +102,7 @@ import { required, minLength, maxLength, between, decimal, minValue, numeric, re
 
 export default {
     name: "BillForm",
-    props: ['role', 'id', 'payment'],
+    props: ['role', 'id', 'payment', 'type'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -115,7 +115,7 @@ export default {
                 total: Number.parseFloat(this.payment.total).toFixed(2),
             },
             discount: false,
-            rute: '/admin/' + this.role + '/register/' + this.id,
+            rute: '/' + this.type + '/' + this.role + '/register/' + this.id,
             isLoading:false
         }
     },

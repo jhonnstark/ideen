@@ -18,7 +18,7 @@
             }
             .wrap {
                 margin: 20px 50px;
-                padding-bottom: 75px;
+                padding-bottom: 60px;
             }
             .subtitulo {
                 text-align: center;
@@ -82,7 +82,7 @@
             .sign_name {
                 text-transform: uppercase;
                 text-align: center;
-                font-size: 14px;
+                font-size: 12px;
             }
             .sign_signature {
                 border-top: 2px dotted #000;

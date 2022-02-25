@@ -47,7 +47,7 @@ class BillController extends Controller
         $id = $user->id;
         $user->load('payments');
         $type = $this->role['type'];
-        return view('admin.billsList', compact('role', 'id', 'user', 'type'));
+        return view('finance.billsList', compact('role', 'id', 'user', 'type'));
     }
 
     /**

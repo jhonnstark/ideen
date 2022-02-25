@@ -302,6 +302,13 @@ Route::prefix('/finance')
                 Route::get('/view/{bill}', 'BillController@certificateView');
                 Route::delete('/delete/{bill}', 'BillController@destroy');
             });
+
+        Route::prefix('/concept')
+            ->name('concept.')
+            ->group(function(){
+                Route::get('/list', 'ConceptController@list');
+                Route::post('/register/{user}', 'ConceptController@store');
+            });
     });
 
 
