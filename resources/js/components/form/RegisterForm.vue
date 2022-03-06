@@ -636,7 +636,7 @@ export default {
                 maxLength: maxLength(100)
             },
             bank: {
-                minLength: minLength(10),
+                minLength: minLength(3),
                 maxLength: maxLength(100)
             },
             account_number: {

@@ -66,14 +66,8 @@ export default {
     created () {
         axios
             .get('/' + this.type + '/' + this.role + '/list')
-            .then(response => {
-                console.log(response.data)
-                this.items = response.data.data
-            })
-            .catch(respose => {
-                this.items = [];
-                console.log(respose);
-            })
+            .then(response => this.items = response.data.data)
+            .catch(() => this.items = [])
             .finally(() => this.isLoading = false)
     },
     methods: {
