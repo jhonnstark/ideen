@@ -21,7 +21,7 @@ class BillController extends Controller
     /**
      * Display a listing view of the resource.
      */
-    private $role = ['role' => 'bills'];
+    private $role = ['role' => 'bills', 'type' => 'admin'];
 
     /**
      * return payments list for a user.

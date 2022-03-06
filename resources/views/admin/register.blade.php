@@ -6,11 +6,11 @@
         <div class="row justify-content-between">
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route(($type ?? 'admin') . '.dashboard') }}">Dashboard</a></li>
                     @if($role === 'activity' || $role === 'content' || $role === 'module')
-                        <li class="breadcrumb-item"><a href="{{ route('admin.course.edit', $course) }}">{{ __('Cursos') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route(($type ?? 'admin') . '.course.edit', $course) }}">{{ __('Cursos') }}</a></li>
                     @else
-                        <li class="breadcrumb-item"><a href="{{ route('admin.' . $role. '.list') }}">{{ __($role) }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route(($type ?? 'admin') . '.' . $role. '.list') }}">{{ __($role) }}</a></li>
                     @endif
                     <li class="breadcrumb-item active" aria-current="page">{{ __('Register') }}</li>
                 </ol>
@@ -55,7 +55,7 @@
                         @elseif($role === 'concept')
                             <concept-form role="{{ $role }}"></concept-form>
                         @else
-                            <register-form role="{{ $role }}"></register-form>
+                            <register-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></register-form>
                         @endif
 
                     </div>
