@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
 //        $this->call(ContentSeeder::class);
 //        $this->call(ConceptSeeder::class);
 
-        $this->call(CycleSeeder::class);
-        $this->call(ProgramSeeder::class);
-        $this->call(SubjectSeeder::class);
-        $this->call(GroupSeeder::class);
+//        $this->call(CycleSeeder::class);
+//        $this->call(ProgramSeeder::class);
+//        $this->call(SubjectSeeder::class);
+//        $this->call(GroupSeeder::class);
     }
 }
