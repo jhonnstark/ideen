@@ -76,7 +76,7 @@
             </div>
         </div>
 
-        <div v-if="type !== 'admin'">
+        <div v-if="role !== 'admins'">
             <div class="form-group row">
                 <label for="phone" class="col-md-4 col-form-label text-md-right">Teléfono</label>
 
@@ -515,7 +515,17 @@
 
 <script>
 
-import {required, minLength, maxLength, sameAs, email, alphaNum, integer, minValue} from 'vuelidate/lib/validators';
+import {
+    required,
+    minLength,
+    maxLength,
+    sameAs,
+    email,
+    alphaNum,
+    integer,
+    minValue,
+    requiredIf
+} from 'vuelidate/lib/validators';
 
 export default {
     name: "RegisterForm",
@@ -561,6 +571,11 @@ export default {
             isLoading:false
         }
     },
+    computed: {
+        isEdit() {
+            return !!this.edit;
+        },
+    },
     validations: {
         record: {
             name: {
@@ -585,42 +600,58 @@ export default {
                 maxLength: maxLength(255)
             },
             phone: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 alphaNum,
                 minLength: minLength(8),
                 maxLength: maxLength(20)
             },
             enrollment: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 alphaNum,
                 minLength: minLength(5),
                 maxLength: maxLength(20)
             },
             address: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minLength: minLength(5),
                 maxLength: maxLength(255)
             },
             municipality: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minLength: minLength(5),
                 maxLength: maxLength(255)
             },
             state_id: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 integer
             },
             birthplace: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minLength: minLength(3),
                 maxLength: maxLength(255)
             },
             age: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minValue: minValue(1),
             },
             emergency_phone: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minLength: minLength(5),
                 maxLength: maxLength(255)
             },
@@ -629,7 +660,9 @@ export default {
                 maxLength: maxLength(255)
             },
             curp: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minLength: minLength(10),
                 maxLength: maxLength(100)
             },
@@ -730,11 +763,6 @@ export default {
             this.record.password = null;
             this.record.password_confirmation = null;
         }
-    },
-    computed: {
-        isEdit() {
-            return !!this.edit;
-        },
     },
     watch: {
         birthday: function (val) {
