@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher;
 use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivityRequest;
+use App\Http\Requests\UpdatePassword;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
@@ -18,6 +19,7 @@ use App\Models\Content;
 use App\Models\Course;
 use App\Models\Homework;
 use App\Models\Module;
+use Hash;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -62,6 +64,24 @@ class TeacherDashboard extends Controller
     public function profile(): Renderable
     {
         return view('teacher.profile', ['id' => Auth::id()]);
+    }
+
+    /**
+     * Update the password of the user
+     *
+     * @param UpdatePassword $request
+     * @return JsonResponse
+     */
+    public function update(UpdatePassword $request): JsonResponse
+    {
+        $valid = $request->validated();
+        $user = Auth::user();
+        $user->password = Hash::make($valid['password']);
+        $user->save();
+        return response()->json([
+            'status' => 201,
+            'message' => 'User updated'
+        ], 201);
     }
 
     /**

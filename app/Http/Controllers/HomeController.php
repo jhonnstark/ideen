@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Requests\HomeworkRequest;
+use App\Http\Requests\UpdatePassword;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
@@ -16,6 +17,7 @@ use App\Models\Course;
 use App\Http\Resources\User as UserResource;
 use App\Models\Homework;
 use App\Models\Module;
+use Hash;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -73,6 +75,24 @@ class HomeController extends Controller
     public function info(): UserResource
     {
         return new UserResource(Auth::user());
+    }
+
+    /**
+     * Update the password of the user
+     *
+     * @param UpdatePassword $request
+     * @return JsonResponse
+     */
+    public function update(UpdatePassword $request): JsonResponse
+    {
+        $valid = $request->validated();
+        $user = Auth::user();
+        $user->password = Hash::make($valid['password']);
+        $user->save();
+        return response()->json([
+            'status' => 201,
+            'message' => 'User updated'
+        ], 201);
     }
 
     /**

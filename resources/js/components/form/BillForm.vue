@@ -131,14 +131,14 @@ export default {
             withDiscount: (this.payment.total + this.payment.signing_up) * (1 - this.payment.discount / 100),
             record: {
                 description: null,
-                price: this.payment.total,
+                price: Number.parseFloat(this.payment.total).toFixed(2),
                 discount: 0,
                 user_id: this.id,
                 total: Number.parseFloat(0).toFixed(2),
             },
             discount: false,
             rute: '/' + this.type + '/' + this.role + '/register/' + this.id,
-            isLoading:false
+            isLoading: false
         }
     },
     validations: {
