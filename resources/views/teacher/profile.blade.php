@@ -23,9 +23,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Perfil') }}</div>
                     <div class="card-body">
-
-                            <teacher-profile-form id="{{ $id }}"></teacher-profile-form>
-
+                        <teacher-profile-form id="{{ $id }}"></teacher-profile-form>
                     </div>
                 </div>
             </div>

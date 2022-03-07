@@ -34,6 +34,9 @@ Route::prefix('/admin')
     ->middleware('auth:admin')
     ->group(function(){
         Route::get('/', 'AdminDashboard@admin')->name('dashboard');
+        Route::get('/profile', 'AdminDashboard@profile')->name('profile');
+        Route::put('/profile', 'AdminDashboard@update')->name('profile');
+        Route::get('/profile/info', 'AdminDashboard@info')->name('info');
 
 
         Route::prefix('/admins')
