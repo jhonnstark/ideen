@@ -20,6 +20,7 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed $name
  * @property mixed $mothers_lastname
  * @property mixed $bills
+ * @property mixed $password
  * @method static create(array $record)
  */
 class User extends Authenticatable
