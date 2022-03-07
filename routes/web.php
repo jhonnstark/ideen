@@ -34,6 +34,9 @@ Route::prefix('/admin')
     ->middleware('auth:admin')
     ->group(function(){
         Route::get('/', 'AdminDashboard@admin')->name('dashboard');
+        Route::get('/profile', 'AdminDashboard@profile')->name('profile');
+        Route::put('/profile', 'AdminDashboard@update')->name('profile');
+        Route::get('/profile/info', 'AdminDashboard@info')->name('info');
 
 
         Route::prefix('/admins')
@@ -322,6 +325,7 @@ Route::prefix('/teacher')
     ->group(function(){
         Route::get('/', 'TeacherDashboard@teacher')->name('dashboard');
         Route::get('/profile', 'TeacherDashboard@profile')->name('profile');
+        Route::put('/profile', 'TeacherDashboard@update')->name('profile');
         Route::get('/profile/info', 'TeacherDashboard@info')->name('info');
         Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
 
@@ -409,6 +413,7 @@ Route::prefix('/teacher')
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/deactivated', 'HomeController@deactivated')->name('deactivated');
 Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::put('/profile', 'HomeController@update');
 Route::get('/profile/info', 'HomeController@info')->name('info');
 
 Route::prefix('/course')

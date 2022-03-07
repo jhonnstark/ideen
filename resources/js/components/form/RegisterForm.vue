@@ -76,189 +76,190 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="phone" class="col-md-4 col-form-label text-md-right">Teléfono</label>
+        <div v-if="role !== 'admins'">
+            <div class="form-group row">
+                <label for="phone" class="col-md-4 col-form-label text-md-right">Teléfono</label>
 
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.phone.$model"
-                    :class="{ 'is-invalid': $v.record.phone.$error }"
-                    id="phone" type="text" class="form-control" name="phone" required autocomplete="phone">
-
-                <span
-                    v-if="!$v.record.phone.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="enrollment" class="col-md-4 col-form-label text-md-right">Matricula</label>
-
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.enrollment.$model"
-                    :class="{ 'is-invalid': $v.record.enrollment.$error }"
-                    id="enrollment" type="text" class="form-control" name="enrollment" required autocomplete="enrollment">
-
-                <span
-                    v-if="!$v.record.enrollment.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-
-            </div>
-        </div>
-
-<!--        <div class="form-group row">-->
-<!--            <label for="inputGroupFile01" class="col-md-4 col-form-label text-md-right">Foto</label>-->
-<!--            <div class="col-md-6">-->
-<!--                <div class="input-group mb-3">-->
-<!--                    <div class="input-group-prepend">-->
-<!--                        <span class="input-group-text">Upload</span>-->
-<!--                    </div>-->
-<!--                    <div class="custom-file">-->
-<!--                        <input type="file" class="custom-file-input" id="inputGroupFile01">-->
-<!--                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-        <div class="form-group row">
-            <hr class="col-12 form-separator">
-        </div>
-
-        <div class="form-group row">
-            <div class="form-check form-check-inline col-md-3 offset-2" v-if="role === 'teacher'">
-                <input
-                    v-model.trim="$v.record.degree_certificate.$model"
-                    id="degree_certificate"
-                    name="degree_certificate"
-                    class="form-check-input" type="checkbox">
-                <label class="form-check-label" for="degree_certificate">Título</label>
-            </div>
-            <div class="form-check form-check-inline col-md-3 offset-2" v-else>
-                <input
-                    v-model.trim="$v.record.birth_certificate.$model"
-                    id="birth_certificate"
-                    name="birth_certificate"
-                    class="form-check-input" type="checkbox">
-                <label class="form-check-label" for="birth_certificate">Acta de nacimiento</label>
-            </div>
-            <div class="form-check form-check-inline col-md-3" v-if="role === 'teacher'">
-                <input
-                    v-model.trim="$v.record.professional_license.$model"
-                    id="professional_license"
-                    name="professional_license"
-                    class="form-check-input" type="checkbox">
-                <label class="form-check-label" for="professional_license">Cedula profesional</label>
-            </div>
-            <div class="form-check form-check-inline col-md-3" v-else>
-                <input
-                    v-model.trim="$v.record.school_certificate.$model"
-                    id="school_certificate"
-                    name="school_certificate"
-                    class="form-check-input" type="checkbox">
-                <label class="form-check-label" for="school_certificate">Certificado de estudios</label>
-            </div>
-            <div class="form-check form-check-inline col-md-3">
-                <input
-                    v-model.trim="$v.record.curp_certificate.$model"
-                    id="curp_certificate"
-                    name="curp_certificate"
-                    class="form-check-input" type="checkbox">
-                <label class="form-check-label" for="curp_certificate">Curp</label>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <hr class="col-12 form-separator">
-        </div>
-
-        <div class="form-group row">
-            <label for="address" class="col-md-4 col-form-label text-md-right">Dirección</label>
-
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.address.$model"
-                    :class="{ 'is-invalid': $v.record.address.$error }"
-                    id="address" type="text" class="form-control" name="address" required autocomplete="address">
-
-                <span
-                    v-if="!$v.record.address.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="municipality" class="col-md-4 col-form-label text-md-right">Municipio</label>
-
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.municipality.$model"
-                    :class="{ 'is-invalid': $v.record.municipality.$error }"
-                    id="municipality" type="text" class="form-control" name="municipality" required autocomplete="municipality">
-
-                <span
-                    v-if="!$v.record.municipality.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="state" class="col-md-4 col-form-label text-md-right">Estado</label>
-            <div class="col-md-6">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="state">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
-                        </label>
-                    </div>
-                    <v-select v-model="record.state_id" :reduce="state => state.id" label="name" id="state" name="state" :options="state"></v-select>
+                <div class="col-md-6">
+                    <input
+                        v-model.trim="$v.record.phone.$model"
+                        :class="{ 'is-invalid': $v.record.phone.$error }"
+                        id="phone" type="text" class="form-control" name="phone" required autocomplete="phone">
 
                     <span
-                        v-if="!$v.record.state_id.error"
+                        v-if="!$v.record.phone.error"
                         class="invalid-feedback" role="alert">
-                        <strong>Campo invalido</strong>
-                    </span>
+                    <strong>Campo invalido</strong>
+                </span>
+
                 </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label for="birthday" class="col-md-4 col-form-label text-md-right">Fecha de nacimiento</label>
+            <div class="form-group row">
+                <label for="enrollment" class="col-md-4 col-form-label text-md-right">Matricula</label>
 
-            <div class="col-md-6">
-                <v-date-picker
-                    v-model="birthday"
-                    :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
-                    min="1950-01-01"
-                >
-                    <template v-slot="{ inputValue, inputEvents }">
-                        <div class="date-picker">
-                            <div class="date-picker-wrap">
-                                <svg
-                                    class="mx-2"
-                                    fill="none"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                    ></path>
-                                </svg>
+                <div class="col-md-6">
+                    <input
+                        v-model.trim="$v.record.enrollment.$model"
+                        :class="{ 'is-invalid': $v.record.enrollment.$error }"
+                        id="enrollment" type="text" class="form-control" name="enrollment" required autocomplete="enrollment">
+
+                    <span
+                        v-if="!$v.record.enrollment.error"
+                        class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
+
+                </div>
+            </div>
+
+            <!--        <div class="form-group row">-->
+            <!--            <label for="inputGroupFile01" class="col-md-4 col-form-label text-md-right">Foto</label>-->
+            <!--            <div class="col-md-6">-->
+            <!--                <div class="input-group mb-3">-->
+            <!--                    <div class="input-group-prepend">-->
+            <!--                        <span class="input-group-text">Upload</span>-->
+            <!--                    </div>-->
+            <!--                    <div class="custom-file">-->
+            <!--                        <input type="file" class="custom-file-input" id="inputGroupFile01">-->
+            <!--                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+
+            <div class="form-group row">
+                <hr class="col-12 form-separator">
+            </div>
+
+            <div class="form-group row">
+                <div class="form-check form-check-inline col-md-3 offset-2" v-if="role === 'teacher'">
+                    <input
+                        v-model.trim="$v.record.degree_certificate.$model"
+                        id="degree_certificate"
+                        name="degree_certificate"
+                        class="form-check-input" type="checkbox">
+                    <label class="form-check-label" for="degree_certificate">Título</label>
+                </div>
+                <div class="form-check form-check-inline col-md-3 offset-2" v-else>
+                    <input
+                        v-model.trim="$v.record.birth_certificate.$model"
+                        id="birth_certificate"
+                        name="birth_certificate"
+                        class="form-check-input" type="checkbox">
+                    <label class="form-check-label" for="birth_certificate">Acta de nacimiento</label>
+                </div>
+                <div class="form-check form-check-inline col-md-3" v-if="role === 'teacher'">
+                    <input
+                        v-model.trim="$v.record.professional_license.$model"
+                        id="professional_license"
+                        name="professional_license"
+                        class="form-check-input" type="checkbox">
+                    <label class="form-check-label" for="professional_license">Cedula profesional</label>
+                </div>
+                <div class="form-check form-check-inline col-md-3" v-else>
+                    <input
+                        v-model.trim="$v.record.school_certificate.$model"
+                        id="school_certificate"
+                        name="school_certificate"
+                        class="form-check-input" type="checkbox">
+                    <label class="form-check-label" for="school_certificate">Certificado de estudios</label>
+                </div>
+                <div class="form-check form-check-inline col-md-3">
+                    <input
+                        v-model.trim="$v.record.curp_certificate.$model"
+                        id="curp_certificate"
+                        name="curp_certificate"
+                        class="form-check-input" type="checkbox">
+                    <label class="form-check-label" for="curp_certificate">Curp</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <hr class="col-12 form-separator">
+            </div>
+
+            <div class="form-group row">
+                <label for="address" class="col-md-4 col-form-label text-md-right">Dirección</label>
+
+                <div class="col-md-6">
+                    <input
+                        v-model.trim="$v.record.address.$model"
+                        :class="{ 'is-invalid': $v.record.address.$error }"
+                        id="address" type="text" class="form-control" name="address" required autocomplete="address">
+
+                    <span
+                        v-if="!$v.record.address.error"
+                        class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="municipality" class="col-md-4 col-form-label text-md-right">Municipio</label>
+
+                <div class="col-md-6">
+                    <input
+                        v-model.trim="$v.record.municipality.$model"
+                        :class="{ 'is-invalid': $v.record.municipality.$error }"
+                        id="municipality" type="text" class="form-control" name="municipality" required autocomplete="municipality">
+
+                    <span
+                        v-if="!$v.record.municipality.error"
+                        class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="state" class="col-md-4 col-form-label text-md-right">Estado</label>
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="state">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
+                            </label>
+                        </div>
+                        <v-select v-model="record.state_id" :reduce="state => state.id" label="name" id="state" name="state" :options="state"></v-select>
+
+                        <span
+                            v-if="!$v.record.state_id.error"
+                            class="invalid-feedback" role="alert">
+                        <strong>Campo invalido</strong>
+                    </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="birthday" class="col-md-4 col-form-label text-md-right">Fecha de nacimiento</label>
+
+                <div class="col-md-6">
+                    <v-date-picker
+                        v-model="birthday"
+                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                        min="1950-01-01"
+                    >
+                        <template v-slot="{ inputValue, inputEvents }">
+                            <div class="date-picker">
+                                <div class="date-picker-wrap">
+                                    <svg
+                                        class="mx-2"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                        ></path>
+                                    </svg>
                                     <input
                                         id="birthday"
                                         class="form-control date-picker-input"
@@ -268,121 +269,25 @@
                                         name="birthday"
                                         required
                                     />
+                                </div>
                             </div>
-                        </div>
-                    </template>
-                </v-date-picker>
+                        </template>
+                    </v-date-picker>
 
+                </div>
             </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="birthplace" class="col-md-4 col-form-label text-md-right">Lugar de nacimiento</label>
-
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.birthplace.$model"
-                    :class="{ 'is-invalid': $v.record.birthplace.$error }"
-                    id="birthplace" type="text" class="form-control" name="birthplace" required autocomplete="birthplace">
-
-                <span
-                    v-if="!$v.record.birthplace.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="age" class="col-md-4 col-form-label text-md-right">Edad</label>
-
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.age.$model"
-                    :class="{ 'is-invalid': $v.record.age.$error }"
-                    id="age" type="number" class="form-control" name="age" required autocomplete="age">
-
-                <span
-                    v-if="!$v.record.age.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="emergency_phone" class="col-md-4 col-form-label text-md-right">Teléfono de emergencia</label>
-
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.emergency_phone.$model"
-                    :class="{ 'is-invalid': $v.record.emergency_phone.$error }"
-                    id="emergency_phone" type="text" class="form-control" name="emergency_phone" required autocomplete="emergency_phone">
-
-                <span
-                    v-if="!$v.record.emergency_phone.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="facebook" class="col-md-4 col-form-label text-md-right">facebook</label>
-
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.facebook.$model"
-                    :class="{ 'is-invalid': $v.record.facebook.$error }"
-                    id="facebook" type="text" class="form-control" name="facebook" required autocomplete="facebook">
-
-                <span
-                    v-if="!$v.record.facebook.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="curp" class="col-md-4 col-form-label text-md-right">Curp</label>
-
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.curp.$model"
-                    :class="{ 'is-invalid': $v.record.curp.$error }"
-                    id="curp" type="text" class="form-control" name="curp" required autocomplete="curp">
-
-                <span
-                    v-if="!$v.record.curp.error"
-                    class="invalid-feedback" role="alert">
-                    <strong>Campo invalido</strong>
-                </span>
-
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <hr class="col-12 form-separator">
-        </div>
-
-        <div v-if="role === 'teacher'">
 
             <div class="form-group row">
-                <label for="rfc" class="col-md-4 col-form-label text-md-right">RFC</label>
+                <label for="birthplace" class="col-md-4 col-form-label text-md-right">Lugar de nacimiento</label>
 
                 <div class="col-md-6">
                     <input
-                        v-model.trim="$v.record.rfc.$model"
-                        :class="{ 'is-invalid': $v.record.rfc.$error }"
-                        id="rfc" type="text" class="form-control" name="rfc" required autocomplete="rfc">
+                        v-model.trim="$v.record.birthplace.$model"
+                        :class="{ 'is-invalid': $v.record.birthplace.$error }"
+                        id="birthplace" type="text" class="form-control" name="birthplace" required autocomplete="birthplace">
 
                     <span
-                        v-if="!$v.record.rfc.error"
+                        v-if="!$v.record.birthplace.error"
                         class="invalid-feedback" role="alert">
                     <strong>Campo invalido</strong>
                 </span>
@@ -391,16 +296,16 @@
             </div>
 
             <div class="form-group row">
-                <label for="bank" class="col-md-4 col-form-label text-md-right">Nombre del banco</label>
+                <label for="age" class="col-md-4 col-form-label text-md-right">Edad</label>
 
                 <div class="col-md-6">
                     <input
-                        v-model.trim="$v.record.bank.$model"
-                        :class="{ 'is-invalid': $v.record.bank.$error }"
-                        id="bank" type="text" class="form-control" name="bank" required autocomplete="bank">
+                        v-model.trim="$v.record.age.$model"
+                        :class="{ 'is-invalid': $v.record.age.$error }"
+                        id="age" type="number" class="form-control" name="age" required autocomplete="age">
 
                     <span
-                        v-if="!$v.record.bank.error"
+                        v-if="!$v.record.age.error"
                         class="invalid-feedback" role="alert">
                     <strong>Campo invalido</strong>
                 </span>
@@ -409,16 +314,16 @@
             </div>
 
             <div class="form-group row">
-                <label for="account_number" class="col-md-4 col-form-label text-md-right">Número de cuenta</label>
+                <label for="emergency_phone" class="col-md-4 col-form-label text-md-right">Teléfono de emergencia</label>
 
                 <div class="col-md-6">
                     <input
-                        v-model.trim="$v.record.account_number.$model"
-                        :class="{ 'is-invalid': $v.record.account_number.$error }"
-                        id="account_number" type="text" class="form-control" name="account_number" required autocomplete="account_number">
+                        v-model.trim="$v.record.emergency_phone.$model"
+                        :class="{ 'is-invalid': $v.record.emergency_phone.$error }"
+                        id="emergency_phone" type="text" class="form-control" name="emergency_phone" required autocomplete="emergency_phone">
 
                     <span
-                        v-if="!$v.record.account_number.error"
+                        v-if="!$v.record.emergency_phone.error"
                         class="invalid-feedback" role="alert">
                     <strong>Campo invalido</strong>
                 </span>
@@ -427,16 +332,34 @@
             </div>
 
             <div class="form-group row">
-                <label for="account_clabe" class="col-md-4 col-form-label text-md-right">Cuenta CLABE</label>
+                <label for="facebook" class="col-md-4 col-form-label text-md-right">facebook</label>
 
                 <div class="col-md-6">
                     <input
-                        v-model.trim="$v.record.account_clabe.$model"
-                        :class="{ 'is-invalid': $v.record.account_clabe.$error }"
-                        id="account_clabe" type="text" class="form-control" name="account_clabe" required autocomplete="account_clabe">
+                        v-model.trim="$v.record.facebook.$model"
+                        :class="{ 'is-invalid': $v.record.facebook.$error }"
+                        id="facebook" type="text" class="form-control" name="facebook" required autocomplete="facebook">
 
                     <span
-                        v-if="!$v.record.account_clabe.error"
+                        v-if="!$v.record.facebook.error"
+                        class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="curp" class="col-md-4 col-form-label text-md-right">Curp</label>
+
+                <div class="col-md-6">
+                    <input
+                        v-model.trim="$v.record.curp.$model"
+                        :class="{ 'is-invalid': $v.record.curp.$error }"
+                        id="curp" type="text" class="form-control" name="curp" required autocomplete="curp">
+
+                    <span
+                        v-if="!$v.record.curp.error"
                         class="invalid-feedback" role="alert">
                     <strong>Campo invalido</strong>
                 </span>
@@ -448,40 +371,119 @@
                 <hr class="col-12 form-separator">
             </div>
 
-        </div>
+            <div v-if="role === 'teacher'">
 
-        <div class="form-group row" v-if="!edit">
-            <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                <div class="form-group row">
+                    <label for="rfc" class="col-md-4 col-form-label text-md-right">RFC</label>
 
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.password.$model"
-                    :class="{ 'is-invalid': $v.record.password.$error }"
-                    id="password" type="password" class="form-control" name="password" required autocomplete="new-password">
+                    <div class="col-md-6">
+                        <input
+                            v-model.trim="$v.record.rfc.$model"
+                            :class="{ 'is-invalid': $v.record.rfc.$error }"
+                            id="rfc" type="text" class="form-control" name="rfc" required autocomplete="rfc">
 
-                <span
-                    v-if="!$v.record.password.error"
-                    class="invalid-feedback" role="alert">
-                    <strong class="text-muted">Campo invalido</strong>
+                        <span
+                            v-if="!$v.record.rfc.error"
+                            class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
                 </span>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="bank" class="col-md-4 col-form-label text-md-right">Nombre del banco</label>
+
+                    <div class="col-md-6">
+                        <input
+                            v-model.trim="$v.record.bank.$model"
+                            :class="{ 'is-invalid': $v.record.bank.$error }"
+                            id="bank" type="text" class="form-control" name="bank" required autocomplete="bank">
+
+                        <span
+                            v-if="!$v.record.bank.error"
+                            class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="account_number" class="col-md-4 col-form-label text-md-right">Número de cuenta</label>
+
+                    <div class="col-md-6">
+                        <input
+                            v-model.trim="$v.record.account_number.$model"
+                            :class="{ 'is-invalid': $v.record.account_number.$error }"
+                            id="account_number" type="text" class="form-control" name="account_number" required autocomplete="account_number">
+
+                        <span
+                            v-if="!$v.record.account_number.error"
+                            class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="account_clabe" class="col-md-4 col-form-label text-md-right">Cuenta CLABE</label>
+
+                    <div class="col-md-6">
+                        <input
+                            v-model.trim="$v.record.account_clabe.$model"
+                            :class="{ 'is-invalid': $v.record.account_clabe.$error }"
+                            id="account_clabe" type="text" class="form-control" name="account_clabe" required autocomplete="account_clabe">
+
+                        <span
+                            v-if="!$v.record.account_clabe.error"
+                            class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <hr class="col-12 form-separator">
+                </div>
 
             </div>
-        </div>
 
-        <div class="form-group row" v-if="!edit">
-            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmación</label>
+            <div class="form-group row" v-if="!edit">
+                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
-            <div class="col-md-6">
-                <input
-                    v-model.trim="$v.record.password_confirmation.$model"
-                    :class="{ 'is-invalid': $v.record.password_confirmation.$error }"
-                    id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                <div class="col-md-6">
+                    <input
+                        v-model.trim="$v.record.password.$model"
+                        :class="{ 'is-invalid': $v.record.password.$error }"
+                        id="password" type="password" class="form-control" name="password" required autocomplete="new-password">
 
-                <span
-                    v-if="!$v.record.password_confirmation.error"
-                    class="invalid-feedback" role="alert">
+                    <span
+                        v-if="!$v.record.password.error"
+                        class="invalid-feedback" role="alert">
                     <strong class="text-muted">Campo invalido</strong>
                 </span>
+
+                </div>
+            </div>
+
+            <div class="form-group row" v-if="!edit">
+                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmación</label>
+
+                <div class="col-md-6">
+                    <input
+                        v-model.trim="$v.record.password_confirmation.$model"
+                        :class="{ 'is-invalid': $v.record.password_confirmation.$error }"
+                        id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+
+                    <span
+                        v-if="!$v.record.password_confirmation.error"
+                        class="invalid-feedback" role="alert">
+                    <strong class="text-muted">Campo invalido</strong>
+                </span>
+                </div>
             </div>
         </div>
 
@@ -513,7 +515,17 @@
 
 <script>
 
-import {required, minLength, maxLength, sameAs, email, alphaNum, integer, minValue} from 'vuelidate/lib/validators';
+import {
+    required,
+    minLength,
+    maxLength,
+    sameAs,
+    email,
+    alphaNum,
+    integer,
+    minValue,
+    requiredIf
+} from 'vuelidate/lib/validators';
 
 export default {
     name: "RegisterForm",
@@ -559,6 +571,11 @@ export default {
             isLoading:false
         }
     },
+    computed: {
+        isEdit() {
+            return !!this.edit;
+        },
+    },
     validations: {
         record: {
             name: {
@@ -583,42 +600,58 @@ export default {
                 maxLength: maxLength(255)
             },
             phone: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 alphaNum,
                 minLength: minLength(8),
                 maxLength: maxLength(20)
             },
             enrollment: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 alphaNum,
                 minLength: minLength(5),
                 maxLength: maxLength(20)
             },
             address: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minLength: minLength(5),
                 maxLength: maxLength(255)
             },
             municipality: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minLength: minLength(5),
                 maxLength: maxLength(255)
             },
             state_id: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 integer
             },
             birthplace: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minLength: minLength(3),
                 maxLength: maxLength(255)
             },
             age: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minValue: minValue(1),
             },
             emergency_phone: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minLength: minLength(5),
                 maxLength: maxLength(255)
             },
@@ -627,7 +660,9 @@ export default {
                 maxLength: maxLength(255)
             },
             curp: {
-                required,
+                required: requiredIf(function () {
+                    return this.role !== 'admins'
+                }),
                 minLength: minLength(10),
                 maxLength: maxLength(100)
             },
@@ -728,11 +763,6 @@ export default {
             this.record.password = null;
             this.record.password_confirmation = null;
         }
-    },
-    computed: {
-        isEdit() {
-            return !!this.edit;
-        },
     },
     watch: {
         birthday: function (val) {

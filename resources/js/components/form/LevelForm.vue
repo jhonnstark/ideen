@@ -131,9 +131,7 @@ export default {
     created() {
         if (this.edit) {
             axios.get('/admin/' + this.role + '/edit/' + this.edit)
-                .then(response => {
-                    this.record = response.data.data;
-                })
+                .then(response => this.record = response.data.data);
         }
     },
     methods:{
