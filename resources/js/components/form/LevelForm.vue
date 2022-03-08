@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group row">
-            <label for="quarter" class="col-md-4 col-form-label text-md-right">Quatrimestre</label>
+            <label for="quarter" class="col-md-4 col-form-label text-md-right">Cuatrimestre</label>
             <div class="col-md-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">

@@ -10,7 +10,7 @@
         <input type="hidden" name="_token" :value="csrf">
 
         <div class="form-group row">
-            <label for="description" class="col-md-4 col-form-label text-md-right">Observaciones</label>
+            <label for="description" class="col-md-4 col-form-label text-md-right">Concepto</label>
             <div class="col-md-6">
                 <div class="input-group mb-3">
                     <input
