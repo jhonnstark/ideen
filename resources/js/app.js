@@ -117,6 +117,7 @@ Vue.component('concept-form', require('./components/form/ConceptForm.vue').defau
 
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('concept-add', require('./components/form/ConceptAdd.vue').default);
+Vue.component('custom-concept-add', require('./components/form/CustomConceptAdd.vue').default);
 Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
 Vue.component('user-courses', require('./components/layouts/UserCourses.vue').default);
 

@@ -12,6 +12,12 @@
                 <hr class="col-12">
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <custom-concept-add :role="role" :id="id" v-on:concept-added="updateList" :type="type"></custom-concept-add>
+                <hr class="col-12">
+            </div>
+        </div>
 
         <div class="row justify-content-center">
 
