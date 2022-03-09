@@ -81,7 +81,7 @@
             </div>
         </div>
 
-        <div v-if="role !== 'admins'">
+        <div v-if="role !== 'admins' && role !== 'personnels' && role !== 'finances'">
             <div class="form-group row">
                 <label for="phone" class="col-md-4 col-form-label text-md-right">Teléfono</label>
 
@@ -609,7 +609,7 @@ export default {
             },
             phone: {
                 required: requiredIf(function () {
-                    return this.role !== 'admins'
+                    return this.role !== 'admins' && this.role !== 'personnels' && this.role !== 'finances'
                 }),
                 alphaNum,
                 minLength: minLength(8),
@@ -617,7 +617,7 @@ export default {
             },
             enrollment: {
                 required: requiredIf(function () {
-                    return this.role !== 'admins'
+                    return this.role !== 'admins' && this.role !== 'personnels' && this.role !== 'finances'
                 }),
                 alphaNum,
                 minLength: minLength(5),
@@ -625,40 +625,40 @@ export default {
             },
             address: {
                 required: requiredIf(function () {
-                    return this.role !== 'admins'
+                    return this.role !== 'admins' && this.role !== 'personnels' && this.role !== 'finances'
                 }),
                 minLength: minLength(5),
                 maxLength: maxLength(255)
             },
             municipality: {
                 required: requiredIf(function () {
-                    return this.role !== 'admins'
+                    return this.role !== 'admins' && this.role !== 'personnels' && this.role !== 'finances'
                 }),
                 minLength: minLength(5),
                 maxLength: maxLength(255)
             },
             state_id: {
                 required: requiredIf(function () {
-                    return this.role !== 'admins'
+                    return this.role !== 'admins' && this.role !== 'personnels' && this.role !== 'finances'
                 }),
                 integer
             },
             birthplace: {
                 required: requiredIf(function () {
-                    return this.role !== 'admins'
+                    return this.role !== 'admins' && this.role !== 'personnels' && this.role !== 'finances'
                 }),
                 minLength: minLength(3),
                 maxLength: maxLength(255)
             },
             age: {
                 required: requiredIf(function () {
-                    return this.role !== 'admins'
+                    return this.role !== 'admins' && this.role !== 'personnels' && this.role !== 'finances'
                 }),
                 minValue: minValue(1),
             },
             emergency_phone: {
                 required: requiredIf(function () {
-                    return this.role !== 'admins'
+                    return this.role !== 'admins' && this.role !== 'personnels' && this.role !== 'finances'
                 }),
                 minLength: minLength(5),
                 maxLength: maxLength(255)
@@ -669,7 +669,7 @@ export default {
             },
             curp: {
                 required: requiredIf(function () {
-                    return this.role !== 'admins'
+                    return this.role !== 'admins' && this.role !== 'personnels' && this.role !== 'finances'
                 }),
                 minLength: minLength(10),
                 maxLength: maxLength(100)

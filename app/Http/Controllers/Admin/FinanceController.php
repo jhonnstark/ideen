@@ -22,7 +22,7 @@ class FinanceController extends Controller
     /**
      * Display a listing view of the resource.
      */
-    private $role = ['role' => 'admins'];
+    private $role = ['role' => 'finance'];
 
     /**
      * Display a listing of the resource.

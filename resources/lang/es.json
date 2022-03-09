@@ -20,6 +20,7 @@
     "payment": "Pagos",
     "bills": "Recibos",
     "concept": "Conceptos",
+    "personnels": "Servicios escolares",
     "Exam Register": "Creación de examenes",
     "Formulario admins": "Formulario de creación de administradores",
     "Formulario user": "Formulario de creación de alumnos",
@@ -32,6 +33,7 @@
     "Formulario module": "Formulario de creación de modulos",
     "Formulario homework": "Formulario de creación de tareas",
     "Formulario payment": "Formulario de creación de nuevo plan de pagos para:",
+    "Formulario personnels": "Formulario de creación de personal de servicios escolares",
     "Listado admin": "Listado de administradores",
     "Listado user": "Listado de alumnos",
     "Listado teacher": "Listado de profesores",
@@ -43,6 +45,7 @@
     "Listado payment": "Listado de pagos de alumnos",
     "Listado bills": "Listado de recibos del alumno",
     "Listado concept": "Listado de conceptos",
+    "Listado personnels": "Listado de personal",
     "Teacher Login": "Login de profesor",
     "Logout": "Logout",
     "Login": "Login"
