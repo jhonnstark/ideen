@@ -68,11 +68,16 @@
                     id="email" type="email" class="form-control" name="email" required autocomplete="email">
 
                 <span
-                    v-if="!$v.record.email.error"
+                    v-if="!$v.record.email.isUnique"
+                    class="invalid-feedback" role="alert">
+                    <strong>Email ya registrado</strong>
+                </span>
+
+                <span
+                    v-else-if="!$v.record.email.error"
                     class="invalid-feedback" role="alert">
                     <strong>Campo invalido</strong>
                 </span>
-
             </div>
         </div>
 
@@ -444,46 +449,45 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="form-group row">
-                    <hr class="col-12 form-separator">
-                </div>
+        <div class="form-group row" v-if="!edit">
+            <hr class="col-12 form-separator">
+        </div>
+
+        <div class="form-group row" v-if="!edit">
+            <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+
+            <div class="col-md-6">
+                <input
+                    v-model.trim="$v.record.password.$model"
+                    :class="{ 'is-invalid': $v.record.password.$error }"
+                    id="password" type="password" class="form-control" name="password" required autocomplete="new-password">
+
+                <span
+                    v-if="!$v.record.password.error"
+                    class="invalid-feedback" role="alert">
+                <strong class="text-muted">Campo invalido</strong>
+            </span>
 
             </div>
+        </div>
 
-            <div class="form-group row" v-if="!edit">
-                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+        <div class="form-group row" v-if="!edit">
+            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmación</label>
 
-                <div class="col-md-6">
-                    <input
-                        v-model.trim="$v.record.password.$model"
-                        :class="{ 'is-invalid': $v.record.password.$error }"
-                        id="password" type="password" class="form-control" name="password" required autocomplete="new-password">
+            <div class="col-md-6">
+                <input
+                    v-model.trim="$v.record.password_confirmation.$model"
+                    :class="{ 'is-invalid': $v.record.password_confirmation.$error }"
+                    id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
 
-                    <span
-                        v-if="!$v.record.password.error"
-                        class="invalid-feedback" role="alert">
-                    <strong class="text-muted">Campo invalido</strong>
-                </span>
-
-                </div>
-            </div>
-
-            <div class="form-group row" v-if="!edit">
-                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmación</label>
-
-                <div class="col-md-6">
-                    <input
-                        v-model.trim="$v.record.password_confirmation.$model"
-                        :class="{ 'is-invalid': $v.record.password_confirmation.$error }"
-                        id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-
-                    <span
-                        v-if="!$v.record.password_confirmation.error"
-                        class="invalid-feedback" role="alert">
-                    <strong class="text-muted">Campo invalido</strong>
-                </span>
-                </div>
+                <span
+                    v-if="!$v.record.password_confirmation.error"
+                    class="invalid-feedback" role="alert">
+                <strong class="text-muted">Campo invalido</strong>
+            </span>
             </div>
         </div>
 
@@ -568,7 +572,8 @@ export default {
             rute: this.edit
                 ? '/' + this.type + '/' + this.role + '/edit/' + this.edit
                 : '/' + this.type + '/' + this.role + '/register',
-            isLoading:false
+            isLoading:false,
+            emails: [],
         }
     },
     computed: {
@@ -597,7 +602,10 @@ export default {
                 required,
                 email,
                 minLength: minLength(6),
-                maxLength: maxLength(255)
+                maxLength: maxLength(255),
+                isUnique() {
+                    return this.emails.findIndex(element => this.record.email === element) < 0;
+                },
             },
             phone: {
                 required: requiredIf(function () {
@@ -724,43 +732,52 @@ export default {
                     method: this.edit ? 'put' : 'post',
                     url:  this.rute,
                     data: this.record
-                    }).then(response => {
-                    this.isLoading = false;
-                    if (!this.edit) {
-                        this.clearForm();
-                        this.$swal('Guardado', 'Creado exitosamente.', 'success');
-                    } else {
-                        this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
-                    }
-                }).catch(error => console.log(error))
+                    })
+                    .then(() => {
+                        this.isLoading = false;
+                        if (!this.edit) {
+                            this.emails.push(this.record.email);
+                            this.clearForm();
+                            this.$swal('Guardado', 'Creado exitosamente.', 'success');
+                        } else {
+                            this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
+                        }
+                    })
+                    .catch(error => {
+                        if (!this.edit && error.response.data.errors.email !== undefined) {
+                            this.emails.push(this.record.email);
+                            this.$v.$touch()
+                        }
+                    })
+                    .finally(() => this.isLoading = false);
             }
         },
         clearForm() {
+            this.birthday = new Date();
             this.record.name = null;
             this.record.email = null;
             this.record.lastname = null;
             this.record.mothers_lastname = null;
-            this.phone = null;
-            this.enrollment = null;
-            this.address = null;
-            this.municipality = null;
-            this.state_id = null;
-            this.birthday = new Date();
-            this.birthplace = null;
-            this.age = 1;
-            this.emergency_phone = null;
-            this.facebook = null;
-            this.curp = null;
-            this.rfc = null;
-            this.bank = null;
-            this.account_number = null;
-            this.account_clabe = null;
-            this.degree_certificate = false;
-            this.birth_certificate = false;
-            this.professional_license = false;
-            this.school_certificate = false;
-            this.curp_certificate = false;
-            this.record.password = null;
+            this.record.phone = null;
+            this.record.enrollment = null;
+            this.record.address = null;
+            this.record.municipality = null;
+            this.record.state_id = null;
+            this.record.birthplace = null;
+            this.record.age = 1;
+            this.record.emergency_phone = null;
+            this.record.facebook = null;
+            this.record.curp = null;
+            this.record.rfc = null;
+            this.record.bank = null;
+            this.record.account_number = null;
+            this.record.account_clabe = null;
+            this.record.degree_certificate = false;
+            this.record.birth_certificate = false;
+            this.record.professional_license = false;
+            this.record.school_certificate = false;
+            this.record.curp_certificate = false;
+            this.record.password = "";
             this.record.password_confirmation = null;
         }
     },

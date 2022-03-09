@@ -242,7 +242,7 @@ export default {
             invoice: {
                 required: requiredIf('paid'),
                 numeric,
-                minLength: minLength(3),
+                minLength: minLength(1),
                 maxLength: maxLength(255)
             },
             signing_up: {
