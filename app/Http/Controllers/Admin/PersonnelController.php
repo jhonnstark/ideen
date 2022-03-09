@@ -112,7 +112,7 @@ class PersonnelController extends Controller
      */
     public function destroy(Personnel $personnel): JsonResponse
     {
-//        $personnel->delete();
+        $personnel->delete();
         return response()->json([
             'status' => 204,
             'message' => 'Deleted admin'
