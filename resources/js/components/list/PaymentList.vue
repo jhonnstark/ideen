@@ -1,5 +1,21 @@
 <template>
     <div class="container">
+        <form
+            @submit.prevent="register"
+            action="#" method="POST" novalidate>
+
+            <div class="form-group row">
+                <label for="name" class="col-md-2 offset-md-6 col-form-label text-md-right">Buscar</label>
+
+                <div class="col-md-4">
+                    <input
+                        v-model.trim="searchText"
+                        id="name"
+                        type="text" class="form-control" name="name" required autocomplete="name" autofocus>
+                </div>
+            </div>
+        </form>
+
         <div class="row justify-content-center">
 
             <table class="table">
@@ -60,13 +76,18 @@ export default {
     data: function () {
         return {
             isLoading: true,
-            items: null
+            items: [],
+            users: [],
+            searchText: '',
         }
     },
     created () {
         axios
             .get('/' + this.type + '/' + this.role + '/list')
-            .then(response => this.items = response.data.data)
+            .then(response => {
+                this.users = response.data.data;
+                this.items = this.users;
+            })
             .catch(() => this.items = [])
             .finally(() => this.isLoading = false)
     },
@@ -144,6 +165,15 @@ export default {
                 allowOutsideClick: () => !this.$swal.isLoading()
             });
         }
+    },
+    watch: {
+        searchText(val) {
+            this.items = this.users.filter(item => {
+                return !(item.name.search(val) < 0)
+                    || !(item.lastname.search(val) < 0)
+                    || !(item.mothers_lastname.search(val) < 0);
+            })
+        },
     }
 }
 </script>

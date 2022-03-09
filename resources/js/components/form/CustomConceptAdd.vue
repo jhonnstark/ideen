@@ -4,7 +4,7 @@
         action="#" method="POST" novalidate>
         <div class="row">
             <div class="col">
-                <h5 class="text-center">Agregar adeudo del plan de pagos</h5>
+                <h5 class="text-center">Agregar abono</h5>
             </div>
         </div>
         <input type="hidden" name="_token" :value="csrf">
@@ -12,57 +12,17 @@
         <div class="form-group row">
             <label for="description" class="col-md-4 col-form-label text-md-right">Concepto</label>
             <div class="col-md-6">
-                <div class="input-group mb-3">
-                    <input
-                        v-model.trim="$v.record.description.$model"
-                        :class="{ 'is-invalid': $v.record.description.$error }"
-                        id="description"
-                        type="text" class="form-control" name="description" required autocomplete="price-bill">
+                <input
+                    v-model.trim="$v.record.description.$model"
+                    :class="{ 'is-invalid': $v.record.description.$error }"
+                    id="description"
+                    type="text" class="form-control" name="description" required autocomplete="description" autofocus>
 
-                    <span
-                        v-if="!$v.record.description.error"
-                        class="invalid-feedback" role="alert">
-                        <strong>Campo invalido</strong>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="withDiscount" class="col-md-4 col-form-label text-md-right">Mensualidad neta con descuento</label>
-            <div class="col-md-6">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="withDiscount">
-                            <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1362 1185q0 153-99.5 263.5t-258.5 136.5v175q0 14-9 23t-23 9h-135q-13 0-22.5-9.5t-9.5-22.5v-175q-66-9-127.5-31t-101.5-44.5-74-48-46.5-37.5-17.5-18q-17-21-2-41l103-135q7-10 23-12 15-2 24 9l2 2q113 99 243 125 37 8 74 8 81 0 142.5-43t61.5-122q0-28-15-53t-33.5-42-58.5-37.5-66-32-80-32.5q-39-16-61.5-25t-61.5-26.5-62.5-31-56.5-35.5-53.5-42.5-43.5-49-35.5-58-21-66.5-8.5-78q0-138 98-242t255-134v-180q0-13 9.5-22.5t22.5-9.5h135q14 0 23 9t9 23v176q57 6 110.5 23t87 33.5 63.5 37.5 39 29 15 14q17 18 5 38l-81 146q-8 15-23 16-14 3-27-7-3-3-14.5-12t-39-26.5-58.5-32-74.5-26-85.5-11.5q-95 0-155 43t-60 111q0 26 8.5 48t29.5 41.5 39.5 33 56 31 60.5 27 70 27.5q53 20 81 31.5t76 35 75.5 42.5 62 50 53 63.5 31.5 76.5 13 94z"/></svg>
-                        </label>
-                    </div>
-
-                    <input
-                        v-model.number.trim="withDiscount"
-                        id="withDiscount"
-                        type="text"
-                        disabled
-                        class="form-control" name="withDiscount" required autocomplete="paymentTotal-bill">
-
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="inscription" class="col-md-4 col-form-label text-md-right">10% descuento pronto pago</label>
-
-            <div class="col-md-6">
-                <toggle-button
-                    id="inscription"
-                    color="#0fa5df"
-                    :sync="true"
-                    :labels="{checked: 'Si', unchecked: 'No'}"
-                    :height=30
-                    :width=65
-                    :font-size=13.5
-                    v-model="discount"
-                />
+                <span
+                    v-if="!$v.record.description.error"
+                    class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
             </div>
         </div>
 
@@ -81,8 +41,11 @@
                         :class="{ 'is-invalid': $v.record.total.$error }"
                         id="total"
                         type="text"
-                        disabled
-                        class="form-control" name="total" required autocomplete="total-bill">
+                        class="form-control"
+                        name="total"
+                        @keyup="formatMoney"
+                        required
+                        autocomplete="total-bill">
 
                     <span
                         v-if="!$v.record.total.error"
@@ -114,39 +77,34 @@
             </div>
         </div>
     </form>
-
 </template>
 
 <script>
-
-import { required, minLength, maxLength, decimal, minValue } from 'vuelidate/lib/validators';
+import {decimal, minLength, minValue, required} from 'vuelidate/lib/validators';
 
 export default {
-    name: "BillForm",
-    props: ['role', 'id', 'payment', 'type'],
+    name: "CustomConceptAdd",
+    props: ['role', 'id', 'type'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
-            withDiscount: (this.payment.total + this.payment.signing_up) * (1 - this.payment.discount / 100),
             record: {
                 description: null,
-                price: Number.parseFloat(this.payment.total).toFixed(2),
+                total: Number.parseFloat('0').toFixed(2),
+                price: Number.parseFloat('0').toFixed(2),
                 discount: 0,
                 user_id: this.id,
-                total: Number.parseFloat('0').toFixed(2),
             },
-            discount: false,
             rute: '/' + this.type + '/' + this.role + '/register/' + this.id,
-            isLoading: false
+            isLoading:false
         }
     },
     validations: {
         record: {
             description: {
-                required,
                 minLength: minLength(3),
-                maxLength: maxLength(255)
+                required
             },
             total: {
                 required,
@@ -156,9 +114,13 @@ export default {
         },
     },
     created() {
-        this.record.total = Number.parseFloat(this.withDiscount.toString()).toFixed(2);
     },
     methods:{
+        formatMoney(val) {
+            const value = Number.parseFloat(val.target.value).toFixed(2);
+            this.record.total =  !isNaN(Number.parseInt(value)) ? value : 0.00;
+            this.record.price =  !isNaN(Number.parseInt(value)) ? value : 0.00;
+        },
         register() {
             if (this.isLoading) {
                 return;
@@ -169,34 +131,21 @@ export default {
                 this.$v.$reset();
                 this.errors = false;
                 this.isLoading = true;
-
                 axios({
                     method: 'post',
                     url:  this.rute,
-                    data: this.record
+                    data: this.record,
                 }).then(response => {
-                    this.$emit('bill-added')
+                    this.$emit('concept-added')
                     this.record.description = null;
-                    this.record.discount = 0;
-                    this.record.total = this.payment.total;
-                    this.$swal('Guardado', 'Creado exitosamente.', 'success');
-                }).catch(error => console.log(error))
-                .finally(() =>{
+                    this.record.total = Number.parseFloat('0').toFixed(2);
+                    this.record.price = Number.parseFloat('0').toFixed(2);
                     this.isLoading = false;
-                });
+                    this.$swal('Agregado', 'Se agrego al curso exitosamente.', 'success');
+                }).catch(error => console.log(error))
             }
-        },
-    },
-    watch: {
-        discount: {
-            handler(val){
-                const total = this.discount ? this.withDiscount * .9 : this.withDiscount;
-                this.record.total = Number.parseFloat(total.toString()).toFixed(2);
-                this.record.discount = this.discount ? 10 : 0;
-            },
-            deep: true
         }
-    }
+    },
 }
 </script>
 

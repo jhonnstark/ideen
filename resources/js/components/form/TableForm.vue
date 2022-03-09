@@ -116,7 +116,7 @@ export default {
         isEdit() {
             return !!this.edit;
         },
-    }
+    },
 }
 </script>
 
