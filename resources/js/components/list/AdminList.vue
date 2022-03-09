@@ -1,5 +1,21 @@
 <template>
     <div class="container">
+        <form
+            @submit.prevent="register"
+            action="#" method="POST" novalidate>
+
+            <div class="form-group row">
+                <label for="name" class="col-md-2 offset-md-6 col-form-label text-md-right">Buscar</label>
+
+                <div class="col-md-4">
+                    <input
+                        v-model.trim="searchText"
+                        id="name"
+                        type="text" class="form-control" name="name" required autocomplete="name" autofocus>
+                </div>
+            </div>
+        </form>
+
         <div class="row justify-content-center">
 
             <table class="table">
@@ -28,7 +44,7 @@
                 <tr v-else v-for="item in items" :key="item.id">
                     <th scope="row">{{ item.id }}</th>
                     <td>{{ item.name }}</td>
-                    <td>{{ item.lastname }}</td>
+                    <td>{{ item.lastname }} {{ item.mothers_lastname }}</td>
                     <td>{{ item.email }}</td>
                     <td class="text-right">
 
@@ -63,14 +79,19 @@ export default {
     data: function () {
         return {
             isLoading: true,
-            items: null
+            items: [],
+            users: [],
+            searchText: '',
         }
     },
     created () {
         axios
             .get('/' + this.type + '/' + this.role + '/list')
-            .then(response => (this.items = response.data.data))
-            .catch(error => (this.items = []))
+            .then(response => {
+                this.users = response.data.data;
+                this.items = this.users;
+            })
+            .catch(() => (this.users = []))
             .finally(() => this.isLoading = false)
     },
     methods: {
@@ -112,6 +133,8 @@ export default {
                             this.$swal('Guardado', 'Creado exitosamente.', 'success');
                             const removedId = this.items.findIndex(item => item.id === id);
                             this.items.splice(removedId, 1);
+                            const removedId2 = this.users.findIndex(item => item.id === id);
+                            this.users.splice(removedId2, 1);
                         })
                         .catch(error => {
                             this.$swal.showValidationMessage(
@@ -127,6 +150,15 @@ export default {
                 }
             });
         }
+    },
+    watch: {
+        searchText(val) {
+            this.items = this.users.filter(item => {
+                return !(item.name.search(val) < 0)
+                    || !(item.lastname.search(val) < 0)
+                    || !(item.mothers_lastname.search(val) < 0);
+            })
+        },
     }
 }
 </script>
