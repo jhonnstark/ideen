@@ -548,7 +548,7 @@ export default {
                 address: null,
                 municipality: null,
                 state_id: null,
-                birthday: new Date(),
+                birthday: this.$moment(new Date()).format('YYYY-MM-DD'),
                 birthplace: null,
                 age: 1,
                 emergency_phone: null,
