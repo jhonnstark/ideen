@@ -11,9 +11,9 @@ class FinanceRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,14 @@ class FinanceRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'email' => 'bail|required|email|unique:finances,email|max:255',
+            'name' => 'required',
+            'lastname' => 'required',
+            'mothers_lastname' => 'required',
+            'password' => 'required|confirmed',
         ];
     }
 }

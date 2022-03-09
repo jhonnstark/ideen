@@ -21,7 +21,7 @@ class PersonnelController extends Controller
     /**
      * Display a listing view of the resource.
      */
-    private $role = ['role' => 'admins'];
+    private $role = ['role' => 'personnels'];
 
     /**
      * Display a listing of the resource.
@@ -73,6 +73,7 @@ class PersonnelController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param Personnel $personnel
      * @return PersonnelResource|Application|Factory|View
      */
@@ -85,16 +86,6 @@ class PersonnelController extends Controller
         $id = $personnel->id;
         return view('admin.edit', compact('role', 'id'));
     }
-
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param Personnel $personnel
-//     * @return Response
-//     */
-//    public function edit(Personnel $personnel)
-//    {
-//    }
 
     /**
      * Update the specified resource in storage.

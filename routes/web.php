@@ -38,7 +38,6 @@ Route::prefix('/admin')
         Route::put('/profile', 'AdminDashboard@update')->name('profile');
         Route::get('/profile/info', 'AdminDashboard@info')->name('info');
 
-
         Route::prefix('/admins')
             ->name('admins.')
             ->group(function(){
@@ -49,6 +48,30 @@ Route::prefix('/admin')
                 Route::get('/edit/{admin}', 'AdminController@show')->name('edit');
                 Route::put('/edit/{admin}', 'AdminController@update');
                 Route::delete('/delete/{admin}', 'AdminController@destroy');
+            });
+
+        Route::prefix('/personnels')
+            ->name('personnels.')
+            ->group(function(){
+                Route::get('/', 'PersonnelController@index')->name('list');
+                Route::get('/list', 'PersonnelController@list');
+                Route::get('/register', 'PersonnelController@create')->name('register');
+                Route::post('/register', 'PersonnelController@store');
+                Route::get('/edit/{personnel}', 'PersonnelController@show')->name('edit');
+                Route::put('/edit/{personnel}', 'PersonnelController@update');
+                Route::delete('/delete/{personnel}', 'PersonnelController@destroy');
+            });
+
+        Route::prefix('/finances')
+            ->name('finances.')
+            ->group(function(){
+                Route::get('/', 'FinanceController@index')->name('list');
+                Route::get('/list', 'FinanceController@list');
+                Route::get('/register', 'FinanceController@create')->name('register');
+                Route::post('/register', 'FinanceController@store');
+                Route::get('/edit/{finance}', 'FinanceController@show')->name('edit');
+                Route::put('/edit/{finance}', 'FinanceController@update');
+                Route::delete('/delete/{finance}', 'FinanceController@destroy');
             });
 
         Route::prefix('/teacher')

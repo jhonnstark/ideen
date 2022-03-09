@@ -24,7 +24,7 @@ class PersonnelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'bail|required|email|unique:admins,email|max:255',
+            'email' => 'bail|required|email|unique:personnels,email|max:255',
             'name' => 'required',
             'lastname' => 'required',
             'mothers_lastname' => 'required',
