@@ -41,7 +41,7 @@
                     <h5 class="card-title">Constancia</h5>
                     <p class="card-text">Descargar constancia de estudio si hay una disponible.</p>
                     @if($cert)
-                        <a href="{{ route('download') }}" class="btn btn-primary">Descargar</a>
+                        <a href="{{ route('download') }}" class="btn btn-primary" target="_blank">Descargar</a>
                     @endif
                 </div>
             </div>
