@@ -28,6 +28,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TeacherDashboard extends Controller
 {
@@ -53,7 +54,7 @@ class TeacherDashboard extends Controller
      */
     public function teacher(): Renderable
     {
-        return view('teacher.teacher');
+        return view('teacher.teacher', ['cert' => count(Auth::user()->material()->get())]);
     }
 
     /**
@@ -64,6 +65,18 @@ class TeacherDashboard extends Controller
     public function profile(): Renderable
     {
         return view('teacher.profile', ['id' => Auth::id()]);
+    }
+
+    /**
+     * Show the certificate in the S3
+     *
+     * @return StreamedResponse
+     */
+    public function download(): StreamedResponse
+    {
+        $user = Auth::user();
+        $material = $user->material()->first();
+        return Storage::disk('s3')->download($material->url);
     }
 
     /**

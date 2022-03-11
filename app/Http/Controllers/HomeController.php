@@ -17,6 +17,7 @@ use App\Models\Course;
 use App\Http\Resources\User as UserResource;
 use App\Models\Homework;
 use App\Models\Module;
+use App\Models\User;
 use Hash;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -25,6 +26,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class HomeController extends Controller
 {
@@ -54,7 +56,7 @@ class HomeController extends Controller
      */
     public function index(): Renderable
     {
-        return view('home');
+        return view('home', ['cert' => count(Auth::user()->material()->get())]);
     }
 
     /**
@@ -65,6 +67,18 @@ class HomeController extends Controller
     public function profile(): Renderable
     {
         return view('profile', ['id' => Auth::id()]);
+    }
+
+    /**
+     * Show the certificate in the S3
+     *
+     * @return StreamedResponse
+     */
+    public function download(): StreamedResponse
+    {
+        $user = Auth::user();
+        $material = $user->material()->first();
+        return Storage::disk('s3')->download($material->url);
     }
 
     /**

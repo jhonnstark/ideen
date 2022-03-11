@@ -39,8 +39,10 @@
             <div class="card col-sm">
                 <div class="card-body">
                     <h5 class="card-title">Constancia</h5>
-                    <p class="card-text">Descargar constancia.</p>
-                    {{--                    <a href="" class="btn btn-primary">Entrar</a>--}}
+                    <p class="card-text">Descargar constancia si esta disponible.</p>
+                    @if($cert)
+                        <a href="{{ route('teacher.download') }}" class="btn btn-primary">Descargar</a>
+                    @endif
                 </div>
             </div>
         </div>

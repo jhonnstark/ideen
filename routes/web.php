@@ -349,6 +349,7 @@ Route::prefix('/teacher')
         Route::get('/', 'TeacherDashboard@teacher')->name('dashboard');
         Route::get('/profile', 'TeacherDashboard@profile')->name('profile');
         Route::put('/profile', 'TeacherDashboard@update')->name('profile');
+        Route::get('/certificate', 'TeacherDashboard@download')->name('download');
         Route::get('/profile/info', 'TeacherDashboard@info')->name('info');
         Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
 
@@ -436,6 +437,7 @@ Route::prefix('/teacher')
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/deactivated', 'HomeController@deactivated')->name('deactivated');
 Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::get('/certificate', 'HomeController@download')->name('download');
 Route::put('/profile', 'HomeController@update');
 Route::get('/profile/info', 'HomeController@info')->name('info');
 
