@@ -436,6 +436,7 @@ Route::prefix('/teacher')
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/deactivated', 'HomeController@deactivated')->name('deactivated');
 Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::get('/certificate', 'HomeController@download')->name('download');
 Route::put('/profile', 'HomeController@update');
 Route::get('/profile/info', 'HomeController@info')->name('info');
 
