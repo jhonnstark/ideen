@@ -349,6 +349,7 @@ Route::prefix('/teacher')
         Route::get('/', 'TeacherDashboard@teacher')->name('dashboard');
         Route::get('/profile', 'TeacherDashboard@profile')->name('profile');
         Route::put('/profile', 'TeacherDashboard@update')->name('profile');
+        Route::get('/certificate', 'TeacherDashboard@download')->name('download');
         Route::get('/profile/info', 'TeacherDashboard@info')->name('info');
         Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
 
@@ -356,7 +357,6 @@ Route::prefix('/teacher')
             ->name('course.')
             ->group(function(){
                 Route::get('/list', 'TeacherDashboard@list');
-
                 Route::get('/{course}/exam', 'ExamController@exam')->name('examList');
                 Route::get('/{course}', 'TeacherDashboard@courseInfo')->name('course');
                 Route::get('/{course}/module', 'TeacherDashboard@module')->name('module');
@@ -366,7 +366,6 @@ Route::prefix('/teacher')
                 Route::get('/edit/{course}/module', 'TeacherDashboard@module')->name('module');
                 Route::get('/module/{module}/activity', 'TeacherDashboard@activity')->name('activity');
                 Route::get('/module/{module}/content', 'TeacherDashboard@content')->name('content');
-
                 Route::get('/exam/{exam}', 'ExamController@gradeExam')->name('gradeExam');
                 Route::get('/exam/{exam}/grade', 'ExamController@getGradesExam')->name('getGradesExam');
                 Route::get('/exam/grade/{score}', 'ExamController@getScores')->name('getScores');
@@ -436,8 +435,12 @@ Route::prefix('/teacher')
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/deactivated', 'HomeController@deactivated')->name('deactivated');
 Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::get('/certificate', 'HomeController@download')->name('download');
 Route::put('/profile', 'HomeController@update');
 Route::get('/profile/info', 'HomeController@info')->name('info');
+Route::get('/bills', 'HomeController@bills')->name('bills');
+Route::get('/bills/list/{user}/bills', 'HomeController@billsJson');
+Route::get('/bills/paid/{bill}', 'HomeController@getPaidBill');
 
 Route::prefix('/course')
     ->name('course.')

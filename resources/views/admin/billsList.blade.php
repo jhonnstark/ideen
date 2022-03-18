@@ -38,5 +38,5 @@
         <hr class="col-12">
     </div>
 
-    <bills-list role="{{ $role }}" id="{{ $id }}" :payment="{{ $user['payments'] }}"></bills-list>
+    <bills-list role="{{ $role }}" id="{{ $id }}" :payment="{{ $user['payments'] }}" type="{{ $type ?? 'admin' }}"></bills-list>
 @endsection

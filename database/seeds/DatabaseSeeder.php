@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
 //        $this->call(ModulesSeeder::class);
 //        $this->call(ActivitySeeder::class);
 //        $this->call(ContentSeeder::class);
-//        $this->call(ConceptSeeder::class);
+        $this->call(ConceptSeeder::class);
 
 //        $this->call(CycleSeeder::class);
 //        $this->call(ProgramSeeder::class);

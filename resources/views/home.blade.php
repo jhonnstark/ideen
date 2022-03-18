@@ -33,14 +33,16 @@
                 <div class="card-body">
                     <h5 class="card-title">Recibos</h5>
                     <p class="card-text">Descargar recibos.</p>
-{{--                    <a href="{{ route('profile') }}" class="btn btn-primary">Entrar</a>--}}
+                    <a href="{{ route('bills') }}" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
             <div class="card col-sm">
                 <div class="card-body">
                     <h5 class="card-title">Constancia</h5>
-                    <p class="card-text">Descargar constancia de estudio.</p>
-{{--                    <a href="" class="btn btn-primary">Entrar</a>--}}
+                    <p class="card-text">Descargar constancia de estudio si hay una disponible.</p>
+                    @if($cert)
+                        <a href="{{ route('download') }}" class="btn btn-primary" target="_blank">Descargar</a>
+                    @endif
                 </div>
             </div>
         </div>
