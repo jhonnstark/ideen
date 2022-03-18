@@ -33,7 +33,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Recibos</h5>
                     <p class="card-text">Descargar recibos.</p>
-{{--                    <a href="{{ route('profile') }}" class="btn btn-primary">Entrar</a>--}}
+                    <a href="{{ route('bills') }}" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
             <div class="card col-sm">

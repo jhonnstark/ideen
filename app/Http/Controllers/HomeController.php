@@ -6,12 +6,14 @@ use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Requests\HomeworkRequest;
 use App\Http\Requests\UpdatePassword;
 use App\Http\Resources\ActivityResource;
+use App\Http\Resources\BillCollection;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\MaterialResource;
 use App\Http\Resources\ModulesResource;
 use App\Http\Resources\UserCollection;
 use App\Models\Activity;
+use App\Models\Bill;
 use App\Models\Content;
 use App\Models\Course;
 use App\Http\Resources\User as UserResource;
@@ -107,6 +109,44 @@ class HomeController extends Controller
             'status' => 201,
             'message' => 'User updated'
         ], 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @return Application|Factory|View
+     */
+    public function bills()
+    {
+        $role = 'bills';
+        $user = Auth::user();
+        $id = $user->id;
+        $user->load('payments');
+        $type = 'user';
+        return view('admin.billsList', compact('role', 'id', 'user', 'type'));
+    }
+
+    /**
+     * return payments list for a user.
+     *
+     * @return BillCollection
+     */
+    public function billsJson(): BillCollection
+    {
+        $user = Auth::user();
+        $user->load('bills');
+        return new BillCollection($user->bills);
+    }
+
+    /**
+     * Downloads the generated pdf
+     *
+     * @param Bill $bill
+     * @return StreamedResponse
+     */
+    public function getPaidBill(Bill $bill): StreamedResponse
+    {
+        return Storage::disk('s3')->download($bill->url);
     }
 
     /**

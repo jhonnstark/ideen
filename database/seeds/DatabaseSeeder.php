@@ -11,12 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(StateSeeder::class);
-        $this->call(AdminSeeder::class);
-        $this->call(TeacherSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(PersonnelSeeder::class);
-        $this->call(FinanceSeeder::class);
+//        $this->call(StateSeeder::class);
+//        $this->call(AdminSeeder::class);
+//        $this->call(TeacherSeeder::class);
+//        $this->call(UserSeeder::class);
+//        $this->call(PersonnelSeeder::class);
+//        $this->call(FinanceSeeder::class);
 //        $this->call(CategorySeeder::class);
 //        $this->call(LevelSeeder::class);
 //        $this->call(PaymentSeeder::class);
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
 //        $this->call(ModulesSeeder::class);
 //        $this->call(ActivitySeeder::class);
 //        $this->call(ContentSeeder::class);
-//        $this->call(ConceptSeeder::class);
+        $this->call(ConceptSeeder::class);
 
 //        $this->call(CycleSeeder::class);
 //        $this->call(ProgramSeeder::class);
