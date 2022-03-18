@@ -19,24 +19,36 @@
             <hr class="col-12">
         </div>
 
-        <div class="row justify-content-between">
-            <div class="col">
-                <p>Nombre: <b>{{ $user['name'] . ' ' . $user['lastname'] . ' ' . $user['mothers_lastname'] }}</b></p>
-                @if($user['payments']['invoice'] === null)
-                    <p>Inscripción: <b>$ {{ money_format('%n', $user['payments']['signing_up']) }}</b></p>
-                @else
-                    <p>Folio de Inscripción: <b># {{ $user['payments']['invoice'] }}</b></p>
-                @endif
-                <p>Descuento: <b>{{ $user['payments']['discount'] }} %</b></p>
+        @isset($user['payments'])
+            <div class="row justify-content-between">
+                <div class="col">
+                    <p>Nombre: <b>{{ $user['name'] . ' ' . $user['lastname'] . ' ' . $user['mothers_lastname'] }}</b></p>
+                    @if($user['payments']['invoice'] === null)
+                        <p>Inscripción: <b>$ {{ money_format('%n', $user['payments']['signing_up']) }}</b></p>
+                    @else
+                        <p>Folio de Inscripción: <b># {{ $user['payments']['invoice'] }}</b></p>
+                    @endif
+                    <p>Descuento: <b>{{ $user['payments']['discount'] }} %</b></p>
+                </div>
+                <div class="col">
+                    <p>Mensualidad: <b>$ {{ money_format('%n', $user['payments']['price']) }}</b></p>
+                    <p>Beca: <b>{{ $user['payments']['scholarship'] }} %</b></p>
+                    <p>Mensualidad Neta: <b>$ {{ money_format('%n', $user['payments']['total']) }}</b></p>
+                </div>
             </div>
-            <div class="col">
-                <p>Mensualidad: <b>$ {{ money_format('%n', $user['payments']['price']) }}</b></p>
-                <p>Beca: <b>{{ $user['payments']['scholarship'] }} %</b></p>
-                <p>Mensualidad Neta: <b>$ {{ money_format('%n', $user['payments']['total']) }}</b></p>
+        @endisset
+        @if($user['payments'] === null)
+            <div class="row justify-content-between">
+                <div class="col">
+                    <p>Nombre: <b>{{ $user['name'] . ' ' . $user['lastname'] . ' ' . $user['mothers_lastname'] }}</b></p>
+                    <p>No tienes un plan de pagos.</p>
+                </div>
             </div>
-        </div>
+        @endif
         <hr class="col-12">
     </div>
 
-    <bills-list role="{{ $role }}" id="{{ $id }}" :payment="{{ $user['payments'] }}" type="{{ $type ?? 'admin' }}"></bills-list>
+    @isset($user['payments'])
+        <bills-list role="{{ $role }}" id="{{ $id }}" :payment="{{ $user['payments'] }}" type="{{ $type ?? 'admin' }}"></bills-list>
+    @endisset
 @endsection
