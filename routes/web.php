@@ -146,6 +146,13 @@ Route::prefix('/admin')
                 Route::delete('/delete/{concept}', 'ConceptController@destroy');
             });
 
+        Route::prefix('/reports')
+            ->name('reports.')
+            ->group(function(){
+                Route::get('/', 'ReportController@index')->name('list');
+                Route::get('/list', 'ReportController@list');
+            });
+
         Route::prefix('/course')
             ->name('course.')
             ->group(function(){
