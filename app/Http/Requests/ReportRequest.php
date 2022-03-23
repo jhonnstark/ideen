@@ -25,8 +25,8 @@ class ReportRequest extends FormRequest
     {
         return [
             'type' => 'required',
-            'ordered' => 'required',
-            'user_id' => 'required|sometimes',
+            'ordered' => 'required_unless:type,Por alumno',
+            'user_id' => 'required_if:type,Por alumno|required_if:ordered,Por alumno',
             'range' => 'required',
         ];
     }
