@@ -150,6 +150,7 @@ Route::prefix('/admin')
             ->name('reports.')
             ->group(function(){
                 Route::get('/', 'ReportController@index')->name('list');
+                Route::post('/', 'ReportController@store');
                 Route::get('/list', 'ReportController@list');
             });
 

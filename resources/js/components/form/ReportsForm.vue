@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="form-group row" v-if="type !== 'Por alumno'">
+        <div class="form-group row" v-if="needsDate">
             <label for="orderBy" class="col-md-4 col-form-label text-md-right">Orden del reporte</label>
             <div class="col-md-6">
                 <div class="input-group mb-3">
@@ -45,7 +45,57 @@
             </div>
         </div>
 
-        <div class="form-group row" v-if="type === 'Por alumno' || ordered === 'Por alumno'">
+        <div class="form-group row" v-if="needsDate">
+            <label class="col-md-4 col-form-label text-md-right">Duración</label>
+            <div class="col-md-6">
+                <v-date-picker
+                                    v-model="range"
+                    is-range
+                    mode="date"
+                    is-required
+                    :attributes="attrs"
+                    :select-attribute="selectDragAttribute"
+                    :drag-attribute="selectDragAttribute"
+                    :model-config="modelConfig"
+                    @drag="dragValue = $event"
+                    :max-date="new Date()"
+                    show-weeknumbers
+                    :first-day-of-week="0"
+                >
+                    <template v-slot:day-popover="{ format }">
+                        <div>
+                            {{ format(dragValue ? dragValue.start : range.start, 'MMM D') }}
+                            -
+                            {{ format(dragValue ? dragValue.end : range.end, 'MMM D') }}
+                        </div>
+                    </template>
+                    <template v-slot="{ inputValue, inputEvents, updateValue }">
+                        <div class="date-picker">
+                            <div class="date-picker-wrap">
+                                <svg class="mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <input
+                                    name="active_at"
+                                    :value="inputValue.start"
+                                    v-on="inputEvents.start"
+                                    class="form-control date-picker-input border w-32 rounded"
+                                />
+                            </div>
+                            <div class="date-picker-wrap">
+                                <svg class="mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <input
+                                    name="close_at"
+                                    :value="inputValue.end"
+                                    v-on="inputEvents.end"
+                                    class="form-control date-picker-input border w-32 rounded"
+                                />
+                            </div>
+                        </div>
+                    </template>
+                </v-date-picker>
+            </div>
+        </div>
+
+        <div class="form-group row" v-if="needsUser">
             <label for="orderBy" class="col-md-4 col-form-label text-md-right">Busqueda de alumno</label>
             <div class="col-md-6">
                 <div class="input-group mb-3">
@@ -99,7 +149,7 @@
 
 <script>
 
-import { required } from 'vuelidate/lib/validators';
+import {required, requiredIf} from 'vuelidate/lib/validators';
 
 export default {
     name: "TableForm",
@@ -108,24 +158,55 @@ export default {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
-            types: ['Por alumno', 'Semanal', 'mensual', 'anual'],
-            orderBy: ['Por alumno', 'Por grupo', 'General'],
+            types: ['Por alumno', 'Por fecha'],
+            orderBy: [
+                'Por alumno',
+                // 'Por grupo',
+                'General'
+            ],
             users: [],
             user_id: null,
             ordered: null,
             type: null,
-            isLoading:false
+            isLoading:false,
+            attrs: [
+                {
+                    key: 'today',
+                    dates: this.$moment().day(-16).toDate(),
+                },
+            ],
+            dragValue: null,
+            range: {
+                end: this.$moment().day(-6).toDate(),
+                start: this.$moment().day(-2).toDate(),
+            },
+            modelConfig: {
+                start: {
+                    timeAdjust: '00:00:00',
+                },
+                end: {
+                    timeAdjust: '23:59:59',
+                },
+            },
         }
     },
     validations: {
-        user_id: {
-            required,
-        },
         type: {
             required,
         },
         ordered: {
-            required,
+            required : requiredIf('needsDate'),
+        },
+        range: {
+            start: {
+                required : requiredIf('needsDate'),
+            },
+            end: {
+                required : requiredIf('needsDate'),
+            }
+        },
+        user_id: {
+            required : requiredIf('needsUser'),
         },
     },
     created() {
@@ -134,12 +215,61 @@ export default {
                 this.users = response.data.data;
             })
     },
-    methods:{
-        register() {
-
+    computed: {
+        selectDragAttribute () {
+            return {
+                popover: {
+                    visibility: 'hover',
+                    isInteractive: false,
+                },
+            };
+        },
+        needsUser() {
+            return this.type === 'Por alumno' || this.ordered === 'Por alumno'
+        },
+        needsDate() {
+            return this.type !== 'Por alumno'
+        },
+    },
+    watch: {
+        range: function (val) {
+            this.$v.$touch()
         }
     },
-    computed: {
+    methods:{
+        register() {
+            if (this.isLoading) {
+                return;
+            }
+            if (this.$v.$invalid) {
+                this.errors = true;
+            } else {
+                this.$v.$reset();
+                this.errors = false;
+                this.isLoading = true;
+                const data = {
+                    type: this.type,
+                    ordered: this.ordered,
+                    user_id: this.user_id,
+                    range: this.range,
+                }
+                axios({
+                    method: 'post',
+                    url:  window.location,
+                    data,
+                    headers: {'X-CSRF-TOKEN': this.csrf},
+                })
+                    .then(() => {
+                        this.emails.push(this.record.email);
+                        this.clearForm();
+                        this.$swal('Guardado', 'Creado exitosamente.', 'success');
+                    })
+                    .catch(error => {
+                        this.$v.$touch()
+                    })
+                    .finally(() => this.isLoading = false);
+            }
+        }
     },
 }
 </script>
