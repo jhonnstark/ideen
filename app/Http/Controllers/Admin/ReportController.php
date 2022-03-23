@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\UsersExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReportRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -22,10 +24,12 @@ class ReportController extends Controller
 
     /**
      * @param ReportRequest $request
-     * @return JsonResponse
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function store(ReportRequest $request): JsonResponse
+    public function store(ReportRequest $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
+
+        return Excel::download(new UsersExport, 'users.xlsx');
         return response()->json([
             'message' => 'generated report',
             'data' => [
