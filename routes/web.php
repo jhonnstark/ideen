@@ -307,7 +307,7 @@ Route::post('/finance/login', 'Auth\FinanceLoginController@login');
 Route::prefix('/finance')
     ->middleware('auth:finance')
     ->name('finance.')
-    ->namespace('finance')
+    ->namespace('Finance')
     ->group(function(){
         Route::get('/', 'FinanceDashboard@finance')->name('dashboard');
         Route::get('/profile', 'FinanceDashboard@profile')->name('profile');
