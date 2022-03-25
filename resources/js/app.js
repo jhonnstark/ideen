@@ -114,6 +114,7 @@ Vue.component('answer-form', require('./components/form/AnswerForm.vue').default
 Vue.component('payment-form', require('./components/form/PaymentForm.vue').default);
 Vue.component('bill-form', require('./components/form/BillForm.vue').default);
 Vue.component('concept-form', require('./components/form/ConceptForm.vue').default);
+Vue.component('reports-form', require('./components/form/ReportsForm.vue').default);
 
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('concept-add', require('./components/form/ConceptAdd.vue').default);
