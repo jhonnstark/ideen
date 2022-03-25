@@ -146,6 +146,14 @@ Route::prefix('/admin')
                 Route::delete('/delete/{concept}', 'ConceptController@destroy');
             });
 
+        Route::prefix('/reports')
+            ->name('reports.')
+            ->group(function(){
+                Route::get('/', 'ReportController@index')->name('list');
+                Route::post('/', 'ReportController@store');
+                Route::get('/list', 'ReportController@list');
+            });
+
         Route::prefix('/course')
             ->name('course.')
             ->group(function(){
@@ -299,7 +307,7 @@ Route::post('/finance/login', 'Auth\FinanceLoginController@login');
 Route::prefix('/finance')
     ->middleware('auth:finance')
     ->name('finance.')
-    ->namespace('finance')
+    ->namespace('Finance')
     ->group(function(){
         Route::get('/', 'FinanceDashboard@finance')->name('dashboard');
         Route::get('/profile', 'FinanceDashboard@profile')->name('profile');
