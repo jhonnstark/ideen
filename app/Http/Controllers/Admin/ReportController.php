@@ -9,6 +9,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
+use Storage;
+use Str;
 
 class ReportController extends Controller
 {
@@ -24,16 +26,18 @@ class ReportController extends Controller
 
     /**
      * @param ReportRequest $request
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @return JsonResponse
      */
-    public function store(ReportRequest $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function store(ReportRequest $request): JsonResponse
     {
-
-        return Excel::download(new UsersExport, 'users.xlsx');
+        $param = $request->validated();
+        $name = 'reports/' . $param['type'] . '_' . Str::random(10) . '.xlsx';
+        Excel::store(new UsersExport(), $name, 's3');
+        $url = Storage::disk('s3')->temporaryUrl($name, now()->addMinutes(5));
         return response()->json([
             'message' => 'generated report',
-            'data' => [
-                'link' => ''
+            'meta' => [
+                'link' => $url
             ]
         ]);
     }
