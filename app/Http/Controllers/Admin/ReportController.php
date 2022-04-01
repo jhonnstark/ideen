@@ -31,12 +31,22 @@ class ReportController extends Controller
     {
         $param = $request->validated();
         $name = 'reports/' . $param['type'] . '_' . Str::random(10) . '.xlsx';
-        Excel::store(new UsersExport(), $name, 's3');
-        $url = Storage::disk('s3')->temporaryUrl($name, now()->addMinutes(5));
+        $url = '';
+
+        if ($param['type'] === 'Por alumno') {
+            Excel::store(new UsersExport($param['user_id']), $name, 's3');
+            $url = Storage::disk('s3')->temporaryUrl($name, now()->addMinutes(5));
+        } elseif ($param['type'] === 'Por fecha') {
+            if ($param['ordered'] === 'Por alumno') {
+                $url = '1';
+            }
+        }
+
         return response()->json([
             'message' => 'generated report',
             'meta' => [
-                'link' => $url
+                'link' => $url,
+                'name' => $name,
             ]
         ]);
     }

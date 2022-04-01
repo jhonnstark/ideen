@@ -22,6 +22,7 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed $bills
  * @property mixed $password
  * @method static create(array $record)
+ * @method static find(int $user_id)
  */
 class User extends Authenticatable
 {
