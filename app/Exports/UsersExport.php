@@ -67,9 +67,8 @@ class UsersExport implements FromView, ShouldAutoSize, WithColumnFormatting, Wit
         return [
             // Style the first row as bold text.
             1    => ['font' => ['bold' => true, 'size' => 14]],
-            2    => ['font' => ['italic' => true, 'size' => 14]],
+            2    => ['font' => ['italic' => true, 'size' => 12]],
             4    => ['font' => ['bold' => true, 'size' => 12]],
-
         ];
     }
 }
