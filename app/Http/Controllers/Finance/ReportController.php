@@ -22,7 +22,7 @@ class ReportController extends Controller
      */
     public function index(): View
     {
-        return view('admin.reports');
+        return view('admin.reports', ['role' => 'finance']);
     }
 
     /**

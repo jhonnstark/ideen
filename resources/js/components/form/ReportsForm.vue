@@ -159,7 +159,7 @@ import {required, requiredIf} from 'vuelidate/lib/validators';
 
 export default {
     name: "ReportsForm",
-    props: [],
+    props: ['role'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -217,7 +217,7 @@ export default {
         },
     },
     created() {
-        axios.get('/admin/user/list/')
+        axios.get('/' + this.role + '/user/list/')
             .then(response => {
                 this.users = response.data.data;
             })
