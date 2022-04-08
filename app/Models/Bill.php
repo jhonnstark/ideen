@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|mixed $paid_at
  * @property mixed $user_id
  * @property mixed $id
+ * @method static where(string $string, string $string1, mixed $start)
  */
 class Bill extends Model
 {

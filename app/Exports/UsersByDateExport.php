@@ -36,9 +36,7 @@ class UsersByDateExport implements FromView, ShouldAutoSize, WithColumnFormattin
      */
     public function view(): View
     {
-        return view('exports.userBills', [
-            'user' => $this->user
-        ]);
+        return view('exports.userBills', ['user' => $this->user]);
     }
 
     /**

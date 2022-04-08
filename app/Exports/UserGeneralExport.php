@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Bill;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
@@ -17,17 +18,17 @@ class UserGeneralExport implements FromView, ShouldAutoSize, WithColumnFormattin
 {
     use Exportable;
 
-    private $user;
+    private $bills;
 
     /**
      * @param array $range
      */
     public function __construct(array $range)
     {
-        $this->user = User::with(['bills' => function ($query) use ($range) {
-            $query->where('paid_at', '>', $range['start']);
-            $query->where('paid_at', '<', $range['end']);
-        }])->get();
+        $this->bills = Bill::where('paid_at', '>', $range['start'])
+            ->where('paid_at', '<', $range['end'])
+            ->with('user')
+            ->get();
     }
 
     /**
@@ -35,9 +36,7 @@ class UserGeneralExport implements FromView, ShouldAutoSize, WithColumnFormattin
      */
     public function view(): View
     {
-        return view('exports.userBills', [
-            'user' => $this->user
-        ]);
+        return view('exports.bills', ['bills' => $this->bills]);
     }
 
     /**
@@ -54,10 +53,10 @@ class UserGeneralExport implements FromView, ShouldAutoSize, WithColumnFormattin
     public function columnFormats(): array
     {
         return [
-            'B' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
-            'C' => NumberFormat::FORMAT_PERCENTAGE,
-            'D' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
-            'E' => NumberFormat::FORMAT_DATE_DATETIME,
+            'C' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+            'D' => NumberFormat::FORMAT_PERCENTAGE,
+            'E' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+            'F' => NumberFormat::FORMAT_DATE_DATETIME,
         ];
     }
 
@@ -70,8 +69,7 @@ class UserGeneralExport implements FromView, ShouldAutoSize, WithColumnFormattin
         return [
             // Style the first row as bold text.
             1    => ['font' => ['bold' => true, 'size' => 14]],
-            2    => ['font' => ['italic' => true, 'size' => 14]],
-            4    => ['font' => ['bold' => true, 'size' => 12]],
+            'A'    => ['font' => ['italic' => true, 'size' => 14]],
         ];
     }
 }
