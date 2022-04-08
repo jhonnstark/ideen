@@ -26,7 +26,7 @@
                         <p>{{ __('Formulario reports') }}</p>
                     </div>
                     <div class="card-body">
-                        <reports-form></reports-form>
+                        <reports-form role="{{ $role ?? 'admin' }}"></reports-form>
                     </div>
                 </div>
             </div>
