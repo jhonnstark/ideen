@@ -11,7 +11,6 @@
 
     <div class="container">
         <div class="row justify-content-center gap-10">
-
             <div class="card card-image col-sm">
                 <div class="card-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100.75 100.748" style="enable-background:new 0 0 100.75 100.748;" xml:space="preserve"><g><path d="M17.313,56.946c0-0.803-0.65-1.453-1.453-1.453s-1.453,0.65-1.453,1.453c0,4.053,3.59,7.411,8.252,7.996v6.205c0,0.803,0.65,1.453,1.453,1.453s1.453-0.65,1.453-1.453V64.94c4.656-0.592,8.238-3.946,8.238-7.993
@@ -31,6 +30,16 @@
                 </div>
             </div>
 
+            <div class="card card-image col-sm">
+                <div class="card-icon">
+                    <svg width="2048" height="1792" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1024 512h-384v384h384v-384zm128 640v128h-640v-128h640zm0-768v640h-640v-640h640zm640 768v128h-512v-128h512zm0-256v128h-512v-128h512zm0-256v128h-512v-128h512zm0-256v128h-512v-128h512zm-1536 960v-960h-128v960q0 26 19 45t45 19 45-19 19-45zm1664 0v-1088h-1536v1088q0 33-11 64h1483q26 0 45-19t19-45zm128-1216v1216q0 80-56 136t-136 56h-1664q-80 0-136-56t-56-136v-1088h256v-128h1792z"/></svg>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Reportes de cobranza</h5>
+                    <p class="card-text">Generación de reportes.</p>
+                    <a href="{{ route('finance.reports.list') }}" class="btn btn-primary">Entrar</a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

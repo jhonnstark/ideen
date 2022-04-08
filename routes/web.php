@@ -343,6 +343,21 @@ Route::prefix('/finance')
                 Route::get('/list', 'ConceptController@list');
                 Route::post('/register/{user}', 'ConceptController@store');
             });
+
+        Route::prefix('/reports')
+            ->name('reports.')
+            ->group(function(){
+                Route::get('/', 'ReportController@index')->name('list');
+                Route::post('/', 'ReportController@store');
+                Route::get('/list', 'ReportController@list');
+            });
+
+        Route::prefix('/user')
+            ->name('user.')
+            ->group(function(){
+                Route::get('/list', 'UserController@list');
+            });
+
     });
 
 
