@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class UsersExport implements FromView, ShouldAutoSize, WithColumnFormatting, WithTitle, WithStyles
+class UsersByDateExport implements FromView, ShouldAutoSize, WithColumnFormatting, WithTitle, WithStyles
 {
     use Exportable;
 
@@ -21,10 +21,14 @@ class UsersExport implements FromView, ShouldAutoSize, WithColumnFormatting, Wit
 
     /**
      * @param int $user_id
+     * @param array $range
      */
-    public function __construct(int $user_id)
+    public function __construct(int $user_id, array $range)
     {
-        $this->user = User::find($user_id)->load('bills');
+        $this->user = User::find($user_id)->load(['bills' => function ($query) use ($range) {
+            $query->where('paid_at', '>', $range['start']);
+            $query->where('paid_at', '<', $range['end']);
+        }]);
     }
 
     /**
@@ -32,9 +36,7 @@ class UsersExport implements FromView, ShouldAutoSize, WithColumnFormatting, Wit
      */
     public function view(): View
     {
-        return view('exports.userBills', [
-            'user' => $this->user
-        ]);
+        return view('exports.userBills', ['user' => $this->user]);
     }
 
     /**

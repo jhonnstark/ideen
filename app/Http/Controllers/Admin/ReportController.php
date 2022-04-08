@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\UserGeneralExport;
+use App\Exports\UsersByDateExport;
 use App\Exports\UsersExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReportRequest;
@@ -38,8 +40,11 @@ class ReportController extends Controller
             $url = Storage::disk('s3')->temporaryUrl($name, now()->addMinutes(5));
         } elseif ($param['type'] === 'Por fecha') {
             if ($param['ordered'] === 'Por alumno') {
-                $url = '1';
+                Excel::store(new UsersByDateExport($param['user_id'], $param['range']), $name, 's3');
+            } else {
+                Excel::store(new UserGeneralExport($param['range']), $name, 's3');
             }
+            $url = Storage::disk('s3')->temporaryUrl($name, now()->addMinutes(5));
         }
 
         return response()->json([

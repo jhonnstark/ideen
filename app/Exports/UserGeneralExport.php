@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Bill;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
@@ -13,18 +14,21 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class UsersExport implements FromView, ShouldAutoSize, WithColumnFormatting, WithTitle, WithStyles
+class UserGeneralExport implements FromView, ShouldAutoSize, WithColumnFormatting, WithTitle, WithStyles
 {
     use Exportable;
 
-    private $user;
+    private $bills;
 
     /**
-     * @param int $user_id
+     * @param array $range
      */
-    public function __construct(int $user_id)
+    public function __construct(array $range)
     {
-        $this->user = User::find($user_id)->load('bills');
+        $this->bills = Bill::where('paid_at', '>', $range['start'])
+            ->where('paid_at', '<', $range['end'])
+            ->with('user')
+            ->get();
     }
 
     /**
@@ -32,9 +36,7 @@ class UsersExport implements FromView, ShouldAutoSize, WithColumnFormatting, Wit
      */
     public function view(): View
     {
-        return view('exports.userBills', [
-            'user' => $this->user
-        ]);
+        return view('exports.bills', ['bills' => $this->bills]);
     }
 
     /**
@@ -42,7 +44,7 @@ class UsersExport implements FromView, ShouldAutoSize, WithColumnFormatting, Wit
      */
     public function title(): string
     {
-        return 'Alumno ' . $this->user->name;
+        return 'Alumnos';
     }
 
     /**
@@ -51,10 +53,10 @@ class UsersExport implements FromView, ShouldAutoSize, WithColumnFormatting, Wit
     public function columnFormats(): array
     {
         return [
-            'B' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
-            'C' => NumberFormat::FORMAT_PERCENTAGE,
-            'D' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
-            'E' => NumberFormat::FORMAT_DATE_DATETIME,
+            'C' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+            'D' => NumberFormat::FORMAT_PERCENTAGE,
+            'E' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+            'F' => NumberFormat::FORMAT_DATE_DATETIME,
         ];
     }
 
@@ -67,8 +69,7 @@ class UsersExport implements FromView, ShouldAutoSize, WithColumnFormatting, Wit
         return [
             // Style the first row as bold text.
             1    => ['font' => ['bold' => true, 'size' => 14]],
-            2    => ['font' => ['italic' => true, 'size' => 12]],
-            4    => ['font' => ['bold' => true, 'size' => 12]],
+            'A'    => ['font' => ['italic' => true, 'size' => 14]],
         ];
     }
 }
