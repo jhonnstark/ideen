@@ -7,6 +7,7 @@ use App\Http\Requests\LevelRequest;
 use App\Http\Resources\LevelCollection;
 use App\Http\Resources\LevelResource;
 use App\Models\Level;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -105,7 +106,7 @@ class LevelController extends Controller
      *
      * @param Level $level
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Level $level): JsonResponse
     {
