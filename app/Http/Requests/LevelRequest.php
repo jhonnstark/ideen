@@ -25,8 +25,6 @@ class LevelRequest extends FormRequest
     {
         return [
             'name' => 'bail|required|max:255',
-            'quarter' => 'required|numeric|min:1|max:4',
-            'periods' => 'required|numeric|min:1|max:3',
         ];
     }
 }

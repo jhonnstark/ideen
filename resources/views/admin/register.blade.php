@@ -27,7 +27,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <p>{{ __('Formulario '.$role) }}</p>
+                        <p class="card-form">{{ __('Formulario '.$role) }}</p>
                     </div>
                     <div class="card-body">
                         @if($role === 'payment')

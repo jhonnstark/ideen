@@ -38,7 +38,7 @@
         </div>
 
         <div class="form-group row">
-            <label for="category" class="col-md-4 col-form-label text-md-right">Categoría (Ciclo escolar)</label>
+            <label for="category" class="col-md-4 col-form-label text-md-right">Categoría</label>
             <div class="col-md-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group row">
-            <label for="level" class="col-md-4 col-form-label text-md-right">Nivel (Programa)</label>
+            <label for="level" class="col-md-4 col-form-label text-md-right">Nivel</label>
             <div class="col-md-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
