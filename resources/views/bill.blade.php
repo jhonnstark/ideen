@@ -245,7 +245,7 @@
             <p class="disclaimer">Este recibo no es comprobante fiscal y será canjeable al contar con el número de matrícula</p>
             <div class="sign">
                 <div class="sign_signature">
-                    <p class="sign_name">EMMANUEL SANCHEZ VERDE <br>COORDINADOR ACADEMICO</p>
+                    <p class="sign_name">Jazmin Camacho <br>Cobranza</p>
                 </div>
                 <div class="sign_signature">
                     <p class="sign_name">{{ $user['name'] . ' ' . $user['lastname'] . ' ' . $user['mothers_lastname'] }}<br>Estudiante</p>
