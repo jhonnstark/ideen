@@ -38,7 +38,7 @@
     @elseif($role == 'payment')
         <payment-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></payment-list>
     @elseif($role == 'concept')
-        <concept-list role="{{ $role }}"></concept-list>
+        <concept-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></concept-list>
     @else
         <admin-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></admin-list>
     @endif

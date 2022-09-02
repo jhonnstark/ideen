@@ -53,7 +53,7 @@
                         @elseif($role === 'payment')
                             <payment-form role="{{ $role }}" id="{{ $id }}" type="{{ $type ?? 'admin' }}"></payment-form>
                         @elseif($role === 'concept')
-                            <concept-form role="{{ $role }}"></concept-form>
+                            <concept-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></concept-form>
                         @else
                             <register-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></register-form>
                         @endif
