@@ -79,7 +79,17 @@ import {required, minLength, maxLength, decimal, minValue} from 'vuelidate/lib/v
 
 export default {
     name: "ConceptForm",
-    props: ['role', 'edit'],
+    props: {
+        role: {
+            type: String,
+            require: true,
+        },
+        edit: String,
+        type: {
+            type: String,
+            default: 'admin',
+        }
+    },
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -89,8 +99,8 @@ export default {
                 total: 0,
             },
             rute: this.edit
-                ? '/admin/' + this.role + '/edit/' + this.edit
-                : '/admin/' + this.role + '/register',
+                ? '/' + this.type + '/' + this.role + '/edit/' + this.edit
+                : '/' + this.type + '/' + this.role + '/register',
             isLoading:false
         }
     },
@@ -110,7 +120,7 @@ export default {
     },
     created() {
         if (this.edit) {
-            axios.get('/admin/' + this.role + '/edit/' + this.edit)
+            axios.get(this.rute)
                 .then(response => {
                     this.record = response.data.data;
                 })
@@ -132,7 +142,6 @@ export default {
                     url:  this.rute,
                     data: this.record
                 }).then(response => {
-                    this.isLoading = false;
                     if (!this.edit) {
                         this.record.name = null;
                         this.record.total = 0;
@@ -140,7 +149,12 @@ export default {
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
                     }
-                }).catch(error => console.log(error))
+                }).catch((error) => {
+                    console.log(error.response.data)
+                    this.$swal('Error', 'Algo ha ido mal: ' + error.response.data.message, 'error');
+                }).finally(() => {
+                    this.isLoading = false;
+                })
             }
         }
     },

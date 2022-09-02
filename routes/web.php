@@ -340,8 +340,14 @@ Route::prefix('/finance')
         Route::prefix('/concept')
             ->name('concept.')
             ->group(function(){
+                Route::get('/', 'ConceptController@index')->name('list');
                 Route::get('/list', 'ConceptController@list');
+                Route::get('/register', 'ConceptController@create')->name('register');
+                Route::post('/register', 'ConceptController@register');
                 Route::post('/register/{user}', 'ConceptController@store');
+                Route::get('/edit/{concept}', 'ConceptController@show')->name('edit');
+                Route::put('/edit/{concept}', 'ConceptController@update');
+                Route::delete('/delete/{concept}', 'ConceptController@destroy');
             });
 
         Route::prefix('/reports')

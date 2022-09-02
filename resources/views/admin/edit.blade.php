@@ -42,7 +42,7 @@
                         @elseif($role === 'activity' || $role === 'content')
                             <material-form role="{{ $role }}" edit="{{ $id }}"></material-form>
                         @elseif($role === 'concept')
-                            <concept-form role="{{ $role }}" edit="{{ $id }}"></concept-form>
+                            <concept-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></concept-form>
                         @else
                             <register-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></register-form>
                         @endif
