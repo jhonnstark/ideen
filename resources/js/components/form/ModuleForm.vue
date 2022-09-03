@@ -74,7 +74,18 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
     name: "ModuleForm",
-    props: ['role', 'id', 'edit'],
+    props: {
+        role: {
+            type: String,
+            require: true,
+        },
+        edit: String,
+        id: String,
+        type: {
+            type: String,
+            default: 'admin',
+        }
+    },
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),

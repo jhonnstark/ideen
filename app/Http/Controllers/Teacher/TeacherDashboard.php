@@ -170,17 +170,17 @@ class TeacherDashboard extends Controller
         return new ContentResource($module->content);
     }
 
-    /**
-     * Loads the modules of a course.
-     *
-     * @param Course $course
-     * @return ModulesResource
-     */
-    public function module(Course $course): ModulesResource
-    {
-        $course->load('module');
-        return new ModulesResource($course->module);
-    }
+//    /**
+//     * Loads the modules of a course.
+//     *
+//     * @param Course $course
+//     * @return ModulesResource
+//     */
+//    public function module(Course $course): ModulesResource
+//    {
+//        $course->load('module');
+//        return new ModulesResource($course->module);
+//    }
 
     /**
      * Loads the students of a course.

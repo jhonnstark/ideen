@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ModuleRequest;
 use App\Http\Resources\ModulesResource;
 use App\Models\Course;
 use App\Models\Module;
-use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -43,6 +42,7 @@ class ModuleController extends Controller
     {
         return view('admin.register')
             ->with('role', 'module')
+            ->with('type', 'teacher')
             ->with('course', $course->id);
     }
 
@@ -63,7 +63,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Loads the modules of a course..
+     * Loads the modules of a course.
      *
      * @param Course $course
      * @return ModulesResource

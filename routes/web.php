@@ -386,22 +386,33 @@ Route::prefix('/teacher')
             ->name('course.')
             ->group(function(){
                 Route::get('/list', 'TeacherDashboard@list');
+
                 Route::get('/{course}/exam', 'ExamController@exam')->name('examList');
                 Route::get('/{course}', 'TeacherDashboard@courseInfo')->name('course');
-                Route::get('/{course}/module', 'TeacherDashboard@module')->name('module');
                 Route::get('/{course}/students', 'StudentController@index')->name('students');
                 Route::get('/{course}/student/{student}', 'StudentController@student')->name('students');
                 Route::post('/{course}/student/{student}/result', 'StudentController@result')->name('students');
-                Route::get('/edit/{course}/module', 'TeacherDashboard@module')->name('module');
+
+                Route::get('/{course}/module', 'ModuleController@show')->name('edit');
+                Route::get('/edit/{course}/module/add', 'ModuleController@create')->name('module');
+                Route::post('/edit/{course}/module/add', 'ModuleController@store');
+                Route::get('/edit/module/{module}', 'ModuleController@edit');
+                Route::get('/edit/module/{module}/json', 'ModuleController@moduleJson');
+                Route::get('/edit/module/{module}/material', 'ModuleController@getMaterial');
+                Route::put('/edit/module/{module}', 'ModuleController@update');
+                Route::delete('/edit/module/delete/{module}', 'ModuleController@destroy');
+
                 Route::get('/module/{module}/activity', 'TeacherDashboard@activity')->name('activity');
+                Route::get('/{course}/activity/add', 'TeacherDashboard@createActivity')->name('createActivity');
+                Route::post('/{course}/activity/add', 'TeacherDashboard@storeActivity');
+
                 Route::get('/module/{module}/content', 'TeacherDashboard@content')->name('content');
+
                 Route::get('/exam/{exam}', 'ExamController@gradeExam')->name('gradeExam');
                 Route::get('/exam/{exam}/grade', 'ExamController@getGradesExam')->name('getGradesExam');
                 Route::get('/exam/grade/{score}', 'ExamController@getScores')->name('getScores');
                 Route::get('/exam/grade/{score}/json', 'ExamController@getScoresJson')->name('getScoresJson');
                 Route::post('/exam/grade/{score}/finish', 'ExamController@finishScores')->name('finishScores');
-                Route::get('/{course}/activity/add', 'TeacherDashboard@createActivity')->name('createActivity');
-                Route::post('/{course}/activity/add', 'TeacherDashboard@storeActivity');
 
                 Route::prefix('/module')
                     ->name('module.')
