@@ -7,7 +7,7 @@
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('courses') }}">Cursos</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('teacher.courses') }}">Cursos</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ __($type) }}</li>
                 </ol>
             </nav>
@@ -19,22 +19,29 @@
     </div>
 
     <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-form">{{ __('Formulario editar '.$role) }}</p>
+                    </div>
+                    <div class="card-body">
+                        <material-form role="{{ $role }}" edit="{{ $id }}"></material-form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <h5>{{ $id->name }}</h5>
                 <p>{{ $id->description }}</p>
             </div>
-            <div class="col-md-3">
-                <h4>Valor: 100</h4>
-            </div>
-            @empty($contents)
-            <div class="col-3 text-right">
-                <a class="btn btn-primary btn-lg" href="{{ route('course.module.createHomework', $id) }}" role="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="18" height="18" fill="white"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"></path></svg>
-                    Cargar tarea
-                </a>
-            </div>
-            @endempty
+            @if($type === 'homework')
+                <score-material id="{{ $id->id }}"></score-material>
+            @endif
             <hr class="col-12">
         </div>
     </div>
@@ -59,4 +66,15 @@
             <detail id="{{ $id }}" type="{{ $type }}"></detail>
         </div>
     </div>
+
+    @if($type === 'activity')
+        @isset($role)
+        <div class="container">
+            <div class="row">
+                <h3>{{ __('Listado Tareas') }}</h3>
+            </div>
+        </div>
+        <homework-list id="{{ $id->id }}"></homework-list>
+        @endisset
+    @endif
 @endsection
