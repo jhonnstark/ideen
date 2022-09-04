@@ -1,9 +1,7 @@
 .btn {
-    vertical-align: text-top;
+    min-height: 31px;
 
     svg {
-        vertical-align: sub;
-
         & + * {
             margin-left: 5px;
         }

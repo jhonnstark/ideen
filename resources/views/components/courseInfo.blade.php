@@ -15,9 +15,34 @@
     </div>
 
     @isset($module)
+        @if($role === 'teacher')
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="card-form">{{ __('Formulario editar '.$role) }}</p>
+                        </div>
+                        <div class="card-body">
+                            <module-form role="{{ $role }}" edit="{{ $id }}"></module-form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="container">
             <div class="row justify-content-between">
-                <h3>{{ __('Listado contenidos') }}</h3>
+                <h4 class="col-9">{{ __('Listado contenidos') }}</h4>
+                @if($role !== '')
+                <div class="col-3 text-right">
+                    <a class="btn btn-primary btn-lg" href="{{ route($role . '.course.content', $id) }}" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="21" height="21" fill="white"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"></path></svg>
+                        Nuevo
+                    </a>
+                </div>
+                @endif
                 <hr class="col-12">
             </div>
         </div>
@@ -25,7 +50,7 @@
 
         <div class="container">
             <div class="row justify-content-between">
-                <h3>{{ __('Listado Actividades') }}</h3>
+                <h4 class="col-9">{{ __('Listado Actividades') }}</h4>
                 @if($role !== '')
                 <div class="col-3 text-right">
                     <a class="btn btn-primary btn-lg" href="{{ route($role . '.course.createActivity', $id) }}" role="button">
@@ -41,7 +66,7 @@
 
         <div class="container">
             <div class="row justify-content-between">
-                <h3>{{ __('Listado exam') }}</h3>
+                <h4 class="col-9">{{ __('Listado exam') }}</h4>
                 @if($role !== '')
                 <div class="col-3 text-right">
                     <a class="btn btn-primary btn-lg" href="{{ route( $role . '.exam.register' ) }}" role="button">
@@ -66,16 +91,23 @@
 
         <div class="container">
             <div class="row justify-content-between">
-                <h3>{{ __('Listado modulos') }}</h3>
+                <h4 class="col-9">{{ __('Listado modulos') }}</h4>
+                @if($role !== '')
+                    <div class="col-3 text-right">
+                        <a class="btn btn-primary btn-lg" href="{{ route('teacher.course.module', $id) }}" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="21" height="21" fill="white"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"></path></svg>
+                            Nuevo
+                        </a>
+                    </div>
+                @endif
                 <hr class="col-12">
             </div>
         </div>
         <module-list role="{{ $role }}" id="{{ $id }}"></module-list>
 
-
         <div class="container">
             <div class="row justify-content-between">
-                <h3>{{ __('Listado alumnos') }}</h3>
+                <h4 class="col-9">{{ __('Listado alumnos') }}</h4>
                 <hr class="col-12">
             </div>
         </div>

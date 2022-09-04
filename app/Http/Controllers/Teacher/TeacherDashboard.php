@@ -11,7 +11,6 @@ use App\Http\Resources\ContentResource;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\HomeworkCollection;
 use App\Http\Resources\MaterialResource;
-use App\Http\Resources\ModulesResource;
 use App\Http\Resources\Teacher;
 use App\Http\Resources\UserCollection;
 use App\Models\Activity;
@@ -19,15 +18,15 @@ use App\Models\Content;
 use App\Models\Course;
 use App\Models\Homework;
 use App\Models\Module;
+use Auth;
 use Hash;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TeacherDashboard extends Controller
@@ -171,18 +170,6 @@ class TeacherDashboard extends Controller
     }
 
     /**
-     * Loads the modules of a course.
-     *
-     * @param Course $course
-     * @return ModulesResource
-     */
-    public function module(Course $course): ModulesResource
-    {
-        $course->load('module');
-        return new ModulesResource($course->module);
-    }
-
-    /**
      * Loads the students of a course.
      *
      * @param Course $course
@@ -241,38 +228,6 @@ class TeacherDashboard extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Content $content
-     * @return Application|Factory|View
-     */
-    public function contentDetail(Content $content)
-    {
-        $contents = $content->load('module.content')->module->content;
-        return view('detail', [
-            'id' => $content,
-            'role' => 'teacher',
-            'type' => 'content',
-            'contents' => $contents
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Module $module
-     * @return Application|Factory|View
-     */
-    public function moduleDetail(Module $module)
-    {
-        return view('components.courseInfo', [
-            'role' => 'teacher',
-            'id' => $module->id,
-            'module' => 'module'
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
      * @param Homework $homework
      * @return MaterialResource
      */
@@ -311,22 +266,6 @@ class TeacherDashboard extends Controller
     public function contentJson(Content $content): MaterialResource
     {
         $material = $content->load('material')->material->first();
-        $url = Storage::disk('s3')->temporaryUrl(
-            $material->url, now()->addMinutes(5)
-        );
-        $material->url = $url;
-        return new MaterialResource($material);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Module $module
-     * @return MaterialResource
-     */
-    public function moduleJson(Module $module): MaterialResource
-    {
-        $material = $module->load('material')->material->first();
         $url = Storage::disk('s3')->temporaryUrl(
             $material->url, now()->addMinutes(5)
         );
