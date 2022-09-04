@@ -83,7 +83,11 @@ class ModuleController extends Controller
      */
     public function edit(Module $module)
     {
-        return view('admin.edit', ['role' => 'module', 'id' => $module->id]);
+        return view('components.courseInfo', [
+            'role' => 'teacher',
+            'id' => $module->id,
+            'module' => 'module'
+        ]);
     }
 
     /**

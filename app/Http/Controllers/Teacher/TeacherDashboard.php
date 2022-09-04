@@ -258,21 +258,6 @@ class TeacherDashboard extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Module $module
-     * @return Application|Factory|View
-     */
-    public function moduleDetail(Module $module)
-    {
-        return view('components.courseInfo', [
-            'role' => 'teacher',
-            'id' => $module->id,
-            'module' => 'module'
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
      * @param Homework $homework
      * @return MaterialResource
      */
@@ -311,22 +296,6 @@ class TeacherDashboard extends Controller
     public function contentJson(Content $content): MaterialResource
     {
         $material = $content->load('material')->material->first();
-        $url = Storage::disk('s3')->temporaryUrl(
-            $material->url, now()->addMinutes(5)
-        );
-        $material->url = $url;
-        return new MaterialResource($material);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Module $module
-     * @return MaterialResource
-     */
-    public function moduleJson(Module $module): MaterialResource
-    {
-        $material = $module->load('material')->material->first();
         $url = Storage::disk('s3')->temporaryUrl(
             $material->url, now()->addMinutes(5)
         );
