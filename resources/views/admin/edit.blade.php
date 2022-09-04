@@ -30,7 +30,6 @@
                         <p class="card-form">{{ __('Formulario editar '.$role) }}</p>
                     </div>
                     <div class="card-body">
-
                         @if($role === 'course')
                             <course-form role="{{ $role }}" edit="{{ $id }}"></course-form>
                         @elseif($role === 'module')
@@ -46,7 +45,6 @@
                         @else
                             <register-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></register-form>
                         @endif
-
                     </div>
                 </div>
             </div>
@@ -130,7 +128,7 @@
         <module-list role="{{ $role }}" id="{{ $id }}"></module-list>
         <div class="container">
             <div class="row justify-content-between">
-                <h3>{{ __('Listado alumnos') }}</h3>
+                <h4 class="col-9">{{ __('Listado alumnos') }}</h4>
                 <hr class="col-12">
             </div>
         </div>

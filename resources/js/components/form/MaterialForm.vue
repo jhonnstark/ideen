@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group row" v-if="!edit">
             <label for="material" class="col-md-4 col-form-label text-md-right">Material</label>
             <div class="col-md-6">
                 <div class="input-group mb-3">

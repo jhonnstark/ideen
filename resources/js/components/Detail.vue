@@ -84,7 +84,7 @@ export default {
     data: function () {
         return {
             isLoading: true,
-            rute: window.location.pathname + (this.edit ? '/' + this.edit : '/json'),
+            rute: window.location.pathname + (this.edit ? '/' + this.edit : '/material'),
             doc: ['xlsx', 'xls', 'xlm', 'xla', 'xlc', 'xlt', 'xlw','doc', 'dot', 'docx', 'pptx', 'ppt', 'pps', 'pot'],
             images: ['jpg', 'jpeg', 'jpe', 'bmp', 'gif', 'png', 'webp', 'tiff',],
             audio: ['mpga', 'mp2', 'mp2a', 'mp3', 'm2a', 'm3a', 'm4a', 'mp4a', 'wma', 'wav'],

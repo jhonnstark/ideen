@@ -41,7 +41,7 @@
                         @if($role === 'course')
                             <course-form role="{{ $role }}"></course-form>
                         @elseif($role === 'module')
-                            <module-form role="{{ $role }}" id="{{ $course }}"></module-form>
+                            <module-form role="{{ $role }}" id="{{ $course }}" type="{{ $type ?? 'admin' }}"></module-form>
                         @elseif($role === 'category')
                             <table-form role="{{ $role }}"></table-form>
                         @elseif($role === 'level')

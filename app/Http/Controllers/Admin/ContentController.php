@@ -26,9 +26,9 @@ class ContentController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(MaterialController $materialController)
     {
-        $this->materialController = new MaterialController();
+        $this->materialController = $materialController;
     }
 
     /**

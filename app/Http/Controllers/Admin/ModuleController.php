@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ModuleRequest;
-use App\Http\Resources\ContentResource;
 use App\Http\Resources\ModulesResource;
 use App\Models\Course;
 use App\Models\Module;
@@ -64,7 +63,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Loads the modules of a course..
      *
      * @param Course $course
      * @return ModulesResource
