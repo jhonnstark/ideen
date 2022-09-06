@@ -77,6 +77,9 @@ Vue.use(ToggleButton)
 Vue.component('admin-list', require('./components/list/AdminList.vue').default);
 Vue.component('course-list', require('./components/list/CourseList.vue').default);
 Vue.component('table-list', require('./components/list/TableList.vue').default);
+Vue.component('program-list', require('./components/list/ProgramList.vue').default);
+Vue.component('subject-list', require('./components/list/SubjectList.vue').default);
+Vue.component('group-list', require('./components/list/GroupList.vue').default);
 Vue.component('my-course-list', require('./components/list/MyCoursesList.vue').default);
 Vue.component('my-class-list', require('./components/list/MyClassList.vue').default);
 Vue.component('content-list', require('./components/list/ContentList.vue').default);
