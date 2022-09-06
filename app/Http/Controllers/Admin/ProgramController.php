@@ -1,30 +1,41 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Program;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Response;
+use Request;
 
 class ProgramController extends Controller
 {
+
+    /**
+     * Display a listing view of the resource.
+     */
+    private $role = ['role' => 'program'];
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
-        //
+        return view('admin.list', $this->role);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.register', $this->role);
     }
 
     /**
