@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row justify-content-between">
-            <h1>Dashboard</h1>
+            <h1>Dashboard de Administrador</h1>
             <hr class="col-12">
         </div>
     </div>

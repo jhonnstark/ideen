@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CycleCollection;
 use App\Models\Cycle;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -26,6 +27,16 @@ class CycleController extends Controller
     public function index()
     {
         return view('admin.list', $this->role);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return CycleCollection
+     */
+    public function list(): CycleCollection
+    {
+        return new CycleCollection(Cycle::all());
     }
 
     /**
