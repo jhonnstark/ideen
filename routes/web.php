@@ -217,6 +217,9 @@ Route::prefix('/admin')
                 Route::post('/register', 'LevelController@store');
                 Route::get('/edit/{level}', 'LevelController@show')->name('edit');
                 Route::put('/edit/{level}', 'LevelController@update');
+//                Route::post('/edit/{level}/associate', 'UserController@associate');
+                Route::get('/courses/{level}', 'LevelController@courses');
+//                Route::put('/courses/{level}/detach', 'LevelController@detach');
                 Route::delete('/delete/{level}', 'LevelController@destroy');
             });
 
