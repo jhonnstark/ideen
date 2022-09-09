@@ -31,7 +31,7 @@
 
     @if($role == 'course')
         <course-list role="{{ $role }}"></course-list>
-    @elseif($role == 'category' || $role == 'level')
+    @elseif($role == 'category' || $role == 'level' || $role == 'cycle')
         <table-list role="{{ $role }}"></table-list>
     @elseif($role == 'exam')
         <exam-list role="{{ $role }}" rute="admin"></exam-list>
@@ -39,6 +39,12 @@
         <payment-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></payment-list>
     @elseif($role == 'concept')
         <concept-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></concept-list>
+    @elseif($role == 'program')
+        <program-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></program-list>
+    @elseif($role == 'subject')
+        <subject-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></subject-list>
+    @elseif($role == 'group')
+        <group-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></group-list>
     @else
         <admin-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></admin-list>
     @endif

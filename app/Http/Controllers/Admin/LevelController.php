@@ -113,7 +113,7 @@ class LevelController extends Controller
         $level->delete();
         return response()->json([
             'status' => 204,
-            'message' => 'Deleted Course'
+            'message' => 'Deleted Level'
         ],204 );
     }
 }
