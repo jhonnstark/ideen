@@ -230,7 +230,8 @@ Route::prefix('/admin')
                 Route::get('/list', 'ProgramController@list');
                 Route::get('/register', 'ProgramController@create')->name('register');
                 Route::post('/register', 'ProgramController@store');
-                Route::get('/edit/{program}', 'ProgramController@show')->name('edit');
+                Route::get('/edit/{program}/json', 'ProgramController@show');
+                Route::get('/edit/{program}', 'ProgramController@edit')->name('edit');
                 Route::put('/edit/{program}', 'ProgramController@update');
                 Route::delete('/delete/{program}', 'ProgramController@destroy');
             });

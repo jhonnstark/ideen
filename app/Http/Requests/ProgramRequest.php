@@ -25,7 +25,7 @@ class ProgramRequest extends FormRequest
     {
         return [
             'name' => 'bail|required|max:255',
-            'quarter' => 'required|numeric|min:1|max:4',
+            'quarts' => 'required|numeric|min:1|max:9',
             'periods' => 'required|numeric|min:1|max:3',
         ];
     }

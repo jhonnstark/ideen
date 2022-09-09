@@ -40,6 +40,8 @@
                             <level-form role="{{ $role }}" edit="{{ $id }}"></level-form>
                         @elseif($role === 'activity' || $role === 'content')
                             <material-form role="{{ $role }}" edit="{{ $id }}"></material-form>
+                        @elseif($role === 'program')
+                            <program-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></program-form>
                         @elseif($role === 'concept')
                             <concept-form role="{{ $role }} edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></concept-form>
                         @elseif($role === 'cycle')
