@@ -220,6 +220,56 @@ Route::prefix('/admin')
                 Route::delete('/delete/{level}', 'LevelController@destroy');
             });
 
+        Route::prefix('/program')
+            ->name('program.')
+            ->group(function(){
+                Route::get('/', 'ProgramController@index')->name('list');
+                Route::get('/list', 'ProgramController@list');
+                Route::get('/register', 'ProgramController@create')->name('register');
+                Route::post('/register', 'ProgramController@store');
+                Route::get('/edit/{program}', 'ProgramController@show')->name('edit');
+                Route::put('/edit/{program}', 'ProgramController@update');
+                Route::delete('/delete/{program}', 'ProgramController@destroy');
+            });
+
+        Route::prefix('/cycle')
+            ->name('cycle.')
+            ->group(function(){
+                Route::get('/', 'CycleController@index')->name('list');
+                Route::get('/list', 'CycleController@list');
+                Route::get('/register', 'CycleController@create')->name('register');
+                Route::post('/register', 'CycleController@store');
+                Route::get('/edit/{cycle}', 'CycleController@edit')->name('edit');
+                Route::get('/edit/{cycle}/json', 'CycleController@show');
+                Route::put('/edit/{cycle}', 'CycleController@update');
+                Route::delete('/delete/{cycle}', 'CycleController@destroy');
+            });
+
+        Route::prefix('/subject')
+            ->name('subject.')
+            ->group(function(){
+                Route::get('/', 'SubjectController@index')->name('list');
+                Route::get('/list', 'SubjectController@list');
+                Route::get('/register', 'SubjectController@create')->name('register');
+                Route::post('/register', 'SubjectController@store');
+                Route::get('/edit/{subject}', 'SubjectController@edit')->name('edit');
+                Route::get('/edit/{subject}/json', 'SubjectController@show');
+                Route::put('/edit/{subject}', 'SubjectController@update');
+                Route::delete('/delete/{subject}', 'SubjectController@destroy');
+            });
+
+        Route::prefix('/group')
+            ->name('group.')
+            ->group(function(){
+                Route::get('/', 'GroupController@index')->name('list');
+                Route::get('/list', 'GroupController@list');
+                Route::get('/register', 'GroupController@create')->name('register');
+                Route::post('/register', 'GroupController@store');
+                Route::get('/edit/{group}', 'GroupController@show')->name('edit');
+                Route::put('/edit/{group}', 'GroupController@update');
+                Route::delete('/delete/{group}', 'GroupController@destroy');
+            });
+
         Route::prefix('/exam')
             ->name('exam.')
             ->group(function(){
@@ -431,7 +481,7 @@ Route::prefix('/teacher')
                         Route::get('/content/{content}', 'ContentController@edit')->name('contentMaterial');
                         Route::put('/content/{content}', 'ContentController@update');
 
-                        Route::get('/content/{content}/json', 'ContentController@getJson'); // material
+                        Route::get('/content/{content}/json', 'ContentController@getJson');
                         Route::get('/content/{content}/material', 'ContentController@getMaterial');
                         Route::delete('/content/delete/{content}', 'ContentController@destroy');
 

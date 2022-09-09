@@ -93,7 +93,17 @@ import {required, minLength, maxLength, between} from 'vuelidate/lib/validators'
 
 export default {
     name: "ProgramForm",
-    props: ['role', 'edit'],
+    props: {
+        role: {
+            type: String,
+            require: true,
+        },
+        edit: String,
+        type: {
+            type: String,
+            default: 'admin',
+        }
+    },
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -103,11 +113,11 @@ export default {
                 quarter: null,
                 periods: null,
             },
-            quarter: [1, 2, 3, 4],
+            quarter: Array.from({length: 9}, (_, i) => i + 1),
             periods: [1, 2, 3],
             rute: this.edit
-                ? '/admin/' + this.role + '/edit/' + this.edit
-                : '/admin/' + this.role + '/register',
+                ? '/' + this.type + '/' + this.role + '/edit/' + this.edit
+                : '/' + this.type + '/' + this.role + '/register',
             isLoading:false
         }
     },
@@ -120,7 +130,7 @@ export default {
             },
             quarter: {
                 required,
-                between: between(1, 4)
+                between: between(1, 9)
             },
             periods: {
                 required,
@@ -130,8 +140,7 @@ export default {
     },
     created() {
         if (this.edit) {
-            axios.get('/admin/' + this.role + '/edit/' + this.edit)
-                .then(response => this.record = response.data.data);
+            axios.get(this.rute + '/json').then(response => this.record = response.data.data);
         }
     },
     methods:{

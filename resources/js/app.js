@@ -77,6 +77,9 @@ Vue.use(ToggleButton)
 Vue.component('admin-list', require('./components/list/AdminList.vue').default);
 Vue.component('course-list', require('./components/list/CourseList.vue').default);
 Vue.component('table-list', require('./components/list/TableList.vue').default);
+Vue.component('program-list', require('./components/list/ProgramList.vue').default);
+Vue.component('subject-list', require('./components/list/SubjectList.vue').default);
+Vue.component('group-list', require('./components/list/GroupList.vue').default);
 Vue.component('my-course-list', require('./components/list/MyCoursesList.vue').default);
 Vue.component('my-class-list', require('./components/list/MyClassList.vue').default);
 Vue.component('content-list', require('./components/list/ContentList.vue').default);
@@ -112,6 +115,8 @@ Vue.component('module-form', require('./components/form/ModuleForm.vue').default
 Vue.component('profile-form', require('./components/User/ProfileForm.vue').default);
 Vue.component('answer-form', require('./components/form/AnswerForm.vue').default);
 Vue.component('payment-form', require('./components/form/PaymentForm.vue').default);
+Vue.component('program-form', require('./components/form/ProgramForm.vue').default);
+Vue.component('cycle-form', require('./components/form/CycleForm.vue').default);
 Vue.component('bill-form', require('./components/form/BillForm.vue').default);
 Vue.component('concept-form', require('./components/form/ConceptForm.vue').default);
 Vue.component('reports-form', require('./components/form/ReportsForm.vue').default);
