@@ -239,7 +239,8 @@ Route::prefix('/admin')
                 Route::get('/list', 'CycleController@list');
                 Route::get('/register', 'CycleController@create')->name('register');
                 Route::post('/register', 'CycleController@store');
-                Route::get('/edit/{cycle}', 'CycleController@show')->name('edit');
+                Route::get('/edit/{cycle}', 'CycleController@edit')->name('edit');
+                Route::get('/edit/{cycle}/json', 'CycleController@show');
                 Route::put('/edit/{cycle}', 'CycleController@update');
                 Route::delete('/delete/{cycle}', 'CycleController@destroy');
             });
@@ -251,7 +252,8 @@ Route::prefix('/admin')
                 Route::get('/list', 'SubjectController@list');
                 Route::get('/register', 'SubjectController@create')->name('register');
                 Route::post('/register', 'SubjectController@store');
-                Route::get('/edit/{subject}', 'SubjectController@show')->name('edit');
+                Route::get('/edit/{subject}', 'SubjectController@edit')->name('edit');
+                Route::get('/edit/{subject}/json', 'SubjectController@show');
                 Route::put('/edit/{subject}', 'SubjectController@update');
                 Route::delete('/delete/{subject}', 'SubjectController@destroy');
             });

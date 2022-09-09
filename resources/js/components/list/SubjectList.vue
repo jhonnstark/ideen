@@ -49,13 +49,13 @@ export default {
     data: function () {
         return {
             isLoading: true,
-            items: null
+            items: []
         }
     },
     created () {
         axios
             .get('/admin/' + this.role + '/list')
-            .then(response => (this.items = response.data.data))
+            .then(({ data: { data } }) => (this.items = data))
             .finally(() => this.isLoading = false)
     },
     methods: {

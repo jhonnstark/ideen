@@ -52,6 +52,10 @@
                             <material-form role="{{ $role }}" id="{{ $module }}"></material-form>
                         @elseif($role === 'payment')
                             <payment-form role="{{ $role }}" id="{{ $id }}" type="{{ $type ?? 'admin' }}"></payment-form>
+                        @elseif($role === 'program')
+                            <program-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></program-form>
+                        @elseif($role === 'cycle')
+                            <cycle-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></cycle-form>
                         @elseif($role === 'concept')
                             <concept-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></concept-form>
                         @else
@@ -64,3 +68,9 @@
         </div>
     </div>
 @endsection
+<script>
+    import ProgramForm from "../../js/components/form/ProgramForm";
+    export default {
+        components: {ProgramForm}
+    }
+</script>

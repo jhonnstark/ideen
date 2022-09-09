@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CycleRequest;
 use App\Http\Resources\CycleCollection;
+use App\Http\Resources\CycleResource;
 use App\Models\Cycle;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Request;
 use Response;
 use Illuminate\View\View;
@@ -52,56 +56,71 @@ class CycleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @param CycleRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(CycleRequest $request): JsonResponse
     {
-        //
+        Cycle::create($request->validated());
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cycle  $cycle
-     * @return Response
+     * @param Cycle $cycle
+     * @return CycleResource
      */
-    public function show(Cycle $cycle)
+    public function show(Cycle $cycle): CycleResource
     {
-        //
+        return new CycleResource($cycle);
     }
+
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cycle  $cycle
-     * @return Response
+     * @param Cycle $cycle
+     * @return Application|Factory|View
      */
     public function edit(Cycle $cycle)
     {
-        //
+        $this->role['id'] = $cycle->id;
+        return view('admin.edit', $this->role);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cycle  $cycle
-     * @return Response
+     * @param CycleRequest $request
+     * @param Cycle $cycle
+     * @return JsonResponse
      */
-    public function update(Request $request, Cycle $cycle)
+    public function update(CycleRequest $request, Cycle $cycle): JsonResponse
     {
-        //
+        $cycle->update($request->validated());
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update cycle'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cycle  $cycle
-     * @return Response
+     * @param Cycle $cycle
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function destroy(Cycle $cycle)
+    public function destroy(Cycle $cycle): JsonResponse
     {
-        //
+        $cycle->delete();
+        return response()->json([
+            'status' => 204,
+            'message' => 'Deleted Level'
+        ],204 );
     }
 }
