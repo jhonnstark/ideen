@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubjectRequest;
 use App\Http\Resources\SubjectCollection;
+use App\Http\Resources\SubjectResource;
 use App\Models\Subject;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Response;
 use Request;
@@ -52,56 +56,70 @@ class SubjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
-     * @return Response
+     * @param SubjectRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(SubjectRequest $request): JsonResponse
     {
-        //
+        Subject::create($request->validated());
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      *
      * @param Subject $subject
-     * @return Response
+     * @return SubjectResource
      */
-    public function show(Subject $subject)
+    public function show(Subject $subject): SubjectResource
     {
-        //
+        return new SubjectResource($subject);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param Subject $subject
-     * @return Response
+     * @return Application|Factory|View
      */
     public function edit(Subject $subject)
     {
-        //
+        $this->role['id'] = $subject->id;
+        return view('admin.edit', $this->role);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param SubjectRequest $request
      * @param Subject $subject
-     * @return Response
+     * @return JsonResponse
      */
-    public function update(Request $request, Subject $subject)
+    public function update(SubjectRequest $request, Subject $subject): JsonResponse
     {
-        //
+        $subject->update($request->validated());
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update cycle'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Subject $subject
-     * @return Response
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function destroy(Subject $subject)
+    public function destroy(Subject $subject): JsonResponse
     {
-        //
+        $subject->delete();
+        return response()->json([
+            'status' => 204,
+            'message' => 'Deleted Level'
+        ],204 );
     }
 }
