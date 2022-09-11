@@ -215,12 +215,16 @@ export default {
         },
     },
     created() {
-        if (this.edit) {
-            axios.get(this.rute + '/json').then(({ data: { data } }) => this.record = data);
-        }
         axios
             .get('/' + this.type + '/program/list')
-            .then(({ data: { data } })=> (this.program = data))
+            .then(({data: {data}}) => (this.program = data))
+            .finally(() => {
+                if (this.edit) {
+                    axios.get(this.rute + '/json').then(({ data: { data } }) => this.record = data);
+                }
+            })
+            .catch(error => console.log(error));
+
         // axios
         //     .get('/' + this.type + '/' + '/cycle/list')
         //     .then(({ data: { data } })=> (this.cycle = data))
@@ -268,6 +272,8 @@ export default {
     },
     watch: {
         'record.program_id'(newProgram) {
+            console.log(newProgram);
+            console.log(this.program);
             if (newProgram) {
                 const {quarts, periods} = this.program.find(program => program.id === newProgram);
                 this.quarter = Array.from({length: quarts}, (_, i) => ({
@@ -278,8 +284,12 @@ export default {
                     id: (i + 1),
                     name: (i + 1) + 'ª Periodo'
                 }));
-                this.record.period = null;
-                this.record.quarts = null;
+                if (this.record.id) {
+                    delete this.record.id;
+                } else {
+                    this.record.period = null;
+                    this.record.quarts = null;
+                }
             }
         },
     }
