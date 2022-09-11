@@ -56,6 +56,10 @@
                             <program-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></program-form>
                         @elseif($role === 'cycle')
                             <cycle-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></cycle-form>
+                        @elseif($role === 'subject')
+                            <subject-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></subject-form>
+                        @elseif($role === 'group')
+                            <group-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></group-form>
                         @elseif($role === 'concept')
                             <concept-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></concept-form>
                         @else
@@ -68,9 +72,3 @@
         </div>
     </div>
 @endsection
-<script>
-    import ProgramForm from "../../js/components/form/ProgramForm";
-    export default {
-        components: {ProgramForm}
-    }
-</script>

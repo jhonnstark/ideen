@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProgramRequest;
 use App\Http\Resources\ProgramCollection;
+use App\Http\Resources\ProgramResource;
 use App\Models\Program;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
-use Response;
-use Request;
 
 class ProgramController extends Controller
 {
@@ -52,56 +54,70 @@ class ProgramController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ProgramRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(ProgramRequest $request): JsonResponse
     {
-        //
+        Program::create($request->validated());
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Program  $program
-     * @return \Illuminate\Http\Response
+     * @param Program $program
+     * @return ProgramResource
      */
-    public function show(Program $program)
+    public function show(Program $program): ProgramResource
     {
-        //
+        return new ProgramResource($program);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Program  $program
-     * @return \Illuminate\Http\Response
+     * @param Program $program
+     * @return Application|Factory|View
      */
     public function edit(Program $program)
     {
-        //
+        $this->role['id'] = $program->id;
+        return view('admin.edit', $this->role);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Program  $program
-     * @return \Illuminate\Http\Response
+     * @param ProgramRequest $request
+     * @param Program $program
+     * @return JsonResponse
      */
-    public function update(Request $request, Program $program)
+    public function update(ProgramRequest $request, Program $program): JsonResponse
     {
-        //
+        $program->update($request->validated());
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update cycle'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Program  $program
-     * @return \Illuminate\Http\Response
+     * @param Program $program
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function destroy(Program $program)
+    public function destroy(Program $program): JsonResponse
     {
-        //
+        $program->delete();
+        return response()->json([
+            'status' => 204,
+            'message' => 'Deleted Level'
+        ],204 );
     }
 }

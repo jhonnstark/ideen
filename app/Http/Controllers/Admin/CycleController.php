@@ -11,8 +11,6 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
-use Request;
-use Response;
 use Illuminate\View\View;
 
 class CycleController extends Controller

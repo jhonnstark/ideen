@@ -217,6 +217,9 @@ Route::prefix('/admin')
                 Route::post('/register', 'LevelController@store');
                 Route::get('/edit/{level}', 'LevelController@show')->name('edit');
                 Route::put('/edit/{level}', 'LevelController@update');
+//                Route::post('/edit/{level}/associate', 'UserController@associate');
+                Route::get('/courses/{level}', 'LevelController@courses');
+//                Route::put('/courses/{level}/detach', 'LevelController@detach');
                 Route::delete('/delete/{level}', 'LevelController@destroy');
             });
 
@@ -227,7 +230,8 @@ Route::prefix('/admin')
                 Route::get('/list', 'ProgramController@list');
                 Route::get('/register', 'ProgramController@create')->name('register');
                 Route::post('/register', 'ProgramController@store');
-                Route::get('/edit/{program}', 'ProgramController@show')->name('edit');
+                Route::get('/edit/{program}/json', 'ProgramController@show');
+                Route::get('/edit/{program}', 'ProgramController@edit')->name('edit');
                 Route::put('/edit/{program}', 'ProgramController@update');
                 Route::delete('/delete/{program}', 'ProgramController@destroy');
             });

@@ -15,8 +15,12 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('code');
+            $table->string('name');
+            $table->tinyInteger('quarter')->default(1);
+            $table->tinyInteger('period')->default(1);
+            $table->foreignId('program_id')->constrained()
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

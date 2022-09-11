@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LevelRequest;
+use App\Http\Resources\CourseCollection;
 use App\Http\Resources\LevelCollection;
 use App\Http\Resources\LevelResource;
 use App\Models\Level;
@@ -100,6 +101,55 @@ class LevelController extends Controller
             'message' => 'Update level'
         ]);
     }
+
+//    /**
+//     * Store a newly created resource in storage.
+//     *
+//     * @param Request $request
+//     * @param Level $level
+//     * @return JsonResponse
+//     */
+//    public function associate(Request $request, Level $level): JsonResponse
+//    {
+//        $validatedData = $request->validate([
+//            'course_id' => ['required'],
+//        ]);
+//        $level->courses()->syncWithoutDetaching($validatedData['course_id']);
+//        return response()->json([
+//            'status' => 201,
+//            'message' => 'created',
+//        ], 201);
+//    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Level $level
+     * @return CourseCollection
+     */
+    public function courses(Level $level): CourseCollection
+    {
+        $level->load('courses');
+        $courses = $level->courses->loadCount('student');
+        return new CourseCollection($courses);
+    }
+
+//    /**
+//     * Update the specified resource in storage.
+//     *
+//     * @param Request $request
+//     * @param Level $level
+//     * @return JsonResponse
+//     */
+//    public function detach(Request $request, Level $level): JsonResponse
+//    {
+//        $level->courses()->detach($request->input('id'));
+//        return response()->json([
+//            'status' => 200,
+//            'message' => 'Updated user'
+//        ]);
+//    }
 
     /**
      * Remove the specified resource from storage.

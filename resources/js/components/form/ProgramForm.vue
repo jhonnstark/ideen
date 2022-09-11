@@ -32,10 +32,10 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
                         </label>
                     </div>
-                    <v-select v-model="record.quarter" label="name" id="quarter" name="quarter" :options="quarter"></v-select>
+                    <v-select v-model="record.quarts" label="name" id="quarts" name="quarts" :options="quarter"></v-select>
 
                     <span
-                        v-if="!$v.record.quarter.error"
+                        v-if="!$v.record.quarts.error"
                         class="invalid-feedback" role="alert">
                         <strong>Campo invalido</strong>
                     </span>
@@ -110,7 +110,7 @@ export default {
             errors: false,
             record: {
                 name: null,
-                quarter: null,
+                quarts: null,
                 periods: null,
             },
             quarter: Array.from({length: 9}, (_, i) => i + 1),
@@ -128,7 +128,7 @@ export default {
                 minLength: minLength(3),
                 maxLength: maxLength(255)
             },
-            quarter: {
+            quarts: {
                 required,
                 between: between(1, 9)
             },
@@ -159,14 +159,20 @@ export default {
                     url:  this.rute,
                     data: this.record
                 }).then(response => {
-                    this.isLoading = false;
                     if (!this.edit) {
                         this.record.name = null;
+                        this.record.quarts = null;
+                        this.record.periods = null;
                         this.$swal('Guardado', 'Creado exitosamente.', 'success');
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
                     }
-                }).catch(error => console.log(error))
+                }).catch((error) => {
+                    console.log(error.response.data)
+                    this.$swal('Error', 'Algo ha ido mal: ' + error.response.data.message, 'error');
+                }).finally(() => {
+                    this.isLoading = false;
+                })
             }
         }
     },

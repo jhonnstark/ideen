@@ -40,8 +40,12 @@
                             <level-form role="{{ $role }}" edit="{{ $id }}"></level-form>
                         @elseif($role === 'activity' || $role === 'content')
                             <material-form role="{{ $role }}" edit="{{ $id }}"></material-form>
+                        @elseif($role === 'program')
+                            <program-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></program-form>
                         @elseif($role === 'concept')
                             <concept-form role="{{ $role }} edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></concept-form>
+                        @elseif($role === 'subject')
+                            <subject-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></subject-form>
                         @elseif($role === 'cycle')
                             <cycle-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></cycle-form>
                         @else
@@ -53,7 +57,7 @@
         </div>
     </div>
 
-    @if($role == 'activity' || $role == 'content')
+    @if($role === 'activity' || $role === 'content')
         <div class="container">
             <div class="row justify-content-center">
                 <hr class="col-12">
@@ -70,7 +74,7 @@
         @endisset
     @endif
 
-    @if($role == 'teacher' || $role == 'user')
+    @if($role === 'teacher' || $role === 'user' || $role === 'level')
     <div class="container">
         <div class="row justify-content-between">
               <h4>{{ __('Cursos') }}</h4>
@@ -79,13 +83,13 @@
     </div>
     @endif
 
-    @if($role == 'teacher')
+    @if($role === 'teacher' || $role === 'level')
         <my-course-list role="{{ $role }}" id="{{ $id }}" type="{{ $type ?? 'admin' }}"></my-course-list>
-    @elseif($role == 'user')
+    @elseif($role === 'user')
         <user-courses role="{{ $role }}" id="{{ $id }}"></user-courses>
     @endif
 
-    @if($role == 'module')
+    @if($role === 'module')
         <div class="container">
             <div class="row justify-content-between">
                 <h4 class="col-9">{{ __('Contenidos') }}</h4>
@@ -114,7 +118,7 @@
         <activity-list role="{{ $role }}" id="{{ $id }}"></activity-list>
     @endif
 
-    @if($role == 'course')
+    @if($role === 'course')
         <div class="container">
             <div class="row justify-content-between">
                 <h4 class="col-9">{{ __('Modulos') }}</h4>

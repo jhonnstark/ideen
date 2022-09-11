@@ -106,6 +106,22 @@ class UserController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function detach(Request $request, User $user): JsonResponse
+    {
+        $user->courses()->detach($request->input('id'));
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated user'
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param UserRequest $request
@@ -194,22 +210,6 @@ class UserController extends Controller
     {
         $material = $user->material()->first();
         return Storage::disk('s3')->download($material->url);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param User $user
-     * @return JsonResponse
-     */
-    public function detach(Request $request, User $user): JsonResponse
-    {
-        $user->courses()->detach($request->input('id'));
-        return response()->json([
-            'status' => 200,
-            'message' => 'Updated user'
-        ]);
     }
 
     /**
