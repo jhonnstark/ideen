@@ -270,7 +270,7 @@ Route::prefix('/admin')
                 Route::get('/register', 'GroupController@create')->name('register');
                 Route::post('/register', 'GroupController@store');
                 Route::get('/edit/{group}', 'GroupController@edit')->name('edit');
-                Route::get('/edit/{subject}/json', 'SubjectController@show');
+                Route::get('/edit/{group}/json', 'GroupController@show');
                 Route::put('/edit/{group}', 'GroupController@update');
                 Route::delete('/delete/{group}', 'GroupController@destroy');
             });
