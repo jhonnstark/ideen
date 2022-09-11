@@ -44,6 +44,8 @@
                             <program-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></program-form>
                         @elseif($role === 'concept')
                             <concept-form role="{{ $role }} edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></concept-form>
+                        @elseif($role === 'subject')
+                            <subject-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></subject-form>
                         @elseif($role === 'cycle')
                             <cycle-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></cycle-form>
                         @else
