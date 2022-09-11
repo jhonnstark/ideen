@@ -58,6 +58,8 @@
                             <cycle-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></cycle-form>
                         @elseif($role === 'subject')
                             <subject-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></subject-form>
+                        @elseif($role === 'group')
+                            <group-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></group-form>
                         @elseif($role === 'concept')
                             <concept-form role="{{ $role }}" type="{{ $type ?? 'admin' }}"></concept-form>
                         @else

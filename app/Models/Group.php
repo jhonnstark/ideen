@@ -16,6 +16,6 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'quarter', 'periods'
+        'name', 'quarter', 'period', 'program_id', 'cycle_id'
     ];
 }

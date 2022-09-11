@@ -13,7 +13,7 @@ class SubjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,8 +24,11 @@ class SubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'program_id' => 'bail|required|exists:programs,id',
             'name' => 'bail|required|max:255',
             'code' => 'bail|required|max:255',
+            'quarter' => 'required|numeric|max:9|min:1',
+            'period' => 'required|numeric|max:3|min:1',
         ];
     }
 }

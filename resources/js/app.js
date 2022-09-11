@@ -118,6 +118,7 @@ Vue.component('payment-form', require('./components/form/PaymentForm.vue').defau
 Vue.component('program-form', require('./components/form/ProgramForm.vue').default);
 Vue.component('cycle-form', require('./components/form/CycleForm.vue').default);
 Vue.component('subject-form', require('./components/form/SubjectForm.vue').default);
+Vue.component('group-form', require('./components/form/GroupForm.vue').default);
 Vue.component('bill-form', require('./components/form/BillForm.vue').default);
 Vue.component('concept-form', require('./components/form/ConceptForm.vue').default);
 Vue.component('reports-form', require('./components/form/ReportsForm.vue').default);
