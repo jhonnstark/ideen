@@ -217,23 +217,23 @@ export default {
     created() {
         if (this.edit) {
             axios.get('/admin/' + this.role + '/edit/' + this.edit + '/json')
-                .then(response => {
-                    this.record = response.data.data;
+                .then(({ data: { data } }) => {
+                    this.record = data;
                     this.record.poster = null;
-                    if (Array.isArray(response.data.data.teacher)
-                        && response.data.data.teacher.length > 0)
-                    this.record.teacher_id = response.data.data.teacher[0].id;
+                    if (Array.isArray(data.teacher)
+                        && data.teacher.length > 0)
+                    this.record.teacher_id = data.teacher[0].id;
                 })
         }
         axios
             .get('/admin/teacher/list')
-            .then(response => (this.teacher = response.data.data))
+            .then(({ data: { data } })=> (this.teacher = data))
         axios
             .get('/admin/level/list')
-            .then(response => (this.level = response.data.data))
+            .then(({ data: { data } })=> (this.level = data))
         axios
             .get('/admin/category/list')
-            .then(response => (this.category = response.data.data))
+            .then(({ data: { data } })=> (this.category = data))
     },
     methods:{
         register() {

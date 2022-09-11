@@ -24,6 +24,46 @@
         </div>
 
         <div class="form-group row">
+            <label for="cycle" class="col-md-4 col-form-label text-md-right">Ciclo</label>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="cycle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
+                        </label>
+                    </div>
+                    <v-select v-model="record.cycle_id" :reduce="cycle => cycle.id" label="name" id="cycle" name="cycle" :options="cycle"></v-select>
+
+                    <span
+                        v-if="!$v.record.cycle_id.error"
+                        class="invalid-feedback" role="alert">
+                        <strong>Campo invalido</strong>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="program" class="col-md-4 col-form-label text-md-right">Programa</label>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="program">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
+                        </label>
+                    </div>
+                    <v-select v-model="record.program_id" :reduce="program => program.id" label="name" id="program" name="program" :options="program"></v-select>
+
+                    <span
+                        v-if="!$v.record.program_id.error"
+                        class="invalid-feedback" role="alert">
+                        <strong>Campo invalido</strong>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row" v-if="this.record.program_id">
             <label for="quarter" class="col-md-4 col-form-label text-md-right">Cuatrimestre</label>
             <div class="col-md-6">
                 <div class="input-group mb-3">
@@ -43,7 +83,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group row" v-if="this.record.program_id">
             <label for="periods" class="col-md-4 col-form-label text-md-right">Periodos</label>
             <div class="col-md-6">
                 <div class="input-group mb-3">
@@ -89,7 +129,7 @@
 
 <script>
 
-import {required, minLength, maxLength, between} from 'vuelidate/lib/validators';
+import {required, minLength, maxLength, between, integer} from 'vuelidate/lib/validators';
 
 export default {
     name: "SubjectForm",
@@ -112,9 +152,13 @@ export default {
                 name: null,
                 quarts: null,
                 periods: null,
+                program_id:null,
+                cycle_id:null,
             },
-            quarter: Array.from({length: 9}, (_, i) => i + 1),
-            periods: [1, 2, 3],
+            quarter: [],
+            periods: [],
+            program:[],
+            cycle:[],
             rute: this.edit
                 ? '/' + this.type + '/' + this.role + '/edit/' + this.edit
                 : '/' + this.type + '/' + this.role + '/register',
@@ -136,12 +180,26 @@ export default {
                 required,
                 between: between(1, 3)
             },
+            program_id: {
+                required,
+                integer
+            },
+            cycle_id: {
+                required,
+                integer
+            },
         },
     },
     created() {
         if (this.edit) {
-            axios.get(this.rute + '/json').then(response => this.record = response.data.data);
+            axios.get(this.rute + '/json').then(({ data: { data } }) => this.record = data);
         }
+        axios
+            .get('/' + this.type + '/' + '/program/list')
+            .then(({ data: { data } })=> (this.program = data))
+        axios
+            .get('/' + this.type + '/' + '/cycle/list')
+            .then(({ data: { data } })=> (this.cycle = data))
     },
     methods:{
         register() {
@@ -179,6 +237,15 @@ export default {
     computed: {
         isEdit() {
             return !!this.edit;
+        },
+    },
+    watch: {
+        'record.program_id'(newProgram) {
+            console.log(newProgram);
+            console.log(this.record.program_id)
+            const {quarts, periods} = this.program.find(program => program.id === newProgram);
+            this.quarter = Array.from({length: quarts}, (_, i) => ((i + 1) + 'ª Cuatrimestre'));
+            this.periods = Array.from({length: periods}, (_, i) => ((i + 1) + 'ª Periodo'));
         },
     }
 }

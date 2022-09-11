@@ -70,10 +70,3 @@
         </div>
     </div>
 @endsection
-<script>
-    import ProgramForm from "../../js/components/form/ProgramForm";
-    import SubjectForm from "../../js/components/form/SubjectForm";
-    export default {
-        components: {SubjectForm, ProgramForm}
-    }
-</script>
