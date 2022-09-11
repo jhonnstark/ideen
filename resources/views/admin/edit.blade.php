@@ -42,12 +42,14 @@
                             <material-form role="{{ $role }}" edit="{{ $id }}"></material-form>
                         @elseif($role === 'program')
                             <program-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></program-form>
-                        @elseif($role === 'concept')
-                            <concept-form role="{{ $role }} edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></concept-form>
-                        @elseif($role === 'subject')
-                            <subject-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></subject-form>
                         @elseif($role === 'cycle')
                             <cycle-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></cycle-form>
+                        @elseif($role === 'subject')
+                            <subject-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></subject-form>
+                        @elseif($role === 'group')
+                            <group-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></group-form>
+                        @elseif($role === 'concept')
+                            <concept-form role="{{ $role }} edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></concept-form>
                         @else
                             <register-form role="{{ $role }}" edit="{{ $id }}" type="{{ $type ?? 'admin' }}"></register-form>
                         @endif
