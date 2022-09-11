@@ -195,10 +195,10 @@ export default {
             axios.get(this.rute + '/json').then(({ data: { data } }) => this.record = data);
         }
         axios
-            .get('/' + this.type + '/' + '/program/list')
+            .get('/' + this.type + '/program/list')
             .then(({ data: { data } })=> (this.program = data))
         axios
-            .get('/' + this.type + '/' + '/cycle/list')
+            .get('/' + this.type + '/cycle/list')
             .then(({ data: { data } })=> (this.cycle = data))
     },
     methods:{
