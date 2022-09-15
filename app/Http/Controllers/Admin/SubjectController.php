@@ -11,9 +11,8 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Response;
-use Request;
 
 class SubjectController extends Controller
 {
@@ -36,10 +35,15 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return SubjectCollection
      */
-    public function list(): SubjectCollection
+    public function list(Request $request): SubjectCollection
     {
+        $program = $request->query('program');
+        if ($program) {
+            return new SubjectCollection(Subject::where('program_id', $program)->get());
+        }
         return new SubjectCollection(Subject::all());
     }
 

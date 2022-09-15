@@ -79,10 +79,18 @@
     @if($role === 'teacher' || $role === 'user' || $role === 'level')
     <div class="container">
         <div class="row justify-content-between">
-              <h4>{{ __('Cursos') }}</h4>
+              <h4>{{ __('course') }}</h4>
             <hr class="col-12">
         </div>
     </div>
+    @elseif($role === 'program')
+        <div class="container">
+            <div class="row justify-content-between">
+                <h4>{{ __('subject') }}</h4>
+                <hr class="col-12">
+            </div>
+        </div>
+        <subject-list program="{{ $id }}" type="{{ $type ?? 'admin' }}"></subject-list>
     @endif
 
     @if($role === 'teacher' || $role === 'level')

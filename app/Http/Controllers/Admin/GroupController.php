@@ -12,8 +12,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
-use Response;
-use Request;
 
 class GroupController extends Controller
 {

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $validated)
+ * @method static where(string $string, mixed $program)
  */
 class Group extends Model
 {
