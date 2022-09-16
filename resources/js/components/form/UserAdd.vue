@@ -67,7 +67,7 @@ export default {
             errors: false,
             user_id: null,
             users: [],
-            rute: window.location.pathname + '/group/associate',
+            rute: window.location.pathname + '/associate',
             isLoading:false
         }
     },
@@ -102,9 +102,13 @@ export default {
                 }).then(response => {
                     this.$emit('user-added')
                     this.user_id = null;
-                    this.isLoading = false;
                     this.$swal('Agregado', 'Se agrego el alumno exitosamente.', 'success');
-                }).catch(error => console.log(error))
+                }).catch((error) => {
+                    console.log(error.response.data)
+                    this.$swal('Error', 'Algo ha ido mal: ' + error.response.data.message, 'error');
+                }).finally(() => {
+                    this.isLoading = false;
+                })
             }
         }
     },

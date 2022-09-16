@@ -275,7 +275,9 @@ Route::prefix('/admin')
                 Route::get('/edit/{group}', 'GroupController@edit')->name('edit');
                 Route::get('/edit/{group}/json', 'GroupController@show');
                 Route::put('/edit/{group}', 'GroupController@update');
-                Route::get('/edit/{group}/students', 'GroupController@students')->name('students');
+                Route::get('/students/{group}', 'GroupController@students')->name('students');
+                Route::post('/edit/{group}/associate', 'GroupController@associate');
+                Route::put('/edit/{group}/detach', 'GroupController@detach');
                 Route::delete('/delete/{group}', 'GroupController@destroy');
             });
 

@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class GroupController extends Controller
@@ -123,6 +124,25 @@ class GroupController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param Group $group
+     * @return JsonResponse
+     */
+    public function associate(Request $request, Group $group): JsonResponse
+    {
+        $validatedData = $request->validate([
+            'user_id' => ['required'],
+        ]);
+        $group->users()->syncWithoutDetaching($validatedData['user_id']);
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
+
+    /**
      * Loads the students of a course.
      *
      * @param Group $group
@@ -130,7 +150,23 @@ class GroupController extends Controller
      */
     public function students(Group $group): UserCollection
     {
-        $group->load('student');
-        return new UserCollection($group->student);
+        $group->load('users');
+        return new UserCollection($group->users);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Group $group
+     * @return JsonResponse
+     */
+    public function detach(Request $request, Group $group): JsonResponse
+    {
+        $group->users()->detach($request->input('id'));
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated user'
+        ]);
     }
 }

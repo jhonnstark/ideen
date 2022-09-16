@@ -83,6 +83,7 @@ Vue.component('group-list', require('./components/list/GroupList.vue').default);
 Vue.component('my-group-list', require('./components/list/MyGroupList.vue').default);
 Vue.component('my-course-list', require('./components/list/MyCoursesList.vue').default);
 Vue.component('my-class-list', require('./components/list/MyClassList.vue').default);
+Vue.component('my-student-list', require('./components/list/MyStudentList.vue').default);
 Vue.component('content-list', require('./components/list/ContentList.vue').default);
 Vue.component('activity-list', require('./components/list/ActivityList.vue').default);
 Vue.component('class-list', require('./components/User/ClassList.vue').default);

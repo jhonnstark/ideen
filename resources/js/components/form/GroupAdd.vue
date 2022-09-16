@@ -102,9 +102,13 @@ export default {
                 }).then(response => {
                     this.$emit('group-added')
                     this.group_id = null;
-                    this.isLoading = false;
                     this.$swal('Agregado', 'Se agrego al curso exitosamente.', 'success');
-                }).catch(error => console.log(error))
+                }).catch((error) => {
+                    console.log(error.response.data)
+                    this.$swal('Error', 'Algo ha ido mal: ' + error.response.data.message, 'error');
+                }).finally(() => {
+                    this.isLoading = false;
+                })
             }
         }
     },

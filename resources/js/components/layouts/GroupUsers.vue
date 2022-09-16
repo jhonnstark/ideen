@@ -6,7 +6,7 @@
                 <hr class="col-12">
             </div>
         </div>
-        <student-list :role="role" :id="id" ref="myClassList"></student-list>
+        <my-student-list :role="role" :group="id" ref="myClassList"></my-student-list>
     </div>
 </template>
 

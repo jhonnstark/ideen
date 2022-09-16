@@ -249,8 +249,6 @@ export default {
     },
     watch: {
         'record.program_id'(newProgram) {
-            console.log(newProgram);
-            console.log(this.program);
             if (newProgram) {
                 const {quarts, periods} = this.program.find(program => program.id === newProgram);
                 this.quarter = Array.from({length: quarts}, (_, i) => ({
