@@ -69,7 +69,7 @@
         @isset($activity)
             <div class="container">
                 <div class="row">
-                    <h3>{{ __('Listado Tareas') }}</h3>
+                    <h3>{{ __('Listado homework') }}</h3>
                 </div>
             </div>
             <homework-list id="{{ $activity }}"></homework-list>
@@ -97,12 +97,18 @@
         <my-course-list role="{{ $role }}" id="{{ $id }}" type="{{ $type ?? 'admin' }}"></my-course-list>
     @elseif($role === 'user')
         <user-courses role="{{ $role }}" id="{{ $id }}"></user-courses>
+        <div class="container">
+            <div class="row justify-content-between">
+                <h4>{{ __('group') }}</h4>
+                <hr class="col-12">
+            </div>
+        <user-groups role="{{ $role }}" id="{{ $id }}"></user-groups>
     @endif
 
     @if($role === 'module')
         <div class="container">
             <div class="row justify-content-between">
-                <h4 class="col-9">{{ __('Contenidos') }}</h4>
+                <h4 class="col-9">{{ __('content') }}</h4>
                 <div class="col-3 text-right">
                     <a class="btn btn-primary btn-lg" href="{{ route('admin.course.content', $id) }}" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="21" height="21" fill="white"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"></path></svg>
@@ -115,7 +121,7 @@
         <content-list role="{{ $role }}" id="{{ $id }}"></content-list>
         <div class="container">
             <div class="row justify-content-between">
-                <h4 class="col-9">{{ __('Actividades') }}</h4>
+                <h4 class="col-9">{{ __('activity') }}</h4>
                 <div class="col-3 text-right">
                     <a class="btn btn-primary btn-lg" href="{{ route('admin.course.activity', $id) }}" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="21" height="21" fill="white"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"></path></svg>
@@ -131,7 +137,7 @@
     @if($role === 'course')
         <div class="container">
             <div class="row justify-content-between">
-                <h4 class="col-9">{{ __('Modulos') }}</h4>
+                <h4 class="col-9">{{ __('module') }}</h4>
                 <div class="col-3 text-right">
                     <a class="btn btn-primary btn-lg" href="{{ route('admin.course.module', $id) }}" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="21" height="21" fill="white"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"></path></svg>
@@ -144,11 +150,21 @@
         <module-list role="{{ $role }}" id="{{ $id }}"></module-list>
         <div class="container">
             <div class="row justify-content-between">
-                <h4 class="col-9">{{ __('Listado alumnos') }}</h4>
+                <h4 class="col-9">{{ __('Listado user') }}</h4>
                 <hr class="col-12">
             </div>
         </div>
         <student-list role="{{ $role }}" id="{{ $id }}"></student-list>
+    @endif
+
+    @if($role === 'group')
+        <div class="container">
+            <div class="row justify-content-between">
+                <h4 class="col-9">{{ __('Listado user') }}</h4>
+                <hr class="col-12">
+            </div>
+        </div>
+        <group-users role="{{ $role }}" id="{{ $id }}"></group-users>
     @endif
 
 @endsection

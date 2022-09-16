@@ -21,6 +21,7 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed $mothers_lastname
  * @property mixed $bills
  * @property mixed $password
+ * @property mixed $groups
  * @method static create(array $record)
  * @method static find(int $user_id)
  */
@@ -84,6 +85,16 @@ class User extends Authenticatable
         return $this->hasOne(UserProfile::class)->withDefault([
             'birthday' => null,
         ]);
+    }
+
+    /**
+     * The course that belong to the user.
+     *
+     * @return BelongsToMany
+     */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class);
     }
 
     /**

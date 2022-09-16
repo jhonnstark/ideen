@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupRequest;
 use App\Http\Resources\GroupCollection;
 use App\Http\Resources\GroupResource;
+use App\Http\Resources\UserCollection;
 use App\Models\Group;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -119,5 +120,17 @@ class GroupController extends Controller
             'status' => 204,
             'message' => 'Deleted Level'
         ],204 );
+    }
+
+    /**
+     * Loads the students of a course.
+     *
+     * @param Group $group
+     * @return UserCollection
+     */
+    public function students(Group $group): UserCollection
+    {
+        $group->load('student');
+        return new UserCollection($group->student);
     }
 }

@@ -80,7 +80,6 @@ export default {
                 .finally(() => this.isLoading = false)
         },
         erase: function (id) {
-
             this.$swal({
                 title: '<i>Eliminar</i>',
                 text: 'Será borrado permanentemente',

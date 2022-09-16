@@ -13099,8 +13099,8 @@ p {
   font-size: 1.05rem;
 }
 
-.container {
-  margin-bottom: 50px;
+.main .container {
+  margin-bottom: 45px;
 }
 
 .container .row {
@@ -13233,6 +13233,7 @@ p {
 
 .vs__actions {
   padding-top: 0;
+  padding-right: 12px;
 }
 
 .vs__dropdown-text {
