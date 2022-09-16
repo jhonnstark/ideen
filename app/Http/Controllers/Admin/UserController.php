@@ -91,6 +91,24 @@ class UserController extends Controller
         ], 201);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function associateGroup(Request $request, User $user): JsonResponse
+    {
+        $validatedData = $request->validate([
+            'group_id' => ['required'],
+        ]);
+        $user->groups()->syncWithoutDetaching($validatedData['group_id']);
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -106,6 +124,18 @@ class UserController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param User $user
+     * @return CourseCollection
+     */
+    public function groups(User $user): CourseCollection
+    {
+        $user->load(['groups.program', 'groups.cycle']);
+        return new CourseCollection($user->groups);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
@@ -115,6 +145,22 @@ class UserController extends Controller
     public function detach(Request $request, User $user): JsonResponse
     {
         $user->courses()->detach($request->input('id'));
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated user'
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function detachGroup(Request $request, User $user): JsonResponse
+    {
+        $user->groups()->detach($request->input('id'));
         return response()->json([
             'status' => 200,
             'message' => 'Updated user'

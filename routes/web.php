@@ -106,6 +106,9 @@ Route::prefix('/admin')
                 Route::post('/edit/{user}/associate', 'UserController@associate');
                 Route::get('/courses/{user}', 'UserController@courses');
                 Route::put('/courses/{user}/detach', 'UserController@detach');
+                Route::post('/edit/{user}/group/associate', 'UserController@associateGroup');
+                Route::get('/group/{user}', 'UserController@groups');
+                Route::put('/group/{user}/detach', 'UserController@detachGroup');
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
@@ -217,9 +220,9 @@ Route::prefix('/admin')
                 Route::post('/register', 'LevelController@store');
                 Route::get('/edit/{level}', 'LevelController@show')->name('edit');
                 Route::put('/edit/{level}', 'LevelController@update');
-//                Route::post('/edit/{level}/associate', 'UserController@associate');
-                Route::get('/courses/{level}', 'LevelController@courses');
+//                Route::post('/edit/{level}/associate', 'LevelController@associate');
 //                Route::put('/courses/{level}/detach', 'LevelController@detach');
+                Route::get('/courses/{level}', 'LevelController@courses');
                 Route::delete('/delete/{level}', 'LevelController@destroy');
             });
 
@@ -272,6 +275,9 @@ Route::prefix('/admin')
                 Route::get('/edit/{group}', 'GroupController@edit')->name('edit');
                 Route::get('/edit/{group}/json', 'GroupController@show');
                 Route::put('/edit/{group}', 'GroupController@update');
+                Route::get('/students/{group}', 'GroupController@students')->name('students');
+                Route::post('/edit/{group}/associate', 'GroupController@associate');
+                Route::put('/edit/{group}/detach', 'GroupController@detach');
                 Route::delete('/delete/{group}', 'GroupController@destroy');
             });
 

@@ -1,5 +1,8 @@
 .container {
-    margin-bottom: 50px;
+
+    .main & {
+        margin-bottom: 45px;
+    }
 
     .row {
         margin-bottom: 22px;

@@ -11,7 +11,7 @@ class CreateHomeworkMaterialTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('homework_material', function (Blueprint $table) {
             $table->id();
@@ -28,7 +28,7 @@ class CreateHomeworkMaterialTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('homework_material');
     }
