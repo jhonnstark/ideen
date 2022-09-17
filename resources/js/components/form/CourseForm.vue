@@ -215,6 +215,7 @@ export default {
         },
     },
     created() {
+        let urlParams = new URLSearchParams(window.location.search);
         if (this.edit) {
             axios.get('/admin/' + this.role + '/edit/' + this.edit + '/json')
                 .then(({ data: { data } }) => {
@@ -231,6 +232,11 @@ export default {
         axios
             .get('/admin/level/list')
             .then(({ data: { data } })=> (this.level = data))
+            .finally(() => {
+                if (urlParams.has('level')) {
+                    this.record.level_id = Number(urlParams.get('level'));
+                }
+            })
         axios
             .get('/admin/category/list')
             .then(({ data: { data } })=> (this.category = data))

@@ -215,19 +215,18 @@ export default {
         },
     },
     created() {
+        let urlParams = new URLSearchParams(window.location.search);
         axios
             .get('/' + this.type + '/program/list')
             .then(({data: {data}}) => (this.program = data))
             .finally(() => {
                 if (this.edit) {
                     axios.get(this.rute + '/json').then(({ data: { data } }) => this.record = data);
+                } else if (urlParams.has('program')) {
+                    this.record.program_id = Number(urlParams.get('program'));
                 }
             })
             .catch(error => console.log(error));
-
-        // axios
-        //     .get('/' + this.type + '/' + '/cycle/list')
-        //     .then(({ data: { data } })=> (this.cycle = data))
     },
     methods:{
         register() {
@@ -272,8 +271,6 @@ export default {
     },
     watch: {
         'record.program_id'(newProgram) {
-            console.log(newProgram);
-            console.log(this.program);
             if (newProgram) {
                 const {quarts, periods} = this.program.find(program => program.id === newProgram);
                 this.quarter = Array.from({length: quarts}, (_, i) => ({
