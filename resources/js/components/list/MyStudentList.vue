@@ -47,10 +47,11 @@
 <script>
 export default {
     name: "MyStudentList",
-    props: ['group', 'role'],
+    props: ['group', 'role', 'type'],
     data() {
         return {
             isLoading: true,
+            route: '/' + this.type + '/' + this.role,
             students: null
         }
     },
@@ -61,7 +62,7 @@ export default {
         loadCourses() {
             this.isLoading = true
             axios
-                .get('/admin/' + this.role + '/students/' + this.group)
+                .get(this.route + '/students/' + this.group)
                 .then(response => (this.students = response.data.data))
                 .finally(() => this.isLoading = false)
         },
@@ -79,7 +80,7 @@ export default {
                 preConfirm: () => {
 
                     return axios
-                        .put('/admin/' + this.role + '/edit/' + this.group + '/detach', {
+                        .put(this.route + '/edit/' + this.group + '/detach', {
                             id
                         })
                         .then(response => {

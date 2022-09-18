@@ -178,7 +178,7 @@
                 <hr class="col-12">
             </div>
         </div>
-        <group-users role="{{ $role }}" id="{{ $id }}"></group-users>
+        <group-users role="{{ $role }}" id="{{ $id }}" type="{{ $type ?? 'admin' }}"></group-users>
     @endif
 
 @endsection
