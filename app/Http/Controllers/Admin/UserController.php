@@ -188,15 +188,22 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param User $user
-     * @return UserResource|Application|Factory|View
+     * @return UserResource
      */
-    public function show(Request $request, User $user)
+    public function show(User $user): UserResource
     {
-        if ($request->wantsJson()) {
-            return new UserResource($user);
-        }
+        return new UserResource($user);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param User $user
+     * @return Application|Factory|View
+     */
+    public function edit(User $user)
+    {
         $role = $this->role['role'];
         $id = $user->id;
         return view('admin.edit', compact('role', 'id'));

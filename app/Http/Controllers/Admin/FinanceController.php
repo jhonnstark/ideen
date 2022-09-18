@@ -75,28 +75,25 @@ class FinanceController extends Controller
      * Display the specified resource.
      *
      * @param Finance $finance
-     * @return FinanceResource|Application|Factory|View
+     * @return FinanceResource
      */
-    public function show(Request $request, Finance $finance)
+    public function show(Finance $finance): FinanceResource
     {
-        if ($request->wantsJson()) {
-            return new FinanceResource($finance);
-        }
+        return new FinanceResource($finance);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Finance $finance
+     * @return Application|Factory|View
+     */
+    public function edit(Finance $finance)
+    {
         $role = $this->role['role'];
         $id = $finance->id;
         return view('admin.edit', compact('role', 'id'));
     }
-
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param Finance $finance
-//     * @return Response
-//     */
-//    public function edit(Finance $finance)
-//    {
-//        //
-//    }
 
     /**
      * Update the specified resource in storage.

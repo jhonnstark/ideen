@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container user-courses">
         <div class="row">
             <div class="col">
                 <course-add :id="id" :type="type" v-on:course-added="updateList"></course-add>

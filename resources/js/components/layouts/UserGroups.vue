@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container user-groups">
         <div class="row">
             <div class="col">
                 <group-add :user="id" :type="type" v-on:group-added="updateList"></group-add>
