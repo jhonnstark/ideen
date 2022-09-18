@@ -61,7 +61,7 @@
 <script>
 export default {
     name: "MyClassList",
-    props: ['role', 'id'],
+    props: ['role', 'id', 'type'],
     data: function () {
         return {
             isLoading: true,
@@ -75,7 +75,7 @@ export default {
         loadCourses() {
             this.isLoading = true
             axios
-                .get('/admin/' + this.role + '/courses/' + this.id)
+                .get('/' + this.type + '/' + this.role + '/courses/' + this.id)
                 .then(response => (this.items = response.data.data))
                 .finally(() => this.isLoading = false)
         },
@@ -93,7 +93,7 @@ export default {
                 preConfirm: () => {
 
                     return axios
-                        .put('/admin/' + this.role + '/courses/' + this.id + '/detach/', {
+                        .put('/' + this.type + '/' + this.role + '/courses/' + this.id + '/detach/', {
                             id
                         })
                         .then(response => {

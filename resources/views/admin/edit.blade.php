@@ -110,13 +110,14 @@
     @if($role === 'teacher' || $role === 'level')
         <my-course-list role="{{ $role }}" id="{{ $id }}" type="{{ $type ?? 'admin' }}"></my-course-list>
     @elseif($role === 'user')
-        <user-courses role="{{ $role }}" id="{{ $id }}"></user-courses>
+        <user-courses role="{{ $role }}" id="{{ $id }}" type="{{ $type ?? 'admin' }}"></user-courses>
         <div class="container">
             <div class="row justify-content-between">
                 <h4>{{ __('group') }}</h4>
                 <hr class="col-12">
             </div>
-        <user-groups role="{{ $role }}" id="{{ $id }}"></user-groups>
+        </div>
+        <user-groups role="{{ $role }}" id="{{ $id }}" type="{{ $type ?? 'admin' }}"></user-groups>
     @endif
 
     @if($role === 'module')

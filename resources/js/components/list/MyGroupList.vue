@@ -49,7 +49,7 @@
 <script>
 export default {
     name: "MyGroupList",
-    props: ['role', 'user'],
+    props: ['role', 'user', 'type'],
     data: function () {
         return {
             isLoading: true,
@@ -63,7 +63,7 @@ export default {
         loadCourses() {
             this.isLoading = true
             axios
-                .get('/admin/' + this.role + '/group/' + this.user)
+                .get('/' + this.type + '/' + this.role + '/group/' + this.user)
                 .then(response => (this.items = response.data.data))
                 .finally(() => this.isLoading = false)
         },
@@ -81,7 +81,7 @@ export default {
                 preConfirm: () => {
 
                     return axios
-                        .put('/admin/' + this.role + '/group/' + this.user + '/detach', {
+                        .put('/' + this.type + '/' + this.role + '/group/' + this.user + '/detach', {
                             id
                         })
                         .then(response => {

@@ -127,18 +127,24 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param User $user
-     * @return UserResource|Application|Factory|View
+     * @return UserResource
      */
-    public function show(Request $request, User $user)
+    public function show(User $user): UserResource
     {
-        if ($request->wantsJson()) {
-            return new UserResource($user);
-        }
-        $role = $this->role['role'];
-        $id = $user->id;
-        return view('admin.edit', compact('role', 'id'));
+        return new UserResource($user);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param User $user
+     * @return Application|Factory|View
+     */
+    public function edit(User $user)
+    {
+        $this->role['id'] = $user->id;
+        return view('admin.edit', $this->role);
     }
 
     /**
@@ -207,6 +213,53 @@ class UserController extends Controller
     public function detach(Request $request, User $user): JsonResponse
     {
         $user->courses()->detach($request->input('id'));
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated user'
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function associateGroup(Request $request, User $user): JsonResponse
+    {
+        $validatedData = $request->validate([
+            'group_id' => ['required'],
+        ]);
+        $user->groups()->syncWithoutDetaching($validatedData['group_id']);
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param User $user
+     * @return CourseCollection
+     */
+    public function groups(User $user): CourseCollection
+    {
+        $user->load(['groups.program', 'groups.cycle']);
+        return new CourseCollection($user->groups);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function detachGroup(Request $request, User $user): JsonResponse
+    {
+        $user->groups()->detach($request->input('id'));
         return response()->json([
             'status' => 200,
             'message' => 'Updated user'

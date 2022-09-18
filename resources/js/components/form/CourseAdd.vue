@@ -60,7 +60,7 @@ import {integer, required} from 'vuelidate/lib/validators';
 
 export default {
     name: "CourseAdd",
-    props: ['id'],
+    props: ['id', 'type'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -79,7 +79,7 @@ export default {
     },
     created() {
         axios
-            .get('/admin/course/list')
+            .get('/' + this.type + '/course/list')
             .then(response => (this.courses = response.data.data))
     },
     methods:{

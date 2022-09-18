@@ -325,6 +325,11 @@ Route::prefix('/personnel')
         Route::get('/profile', 'PersonnelDashboard@profile')->name('profile');
         Route::get('/profile/info', 'PersonnelDashboard@info')->name('info');
 
+        Route::prefix('/course')
+            ->name('course.')
+            ->group(function(){
+                Route::get('/list', 'CourseController@list');
+            });
 
         Route::prefix('/teacher')
             ->name('teacher.')
@@ -338,7 +343,8 @@ Route::prefix('/personnel')
                 Route::put('/courses/{teacher}/detach', 'TeacherController@detach');
                 Route::get('/register', 'TeacherController@create')->name('register');
                 Route::post('/register', 'TeacherController@store');
-                Route::get('/edit/{teacher}', 'TeacherController@show')->name('edit');
+                Route::get('/edit/{teacher}', 'TeacherController@edit')->name('edit');
+                Route::get('/edit/{teacher}/json', 'TeacherController@show');
                 Route::put('/edit/{teacher}','TeacherController@update');
                 Route::delete('/delete/{teacher}', 'TeacherController@destroy');
             });
@@ -353,11 +359,15 @@ Route::prefix('/personnel')
                 Route::post('/certificate/{user}', 'UserController@certificate');
                 Route::get('/register', 'UserController@create')->name('register');
                 Route::post('/register', 'UserController@store');
-                Route::get('/edit/{user}', 'UserController@show')->name('edit');
+                Route::get('/edit/{user}', 'UserController@edit')->name('edit');
+                Route::get('/edit/{user}/json', 'UserController@show');
                 Route::put('/edit/{user}', 'UserController@update');
                 Route::post('/edit/{user}/associate', 'UserController@associate');
                 Route::get('/courses/{user}', 'UserController@courses');
                 Route::put('/courses/{user}/detach', 'UserController@detach');
+                Route::post('/edit/{user}/group/associate', 'UserController@associateGroup');
+                Route::get('/group/{user}', 'UserController@groups');
+                Route::put('/group/{user}/detach', 'UserController@detachGroup');
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
