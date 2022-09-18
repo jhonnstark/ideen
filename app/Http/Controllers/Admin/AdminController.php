@@ -73,15 +73,22 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param Admin $admin
-     * @return AdminResource|Application|Factory|View
+     * @return AdminResource
      */
-    public function show(Request $request, Admin $admin)
+    public function show(Admin $admin): AdminResource
     {
-        if ($request->wantsJson()) {
-            return new AdminResource($admin);
-        }
+        return new AdminResource($admin);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Admin $admin
+     * @return Application|Factory|View
+     */
+    public function edit(Admin $admin)
+    {
         $role = $this->role['role'];
         $id = $admin->id;
         return view('admin.edit', compact('role', 'id'));

@@ -60,7 +60,7 @@ import {integer, required} from 'vuelidate/lib/validators';
 
 export default {
     name: "UserAdd",
-    props: ['id'],
+    props: ['id', 'role', 'type'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -79,7 +79,7 @@ export default {
     },
     created() {
         axios
-            .get('/admin/user/list')
+            .get('/' + this.type + '/user/list')
             .then(response => (this.users = response.data.data))
     },
     methods:{

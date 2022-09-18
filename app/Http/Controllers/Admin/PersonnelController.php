@@ -73,15 +73,22 @@ class PersonnelController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param Personnel $personnel
-     * @return PersonnelResource|Application|Factory|View
+     * @return PersonnelResource
      */
-    public function show(Request $request, Personnel $personnel)
+    public function show( Personnel $personnel): PersonnelResource
     {
-        if ($request->wantsJson()) {
-            return new PersonnelResource($personnel);
-        }
+        return new PersonnelResource($personnel);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Personnel $personnel
+     * @return Application|Factory|View
+     */
+    public function edit(Personnel $personnel)
+    {
         $role = $this->role['role'];
         $id = $personnel->id;
         return view('admin.edit', compact('role', 'id'));

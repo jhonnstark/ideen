@@ -706,7 +706,7 @@ export default {
     },
     created() {
         if (this.edit) {
-            axios.get('/' + this.type + '/' + this.role + '/edit/' + this.edit)
+            axios.get('/' + this.type + '/' + this.role + '/edit/' + this.edit + '/json')
                 .then(response => {
                     this.record = response.data.data;
                     this.birthday = response.data.data.birthday
