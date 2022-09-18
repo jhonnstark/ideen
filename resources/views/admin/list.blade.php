@@ -32,7 +32,7 @@
     @if($role == 'course')
         <course-list role="{{ $role }}"></course-list>
     @elseif($role == 'category' || $role == 'level' || $role == 'cycle')
-        <table-list role="{{ $role }}"></table-list>
+        <table-list role="{{ $role }}" type="{{ $type ?? 'admin' }}"></table-list>
     @elseif($role == 'exam')
         <exam-list role="{{ $role }}" rute="admin"></exam-list>
     @elseif($role == 'payment')

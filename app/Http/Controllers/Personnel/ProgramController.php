@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Personnel;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProgramRequest;
@@ -19,7 +19,7 @@ class ProgramController extends Controller
     /**
      * Display a listing view of the resource.
      */
-    private $role = ['role' => 'program'];
+    private $role = ['role' => 'program', 'type' => 'personnel'];
 
     /**
      * Display a listing of the resource.

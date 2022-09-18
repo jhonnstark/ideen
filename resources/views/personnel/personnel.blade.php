@@ -40,7 +40,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Grupos</h5>
                     <p class="card-text">Administración y registro de grupos.</p>
-                    <a href="{{ route('admin.group.list') }}" class="btn btn-primary">Entrar</a>
+                    <a href="{{ route('personnel.group.list') }}" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
         </div>

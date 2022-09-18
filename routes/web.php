@@ -317,9 +317,9 @@ Route::get('/personnel/login', 'Auth\PersonnelLoginController@showLoginForm')->n
 Route::post('/personnel/login', 'Auth\PersonnelLoginController@login');
 
 Route::prefix('/personnel')
-    ->middleware('auth:personnel')
     ->name('personnel.')
     ->namespace('Personnel')
+    ->middleware('auth:personnel')
     ->group(function(){
         Route::get('/', 'PersonnelDashboard@personnel')->name('dashboard');
         Route::get('/profile', 'PersonnelDashboard@profile')->name('profile');

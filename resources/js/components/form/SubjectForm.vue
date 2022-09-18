@@ -176,7 +176,8 @@ export default {
             },
             quarter: [],
             periods: [],
-            program:[],
+            program: [],
+            urlParams: new URLSearchParams(window.location.search),
             // cycle:[],
             rute: this.edit
                 ? '/' + this.type + '/' + this.role + '/edit/' + this.edit
@@ -215,15 +216,15 @@ export default {
         },
     },
     created() {
-        let urlParams = new URLSearchParams(window.location.search);
+        // let urlParams = new URLSearchParams(window.location.search);
         axios
             .get('/' + this.type + '/program/list')
             .then(({data: {data}}) => (this.program = data))
             .finally(() => {
                 if (this.edit) {
                     axios.get(this.rute + '/json').then(({ data: { data } }) => this.record = data);
-                } else if (urlParams.has('program')) {
-                    this.record.program_id = Number(urlParams.get('program'));
+                } else if (this.urlParams.has('program')) {
+                    this.record.program_id = Number(this.urlParams.get('program'));
                 }
             })
             .catch(error => console.log(error));
@@ -249,8 +250,12 @@ export default {
                         this.record.name = null;
                         this.record.quarter = null;
                         this.record.period = null;
-                        this.record.program_id = null;
                         // this.record.cycle_id = null;
+                        if (this.urlParams.has('program')) {
+                            this.record.program_id = Number(this.urlParams.get('program'));
+                        } else {
+                            this.record.program_id = null;
+                        }
                         this.$swal('Guardado', 'Creado exitosamente.', 'success');
                     } else {
                         this.$swal('Actualizado', 'Guardado exitosamente.', 'success');
