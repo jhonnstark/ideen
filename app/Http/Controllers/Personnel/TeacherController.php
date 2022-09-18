@@ -104,15 +104,22 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param Teacher $teacher
-     * @return TeacherResource|Application|Factory|View
+     * @return TeacherResource
      */
-    public function show(Request $request, Teacher $teacher)
+    public function show(Teacher $teacher): TeacherResource
     {
-        if ($request->wantsJson()) {
-            return new TeacherResource($teacher);
-        }
+        return new TeacherResource($teacher);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Teacher $teacher
+     * @return Application|Factory|View
+     */
+    public function edit(Teacher $teacher)
+    {
         $role = $this->role['role'];
         $id = $teacher->id;
         $type = $this->role['type'];

@@ -60,7 +60,7 @@ import {integer, required} from 'vuelidate/lib/validators';
 
 export default {
     name: "GroupAdd",
-    props: ['user'],
+    props: ['user', 'type'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -79,7 +79,7 @@ export default {
     },
     created() {
         axios
-            .get('/admin/group/list')
+            .get('/' + this.type + '/group/list')
             .then(response => (this.groups = response.data.data))
     },
     methods:{

@@ -317,14 +317,19 @@ Route::get('/personnel/login', 'Auth\PersonnelLoginController@showLoginForm')->n
 Route::post('/personnel/login', 'Auth\PersonnelLoginController@login');
 
 Route::prefix('/personnel')
-    ->middleware('auth:personnel')
     ->name('personnel.')
     ->namespace('Personnel')
+    ->middleware('auth:personnel')
     ->group(function(){
         Route::get('/', 'PersonnelDashboard@personnel')->name('dashboard');
         Route::get('/profile', 'PersonnelDashboard@profile')->name('profile');
         Route::get('/profile/info', 'PersonnelDashboard@info')->name('info');
 
+        Route::prefix('/course')
+            ->name('course.')
+            ->group(function(){
+                Route::get('/list', 'CourseController@list');
+            });
 
         Route::prefix('/teacher')
             ->name('teacher.')
@@ -338,7 +343,8 @@ Route::prefix('/personnel')
                 Route::put('/courses/{teacher}/detach', 'TeacherController@detach');
                 Route::get('/register', 'TeacherController@create')->name('register');
                 Route::post('/register', 'TeacherController@store');
-                Route::get('/edit/{teacher}', 'TeacherController@show')->name('edit');
+                Route::get('/edit/{teacher}', 'TeacherController@edit')->name('edit');
+                Route::get('/edit/{teacher}/json', 'TeacherController@show');
                 Route::put('/edit/{teacher}','TeacherController@update');
                 Route::delete('/delete/{teacher}', 'TeacherController@destroy');
             });
@@ -353,12 +359,71 @@ Route::prefix('/personnel')
                 Route::post('/certificate/{user}', 'UserController@certificate');
                 Route::get('/register', 'UserController@create')->name('register');
                 Route::post('/register', 'UserController@store');
-                Route::get('/edit/{user}', 'UserController@show')->name('edit');
+                Route::get('/edit/{user}', 'UserController@edit')->name('edit');
+                Route::get('/edit/{user}/json', 'UserController@show');
                 Route::put('/edit/{user}', 'UserController@update');
                 Route::post('/edit/{user}/associate', 'UserController@associate');
                 Route::get('/courses/{user}', 'UserController@courses');
                 Route::put('/courses/{user}/detach', 'UserController@detach');
+                Route::post('/edit/{user}/group/associate', 'UserController@associateGroup');
+                Route::get('/group/{user}', 'UserController@groups');
+                Route::put('/group/{user}/detach', 'UserController@detachGroup');
                 Route::delete('/delete/{user}', 'UserController@destroy');
+            });
+
+        Route::prefix('/program')
+            ->name('program.')
+            ->group(function(){
+                Route::get('/', 'ProgramController@index')->name('list');
+                Route::get('/list', 'ProgramController@list');
+                Route::get('/register', 'ProgramController@create')->name('register');
+                Route::post('/register', 'ProgramController@store');
+                Route::get('/edit/{program}/json', 'ProgramController@show');
+                Route::get('/edit/{program}', 'ProgramController@edit')->name('edit');
+                Route::put('/edit/{program}', 'ProgramController@update');
+                Route::delete('/delete/{program}', 'ProgramController@destroy');
+            });
+
+        Route::prefix('/cycle')
+            ->name('cycle.')
+            ->group(function(){
+                Route::get('/', 'CycleController@index')->name('list');
+                Route::get('/list', 'CycleController@list');
+                Route::get('/register', 'CycleController@create')->name('register');
+                Route::post('/register', 'CycleController@store');
+                Route::get('/edit/{cycle}', 'CycleController@edit')->name('edit');
+                Route::get('/edit/{cycle}/json', 'CycleController@show');
+                Route::put('/edit/{cycle}', 'CycleController@update');
+                Route::delete('/delete/{cycle}', 'CycleController@destroy');
+            });
+
+        Route::prefix('/subject')
+            ->name('subject.')
+            ->group(function(){
+                Route::get('/', 'SubjectController@index')->name('list');
+                Route::get('/list', 'SubjectController@list');
+                Route::get('/register', 'SubjectController@create')->name('register');
+                Route::post('/register', 'SubjectController@store');
+                Route::get('/edit/{subject}', 'SubjectController@edit')->name('edit');
+                Route::get('/edit/{subject}/json', 'SubjectController@show');
+                Route::put('/edit/{subject}', 'SubjectController@update');
+                Route::delete('/delete/{subject}', 'SubjectController@destroy');
+            });
+
+        Route::prefix('/group')
+            ->name('group.')
+            ->group(function(){
+                Route::get('/', 'GroupController@index')->name('list');
+                Route::get('/list', 'GroupController@list');
+                Route::get('/register', 'GroupController@create')->name('register');
+                Route::post('/register', 'GroupController@store');
+                Route::get('/edit/{group}', 'GroupController@edit')->name('edit');
+                Route::get('/edit/{group}/json', 'GroupController@show');
+                Route::put('/edit/{group}', 'GroupController@update');
+                Route::get('/students/{group}', 'GroupController@students')->name('students');
+                Route::post('/edit/{group}/associate', 'GroupController@associate');
+                Route::put('/edit/{group}/detach', 'GroupController@detach');
+                Route::delete('/delete/{group}', 'GroupController@destroy');
             });
     });
 
