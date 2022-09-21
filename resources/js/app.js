@@ -84,6 +84,7 @@ Vue.component('my-group-list', require('./components/list/MyGroupList.vue').defa
 Vue.component('my-course-list', require('./components/list/MyCoursesList.vue').default);
 Vue.component('my-class-list', require('./components/list/MyClassList.vue').default);
 Vue.component('my-student-list', require('./components/list/MyStudentList.vue').default);
+Vue.component('my-teacher-list', require('./components/list/MyTeacherList.vue').default);
 Vue.component('content-list', require('./components/list/ContentList.vue').default);
 Vue.component('activity-list', require('./components/list/ActivityList.vue').default);
 Vue.component('class-list', require('./components/User/ClassList.vue').default);
@@ -128,11 +129,13 @@ Vue.component('reports-form', require('./components/form/ReportsForm.vue').defau
 Vue.component('course-add', require('./components/form/CourseAdd.vue').default);
 Vue.component('group-add', require('./components/form/GroupAdd.vue').default);
 Vue.component('user-add', require('./components/form/UserAdd.vue').default);
+Vue.component('teacher-add', require('./components/form/TeacherAdd.vue').default);
 Vue.component('concept-add', require('./components/form/ConceptAdd.vue').default);
 Vue.component('custom-concept-add', require('./components/form/CustomConceptAdd.vue').default);
 Vue.component('exam-add', require('./components/layouts/ExamAdd.vue').default);
 Vue.component('user-courses', require('./components/layouts/UserCourses.vue').default);
 Vue.component('group-users', require('./components/layouts/GroupUsers.vue').default);
+Vue.component('group-teachers', require('./components/layouts/GroupTeachers.vue').default);
 Vue.component('user-groups', require('./components/layouts/UserGroups.vue').default);
 
 Vue.component('loader', require('./components/layouts/Loader.vue').default);

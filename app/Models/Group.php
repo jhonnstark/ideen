@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static create(array $validated)
  * @method static where(string $string, mixed $program)
  * @property mixed $users
+ * @property mixed $teachers
  */
 class Group extends Model
 {
@@ -31,6 +32,16 @@ class Group extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+
+    /**
+     * The student that belong to the course.
+     *
+     * @return BelongsToMany
+     */
+    public function teachers(): BelongsToMany
+    {
+        return $this->belongsToMany(Teacher::class);
     }
 
     /**
