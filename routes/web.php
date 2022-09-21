@@ -92,6 +92,9 @@ Route::prefix('/admin')
                 Route::get('/edit/{teacher}', 'TeacherController@edit')->name('edit');
                 Route::get('/edit/{teacher}/json', 'TeacherController@show')->name('show');
                 Route::put('/edit/{teacher}','TeacherController@update');
+                Route::post('/edit/{teacher}/group/associate', 'TeacherController@associateGroup');
+                Route::get('/group/{teacher}', 'TeacherController@groups');
+                Route::put('/group/{teacher}/detach', 'TeacherController@detachGroup');
                 Route::delete('/delete/{teacher}', 'TeacherController@destroy');
             });
 
@@ -283,6 +286,9 @@ Route::prefix('/admin')
                 Route::get('/students/{group}', 'GroupController@students')->name('students');
                 Route::post('/edit/{group}/associate', 'GroupController@associate');
                 Route::put('/edit/{group}/detach', 'GroupController@detach');
+                Route::get('/teachers/{group}', 'GroupController@teachers')->name('teachers');
+                Route::post('/edit/{group}/associateTeacher', 'GroupController@associateTeacher');
+                Route::put('/edit/{group}/detachTeacher', 'GroupController@detachTeacher');
                 Route::delete('/delete/{group}', 'GroupController@destroy');
             });
 
@@ -351,6 +357,9 @@ Route::prefix('/personnel')
                 Route::get('/edit/{teacher}', 'TeacherController@edit')->name('edit');
                 Route::get('/edit/{teacher}/json', 'TeacherController@show');
                 Route::put('/edit/{teacher}','TeacherController@update');
+                Route::post('/edit/{teacher}/group/associate', 'TeacherController@associateGroup');
+                Route::get('/group/{teacher}', 'TeacherController@groups');
+                Route::put('/group/{teacher}/detach', 'TeacherController@detachGroup');
                 Route::delete('/delete/{teacher}', 'TeacherController@destroy');
             });
 
@@ -426,8 +435,11 @@ Route::prefix('/personnel')
                 Route::get('/edit/{group}/json', 'GroupController@show');
                 Route::put('/edit/{group}', 'GroupController@update');
                 Route::get('/students/{group}', 'GroupController@students')->name('students');
+                Route::get('/teachers/{group}', 'GroupController@teachers')->name('teachers');
                 Route::post('/edit/{group}/associate', 'GroupController@associate');
                 Route::put('/edit/{group}/detach', 'GroupController@detach');
+                Route::post('/edit/{group}/associateTeacher', 'GroupController@associateTeacher');
+                Route::put('/edit/{group}/detachTeacher', 'GroupController@detachTeacher');
                 Route::delete('/delete/{group}', 'GroupController@destroy');
             });
     });
