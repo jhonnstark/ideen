@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
 use App\Http\Requests\TeacherUpdateRequest;
 use App\Http\Resources\CourseCollection;
+use App\Http\Resources\GroupCollection;
 use App\Http\Resources\TeacherCollection;
 use App\Models\Teacher;
 use App\Http\Resources\Teacher as TeacherResource;
@@ -192,6 +193,53 @@ class TeacherController extends Controller
         return response()->json([
             'status' => 200,
             'message' => 'Update teacher'
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param Teacher $teacher
+     * @return JsonResponse
+     */
+    public function associateGroup(Request $request, Teacher $teacher): JsonResponse
+    {
+        $validatedData = $request->validate([
+            'group_id' => ['required'],
+        ]);
+        $teacher->groups()->syncWithoutDetaching($validatedData['group_id']);
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Teacher $teacher
+     * @return GroupCollection
+     */
+    public function groups(Teacher $teacher): GroupCollection
+    {
+        $teacher->load(['groups.program', 'groups.cycle']);
+        return new GroupCollection($teacher->groups);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Teacher $teacher
+     * @return JsonResponse
+     */
+    public function detachGroup(Request $request, Teacher $teacher): JsonResponse
+    {
+        $teacher->groups()->detach($request->input('id'));
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated teacher'
         ]);
     }
 

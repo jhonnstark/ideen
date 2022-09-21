@@ -137,6 +137,7 @@ Vue.component('user-courses', require('./components/layouts/UserCourses.vue').de
 Vue.component('group-users', require('./components/layouts/GroupUsers.vue').default);
 Vue.component('group-teachers', require('./components/layouts/GroupTeachers.vue').default);
 Vue.component('user-groups', require('./components/layouts/UserGroups.vue').default);
+Vue.component('teacher-groups', require('./components/layouts/TeacherGroups.vue').default);
 
 Vue.component('loader', require('./components/layouts/Loader.vue').default);
 

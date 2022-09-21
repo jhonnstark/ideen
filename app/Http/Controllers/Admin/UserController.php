@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\CourseCollection;
+use App\Http\Resources\GroupCollection;
 use App\Http\Resources\UserCollection;
 use App\Models\UserProfile;
 use Illuminate\Contracts\Foundation\Application;
@@ -127,12 +128,12 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param User $user
-     * @return CourseCollection
+     * @return GroupCollection
      */
-    public function groups(User $user): CourseCollection
+    public function groups(User $user): GroupCollection
     {
         $user->load(['groups.program', 'groups.cycle']);
-        return new CourseCollection($user->groups);
+        return new GroupCollection($user->groups);
     }
 
     /**

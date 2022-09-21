@@ -60,7 +60,7 @@ import {integer, required} from 'vuelidate/lib/validators';
 
 export default {
     name: "GroupAdd",
-    props: ['user', 'type'],
+    props: ['user', 'type', 'role'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),

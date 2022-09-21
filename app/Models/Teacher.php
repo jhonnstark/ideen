@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed $id
  * @property mixed created_at
  * @property mixed $courses
+ * @property mixed $groups
  */
 class Teacher extends Authenticatable
 {
@@ -63,6 +64,16 @@ class Teacher extends Authenticatable
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'lecturings');
+    }
+
+    /**
+     * The course that belong to the user.
+     *
+     * @return BelongsToMany
+     */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class);
     }
 
     /**
